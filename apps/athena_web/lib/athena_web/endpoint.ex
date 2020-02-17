@@ -10,6 +10,8 @@ defmodule AthenaWeb.Endpoint do
     signing_salt: "bIx+FXmT"
   ]
 
+  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+
   socket "/socket", AthenaWeb.UserSocket,
     websocket: true,
     longpoll: false

@@ -20,8 +20,11 @@ defmodule AthenaWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: AthenaWeb
+
       import Plug.Conn
       import AthenaWeb.Gettext
+      import Phoenix.LiveView.Controller
+
       alias AthenaWeb.Router.Helpers, as: Routes
     end
   end
@@ -38,8 +41,11 @@ defmodule AthenaWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
+      import Phoenix.LiveView.Helpers
+
       import AthenaWeb.ErrorHelpers
       import AthenaWeb.Gettext
+
       alias AthenaWeb.Router.Helpers, as: Routes
     end
   end
@@ -47,8 +53,10 @@ defmodule AthenaWeb do
   def router do
     quote do
       use Phoenix.Router
+
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
@@ -56,6 +64,12 @@ defmodule AthenaWeb do
     quote do
       use Phoenix.Channel
       import AthenaWeb.Gettext
+    end
+  end
+
+  def live do
+    quote do
+      use Phoenix.LiveView
     end
   end
 
