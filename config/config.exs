@@ -17,6 +17,8 @@ config :athena_web,
   ecto_repos: [Athena.Repo],
   generators: [context_app: :athena, binary_id: true]
 
+config :athena, Athena.Repo, migration_primary_key: [id: :uuid, type: :binary_id]
+
 # Configures the endpoint
 config :athena_web, AthenaWeb.Endpoint,
   url: [host: "localhost"],

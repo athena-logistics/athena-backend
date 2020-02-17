@@ -22,7 +22,6 @@ config :athena, Athena.Repo,
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
 
-
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
