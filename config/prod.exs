@@ -1,5 +1,28 @@
 use Mix.Config
 
+database_url =
+  System.get_env("DATABASE_URL") ||
+    raise """
+    environment variable DATABASE_URL is missing.
+    For example: ecto://USER:PASS@HOST/DATABASE
+    """
+
+config :athena, Athena.Repo,
+  # ssl: true,
+  url: database_url,
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
+# ## Using releases (Elixir v1.9+)
+#
+# If you are doing OTP releases, you need to instruct Phoenix
+# to start each relevant endpoint:
+#
+#     config :athena_web, AthenaWeb.Endpoint, server: true
+#
+# Then you can assemble a release by calling `mix release`.
+# See `mix help release` for more information.
+
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
@@ -11,7 +34,12 @@ use Mix.Config
 # before starting your production server.
 config :athena_web, AthenaWeb.Endpoint,
   url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  http: [
+    port: String.to_integer(System.get_env("PORT") || "4000"),
+    transport_options: [socket_opts: [:inet6]]
+  ],
+  secret_key_base: secret_key_base
 
 # ## SSL Support
 #
@@ -49,7 +77,3 @@ config :athena_web, AthenaWeb.Endpoint,
 
 # Do not print debug messages in production
 config :logger, level: :info
-
-# Finally import the config/prod.secret.exs which loads secrets
-# and configuration from environment variables.
-import_config "prod.secret.exs"

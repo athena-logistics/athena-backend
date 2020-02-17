@@ -2,10 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :athena, Athena.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "athena_dev",
-  hostname: "localhost",
+  username: System.get_env("DATABASE_USER", "postgres"),
+  password: System.get_env("DATABASE_PASSWORD", "postgres"),
+  database: System.get_env("DATABASE_NAME", "athena_dev"),
+  hostname: System.get_env("DATABASE_HOST", "postgres"),
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 

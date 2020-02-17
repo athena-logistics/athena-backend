@@ -2,10 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :athena, Athena.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "athena_test",
-  hostname: "localhost",
+  username: System.get_env("DATABASE_USER", "postgres"),
+  password: System.get_env("DATABASE_PASSWORD", "postgres"),
+  database: System.get_env("DATABASE_NAME", "athena_dev"),
+  hostname: System.get_env("DATABASE_HOST", "postgres"),
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
