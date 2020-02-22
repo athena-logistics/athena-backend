@@ -1,5 +1,7 @@
 # Athena
 
+![.github/workflows/elixir.yml](https://github.com/maennchen/athena/workflows/.github/workflows/elixir.yml/badge.svg)
+
 :beer::tropical_drink::wine_glass: Event Logistics Management
 
 ## Development
