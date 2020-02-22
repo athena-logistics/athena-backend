@@ -1,10 +1,19 @@
 defmodule Athena.Inventory.Movement do
   use Athena, :model
 
-  alias Athena.Inventory.Event
-  alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Item
   alias Athena.Inventory.Location
+
+  @type t :: %__MODULE__{
+          amount: pos_integer(),
+          event: association(Event.t()),
+          item: association(Item.t()),
+          item_group: association(ItemGroup.t()),
+          source_location: association(Location.t() | nil),
+          destination_location: association(Location.t() | nil),
+          inserted_at: NaiveDateTime.t(),
+          updated_at: NaiveDateTime.t()
+        }
 
   schema "movements" do
     field :amount, :integer
@@ -13,6 +22,7 @@ defmodule Athena.Inventory.Movement do
     belongs_to :destination_location, Location
     belongs_to :item, Item
     has_one :item_group, through: [:item, :item_group]
+    has_one :event, through: [:item, :event]
 
     timestamps()
   end
@@ -22,6 +32,7 @@ defmodule Athena.Inventory.Movement do
     movement
     |> cast(attrs, [:amount, :item_id, :source_location_id, :destination_location_id])
     |> validate_required([:amount, :item_id])
+    |> validate_number(:amount, greater_than: 0, less_than: 100)
     |> foreign_key_constraint(:item_id)
     |> foreign_key_constraint(:source_location_id)
     |> foreign_key_constraint(:destination_location_id)

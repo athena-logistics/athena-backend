@@ -1,0 +1,42 @@
+<h1>Listing Movements</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Source Location</th>
+      <th>Destination Location</th>
+      <th>Time</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for movement <- @movements do %>
+    <tr>
+      <td><%= movement.amount %></td>
+      <td>
+        <%= case movement.source_location do
+          nil -> "Supply"
+          %{name: location_name, id: location_id} -> link location_name, to: Routes.location_path(@conn, :show, location_id)
+        end %>
+      </td>
+      <td>
+        <%= case movement.destination_location do
+          nil -> "Consumption"
+          %{name: location_name, id: location_id} -> link location_name, to: Routes.location_path(@conn, :show, location_id)
+        end %>
+      </td>
+      <td><%= movement.inserted_at %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.movement_path(@conn, :show, movement) %></span>
+        <span><%= link "Edit", to: Routes.movement_path(@conn, :edit, movement) %></span>
+        <span><%= link "Delete", to: Routes.movement_path(@conn, :delete, movement), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Movement", to: Routes.movement_path(@conn, :new, @item.id) %></span>

@@ -4,7 +4,7 @@ use Mix.Config
 config :athena, Athena.Repo,
   username: System.get_env("DATABASE_USER", "postgres"),
   password: System.get_env("DATABASE_PASSWORD", "postgres"),
-  database: System.get_env("DATABASE_NAME", "athena_dev"),
+  database: System.get_env("DATABASE_NAME", "athena_test"),
   hostname: System.get_env("DATABASE_HOST", "postgres"),
   pool: Ecto.Adapters.SQL.Sandbox
 

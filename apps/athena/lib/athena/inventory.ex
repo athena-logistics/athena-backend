@@ -4,9 +4,28 @@ defmodule Athena.Inventory do
   """
 
   import Ecto.Query, warn: false
-  alias Athena.Repo
 
+  alias Athena.Repo
   alias Athena.Inventory.Event
+  alias Athena.Inventory.Movement
+  alias Athena.Inventory.ItemGroup
+  alias Athena.Inventory.Location
+  alias Athena.Inventory.Item
+
+  @movement_sum from(m in Movement,
+                  select: sum(m.amount)
+                )
+
+  @movement_relocations where(
+                          @movement_sum,
+                          [m],
+                          not is_nil(m.source_location_id) and
+                            not is_nil(m.destination_location_id)
+                        )
+
+  @movement_supply where(@movement_sum, [m], is_nil(m.source_location_id))
+
+  @movement_consumption where(@movement_sum, [m], is_nil(m.destination_location_id))
 
   @doc """
   Returns the list of events.
@@ -95,8 +114,6 @@ defmodule Athena.Inventory do
 
   """
   def change_event(%Event{} = event, attrs \\ %{}), do: Event.changeset(event, attrs)
-
-  alias Athena.Inventory.Location
 
   @doc """
   Returns the list of locations.
@@ -188,8 +205,6 @@ defmodule Athena.Inventory do
   def change_location(%Location{} = location, attrs \\ %{}),
     do: Location.changeset(location, attrs)
 
-  alias Athena.Inventory.ItemGroup
-
   @doc """
   Returns the list of item_groups.
 
@@ -280,8 +295,6 @@ defmodule Athena.Inventory do
   def change_item_group(%ItemGroup{} = item_group, attrs \\ %{}),
     do: ItemGroup.changeset(item_group, attrs)
 
-  alias Athena.Inventory.Item
-
   @doc """
   Returns the list of items.
 
@@ -309,6 +322,53 @@ defmodule Athena.Inventory do
 
   """
   def get_item!(id), do: Repo.get!(Item, id)
+
+  defp get_item_movement_sum(query, %Item{id: item_id}) do
+    query
+    |> where([m], m.item_id == ^item_id)
+    |> Repo.all()
+    |> case do
+      [nil] -> 0
+      [sum] -> sum
+    end
+  end
+
+  defp get_item_movement_sum_out(query, item, %Location{id: location_id}),
+    do:
+      query
+      |> where([m], m.source_location_id == ^location_id)
+      |> get_item_movement_sum(item)
+
+  defp get_item_movement_sum_in(query, item, %Location{id: location_id}),
+    do:
+      query
+      |> where([m], m.destination_location_id == ^location_id)
+      |> get_item_movement_sum(item)
+
+  def get_item_consumption(item), do: get_item_movement_sum(@movement_consumption, item)
+
+  def get_item_consumption(item, location),
+    do: get_item_movement_sum_out(@movement_consumption, item, location)
+
+  def get_item_supply(item), do: get_item_movement_sum(@movement_supply, item)
+
+  def get_item_supply(item, location),
+    do: get_item_movement_sum_in(@movement_supply, item, location)
+
+  def get_item_relocations(item), do: get_item_movement_sum(@movement_relocations, item)
+
+  def get_item_relocations_out(item, location),
+    do: get_item_movement_sum_out(@movement_relocations, item, location)
+
+  def get_item_relocations_in(item, location),
+    do: get_item_movement_sum_in(@movement_relocations, item, location)
+
+  def get_item_stock(item), do: get_item_supply(item) - get_item_consumption(item)
+
+  def get_item_stock(item, location),
+    do:
+      get_item_supply(item, location) - get_item_relocations_out(item, location) +
+        get_item_relocations_in(item, location) - get_item_consumption(item, location)
 
   @doc """
   Creates a item.
@@ -371,8 +431,6 @@ defmodule Athena.Inventory do
 
   """
   def change_item(%Item{} = item, attrs \\ %{}), do: Item.changeset(item, attrs)
-
-  alias Athena.Inventory.Movement
 
   @doc """
   Returns the list of movements.

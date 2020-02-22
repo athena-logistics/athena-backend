@@ -1,0 +1,27 @@
+<h1>Listing Locations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for location <- @locations do %>
+    <tr>
+      <td><%= location.name %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.location_path(@conn, :show, location) %></span>
+        <span><%= link "Edit", to: Routes.location_path(@conn, :edit, location) %></span>
+        <span><%= link "Delete", to: Routes.location_path(@conn, :delete, location), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Location", to: Routes.location_path(@conn, :new, @event.id) %></span>
+<span><%= link "To Event", to: Routes.event_path(@conn, :show, @event.id) %></span>

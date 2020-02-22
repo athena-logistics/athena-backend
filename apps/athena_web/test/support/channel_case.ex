@@ -26,14 +26,4 @@ defmodule AthenaWeb.ChannelCase do
       @endpoint AthenaWeb.Endpoint
     end
   end
-
-  setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Athena.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Athena.Repo, {:shared, self()})
-    end
-
-    :ok
-  end
 end

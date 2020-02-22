@@ -1,0 +1,27 @@
+<h1>Show Item</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @item.name %>
+  </li>
+
+</ul>
+
+<h2>Movements</h2>
+<h3>Stats</h3>
+<dl>
+  <dt>Supply</dt>
+  <dd><%= @supply %></dd>
+  <dt>Stock</dt>
+  <dd><%= @stock %></dd>
+  <dt>Consumption</dt>
+  <dd><%= @consumption %></dd>
+  <dt>Relocations</dt>
+  <dd><%= @relocations %></dd>
+</dl>
+
+<span><%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %></span>
+<span><%= link "Back", to: Routes.item_path(@conn, :index, @item.item_group_id) %></span>
+<span><%= link "Movements", to: Routes.movement_path(@conn, :index, @item.id) %></span>

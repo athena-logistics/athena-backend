@@ -221,6 +221,222 @@ defmodule Athena.InventoryTest do
       item = item()
       assert %Ecto.Changeset{} = Inventory.change_item(item)
     end
+
+    test "get_item_consumption/1 gives correct consumption", %{
+      event: event,
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      location_a = location(event)
+      location_b = location(event)
+
+      movement(item, %{source_location_id: location_a.id, amount: 1, destination_location_id: nil})
+
+      movement(item, %{
+        source_location_id: location_a.id,
+        destination_location_id: location_b.id,
+        amount: 1
+      })
+
+      assert 1 == Inventory.get_item_consumption(item)
+    end
+
+    test "get_item_consumption/1 gives correct consumption for 0", %{
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      assert 0 == Inventory.get_item_consumption(item)
+    end
+
+    test "get_item_consumption/2 gives correct consumption", %{
+      event: event,
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      location_a = location(event)
+      location_b = location(event)
+
+      movement(item, %{source_location_id: location_a.id, amount: 1, destination_location_id: nil})
+
+      movement(item, %{source_location_id: location_b.id, amount: 1, destination_location_id: nil})
+
+      assert 1 == Inventory.get_item_consumption(item, location_a)
+    end
+
+    test "get_item_supply/1 gives correct supply", %{
+      event: event,
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      location_a = location(event)
+      location_b = location(event)
+
+      movement(item, %{source_location_id: nil, amount: 1, destination_location_id: location_a.id})
+
+      movement(item, %{
+        source_location_id: location_b.id,
+        destination_location_id: location_a.id,
+        amount: 1
+      })
+
+      assert 1 == Inventory.get_item_supply(item)
+    end
+
+    test "get_item_supply/1 gives correct supply for 0", %{
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      assert 0 == Inventory.get_item_supply(item)
+    end
+
+    test "get_item_supply/2 gives correct supply", %{
+      event: event,
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      location_a = location(event)
+      location_b = location(event)
+
+      movement(item, %{source_location_id: nil, amount: 1, destination_location_id: location_a.id})
+
+      movement(item, %{source_location_id: nil, amount: 1, destination_location_id: location_b.id})
+
+      assert 1 == Inventory.get_item_supply(item, location_a)
+    end
+
+    test "get_item_relocations/1 gives correct deliveries", %{
+      event: event,
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      location_a = location(event)
+      location_b = location(event)
+
+      movement(item, %{
+        source_location_id: location_b.id,
+        destination_location_id: location_a.id,
+        amount: 1
+      })
+
+      movement(item, %{source_location_id: nil, amount: 1, destination_location_id: location_a.id})
+
+      assert 1 == Inventory.get_item_relocations(item)
+    end
+
+    test "get_item_relocations/1 gives correct deliveries for 0", %{
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      assert 0 == Inventory.get_item_relocations(item)
+    end
+
+    test "get_item_relocations_out/2 gives correct deliveries", %{
+      event: event,
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      location_a = location(event)
+      location_b = location(event)
+
+      movement(item, %{
+        source_location_id: location_a.id,
+        amount: 1,
+        destination_location_id: location_b.id
+      })
+
+      movement(item, %{
+        source_location_id: location_b.id,
+        amount: 1,
+        destination_location_id: location_a.id
+      })
+
+      assert 1 == Inventory.get_item_relocations_out(item, location_a)
+    end
+
+    test "get_item_relocations_in/2 gives correct deliveries", %{
+      event: event,
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      location_a = location(event)
+      location_b = location(event)
+
+      movement(item, %{
+        source_location_id: location_a.id,
+        amount: 1,
+        destination_location_id: location_b.id
+      })
+
+      movement(item, %{
+        source_location_id: location_b.id,
+        amount: 1,
+        destination_location_id: location_a.id
+      })
+
+      assert 1 == Inventory.get_item_relocations_out(item, location_a)
+    end
+
+    test "get_item_stock/1 gives correct stock", %{
+      event: event,
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      location_a = location(event)
+      location_b = location(event)
+
+      movement(item, %{source_location_id: nil, amount: 3, destination_location_id: location_a.id})
+
+      movement(item, %{
+        source_location_id: location_a.id,
+        amount: 1,
+        destination_location_id: location_b.id
+      })
+
+      movement(item, %{source_location_id: location_a.id, amount: 1, destination_location_id: nil})
+
+      assert 2 == Inventory.get_item_stock(item)
+    end
+
+    test "get_item_stock/1 gives correct stock for 0", %{
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      assert 0 == Inventory.get_item_stock(item)
+    end
+
+    test "get_item_stock/2 gives correct stock", %{
+      event: event,
+      item_group: item_group
+    } do
+      item = item(item_group)
+
+      location_a = location(event)
+      location_b = location(event)
+
+      movement(item, %{source_location_id: nil, amount: 3, destination_location_id: location_a.id})
+
+      movement(item, %{
+        source_location_id: location_a.id,
+        amount: 1,
+        destination_location_id: location_b.id
+      })
+
+      movement(item, %{source_location_id: location_a.id, amount: 1, destination_location_id: nil})
+
+      assert 1 == Inventory.get_item_stock(item, location_a)
+    end
   end
 
   describe "movements" do

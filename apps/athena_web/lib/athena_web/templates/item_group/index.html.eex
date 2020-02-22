@@ -1,0 +1,26 @@
+<h1>Listing Item groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for item_group <- @item_groups do %>
+    <tr>
+      <td><%= item_group.name %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.item_group_path(@conn, :show, item_group) %></span>
+        <span><%= link "Edit", to: Routes.item_group_path(@conn, :edit, item_group) %></span>
+        <span><%= link "Delete", to: Routes.item_group_path(@conn, :delete, item_group), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Item group", to: Routes.item_group_path(@conn, :new, @event.id) %></span>

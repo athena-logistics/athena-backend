@@ -26,6 +26,8 @@ defmodule AthenaWeb do
       import Phoenix.LiveView.Controller
 
       alias AthenaWeb.Router.Helpers, as: Routes
+
+      alias Athena.Repo
     end
   end
 

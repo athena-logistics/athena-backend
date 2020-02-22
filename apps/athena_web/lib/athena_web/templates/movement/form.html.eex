@@ -1,0 +1,23 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, :source_location_id %>
+  <%= select f, :source_location_id, Enum.map(@locations, &{&1.name, &1.id}), prompt: "Supply" %>
+  <%= error_tag f, :source_location_id %>
+
+  <%= label f, :destination_location_id %>
+  <%= select f, :destination_location_id, Enum.map(@locations, &{&1.name, &1.id}), prompt: "Consumption" %>
+  <%= error_tag f, :destination_location_id %>
+
+  <%= label f, :amount %>
+  <%= number_input f, :amount %>
+  <%= error_tag f, :amount %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>

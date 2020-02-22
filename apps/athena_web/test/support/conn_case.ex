@@ -23,18 +23,14 @@ defmodule AthenaWeb.ConnCase do
       use Phoenix.ConnTest
       alias AthenaWeb.Router.Helpers, as: Routes
 
+      import Phoenix.LiveViewTest
+
       # The default endpoint for testing
       @endpoint AthenaWeb.Endpoint
     end
   end
 
-  setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Athena.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Athena.Repo, {:shared, self()})
-    end
-
+  setup do
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end
