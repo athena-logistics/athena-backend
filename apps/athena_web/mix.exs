@@ -47,7 +47,8 @@ defmodule AthenaWeb.MixProject do
       {:gettext, "~> 0.11"},
       {:athena, in_umbrella: true},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:eqrcode, "~> 0.1"}
     ]
   end
 

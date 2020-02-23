@@ -9,5 +9,25 @@
 
 </ul>
 
+
+<h2>Public Link</h2>
+
+<% link = Routes.frontend_location_url(@conn, :show, @location.id) %>
+
+<%= link "To Public View", to: link %>
+
+<h3>QR Code</h3>
+
+<%
+  qr_code = link
+  |> EQRCode.encode()
+  |> EQRCode.svg()
+%>
+
+<a href="data:image/svg+xml;base64,<%= Base.encode64(qr_code) %>" download="<%= @location.name %>.svg">
+  <%= raw(qr_code) %>
+</a>
+
+<h2>Links</h2>
 <span><%= link "Edit", to: Routes.admin_location_path(@conn, :edit, @location) %></span>
 <span><%= link "Back", to: Routes.admin_location_path(@conn, :index, @location.event.id) %></span>
