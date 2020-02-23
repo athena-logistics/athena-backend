@@ -9,5 +9,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.location_path(@conn, :edit, @location) %></span>
-<span><%= link "Back", to: Routes.location_path(@conn, :index, @location.event.id) %></span>
+<span><%= link "Edit", to: Routes.admin_location_path(@conn, :edit, @location) %></span>
+<span><%= link "Back", to: Routes.admin_location_path(@conn, :index, @location.event.id) %></span>

@@ -9,7 +9,7 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span>
-<span><%= link "Back", to: Routes.event_path(@conn, :index) %></span>
-<span><%= link "Locations", to: Routes.location_path(@conn, :index, @event.id) %></span>
-<span><%= link "ItemGroups", to: Routes.item_group_path(@conn, :index, @event.id) %></span>
+<span><%= link "Edit", to: Routes.admin_event_path(@conn, :edit, @event) %></span>
+<span><%= link "Back", to: Routes.admin_event_path(@conn, :index) %></span>
+<span><%= link "Locations", to: Routes.admin_location_path(@conn, :index, @event.id) %></span>
+<span><%= link "ItemGroups", to: Routes.admin_item_group_path(@conn, :index, @event.id) %></span>

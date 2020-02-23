@@ -14,13 +14,13 @@
       <td><%= item_group.name %></td>
 
       <td>
-        <span><%= link "Show", to: Routes.item_group_path(@conn, :show, item_group) %></span>
-        <span><%= link "Edit", to: Routes.item_group_path(@conn, :edit, item_group) %></span>
-        <span><%= link "Delete", to: Routes.item_group_path(@conn, :delete, item_group), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <span><%= link "Show", to: Routes.admin_item_group_path(@conn, :show, item_group) %></span>
+        <span><%= link "Edit", to: Routes.admin_item_group_path(@conn, :edit, item_group) %></span>
+        <span><%= link "Delete", to: Routes.admin_item_group_path(@conn, :delete, item_group), method: :delete, data: [confirm: "Are you sure?"] %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Item group", to: Routes.item_group_path(@conn, :new, @event.id) %></span>
+<span><%= link "New Item group", to: Routes.admin_item_group_path(@conn, :new, @event.id) %></span>

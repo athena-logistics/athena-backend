@@ -26,7 +26,7 @@ defmodule AthenaWeb.Admin.LocationController do
       {:ok, location} ->
         conn
         |> put_flash(:info, "Location created successfully.")
-        |> redirect(to: Routes.location_path(conn, :show, location))
+        |> redirect(to: Routes.admin_location_path(conn, :show, location))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset, event: event)
@@ -63,7 +63,7 @@ defmodule AthenaWeb.Admin.LocationController do
       {:ok, location} ->
         conn
         |> put_flash(:info, "Location updated successfully.")
-        |> redirect(to: Routes.location_path(conn, :show, location))
+        |> redirect(to: Routes.admin_location_path(conn, :show, location))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", location: location, changeset: changeset)
@@ -76,6 +76,6 @@ defmodule AthenaWeb.Admin.LocationController do
 
     conn
     |> put_flash(:info, "Location deleted successfully.")
-    |> redirect(to: Routes.location_path(conn, :index, event_id))
+    |> redirect(to: Routes.admin_location_path(conn, :index, event_id))
   end
 end

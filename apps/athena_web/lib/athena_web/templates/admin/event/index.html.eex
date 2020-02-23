@@ -14,13 +14,13 @@
       <td><%= event.name %></td>
 
       <td>
-        <span><%= link "Show", to: Routes.event_path(@conn, :show, event) %></span>
-        <span><%= link "Edit", to: Routes.event_path(@conn, :edit, event) %></span>
-        <span><%= link "Delete", to: Routes.event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <span><%= link "Show", to: Routes.admin_event_path(@conn, :show, event) %></span>
+        <span><%= link "Edit", to: Routes.admin_event_path(@conn, :edit, event) %></span>
+        <span><%= link "Delete", to: Routes.admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"] %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Event", to: Routes.event_path(@conn, :new) %></span>
+<span><%= link "New Event", to: Routes.admin_event_path(@conn, :new) %></span>

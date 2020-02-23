@@ -25,7 +25,7 @@ defmodule AthenaWeb.Admin.ItemGroupController do
       {:ok, item_group} ->
         conn
         |> put_flash(:info, "Item group created successfully.")
-        |> redirect(to: Routes.item_group_path(conn, :show, item_group))
+        |> redirect(to: Routes.admin_item_group_path(conn, :show, item_group))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset, event: event)
@@ -52,7 +52,7 @@ defmodule AthenaWeb.Admin.ItemGroupController do
       {:ok, item_group} ->
         conn
         |> put_flash(:info, "Item group updated successfully.")
-        |> redirect(to: Routes.item_group_path(conn, :show, item_group))
+        |> redirect(to: Routes.admin_item_group_path(conn, :show, item_group))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", item_group: item_group, changeset: changeset)
@@ -65,6 +65,6 @@ defmodule AthenaWeb.Admin.ItemGroupController do
 
     conn
     |> put_flash(:info, "Item group deleted successfully.")
-    |> redirect(to: Routes.item_group_path(conn, :index, event_id))
+    |> redirect(to: Routes.admin_item_group_path(conn, :index, event_id))
   end
 end
