@@ -2,11 +2,14 @@ defmodule AthenaWeb.Frontend.ItemLocationStockLive do
   use AthenaWeb, :live
 
   alias Athena.Inventory
+  alias Phoenix.PubSub
 
   @impl Phoenix.LiveView
   def mount(_params, %{"item_id" => item_id, "location_id" => location_id}, socket) do
     item = Inventory.get_item!(item_id)
     location = Inventory.get_location!(location_id)
+
+    PubSub.subscribe(Athena.PubSub, "movement:item:#{item.id}")
 
     {:ok,
      socket
@@ -29,10 +32,7 @@ defmodule AthenaWeb.Frontend.ItemLocationStockLive do
         amount: socket.assigns.stock - String.to_integer(new_total)
       })
 
-    {:noreply,
-     socket
-     |> assign(:stock, Inventory.get_item_stock(socket.assigns.item, socket.assigns.location))
-     |> assign(:show_correction, false)}
+    {:noreply, assign(socket, :show_correction, false)}
   end
 
   # TODO: Handle inverse consumption (dirty cups)
@@ -48,10 +48,7 @@ defmodule AthenaWeb.Frontend.ItemLocationStockLive do
           end
       })
 
-    {:noreply,
-     socket
-     |> assign(:stock, Inventory.get_item_stock(socket.assigns.item, socket.assigns.location))
-     |> assign(:show_correction, false)}
+    {:noreply, assign(socket, :show_correction, false)}
   end
 
   def handle_event("toggle_show_correction", _value, socket) do
@@ -63,5 +60,13 @@ defmodule AthenaWeb.Frontend.ItemLocationStockLive do
      )}
   end
 
-  # TODO: Subscribe to changes from somewhere else
+  @impl Phoenix.LiveView
+  def handle_info({action, _movement}, socket) when action in [:created, :updated, :deleted] do
+    {:noreply,
+     assign(
+       socket,
+       :stock,
+       Inventory.get_item_stock(socket.assigns.item, socket.assigns.location)
+     )}
+  end
 end
