@@ -2,7 +2,7 @@ defmodule Athena.Fixture do
   alias Athena.Inventory
   alias Athena.Repo
 
-  @valid_attrs %{name: "some name"}
+  @valid_attrs %{name: "Aufgetischt SG 2020"}
 
   def event(attrs \\ %{}) do
     {:ok, event} =
@@ -13,7 +13,7 @@ defmodule Athena.Fixture do
     event
   end
 
-  @valid_attrs %{name: "some name"}
+  @valid_attrs %{name: "GV Gallusplatz"}
 
   def location(event \\ event(), attrs \\ %{}) do
     {:ok, location} = Inventory.create_location(event, Enum.into(attrs, @valid_attrs))
@@ -21,7 +21,7 @@ defmodule Athena.Fixture do
     location
   end
 
-  @valid_attrs %{name: "some name"}
+  @valid_attrs %{name: "Bier"}
 
   def item_group(event \\ event(), attrs \\ %{}) do
     {:ok, item_group} = Inventory.create_item_group(event, Enum.into(attrs, @valid_attrs))
@@ -29,7 +29,7 @@ defmodule Athena.Fixture do
     item_group
   end
 
-  @valid_attrs %{name: "some name"}
+  @valid_attrs %{name: "Lager", unit: "Fass"}
 
   def item(item_group \\ item_group(), attrs \\ %{}) do
     {:ok, item} = Inventory.create_item(item_group, Enum.into(attrs, @valid_attrs))
@@ -37,7 +37,7 @@ defmodule Athena.Fixture do
     item
   end
 
-  @valid_attrs %{amount: 42}
+  @valid_attrs %{amount: 1}
 
   def movement(item \\ item(), attrs \\ %{}) do
     attrs =

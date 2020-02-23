@@ -40,7 +40,12 @@ defmodule AthenaWeb.Frontend.ItemLocationStockLive do
     {:ok, _movement} =
       Inventory.create_movement(socket.assigns.item, %{
         source_location_id: socket.assigns.location.id,
-        amount: 1
+        amount:
+          if socket.assigns.item.inverse do
+            -1
+          else
+            1
+          end
       })
 
     {:noreply,

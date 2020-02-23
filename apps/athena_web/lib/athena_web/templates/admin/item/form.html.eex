@@ -9,6 +9,14 @@
   <%= text_input f, :name %>
   <%= error_tag f, :name %>
 
+  <%= label f, :unit %>
+  <%= text_input f, :unit %>
+  <%= error_tag f, :unit %>
+
+  <%= label f, :inverse %>
+  <%= checkbox f, :inverse %>
+  <%= error_tag f, :inverse %>
+
   <div>
     <%= submit "Save" %>
   </div>

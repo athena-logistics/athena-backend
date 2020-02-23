@@ -7,6 +7,16 @@
     <%= @item.name %>
   </li>
 
+  <li>
+    <strong>Einheit:</strong>
+    <%= @item.unit %>
+  </li>
+
+  <li>
+    <strong>Inverse:</strong>
+    <%= if @item.inverse, do: "Ja", else: "Nein" %>
+  </li>
+
 </ul>
 
 <h2>Movements</h2>

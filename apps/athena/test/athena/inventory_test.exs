@@ -169,9 +169,9 @@ defmodule Athena.InventoryTest do
   describe "items" do
     alias Athena.Inventory.Item
 
-    @valid_attrs %{name: "some name"}
-    @update_attrs %{name: "some updated name"}
-    @invalid_attrs %{name: nil}
+    @valid_attrs %{name: "some name", unit: "Cask", inverse: false}
+    @update_attrs %{name: "some updated name", unit: "Box", inverse: true}
+    @invalid_attrs %{name: nil, unit: nil, inverse: nil}
 
     setup do
       event = event()
@@ -193,6 +193,8 @@ defmodule Athena.InventoryTest do
     test "create_item/1 with valid data creates a item", %{item_group: item_group} do
       assert {:ok, %Item{} = item} = Inventory.create_item(item_group, @valid_attrs)
       assert item.name == "some name"
+      assert item.unit == "Cask"
+      refute item.inverse
     end
 
     test "create_item/1 with invalid data returns error changeset", %{item_group: item_group} do

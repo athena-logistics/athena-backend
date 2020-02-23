@@ -4,9 +4,9 @@ defmodule AthenaWeb.Admin.ItemControllerTest do
 
   import Athena.Fixture
 
-  @create_attrs %{name: "some name"}
-  @update_attrs %{name: "some updated name"}
-  @invalid_attrs %{name: nil}
+  @create_attrs %{name: "some name", unit: "Fass", inverse: false}
+  @update_attrs %{name: "some updated name", unit: "Box", inverse: true}
+  @invalid_attrs %{name: nil, unit: nil, inverse: nil}
 
   describe "index" do
     setup [:create_item_group]
