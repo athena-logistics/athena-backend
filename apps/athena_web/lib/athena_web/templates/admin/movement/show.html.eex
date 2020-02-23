@@ -7,19 +7,19 @@
     
     <dt>Item</dt>
     <dd>
-      <%= link @movement.item.name, to: Routes.item_path(@conn, :show, @movement.item_id) %>
+      <%= link @movement.item.name, to: Routes.admin_item_path(@conn, :show, @movement.item_id) %>
     </dd>
     
     <dt>Item Group</dt>
     <dd>
-      <%= link @movement.item_group.name, to: Routes.item_group_path(@conn, :show, @movement.item_group.id) %>
+      <%= link @movement.item_group.name, to: Routes.admin_item_group_path(@conn, :show, @movement.item_group.id) %>
     </dd>
 
     <dt>Source Location</dt>
     <dd>
       <%= case @movement.source_location do
         nil -> "Supply"
-        %{name: location_name, id: location_id} -> link location_name, to: Routes.location_path(@conn, :show, location_id)
+        %{name: location_name, id: location_id} -> link location_name, to: Routes.admin_location_path(@conn, :show, location_id)
       end %>
     </dd>
 
@@ -27,7 +27,7 @@
     <dd>
       <%= case @movement.destination_location do
         nil -> "Consumption"
-        %{name: location_name, id: location_id} -> link location_name, to: Routes.location_path(@conn, :show, location_id)
+        %{name: location_name, id: location_id} -> link location_name, to: Routes.admin_location_path(@conn, :show, location_id)
       end %>
     </dd>
 
@@ -36,5 +36,5 @@
 
 </dl>
 
-<span><%= link "Edit", to: Routes.movement_path(@conn, :edit, @movement) %></span>
-<span><%= link "Back", to: Routes.movement_path(@conn, :index, @movement.item_id) %></span>
+<span><%= link "Edit", to: Routes.admin_movement_path(@conn, :edit, @movement) %></span>
+<span><%= link "Back", to: Routes.admin_movement_path(@conn, :index, @movement.item_id) %></span>

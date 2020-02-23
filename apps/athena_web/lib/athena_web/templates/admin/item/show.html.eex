@@ -32,6 +32,6 @@
   <dd><%= @relocations %></dd>
 </dl>
 
-<span><%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %></span>
-<span><%= link "Back", to: Routes.item_path(@conn, :index, @item.item_group_id) %></span>
-<span><%= link "Movements", to: Routes.movement_path(@conn, :index, @item.id) %></span>
+<span><%= link "Edit", to: Routes.admin_item_path(@conn, :edit, @item) %></span>
+<span><%= link "Back", to: Routes.admin_item_path(@conn, :index, @item.item_group_id) %></span>
+<span><%= link "Movements", to: Routes.admin_movement_path(@conn, :index, @item.id) %></span>
