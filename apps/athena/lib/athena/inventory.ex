@@ -11,6 +11,7 @@ defmodule Athena.Inventory do
   alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Location
   alias Athena.Inventory.Item
+  alias Phoenix.PubSub
 
   @movement_sum from(m in Movement,
                   select: sum(m.amount)
@@ -26,6 +27,28 @@ defmodule Athena.Inventory do
   @movement_supply where(@movement_sum, [m], is_nil(m.source_location_id))
 
   @movement_consumption where(@movement_sum, [m], is_nil(m.destination_location_id))
+
+  defp notify_pubsub(result, action, resource_name, modifiers \\ [])
+
+  defp notify_pubsub({:ok, %{id: id} = result}, action, resource_name, modifiers) do
+    message = {action, result}
+
+    for modifier <- modifiers do
+      :ok = PubSub.broadcast(Athena.PubSub, "#{resource_name}:#{modifier}", message)
+      :ok = PubSub.broadcast(Athena.PubSub, "#{resource_name}:#{action}:#{modifier}", message)
+
+      :ok =
+        PubSub.broadcast(Athena.PubSub, "#{resource_name}:#{action}:#{id}:#{modifier}", message)
+    end
+
+    :ok = PubSub.broadcast(Athena.PubSub, "#{resource_name}", message)
+    :ok = PubSub.broadcast(Athena.PubSub, "#{resource_name}:#{action}", message)
+    :ok = PubSub.broadcast(Athena.PubSub, "#{resource_name}:#{action}:#{id}", message)
+
+    {:ok, result}
+  end
+
+  defp notify_pubsub(other_result, _action, _resource_name, _modifiers), do: other_result
 
   @doc """
   Returns the list of events.
@@ -71,6 +94,7 @@ defmodule Athena.Inventory do
       %Event{}
       |> change_event(attrs)
       |> Repo.insert()
+      |> notify_pubsub(:created, "event")
 
   @doc """
   Updates a event.
@@ -89,6 +113,7 @@ defmodule Athena.Inventory do
       event
       |> change_event(attrs)
       |> Repo.update()
+      |> notify_pubsub(:updated, "event")
 
   @doc """
   Deletes a event.
@@ -102,7 +127,11 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_event(%Event{} = event), do: Repo.delete(event)
+  def delete_event(%Event{} = event),
+    do:
+      event
+      |> Repo.delete()
+      |> notify_pubsub(:deleted, "event")
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking event changes.
@@ -154,12 +183,13 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_location(event, attrs \\ %{}),
+  def create_location(%Event{id: event_id} = event, attrs \\ %{}),
     do:
       event
       |> Ecto.build_assoc(:locations)
       |> change_location(attrs)
       |> Repo.insert()
+      |> notify_pubsub(:created, "location", ["event:#{event_id}"])
 
   @doc """
   Updates a location.
@@ -173,11 +203,12 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_location(%Location{} = location, attrs),
+  def update_location(%Location{event_id: event_id} = location, attrs),
     do:
       location
       |> change_location(attrs)
       |> Repo.update()
+      |> notify_pubsub(:updated, "location", ["event:#{event_id}"])
 
   @doc """
   Deletes a location.
@@ -191,7 +222,11 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_location(%Location{} = location), do: Repo.delete(location)
+  def delete_location(%Location{event_id: event_id} = location),
+    do:
+      location
+      |> Repo.delete()
+      |> notify_pubsub(:deleted, "location", ["event:#{event_id}"])
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking location changes.
@@ -257,12 +292,13 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_item_group(event, attrs \\ %{}),
+  def create_item_group(%Event{id: event_id} = event, attrs \\ %{}),
     do:
       event
       |> Ecto.build_assoc(:item_groups)
       |> change_item_group(attrs)
       |> Repo.insert()
+      |> notify_pubsub(:created, "item_group", ["event:#{event_id}"])
 
   @doc """
   Updates a item_group.
@@ -276,11 +312,12 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_item_group(%ItemGroup{} = item_group, attrs),
+  def update_item_group(%ItemGroup{event_id: event_id} = item_group, attrs),
     do:
       item_group
       |> change_item_group(attrs)
       |> Repo.update()
+      |> notify_pubsub(:updated, "item_group", ["event:#{event_id}"])
 
   @doc """
   Deletes a item_group.
@@ -294,7 +331,11 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_item_group(%ItemGroup{} = item_group), do: Repo.delete(item_group)
+  def delete_item_group(%ItemGroup{event_id: event_id} = item_group),
+    do:
+      item_group
+      |> Repo.delete()
+      |> notify_pubsub(:deleted, "item_group", ["event:#{event_id}"])
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking item_group changes.
@@ -409,12 +450,13 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_item(item_group, attrs \\ %{}),
+  def create_item(%{id: item_group_id, event_id: event_id} = item_group, attrs \\ %{}),
     do:
       item_group
       |> Ecto.build_assoc(:items)
       |> change_item(attrs)
       |> Repo.insert()
+      |> notify_pubsub(:created, "item", ["item_group:#{item_group_id}", "event:#{event_id}"])
 
   @doc """
   Updates a item.
@@ -428,11 +470,14 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_item(%Item{} = item, attrs),
-    do:
-      item
-      |> change_item(attrs)
-      |> Repo.update()
+  def update_item(%Item{item_group_id: item_group_id} = item, attrs) do
+    %{event: %{id: event_id}} = Repo.preload(item, :event)
+
+    item
+    |> change_item(attrs)
+    |> Repo.update()
+    |> notify_pubsub(:updated, "item", ["item_group:#{item_group_id}", "event:#{event_id}"])
+  end
 
   @doc """
   Deletes a item.
@@ -446,7 +491,13 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_item(%Item{} = item), do: Repo.delete(item)
+  def delete_item(%Item{item_group_id: item_group_id} = item) do
+    %{event: %{id: event_id}} = Repo.preload(item, :event)
+
+    item
+    |> Repo.delete()
+    |> notify_pubsub(:deleted, "item", ["item_group:#{item_group_id}", "event:#{event_id}"])
+  end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking item changes.
@@ -507,12 +558,30 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_movement(item, attrs \\ %{}),
-    do:
-      item
-      |> Ecto.build_assoc(:movements)
-      |> change_movement(attrs)
-      |> Repo.insert()
+  def create_movement(%Item{id: item_id} = item, attrs \\ %{}) do
+    %{event: %{id: event_id}, item_group: %{id: item_group_id}} =
+      Repo.preload(item, [:item_group, :event])
+
+    item
+    |> Ecto.build_assoc(:movements)
+    |> change_movement(attrs)
+    |> Repo.insert()
+    |> case do
+      {:ok,
+       %{source_location_id: source_location_id, destination_location_id: destination_location_id} =
+           movement} ->
+        notify_pubsub({:ok, movement}, :created, "movement", [
+          "location:#{source_location_id}",
+          "location:#{destination_location_id}",
+          "item:#{item_id}",
+          "item_group:#{item_group_id}",
+          "event:#{event_id}"
+        ])
+
+      other ->
+        other
+    end
+  end
 
   @doc """
   Updates a movement.
@@ -526,11 +595,29 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_movement(%Movement{} = movement, attrs),
-    do:
-      movement
-      |> change_movement(attrs)
-      |> Repo.update()
+  def update_movement(%Movement{item_id: item_id} = movement, attrs) do
+    %{event: %{id: event_id}, item_group: %{id: item_group_id}} =
+      Repo.preload(movement, [:item_group, :event])
+
+    movement
+    |> change_movement(attrs)
+    |> Repo.update()
+    |> case do
+      {:ok,
+       %{source_location_id: source_location_id, destination_location_id: destination_location_id} =
+           movement} ->
+        notify_pubsub({:ok, movement}, :updated, "movement", [
+          "location:#{source_location_id}",
+          "location:#{destination_location_id}",
+          "item:#{item_id}",
+          "item_group:#{item_group_id}",
+          "event:#{event_id}"
+        ])
+
+      other ->
+        other
+    end
+  end
 
   @doc """
   Deletes a movement.
@@ -544,7 +631,26 @@ defmodule Athena.Inventory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_movement(%Movement{} = movement), do: Repo.delete(movement)
+  def delete_movement(
+        %Movement{
+          item_id: item_id,
+          source_location_id: source_location_id,
+          destination_location_id: destination_location_id
+        } = movement
+      ) do
+    %{event: %{id: event_id}, item_group: %{id: item_group_id}} =
+      Repo.preload(movement, [:item_group, :event])
+
+    movement
+    |> Repo.delete()
+    |> notify_pubsub(:deleted, "movement", [
+      "location:#{source_location_id}",
+      "location:#{destination_location_id}",
+      "item:#{item_id}",
+      "item_group:#{item_group_id}",
+      "event:#{event_id}"
+    ])
+  end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking movement changes.

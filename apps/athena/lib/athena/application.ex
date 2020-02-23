@@ -7,7 +7,8 @@ defmodule Athena.Application do
 
   def start(_type, _args) do
     children = [
-      Athena.Repo
+      Athena.Repo,
+      {Phoenix.PubSub.PG2, name: Athena.PubSub}
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: Athena.Supervisor)
