@@ -6,6 +6,7 @@
     <ul>
         <%= for item <- items do %>
             <%= item.name %>
+            <%= item.unit %>
 
             <%= live_render(@conn, AthenaWeb.Frontend.ItemLocationStockLive, session: %{"item_id" => item.id, "location_id" => @location.id}) %>
         <% end %>

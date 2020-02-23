@@ -26,20 +26,23 @@ import Athena.Inventory
 {:ok, item_group_softdrinks} = create_item_group(event_aufgetischt, %{name: "Softdrinks"})
 {:ok, item_group_other} = create_item_group(event_aufgetischt, %{name: "Diverses"})
 
-{:ok, item_lager} = create_item(item_group_beer, %{name: "Lager"})
-{:ok, item_kloesti} = create_item(item_group_beer, %{name: "Klösti"})
-{:ok, item_prosecco} = create_item(item_group_wine, %{name: "Prosecco"})
-{:ok, item_rotwein} = create_item(item_group_wine, %{name: "Rotwein"})
-{:ok, item_weisswein} = create_item(item_group_wine, %{name: "Weisswein"})
-{:ok, item_cola} = create_item(item_group_softdrinks, %{name: "Cola"})
-{:ok, item_fanta} = create_item(item_group_softdrinks, %{name: "Fanta"})
-{:ok, item_sprite} = create_item(item_group_softdrinks, %{name: "Sprite"})
-{:ok, item_bierbecher} = create_item(item_group_cups, %{name: "Bierbecher"})
-{:ok, item_event_becher} = create_item(item_group_cups, %{name: "Eventbecher"})
-{:ok, item_weinkelch} = create_item(item_group_cups, %{name: "Weinkelch"})
-{:ok, item_leere_kiste} = create_item(item_group_cups, %{name: "Leere Kiste"})
-{:ok, item_dreckige_kiste} = create_item(item_group_cups, %{name: "Dreckige Kiste"})
-{:ok, item_eis} = create_item(item_group_other, %{name: "Eis"})
+{:ok, item_lager} = create_item(item_group_beer, %{name: "Lager", unit: "Fass"})
+{:ok, item_kloesti} = create_item(item_group_beer, %{name: "Klösti", unit: "Fass"})
+{:ok, item_prosecco} = create_item(item_group_wine, %{name: "Prosecco", unit: "6er Pack"})
+{:ok, item_rotwein} = create_item(item_group_wine, %{name: "Rotwein", unit: "6er Pack"})
+{:ok, item_weisswein} = create_item(item_group_wine, %{name: "Weisswein", unit: "6er Pack"})
+{:ok, item_cola} = create_item(item_group_softdrinks, %{name: "Cola", unit: "24er Pack"})
+{:ok, item_fanta} = create_item(item_group_softdrinks, %{name: "Fanta", unit: "24er Pack"})
+{:ok, item_sprite} = create_item(item_group_softdrinks, %{name: "Sprite", unit: "24er Pack"})
+{:ok, item_bierbecher} = create_item(item_group_cups, %{name: "Bierbecher", unit: "Kiste"})
+{:ok, item_event_becher} = create_item(item_group_cups, %{name: "Eventbecher", unit: "Kiste"})
+{:ok, item_weinkelch} = create_item(item_group_cups, %{name: "Weinkelch", unit: "Kiste"})
+{:ok, item_leere_kiste} = create_item(item_group_cups, %{name: "Leer", unit: "Kiste"})
+
+{:ok, item_dreckige_kiste} =
+  create_item(item_group_cups, %{name: "Dreckig", unit: "Kiste", inverse: true})
+
+{:ok, item_eis} = create_item(item_group_other, %{name: "Eis", unit: "Sack"})
 
 beer_location_initial_supply = fn location ->
   {:ok, _} = create_movement(item_lager, %{destination_location_id: location.id, amount: 50})

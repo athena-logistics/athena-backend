@@ -7,6 +7,8 @@ defmodule Athena.Inventory.Item do
 
   @type t :: %__MODULE__{
           name: String.t(),
+          unit: String.t(),
+          inverse: boolean,
           item_group: association(ItemGroup.t()),
           event: association(Event.t()),
           inserted_at: NaiveDateTime.t(),
@@ -15,6 +17,8 @@ defmodule Athena.Inventory.Item do
 
   schema "items" do
     field :name, :string
+    field :unit, :string
+    field :inverse, :boolean, default: false
 
     belongs_to :item_group, ItemGroup
     has_one :event, through: [:item_group, :event]
@@ -26,8 +30,8 @@ defmodule Athena.Inventory.Item do
   @doc false
   def changeset(item, attrs) do
     item
-    |> cast(attrs, [:name, :item_group_id])
-    |> validate_required([:name, :item_group_id])
+    |> cast(attrs, [:name, :unit, :inverse, :item_group_id])
+    |> validate_required([:name, :unit, :inverse, :item_group_id])
     |> foreign_key_constraint(:item_group_id)
   end
 end
