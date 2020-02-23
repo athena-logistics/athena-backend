@@ -1,4 +1,4 @@
-defmodule AthenaWeb.LocationController do
+defmodule AthenaWeb.Admin.LocationController do
   use AthenaWeb, :controller
 
   alias Athena.Inventory

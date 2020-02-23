@@ -16,7 +16,7 @@ defmodule AthenaWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", AthenaWeb do
+  scope "/admin", AthenaWeb.Admin do
     pipe_through :browser
 
     get "/", EventController, :index
@@ -29,8 +29,10 @@ defmodule AthenaWeb.Router do
     resources "/items", ItemController, except: @subresource_actions
     resources "/items/:item/movements", MovementController, only: @subresource_actions
     resources "/movements", MovementController, except: @subresource_actions
+  end
 
-    #    live "/location/:location", LocationLive
+  scope "/", AthenaWeb.Frontend do
+    pipe_through :browser
   end
 
   # Other scopes may use custom stacks.

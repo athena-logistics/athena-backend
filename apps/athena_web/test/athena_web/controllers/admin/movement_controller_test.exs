@@ -1,4 +1,4 @@
-defmodule AthenaWeb.MovementControllerTest do
+defmodule AthenaWeb.Admin.MovementControllerTest do
   use Athena.DataCase
   use AthenaWeb.ConnCase
 

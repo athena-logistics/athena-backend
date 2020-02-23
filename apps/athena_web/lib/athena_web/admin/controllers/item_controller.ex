@@ -1,4 +1,4 @@
-defmodule AthenaWeb.ItemController do
+defmodule AthenaWeb.Admin.ItemController do
   use AthenaWeb, :controller
 
   alias Athena.Inventory

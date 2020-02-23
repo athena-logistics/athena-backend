@@ -1,4 +1,4 @@
-defmodule AthenaWeb.LocationControllerTest do
+defmodule AthenaWeb.Admin.LocationControllerTest do
   use Athena.DataCase
   use AthenaWeb.ConnCase
 

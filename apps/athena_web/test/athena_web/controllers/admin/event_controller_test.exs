@@ -1,4 +1,4 @@
-defmodule AthenaWeb.EventControllerTest do
+defmodule AthenaWeb.Admin.EventControllerTest do
   use Athena.DataCase
   use AthenaWeb.ConnCase
 
