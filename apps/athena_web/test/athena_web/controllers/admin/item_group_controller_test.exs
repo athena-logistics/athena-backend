@@ -1,4 +1,4 @@
-defmodule AthenaWeb.ItemGroupControllerTest do
+defmodule AthenaWeb.Admin.ItemGroupControllerTest do
   use Athena.DataCase
   use AthenaWeb.ConnCase
 

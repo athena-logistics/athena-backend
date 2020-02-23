@@ -1,4 +1,4 @@
-defmodule AthenaWeb.MovementController do
+defmodule AthenaWeb.Admin.MovementController do
   use AthenaWeb, :controller
 
   alias Athena.Inventory

@@ -1,4 +1,4 @@
-defmodule AthenaWeb.EventController do
+defmodule AthenaWeb.Admin.EventController do
   use AthenaWeb, :controller
 
   alias Athena.Inventory
