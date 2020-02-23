@@ -1,0 +1,11 @@
+<%= @stock %>
+<%# TODO: handle inverse consumption (dirty cups) #%>
+<button phx-click="advance_consumption">-</button>
+
+<button phx-click="toggle_show_correction">...</button>
+
+<%= if @show_correction do %>
+    <form phx-submit="advance_consumption">
+        <input type="number" name="new_total" value="<%= @stock %>" />
+    </form>
+<% end %>

@@ -33,6 +33,8 @@ defmodule AthenaWeb.Router do
 
   scope "/", AthenaWeb.Frontend do
     pipe_through :browser
+
+    get "/locations/:id", LocationController, :show
   end
 
   # Other scopes may use custom stacks.
