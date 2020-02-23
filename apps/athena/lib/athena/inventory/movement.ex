@@ -32,7 +32,7 @@ defmodule Athena.Inventory.Movement do
     movement
     |> cast(attrs, [:amount, :item_id, :source_location_id, :destination_location_id])
     |> validate_required([:amount, :item_id])
-    |> validate_number(:amount, greater_than: 0, less_than: 100)
+    |> validate_number(:amount, greater_than: -100, less_than: 100)
     |> foreign_key_constraint(:item_id)
     |> foreign_key_constraint(:source_location_id)
     |> foreign_key_constraint(:destination_location_id)

@@ -1,0 +1,13 @@
+<h1><%= @location.name %></h1>
+
+<%= for {item_group, items} <- @item_groups do %>
+    <h2><%= item_group.name %></h2>
+
+    <ul>
+        <%= for item <- items do %>
+            <%= item.name %>
+
+            <%= live_render(@conn, AthenaWeb.Frontend.ItemLocationStockLive, session: %{"item_id" => item.id, "location_id" => @location.id}) %>
+        <% end %>
+    </ul>
+<% end %>
