@@ -1,0 +1,29 @@
+form {
+  input {
+    padding: 2px;
+    border: none;
+    font-family: inherit;
+    padding: 0 1rem;
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: $color-grey-light-2;
+    background-color: inherit;
+    border: 1px dotted currentColor;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+    margin: 0;
+  }
+}

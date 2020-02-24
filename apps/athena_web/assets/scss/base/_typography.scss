@@ -1,0 +1,28 @@
+body {
+  font-family: 'Open sans', sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: $color-primary;
+}
+
+h1 {
+  font-size: 5.2rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: -0.5rem;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 2.2rem;
+  margin: 0;
+}
+
+a {
+  color: $color-primary;
+
+  &:visited {
+    color: $color-primary-dark;
+  }
+}
