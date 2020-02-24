@@ -1,5 +1,6 @@
 form {
-  input {
+  input[type='text'],
+  input[type='number'] {
     font-family: inherit;
     background-color: inherit;
     color: currentColor;
@@ -10,18 +11,55 @@ form {
     line-height: 1;
     padding: 0.5rem;
 
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
+    &:focus {
+      outline: none;
+    }
+  }
 
+  input[type='number'] {
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
+  }
+
+  input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
 
     &:focus {
       outline: none;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 21px;
+      height: 21px;
+      color: $color-primary;
+      border: 1px dotted currentColor;
+      border-radius: 2px;
+      font-family: inherit;
+    }
+
+    &:checked::before {
+      content: '+';
+      transform: rotate(45deg);
+      position: absolute;
+      bottom: -12px;
+      left: 1px;
+      color: $color-primary;
+      font-family: inherit;
+      font-size: 3rem;
+    }
+
+    &:not(:checked)::before {
+      content: '';
     }
   }
 
