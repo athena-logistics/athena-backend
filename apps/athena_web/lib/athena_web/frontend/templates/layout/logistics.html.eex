@@ -10,6 +10,24 @@
 		<%= csrf_meta_tag() %>
 	</head>
 	<body>
+		<nav>
+			<%= @event.name %>
+			<ul>
+				<li>
+					<%= link "Logistik", to: Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.LogisticsLive, @event.id) %>
+				</li>
+				<li>
+					Standorte
+
+					<ul>
+						<%= for %{id: location_id, name: location_name} <- @locations do %>
+							<li>
+								<%= link location_name, to: Routes.frontend_logistics_location_url(@conn, :show, location_id) %>
+							</li>
+						<% end %>
+					</ul>
+				</li>
+		</nav>
 		<main role="main" class="container">
 			<p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
 			<p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>

@@ -6,6 +6,8 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
 
   @impl Phoenix.LiveView
   def mount(%{"event" => event_id}, _session, socket) do
+    event = Inventory.get_event!(event_id)
+
     PubSub.subscribe(Athena.PubSub, "event:updated:#{event_id}")
     PubSub.subscribe(Athena.PubSub, "location:event:#{event_id}")
     PubSub.subscribe(Athena.PubSub, "movement:event:#{event_id}")
@@ -13,7 +15,8 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
     {:ok,
      socket
      |> assign(:sort, {"status", "desc"})
-     |> update(event_id)}
+     |> update(event_id)
+     |> assign(:locations, Inventory.list_locations(event))}
   end
 
   @impl Phoenix.LiveView

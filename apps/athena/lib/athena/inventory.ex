@@ -153,7 +153,8 @@ defmodule Athena.Inventory do
       [%Location{}, ...]
 
   """
-  def list_locations(event), do: event |> Ecto.assoc(:locations) |> Repo.all()
+  def list_locations(event),
+    do: event |> Ecto.assoc(:locations) |> order_by([l], l.name) |> Repo.all()
 
   @doc """
   Gets a single location.

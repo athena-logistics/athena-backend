@@ -14,6 +14,11 @@ defmodule AthenaWeb.Frontend.LocationController do
       |> Inventory.list_relevant_item_groups()
       |> Enum.map(&{&1, Inventory.list_relevant_items(location, &1)})
 
-    render(conn, "show.html", location: location, item_groups: item_groups)
+    render(conn, "show.html",
+      location: location,
+      item_groups: item_groups,
+      event: location.event,
+      locations: Inventory.list_locations(location.event)
+    )
   end
 end
