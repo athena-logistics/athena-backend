@@ -1,17 +1,17 @@
 <h1>Listing Events</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
+	<thead>
+		<tr>
+			<th>Name</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for event <- @events do %>
-    <tr>
-      <td><%= event.name %></td>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= for event <- @events do %>
+			<tr>
+				<td><%= event.name %></td>
 
       <td>
         <span><%= link "Show", to: Routes.admin_event_path(@conn, :show, event) %></span>

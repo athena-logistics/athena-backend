@@ -1,12 +1,29 @@
-<%= @stock %>
-<button phx-click="advance_consumption">
-    <%= if @item.inverse, do: "+", else: "-" %>
-</button>
+<div class="location__item-stock">
+	<div class="location__item-stock--count"><%= @stock %></div>
+	<div class="location__item-stock--unit"><%= @item.unit %></div>
+	<button phx-click="advance_consumption">
+		<%= if @item.inverse do %>
+			<%= render(AthenaWeb.Frontend.SharedView, "icon.html", socket: @socket, name: "plus", type: "button") %>
+		<% else %>
+			<%= render(AthenaWeb.Frontend.SharedView, "icon.html", socket: @socket, name: "minus", type: "button") %>
+		<% end %>
+	</button>
+	<button phx-click="toggle_show_correction">
+		<%= render(AthenaWeb.Frontend.SharedView, "icon.html", socket: @socket, name: "cog", type: "button") %>
+	</button>
 
-<button phx-click="toggle_show_correction">...</button>
-
-<%= if @show_correction do %>
-    <form phx-submit="advance_consumption">
-        <input type="number" name="new_total" value="<%= @stock %>" />
-    </form>
-<% end %>
+	<%= if @show_correction do %>
+		<div class="location__item-edit">
+			<form phx-submit="advance_consumption" class="location__item-edit-form">
+				<input type="number" name="new_total" value="<%= @stock %>" phx-hook="SelectContent" >
+				<button type="submit">
+					Save
+				</button>
+				<button type="button" phx-click="toggle_show_correction">
+					Cancel
+				</button>
+			</form>
+		</div>
+	<% else %>
+	<% end %>
+</div>

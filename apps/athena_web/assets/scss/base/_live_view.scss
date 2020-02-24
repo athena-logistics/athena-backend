@@ -1,0 +1,66 @@
+.phx-disconnected {
+  cursor: wait;
+}
+.phx-disconnected * {
+  pointer-events: none;
+}
+.phx-disconnected::before {
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  opacity: 1;
+  content: 'Server error';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba($color-secondary, 0.8);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+}
+@-webkit-keyframes phx-spinner {
+  0% {
+    -webkit-transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
+@keyframes phx-spinner {
+  0% {
+    -webkit-transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
+
+.phx-disconnected::after {
+  -webkit-animation: 0.8s linear infinite phx-spinner;
+  animation: 0.8s linear infinite phx-spinner;
+  -webkit-animation-play-state: inherit;
+  animation-play-state: inherit;
+  border: solid 3px $color-grey-light-1;
+  border-bottom-color: $color-primary-dark;
+  border-radius: 50%;
+  content: '';
+  height: 40px;
+  left: 50%;
+  opacity: inherit;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  width: 40px;
+  will-change: transform;
+  z-index: 1001;
+}
+
+.phx-error {
+  background: $color-grey-light-1 !important;
+}
