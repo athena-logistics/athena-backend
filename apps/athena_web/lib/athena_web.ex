@@ -72,6 +72,8 @@ defmodule AthenaWeb do
   def live do
     quote do
       use Phoenix.LiveView
+
+      alias Athena.Repo
     end
   end
 

@@ -1,0 +1,50 @@
+<h1>Logistik Übersicht <%= @event.name %></h1>
+
+<h2>Bestand</h2>
+
+<%# TODO: Move to Styles #%>
+<style>
+.important {
+    background-color: red;
+}
+.warning {
+    background-color: orange;
+}
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th>Standort</th>
+            <th>Artikel Gruppe</th>
+            <th>Artikel</th>
+            <th>Anlieferung</th>
+            <th>Konsumation</th>
+            <th>Verschiebung ausgehend</th>
+            <th>Verschiebung eingehend</th>
+            <th>Bestand</th>
+        </tr>
+    </thead>
+    <%= for %{
+            location: location,
+            item_group: item_group,
+            item: item,
+            supply: supply,
+            consumption: consumption,
+            stock: stock,
+            movement_in: movement_in,
+            movement_out: movement_out,
+            status: status
+        } <- @table do %>
+        <tr class="<%= status %>">
+            <td><%= link location.name, to: Routes.frontend_location_path(@socket, :show, location.id) %></td>
+            <td><%= item_group.name %></td>
+            <td><%= item.name %></td>
+            <td><%= supply %></td>
+            <td><%= abs(consumption) %></td>
+            <td><%= movement_out %></td>
+            <td><%= movement_in %></td>
+            <td><%= stock %></td>
+        </tr>
+    <% end %>
+</table>

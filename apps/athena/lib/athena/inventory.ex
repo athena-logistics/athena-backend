@@ -663,4 +663,92 @@ defmodule Athena.Inventory do
   """
   def change_movement(%Movement{} = movement, attrs \\ %{}),
     do: Movement.changeset(movement, attrs)
+
+  def logistics_table_query(%Event{id: event_id}) do
+    supply_query =
+      from(m in Movement,
+        select: %{
+          item_id: m.item_id,
+          amount: sum(m.amount),
+          location_id: m.destination_location_id
+        },
+        where: is_nil(m.source_location_id),
+        group_by: m.item_id,
+        group_by: m.destination_location_id
+      )
+
+    consumption_query =
+      from(m in Movement,
+        select: %{
+          item_id: m.item_id,
+          amount: sum(m.amount),
+          location_id: m.source_location_id
+        },
+        where: is_nil(m.destination_location_id),
+        group_by: m.item_id,
+        group_by: m.source_location_id
+      )
+
+    movement_out_query =
+      from(m in Movement,
+        select: %{
+          item_id: m.item_id,
+          amount: sum(m.amount),
+          location_id: m.source_location_id
+        },
+        where: not is_nil(m.destination_location_id),
+        group_by: m.item_id,
+        group_by: m.source_location_id
+      )
+
+    movement_in_query =
+      from(m in Movement,
+        select: %{
+          item_id: m.item_id,
+          amount: sum(m.amount),
+          location_id: m.destination_location_id
+        },
+        where: not is_nil(m.source_location_id),
+        group_by: m.item_id,
+        group_by: m.destination_location_id
+      )
+
+    from(e in Event,
+      join: l in assoc(e, :locations),
+      join: ig in assoc(e, :item_groups),
+      join: i in assoc(ig, :items),
+      left_join: m_supply in subquery(supply_query),
+      on: m_supply.item_id == i.id and m_supply.location_id == l.id,
+      left_join: m_consumption in subquery(consumption_query),
+      on: m_consumption.item_id == i.id and m_consumption.location_id == l.id,
+      left_join: m_out in subquery(movement_out_query),
+      on: m_out.item_id == i.id and m_out.location_id == l.id,
+      left_join: m_in in subquery(movement_in_query),
+      on: m_in.item_id == i.id and m_in.location_id == l.id,
+      having:
+        count(m_supply.item_id) != 0 or count(m_consumption.item_id) != 0 or
+          count(m_in.item_id) != 0 or count(m_out.item_id) != 0,
+      group_by: l.id,
+      group_by: ig.id,
+      group_by: i.id,
+      where: e.id == ^event_id,
+      select: %{
+        location: l,
+        item_group: ig,
+        item: i,
+        supply: fragment("COALESCE(?, 0)", max(m_supply.amount)),
+        consumption: fragment("COALESCE(?, 0)", max(m_consumption.amount)),
+        movement_out: fragment("COALESCE(?, 0)", max(m_out.amount)),
+        movement_in: fragment("COALESCE(?, 0)", max(m_in.amount)),
+        stock:
+          fragment("COALESCE(?, 0)", max(m_supply.amount)) -
+            fragment("COALESCE(?, 0)", max(m_consumption.amount)) +
+            fragment("COALESCE(?, 0)", max(m_in.amount)) -
+            fragment("COALESCE(?, 0)", max(m_out.amount))
+      },
+      order_by: l.name,
+      order_by: ig.name,
+      order_by: i.name
+    )
+  end
 end
