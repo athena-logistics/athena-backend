@@ -2,6 +2,8 @@ defmodule AthenaWeb.Admin.EventControllerTest do
   use Athena.DataCase
   use AthenaWeb.ConnCase
 
+  alias Athena.Inventory
+
   import Athena.Fixture
 
   @create_attrs %{name: "some name"}
@@ -29,8 +31,10 @@ defmodule AthenaWeb.Admin.EventControllerTest do
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.admin_event_path(conn, :show, id)
 
+      event = Inventory.get_event!(id)
+
       conn = get(conn, Routes.admin_event_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Event"
+      assert html_response(conn, 200) =~ event.name
     end
 
     test "renders errors when data is invalid", %{conn: conn} do

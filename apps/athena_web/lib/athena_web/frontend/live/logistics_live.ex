@@ -10,7 +10,10 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
     PubSub.subscribe(Athena.PubSub, "location:event:#{event_id}")
     PubSub.subscribe(Athena.PubSub, "movement:event:#{event_id}")
 
-    {:ok, update(socket, event_id)}
+    {:ok,
+     socket
+     |> assign(:sort, {"status", "desc"})
+     |> update(event_id)}
   end
 
   @impl Phoenix.LiveView
@@ -28,8 +31,30 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
     {:noreply, update(socket, socket.assigns.event.id)}
   end
 
+  @impl Phoenix.LiveView
+  def handle_event("change_sort", %{"name" => sort_name}, socket) do
+    sort =
+      case {sort_name, socket.assigns.sort} do
+        {sort_name, {sort_name, "asc"}} -> {sort_name, "desc"}
+        {sort_name, {sort_name, "desc"}} -> {sort_name, "asc"}
+        {sort_name, _} -> {sort_name, "asc"}
+      end
+
+    {:noreply,
+     socket
+     |> assign(:sort, sort)
+     |> update(socket.assigns.event.id)}
+  end
+
   defp update(socket, event_id) do
     event = Inventory.get_event!(event_id)
+    {sort_field, sort_order} = socket.assigns.sort
+
+    sort_function =
+      case sort_order do
+        "asc" -> &<=/2
+        "desc" -> &>=/2
+      end
 
     socket
     |> assign(:event, event)
@@ -39,6 +64,43 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
       |> Inventory.logistics_table_query()
       |> Repo.all()
       |> Enum.map(&calculate_status/1)
+      |> Enum.sort_by(
+        fn row ->
+          case sort_field do
+            "location" ->
+              row.location.name
+
+            "item_group" ->
+              row.item_group.name
+
+            "item" ->
+              row.item.name
+
+            "supply" ->
+              row.supply
+
+            "consumption" ->
+              abs(row.consumption)
+
+            "movement_in" ->
+              row.movement_in
+
+            "movement_out" ->
+              row.movement_out
+
+            "stock" ->
+              row.stock
+
+            "status" ->
+              case row.status do
+                :important -> 2
+                :warning -> 1
+                :normal -> 0
+              end
+          end
+        end,
+        sort_function
+      )
     )
   end
 

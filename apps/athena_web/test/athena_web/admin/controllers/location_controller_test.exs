@@ -2,6 +2,8 @@ defmodule AthenaWeb.Admin.LocationControllerTest do
   use Athena.DataCase
   use AthenaWeb.ConnCase
 
+  alias Athena.Inventory
+
   import Athena.Fixture
 
   @create_attrs %{name: "some name"}
@@ -34,10 +36,13 @@ defmodule AthenaWeb.Admin.LocationControllerTest do
         post(conn, Routes.admin_location_path(conn, :create, event.id), location: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)
+
+      location = Inventory.get_location!(id)
+
       assert redirected_to(conn) == Routes.admin_location_path(conn, :show, id)
 
       conn = get(conn, Routes.admin_location_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Location"
+      assert html_response(conn, 200) =~ location.name
     end
 
     test "renders errors when data is invalid", %{conn: conn, event: event} do

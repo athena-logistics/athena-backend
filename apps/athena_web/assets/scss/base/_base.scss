@@ -13,4 +13,10 @@ html {
 body {
   box-sizing: border-box;
   background-color: $color-secondary;
+  padding: 4rem;
+}
+
+::selection {
+  color: $color-secondary;
+  background-color: $color-primary;
 }
