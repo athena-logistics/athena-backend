@@ -5,6 +5,10 @@ table {
   width: 100%;
 
   tr {
+    &:hover {
+      background-color: $color-secondary-dark;
+    }
+
     &.important {
       background-color: $color-red;
       color: $color-cream;
@@ -16,6 +20,10 @@ table {
       td {
         border-color: $color-secondary;
       }
+
+      &:hover {
+        background-color: darken($color-red, 10%);
+      }
     }
     &.warning {
       background-color: $color-orange;
@@ -26,24 +34,20 @@ table {
       td {
         border-color: $color-secondary;
       }
+
+      &:hover {
+        background-color: darken($color-orange, 10%);
+      }
     }
 
     td,
     th {
       border-bottom: 1px solid rgba($color-primary, 0.5);
-      padding: 0.5rem 0;
+      padding: 0.5rem;
       text-align: left;
 
       &.integer {
         text-align: right;
-        max-width: 8rem;
-      }
-
-      &:first-child {
-        padding-left: 0.5rem;
-      }
-      &:last-child {
-        padding-right: 0.5rem;
       }
     }
 
@@ -70,4 +74,9 @@ table {
       }
     }
   }
+}
+
+.table-scroll-container {
+  width: 100%;
+  overflow-x: auto;
 }
