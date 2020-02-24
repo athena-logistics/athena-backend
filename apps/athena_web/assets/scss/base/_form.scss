@@ -1,29 +1,31 @@
 form {
   input {
-    padding: 2px;
-    border: none;
     font-family: inherit;
-    padding: 0 1rem;
-    font-size: 2.6rem;
-    font-weight: 800;
-    color: $color-grey-light-2;
     background-color: inherit;
+    color: currentColor;
     border: 1px dotted currentColor;
+    border-radius: 2px;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    padding: 0.5rem;
+
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
 
     &:focus {
       outline: none;
     }
   }
 
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  input[type='number'] {
-    -moz-appearance: textfield;
-    appearance: textfield;
-    margin: 0;
+  label {
+    margin-right: 1rem;
   }
 }

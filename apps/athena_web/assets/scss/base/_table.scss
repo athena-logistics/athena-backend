@@ -1,0 +1,74 @@
+table {
+  margin-top: 2rem;
+  border-spacing: 1px;
+  border-collapse: collapse;
+  width: 100%;
+
+  tr {
+    &.important {
+      background-color: $color-red;
+      color: $color-cream;
+      a,
+      a:visited {
+        color: $color-cream;
+      }
+
+      td {
+        border-color: $color-secondary;
+      }
+    }
+    &.warning {
+      background-color: $color-orange;
+      color: $color-black;
+      a {
+        color: $color-black;
+      }
+      td {
+        border-color: $color-secondary;
+      }
+    }
+
+    td,
+    th {
+      border-bottom: 1px solid rgba($color-primary, 0.5);
+      padding: 0.5rem 0;
+      text-align: left;
+
+      &.integer {
+        text-align: right;
+        max-width: 8rem;
+      }
+
+      &:first-child {
+        padding-left: 0.5rem;
+      }
+      &:last-child {
+        padding-right: 0.5rem;
+      }
+    }
+
+    th {
+      text-transform: uppercase;
+      vertical-align: bottom;
+      line-height: 1.4;
+      font-size: 1.4rem;
+      padding: 0;
+      user-select: none;
+
+      &.sort {
+        cursor: pointer;
+
+        &.sort_current {
+          &.sort_asc::after {
+            content: ' ▼';
+            color: $color-primary-light;
+          }
+          &.sort_desc::after {
+            content: ' ▲';
+            color: $color-primary-light;
+          }
+        }
+      }
+    }
+  }
+}

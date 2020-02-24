@@ -1,15 +1,20 @@
 <section class="location__details">
 	<h1 class="location__header"><%= @location.name %></h1>
 
+	<%= for {item_group, _items} <- @item_groups do %>
+		<a class="bookmark" href="#<%= item_group.id %>"><%= item_group.name %></a>
+	<% end %>
+
 	<div class="location__grid">
 		<%= for {item_group, items} <- @item_groups do %>
 			<div class="location__group">
-				<h2 class="location__group-title"><%= item_group.name %></h2>
+				<h2 class="location__group-title" id="<%= item_group.id %>"><%= item_group.name %></h2>
 
 				<ul class="location__item-list">
 					<%= for item <- items do %>
 						<li class="location__item">
-							<div class="location__item-name"><%= item.name %></div>
+							<div class="location__item-name">
+								<%= item.name %></div>
 							<%= live_render(@conn, AthenaWeb.Frontend.ItemLocationStockLive, session: %{"item_id" => item.id, "location_id" => @location.id}) %>
 						</li>
 					<% end %>
