@@ -1,3 +1,3 @@
 defmodule AthenaWeb.Frontend.LocationView do
-  use AthenaWeb, :view
+  use AthenaWeb, {:view, Frontend}
 end

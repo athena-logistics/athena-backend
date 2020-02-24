@@ -1,3 +1,3 @@
 defmodule AthenaWeb.Admin.MovementView do
-  use AthenaWeb, :view
+  use AthenaWeb, {:view, Admin}
 end

@@ -2,7 +2,7 @@
 
 <h2>Logistics Overview Link</h2>
 
-<% link = Routes.frontend_live_path(@conn, AthenaWeb.Frontend.LogisticsLive, @event.id) %>
+<% link = Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.LogisticsLive, @event.id) %>
 
 <%= link "To Public View", to: link %>
 

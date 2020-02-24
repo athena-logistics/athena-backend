@@ -23,7 +23,11 @@ defmodule AthenaWeb.Frontend.LogisticsLiveTest do
     location: location,
     item: item
   } do
-    conn = get(conn, Routes.frontend_live_path(conn, AthenaWeb.Frontend.LogisticsLive, event.id))
+    conn =
+      get(
+        conn,
+        Routes.frontend_logistics_live_path(conn, AthenaWeb.Frontend.LogisticsLive, event.id)
+      )
 
     assert html = html_response(conn, 200)
 

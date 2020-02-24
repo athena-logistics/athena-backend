@@ -31,11 +31,17 @@ defmodule AthenaWeb.Router do
     resources "/movements", MovementController, except: @subresource_actions
   end
 
-  scope "/", AthenaWeb.Frontend, as: :frontend do
+  scope "/logistics/", AthenaWeb.Frontend, as: :frontend_logistics do
     pipe_through :browser
 
-    get "/locations/:id", LocationController, :show
-    live "/events/:event/logistics-overview", LogisticsLive
+    get "/locations/:id", LocationController, :show, assigns: %{access: :logistics}
+    live "/events/:event/overview", LogisticsLive
+  end
+
+  scope "/vendor/", AthenaWeb.Frontend, as: :frontend_vendor do
+    pipe_through :browser
+
+    get "/locations/:id", LocationController, :show, assigns: %{access: :vendor}
   end
 
   # Other scopes may use custom stacks.

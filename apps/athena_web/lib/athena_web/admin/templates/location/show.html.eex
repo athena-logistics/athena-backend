@@ -2,7 +2,7 @@
 
 <h2>Public Link</h2>
 
-<% link = Routes.frontend_location_url(@conn, :show, @location.id) %>
+<% link = Routes.frontend_vendor_location_url(@conn, :show, @location.id) %>
 
 <%= link "To Public View", to: link %>
 

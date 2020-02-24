@@ -31,6 +31,27 @@ defmodule AthenaWeb do
     end
   end
 
+  def view(context) do
+    quote do
+      use Phoenix.View,
+        root: "lib/athena_web/#{String.downcase(inspect(unquote(context)))}/templates",
+        namespace: Module.concat(AthenaWeb, unquote(context))
+
+      # Import convenience functions from controllers
+      import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
+
+      # Use all HTML functionality (forms, tags, etc)
+      use Phoenix.HTML
+
+      import Phoenix.LiveView.Helpers
+
+      import AthenaWeb.ErrorHelpers
+      import AthenaWeb.Gettext
+
+      alias AthenaWeb.Router.Helpers, as: Routes
+    end
+  end
+
   def view do
     quote do
       use Phoenix.View,
@@ -82,5 +103,9 @@ defmodule AthenaWeb do
   """
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
+  end
+
+  defmacro __using__({which, opts}) when is_atom(which) do
+    apply(__MODULE__, which, [opts])
   end
 end

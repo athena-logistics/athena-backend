@@ -7,8 +7,14 @@ defmodule AthenaWeb.Frontend.LocationControllerTest do
   describe "show location" do
     setup [:create_location]
 
-    test "redirects to show when data is valid", %{conn: conn, location: location} do
-      conn = get(conn, Routes.frontend_location_path(conn, :show, location.id))
+    test "for logistics", %{conn: conn, location: location} do
+      conn = get(conn, Routes.frontend_logistics_location_path(conn, :show, location.id))
+
+      assert html_response(conn, 200) =~ location.name
+    end
+
+    test "for vendor", %{conn: conn, location: location} do
+      conn = get(conn, Routes.frontend_logistics_location_path(conn, :show, location.id))
 
       assert html_response(conn, 200) =~ location.name
     end

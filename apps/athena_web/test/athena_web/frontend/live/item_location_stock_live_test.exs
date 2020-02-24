@@ -16,7 +16,7 @@ defmodule AthenaWeb.Frontend.ItemLocationStockLiveTest do
   end
 
   test "disconnected", %{conn: conn, location: location} do
-    conn = get(conn, Routes.frontend_location_path(conn, :show, location.id))
+    conn = get(conn, Routes.frontend_logistics_location_path(conn, :show, location.id))
 
     assert html = html_response(conn, 200)
 

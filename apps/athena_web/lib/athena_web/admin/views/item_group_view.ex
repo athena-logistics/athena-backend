@@ -1,3 +1,3 @@
 defmodule AthenaWeb.Admin.ItemGroupView do
-  use AthenaWeb, :view
+  use AthenaWeb, {:view, Admin}
 end

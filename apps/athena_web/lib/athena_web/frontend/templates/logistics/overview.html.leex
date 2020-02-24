@@ -40,7 +40,7 @@
                 status: status
             } <- @table do %>
 			<tr class="<%= status %>">
-				<td class="string"><%= link location.name, to: Routes.frontend_location_path(@socket, :show, location.id) %></td>
+				<td class="string"><%= link location.name, to: Routes.frontend_logistics_location_path(@socket, :show, location.id) %></td>
 				<td class="string"><%= item_group.name %></td>
 				<td class="string"><%= item.name %></td>
 				<td class="integer"><%= supply %></td>
