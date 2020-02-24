@@ -35,6 +35,7 @@ defmodule AthenaWeb.Router do
     pipe_through :browser
 
     get "/locations/:id", LocationController, :show
+    live "/events/:event/logistics-overview", LogisticsLive
   end
 
   # Other scopes may use custom stacks.

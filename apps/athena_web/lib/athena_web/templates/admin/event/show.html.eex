@@ -9,6 +9,24 @@
 
 </ul>
 
+<h2>Logistics Overview Link</h2>
+
+<% link = Routes.frontend_live_path(@conn, AthenaWeb.Frontend.LogisticsLive, @event.id) %>
+
+<%= link "To Public View", to: link %>
+
+<h3>QR Code</h3>
+
+<%
+  qr_code = link
+  |> EQRCode.encode()
+  |> EQRCode.svg()
+%>
+
+<a href="data:image/svg+xml;base64,<%= Base.encode64(qr_code) %>" download="<%= @event.name %> Logistik.svg">
+  <%= raw(qr_code) %>
+</a>
+
 <span><%= link "Edit", to: Routes.admin_event_path(@conn, :edit, @event) %></span>
 <span><%= link "Back", to: Routes.admin_event_path(@conn, :index) %></span>
 <span><%= link "Locations", to: Routes.admin_location_path(@conn, :index, @event.id) %></span>
