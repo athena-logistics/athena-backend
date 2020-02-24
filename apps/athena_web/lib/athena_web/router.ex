@@ -7,9 +7,24 @@ defmodule AthenaWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug Phoenix.LiveView.Flash
+    plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+  end
+
+  pipeline :admin do
+    plug :put_live_layout, {AthenaWeb.Admin.LayoutView, "app.html"}
+    plug :put_layout, {AthenaWeb.Admin.LayoutView, "app.html"}
+  end
+
+  pipeline :frontend_logistics do
+    plug :put_live_layout, {AthenaWeb.Frontend.LayoutView, "logistics.html"}
+    plug :put_layout, {AthenaWeb.Frontend.LayoutView, "logistics.html"}
+  end
+
+  pipeline :frontend_vendor do
+    plug :put_live_layout, {AthenaWeb.Frontend.LayoutView, "vendor.html"}
+    plug :put_layout, {AthenaWeb.Frontend.LayoutView, "vendor.html"}
   end
 
   pipeline :api do
@@ -17,7 +32,7 @@ defmodule AthenaWeb.Router do
   end
 
   scope "/admin", AthenaWeb.Admin, as: :admin do
-    pipe_through :browser
+    pipe_through [:browser, :admin]
 
     get "/", EventController, :index
     resources "/events", EventController, except: [:index]
@@ -31,17 +46,17 @@ defmodule AthenaWeb.Router do
     resources "/movements", MovementController, except: @subresource_actions
   end
 
-  scope "/logistics/", AthenaWeb.Frontend, as: :frontend_logistics do
-    pipe_through :browser
+  scope "/logistics/", AthenaWeb.Frontend, as: :frontend_logistics, assigns: %{access: :logistics} do
+    pipe_through [:browser, :frontend_logistics]
 
-    get "/locations/:id", LocationController, :show, assigns: %{access: :logistics}
+    get "/locations/:id", LocationController, :show
     live "/events/:event/overview", LogisticsLive
   end
 
-  scope "/vendor/", AthenaWeb.Frontend, as: :frontend_vendor do
-    pipe_through :browser
+  scope "/vendor/", AthenaWeb.Frontend, as: :frontend_vendor, assigns: %{access: :vendor} do
+    pipe_through [:browser, :frontend_vendor]
 
-    get "/locations/:id", LocationController, :show, assigns: %{access: :vendor}
+    get "/locations/:id", LocationController, :show
   end
 
   # Other scopes may use custom stacks.
