@@ -250,7 +250,8 @@ defmodule Athena.Inventory do
       [%ItemGroup{}, ...]
 
   """
-  def list_item_groups(event), do: event |> Ecto.assoc(:item_groups) |> Repo.all()
+  def list_item_groups(event),
+    do: event |> Ecto.assoc(:item_groups) |> order_by([ig], ig.name) |> Repo.all()
 
   def list_relevant_item_groups(%Location{id: location_id}),
     do:
@@ -571,6 +572,33 @@ defmodule Athena.Inventory do
       {:ok,
        %{source_location_id: source_location_id, destination_location_id: destination_location_id} =
            movement} ->
+        notify_pubsub({:ok, movement}, :created, "movement", [
+          "location:#{source_location_id}",
+          "location:#{destination_location_id}",
+          "item:#{item_id}",
+          "item_group:#{item_group_id}",
+          "event:#{event_id}"
+        ])
+
+      other ->
+        other
+    end
+  end
+
+  def create_movement_directly(attrs \\ %{}) do
+    %Movement{}
+    |> change_movement(attrs)
+    |> Repo.insert()
+    |> case do
+      {:ok,
+       %{
+         source_location_id: source_location_id,
+         destination_location_id: destination_location_id,
+         item_id: item_id
+       } = movement} ->
+        %{event: %{id: event_id}, item_group: %{id: item_group_id}} =
+          Repo.preload(movement, [:item_group, :event])
+
         notify_pubsub({:ok, movement}, :created, "movement", [
           "location:#{source_location_id}",
           "location:#{destination_location_id}",

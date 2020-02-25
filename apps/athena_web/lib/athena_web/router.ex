@@ -50,7 +50,13 @@ defmodule AthenaWeb.Router do
     pipe_through [:browser, :frontend_logistics]
 
     get "/locations/:id", LocationController, :show
+
     live "/events/:event/overview", LogisticsLive
+
+    get "/events/:event/movements/supply/new", MovementController, :supply_new
+    post "/events/:event/movements/supply", MovementController, :supply_create
+    get "/events/:event/movements/relocate/new", MovementController, :relocate_new
+    post "/events/:event/movements/relocate", MovementController, :relocate_create
   end
 
   scope "/vendor/", AthenaWeb.Frontend, as: :frontend_vendor, assigns: %{access: :vendor} do
