@@ -21,13 +21,13 @@
 			<main>
 				<ul>
 					<li>
-						<%= link "Logistikübersicht", to: Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.LogisticsLive, @event.id) %>
+						<%= link "Logistik Übersicht", to: Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.LogisticsLive, @event.id) %>
 					</li>
 					<li>
-						<%= link "Wareneingang", to: Routes.frontend_logistics_movement_url(@conn, :supply_new, @event.id) %>
+						<%= link "Eingang Artikel", to: Routes.frontend_logistics_movement_url(@conn, :supply_new, @event.id) %>
 					</li>
 					<li>
-						<%= link "Warenverschiebung", to: Routes.frontend_logistics_movement_url(@conn, :relocate_new, @event.id) %>
+						<%= link "Verschiebung Artikel", to: Routes.frontend_logistics_movement_url(@conn, :relocate_new, @event.id) %>
 					</li>
 					<li class="divider"></li>
 					<%= for %{id: location_id, name: location_name} <- @locations do %>

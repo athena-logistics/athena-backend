@@ -1,4 +1,4 @@
-<h1>Warenverschiebung</h1>
+<h1>Verschiebung Artikel</h1>
 
 <%= form_for @changeset, Routes.frontend_logistics_movement_path(@conn, :relocate_create, @event.id), fn f -> %>
   <%= if @changeset.action do %>
