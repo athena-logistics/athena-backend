@@ -5,7 +5,16 @@ defmodule Athena.Umbrella.MixProject do
     [
       apps_path: "apps",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      releases: [
+        athena: [
+          applications: [
+            athena_web: :permanent,
+            athena_cluster: :permanent
+          ],
+          version: {:from_app, :athena_web}
+        ]
+      ]
     ]
   end
 

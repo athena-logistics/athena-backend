@@ -1,9 +1,10 @@
-use Mix.Config
+import Config
 
 config :athena, Athena.Repo,
-  # ssl: true,
+  ssl: true,
   url: System.get_env("DATABASE_URL"),
-  pool_size: String.to_integer(System.get_env("POOL_SIZE", "10"))
+  pool_size: String.to_integer(System.get_env("POOL_SIZE", "2")),
+  show_sensitive_data_on_connection_error: true
 
 # ## Using releases (Elixir v1.9+)
 #
@@ -25,7 +26,10 @@ config :athena, Athena.Repo,
 # which you should run after static files are built and
 # before starting your production server.
 config :athena_web, AthenaWeb.Endpoint,
-  url: [host: "example.com", port: 80],
+  url: [
+    host: System.get_env("DOMAIN", System.get_env("APP_NAME", "") <> ".gigalixirapp.com"),
+    port: 80
+  ],
   cache_static_manifest: "priv/static/cache_manifest.json",
   http: [
     port: String.to_integer(System.get_env("PORT") || "4000"),
