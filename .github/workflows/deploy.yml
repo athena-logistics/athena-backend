@@ -9,6 +9,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - run: git remote add gigalixir $GIGALIXIR_REMOTE_URL
         env:
           GIGALIXIR_REMOTE_URL: "${{ secrets.GIGALIXIR_REMOTE_URL }}"

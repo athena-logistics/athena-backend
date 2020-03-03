@@ -4,7 +4,7 @@ defmodule AthenaWeb.MixProject do
   def project do
     [
       app: :athena_web,
-      version: "0.0.1",
+      version: "0.0.2",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
