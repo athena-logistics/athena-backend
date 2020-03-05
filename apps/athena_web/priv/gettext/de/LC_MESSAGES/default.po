@@ -1,0 +1,406 @@
+# # "msgid"s in this file come from POT (.pot) files.
+# #
+# # Do not add, change, or remove "msgid"s manually here as
+# # they're tied to the ones in the corresponding POT file
+# # (with the same domain).
+# #
+# # Use "mix gettext.extract --merge" or "mix gettext.merge"
+# # to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+
+#: lib/athena_web/frontend/templates/layout/logistics.html.eex:24
+#: lib/athena_web/frontend/templates/logistics/overview.html.leex:2
+msgid "Logistics Overview"
+msgstr "Logistik Übersicht"
+
+#: lib/athena_web/frontend/templates/layout/logistics.html.eex:30
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:2
+msgid "Move Item"
+msgstr "Verschiebung Artikel"
+
+#: lib/athena_web/frontend/templates/layout/logistics.html.eex:27
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:2
+msgid "Supply Item"
+msgstr "Eingang Artikel"
+
+#: lib/athena_web/admin/templates/event/form.html.eex:5
+#: lib/athena_web/admin/templates/item/form.html.eex:5
+#: lib/athena_web/admin/templates/item_group/form.html.eex:5
+#: lib/athena_web/admin/templates/location/form.html.eex:5
+#: lib/athena_web/admin/templates/movement/form.html.eex:5
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:9
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:9
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr "Uups, da ist etwas schief gelaufen! Bitte überprüfe die unten stehenden Fehler."
+
+#: lib/athena_web/admin/templates/movement/form.html.eex:18
+#: lib/athena_web/admin/templates/movement/index.html.eex:6
+#: lib/athena_web/admin/templates/movement/show.html.eex:56
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:26
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:22
+msgid "amount"
+msgstr "Menge"
+
+#: lib/athena_web/admin/templates/movement/form.html.eex:15
+#: lib/athena_web/admin/templates/movement/index.html.eex:25
+#: lib/athena_web/admin/templates/movement/show.html.eex:51
+#: lib/athena_web/frontend/templates/logistics/overview.html.leex:11
+msgid "consumption"
+msgstr "Verbrauch"
+
+#: lib/athena_web/admin/templates/movement/form.html.eex:14
+#: lib/athena_web/admin/templates/movement/index.html.eex:8
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:22
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:18
+msgid "destination location"
+msgstr "Zielstandort"
+
+#: lib/athena_web/admin/templates/movement/show.html.eex:35
+#: lib/athena_web/frontend/templates/logistics/overview.html.leex:9
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:14
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:14
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:15
+msgid "item"
+msgstr "Artikel"
+
+#: lib/athena_web/admin/templates/movement/show.html.eex:30
+#: lib/athena_web/frontend/templates/logistics/overview.html.leex:8
+msgid "item group"
+msgstr "Artikelgruppe"
+
+#: lib/athena_web/frontend/templates/logistics/overview.html.leex:7
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:19
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:23
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:19
+msgid "location"
+msgstr "Standort"
+
+#: lib/athena_web/frontend/templates/logistics/overview.html.leex:13
+msgid "movement in"
+msgstr "Eingehende Verschiebung"
+
+#: lib/athena_web/frontend/templates/logistics/overview.html.leex:12
+msgid "movement out"
+msgstr "Ausgehende Verschiebung"
+
+#: lib/athena_web/admin/templates/event/form.html.eex:15
+#: lib/athena_web/admin/templates/item/form.html.eex:23
+#: lib/athena_web/admin/templates/item_group/form.html.eex:15
+#: lib/athena_web/admin/templates/location/form.html.eex:15
+#: lib/athena_web/admin/templates/movement/form.html.eex:23
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:31
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:27
+msgid "save"
+msgstr "Speichern"
+
+#: lib/athena_web/frontend/templates/logistics/overview.html.leex:14
+msgid "stock"
+msgstr "Bestand"
+
+#: lib/athena_web/admin/templates/movement/form.html.eex:11
+#: lib/athena_web/admin/templates/movement/index.html.eex:19
+#: lib/athena_web/admin/templates/movement/show.html.eex:43
+#: lib/athena_web/frontend/templates/logistics/overview.html.leex:10
+msgid "supply"
+msgstr "Anlieferung"
+
+#: lib/athena_web/admin/controllers/movement_controller.ex:48
+#: lib/athena_web/frontend/controller/movement_controller.ex:43
+msgid "Movement created successfully."
+msgstr "Verschiebung wurde erfolgreich erstellt."
+
+#: lib/athena_web/admin/templates/movement/form.html.eex:10
+#: lib/athena_web/admin/templates/movement/index.html.eex:7
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:18
+msgid "source location"
+msgstr "Quellstandort"
+
+#: lib/athena_web/admin/controllers/event_controller.ex:22
+msgid "Event created successfully."
+msgstr "Veranstaltung wurde erfolgreich erstellt."
+
+#: lib/athena_web/admin/controllers/event_controller.ex:60
+msgid "Event deleted successfully."
+msgstr "Veranstaltung wurde erfolgreich gelöscht."
+
+#: lib/athena_web/admin/controllers/event_controller.ex:47
+msgid "Event updated successfully."
+msgstr "Veranstaltung wurde erfolgreich aktualisiert."
+
+#: lib/athena_web/admin/controllers/item_controller.ex:44
+msgid "Item created successfully."
+msgstr "Artikel wurde erfolgreich erstellt."
+
+#: lib/athena_web/admin/controllers/item_controller.ex:103
+msgid "Item deleted successfully."
+msgstr "Artikel wurde erfolgreich gelöscht."
+
+#: lib/athena_web/admin/controllers/item_group_controller.ex:27
+msgid "Item group created successfully."
+msgstr "Artikelgruppe wurde erfolgreich erstellt."
+
+#: lib/athena_web/admin/controllers/item_group_controller.ex:83
+msgid "Item group deleted successfully."
+msgstr "Artikelgruppe wurde erfolgreich gelöscht."
+
+#: lib/athena_web/admin/controllers/item_group_controller.ex:67
+msgid "Item group updated successfully."
+msgstr "Artikelgruppe wurde erfolgreich aktualisiert."
+
+#: lib/athena_web/admin/controllers/item_controller.ex:90
+msgid "Item updated successfully."
+msgstr "Artikel wurde erfolgreich aktualisiert."
+
+#: lib/athena_web/admin/controllers/location_controller.ex:28
+msgid "Location created successfully."
+msgstr "Standort wurde erfolgreich erstellt."
+
+#: lib/athena_web/admin/controllers/location_controller.ex:84
+msgid "Location deleted successfully."
+msgstr "Standort wurde erfolgreich gelöscht."
+
+#: lib/athena_web/admin/controllers/location_controller.ex:68
+msgid "Location updated successfully."
+msgstr "Standort wurde erfolgreich aktualisiert."
+
+#: lib/athena_web/admin/controllers/movement_controller.ex:113
+msgid "Movement deleted successfully."
+msgstr "Verschiebung wurde erfolgreich gelöscht."
+
+#: lib/athena_web/admin/controllers/movement_controller.ex:96
+msgid "Movement updated successfully."
+msgstr "Verschiebung wurde erfolgreich aktualisiert."
+
+#: lib/athena_web/admin/templates/event/show.html.eex:22
+msgid "%{event} logistics"
+msgstr "${event} Logistik"
+
+#: lib/athena_web/admin/templates/event/show.html.eex:13
+#: lib/athena_web/admin/templates/location/show.html.eex:11
+msgid "QR code"
+msgstr "QR-Code"
+
+#: lib/athena_web/admin/templates/event/edit.html.eex:7
+#: lib/athena_web/admin/templates/event/index.html.eex:9
+#: lib/athena_web/admin/templates/event/index.html.eex:26
+#: lib/athena_web/admin/templates/event/new.html.eex:5
+#: lib/athena_web/admin/templates/event/show.html.eex:27
+#: lib/athena_web/admin/templates/item/edit.html.eex:7
+#: lib/athena_web/admin/templates/item/index.html.eex:9
+#: lib/athena_web/admin/templates/item/index.html.eex:29
+#: lib/athena_web/admin/templates/item/new.html.eex:5
+#: lib/athena_web/admin/templates/item/show.html.eex:27
+#: lib/athena_web/admin/templates/item_group/edit.html.eex:5
+#: lib/athena_web/admin/templates/item_group/index.html.eex:7
+#: lib/athena_web/admin/templates/item_group/index.html.eex:24
+#: lib/athena_web/admin/templates/item_group/new.html.eex:5
+#: lib/athena_web/admin/templates/item_group/show.html.eex:3
+#: lib/athena_web/admin/templates/location/edit.html.eex:5
+#: lib/athena_web/admin/templates/location/index.html.eex:7
+#: lib/athena_web/admin/templates/location/index.html.eex:24
+#: lib/athena_web/admin/templates/location/new.html.eex:5
+#: lib/athena_web/admin/templates/location/show.html.eex:25
+#: lib/athena_web/admin/templates/movement/index.html.eex:10
+#: lib/athena_web/admin/templates/movement/index.html.eex:40
+#: lib/athena_web/admin/templates/movement/new.html.eex:5
+#: lib/athena_web/admin/templates/movement/show.html.eex:64
+msgid "actions"
+msgstr "Aktionen"
+
+#: lib/athena_web/admin/templates/event/edit.html.eex:10
+#: lib/athena_web/admin/templates/event/new.html.eex:8
+#: lib/athena_web/admin/templates/event/show.html.eex:34
+#: lib/athena_web/admin/templates/item/edit.html.eex:10
+#: lib/athena_web/admin/templates/item/new.html.eex:8
+#: lib/athena_web/admin/templates/item/show.html.eex:31
+#: lib/athena_web/admin/templates/item_group/edit.html.eex:8
+#: lib/athena_web/admin/templates/item_group/new.html.eex:8
+#: lib/athena_web/admin/templates/item_group/show.html.eex:7
+#: lib/athena_web/admin/templates/location/edit.html.eex:8
+#: lib/athena_web/admin/templates/location/new.html.eex:8
+#: lib/athena_web/admin/templates/location/show.html.eex:29
+#: lib/athena_web/admin/templates/movement/edit.html.eex:6
+#: lib/athena_web/admin/templates/movement/new.html.eex:8
+#: lib/athena_web/admin/templates/movement/show.html.eex:68
+msgid "back"
+msgstr "Zurück"
+
+#: lib/athena_web/admin/templates/event/index.html.eex:18
+#: lib/athena_web/admin/templates/event/show.html.eex:31
+#: lib/athena_web/admin/templates/item/index.html.eex:21
+#: lib/athena_web/admin/templates/item/show.html.eex:30
+#: lib/athena_web/admin/templates/item_group/show.html.eex:6
+#: lib/athena_web/admin/templates/location/index.html.eex:16
+#: lib/athena_web/admin/templates/location/show.html.eex:28
+#: lib/athena_web/admin/templates/movement/index.html.eex:32
+#: lib/athena_web/admin/templates/movement/show.html.eex:67
+msgid "edit"
+msgstr "Bearbeiten"
+
+#: lib/athena_web/admin/templates/event/show.html.eex:9
+#: lib/athena_web/admin/templates/location/show.html.eex:7
+msgid "go to public view"
+msgstr "zur öffentlichen Ansicht"
+
+#: lib/athena_web/admin/templates/event/show.html.eex:40
+#: lib/athena_web/admin/templates/item_group/index.html.eex:1
+msgid "item groups"
+msgstr "Artikelgruppen"
+
+#: lib/athena_web/admin/templates/event/show.html.eex:37
+#: lib/athena_web/admin/templates/location/index.html.eex:1
+msgid "locations"
+msgstr "Standorte"
+
+#: lib/athena_web/admin/templates/event/show.html.eex:4
+msgid "logistics overview link"
+msgstr "Logistik Übersicht Link"
+
+#: lib/athena_web/admin/templates/event/edit.html.eex:2
+msgid "edit %{event}"
+msgstr "%{event} bearbeiten"
+
+#: lib/athena_web/admin/templates/event/form.html.eex:10
+#: lib/athena_web/admin/templates/event/index.html.eex:8
+#: lib/athena_web/admin/templates/item/form.html.eex:10
+#: lib/athena_web/admin/templates/item/index.html.eex:6
+#: lib/athena_web/admin/templates/item_group/form.html.eex:10
+#: lib/athena_web/admin/templates/item_group/index.html.eex:6
+#: lib/athena_web/admin/templates/location/form.html.eex:10
+#: lib/athena_web/admin/templates/location/index.html.eex:6
+msgid "name"
+msgstr "Name"
+
+#: lib/athena_web/admin/templates/event/index.html.eex:29
+#: lib/athena_web/admin/templates/event/new.html.eex:1
+msgid "create event"
+msgstr "Veranstaltung erstellen"
+
+#: lib/athena_web/admin/templates/item/index.html.eex:32
+#: lib/athena_web/admin/templates/item/new.html.eex:1
+msgid "create item"
+msgstr "Artikel erstellen"
+
+#: lib/athena_web/admin/templates/event/index.html.eex:19
+#: lib/athena_web/admin/templates/item/index.html.eex:22
+#: lib/athena_web/admin/templates/location/index.html.eex:17
+#: lib/athena_web/admin/templates/movement/index.html.eex:33
+msgid "delete"
+msgstr "Löschen"
+
+#: lib/athena_web/admin/templates/item/edit.html.eex:2
+msgid "edit %{item}"
+msgstr "%{item} bearbeiten"
+
+#: lib/athena_web/admin/templates/event/index.html.eex:2
+msgid "events"
+msgstr "Veranstaltungen"
+
+#: lib/athena_web/admin/templates/item/form.html.eex:18
+#: lib/athena_web/admin/templates/item/index.html.eex:8
+#: lib/athena_web/admin/templates/item/show.html.eex:7
+msgid "inverse"
+msgstr "Verkehrt"
+
+#: lib/athena_web/admin/templates/item/index.html.eex:1
+#: lib/athena_web/admin/templates/item_group/show.html.eex:8
+msgid "items"
+msgstr "Artikel"
+
+#: lib/athena_web/admin/templates/item/show.html.eex:11
+#: lib/athena_web/admin/templates/item/show.html.eex:32
+#: lib/athena_web/admin/templates/movement/index.html.eex:1
+msgid "movements"
+msgstr "Verschiebungungen"
+
+#: lib/athena_web/admin/templates/item/index.html.eex:17
+msgid "no"
+msgstr "Nein"
+
+#: lib/athena_web/admin/templates/event/index.html.eex:17
+#: lib/athena_web/admin/templates/item/index.html.eex:20
+#: lib/athena_web/admin/templates/location/index.html.eex:15
+#: lib/athena_web/admin/templates/movement/index.html.eex:31
+msgid "show"
+msgstr "Anzeigen"
+
+#: lib/athena_web/admin/templates/item/form.html.eex:14
+#: lib/athena_web/admin/templates/item/index.html.eex:7
+#: lib/athena_web/admin/templates/item/show.html.eex:4
+msgid "unit"
+msgstr "Einheit"
+
+#: lib/athena_web/admin/templates/item/index.html.eex:17
+msgid "yes"
+msgstr "Ja"
+
+#: lib/athena_web/admin/templates/movement/show.html.eex:13
+msgid "%{item} consumption at %{location}"
+msgstr "Verbrauch %{item} bei %{location}"
+
+#: lib/athena_web/admin/templates/movement/show.html.eex:5
+msgid "%{item} movement from %{source_location} to %{destination_location}"
+msgstr "Verschiebung %{item} von %{source_location} nach %{destination_location}"
+
+#: lib/athena_web/admin/templates/movement/show.html.eex:20
+msgid "%{item} supply to %{location}"
+msgstr "Anlieferung von %{item} nach %{location}"
+
+#: lib/athena_web/admin/templates/item_group/index.html.eex:27
+#: lib/athena_web/admin/templates/item_group/new.html.eex:1
+msgid "create item group"
+msgstr "Artikel erstellen"
+
+#: lib/athena_web/admin/templates/location/index.html.eex:27
+#: lib/athena_web/admin/templates/location/new.html.eex:1
+msgid "create location"
+msgstr "Quellstandort"
+
+#: lib/athena_web/admin/templates/movement/new.html.eex:1
+msgid "create movement"
+msgstr "Veranstaltung erstellen"
+
+#: lib/athena_web/admin/templates/movement/show.html.eex:48
+msgid "destination_location"
+msgstr "Zielstandort"
+
+#: lib/athena_web/admin/templates/item_group/edit.html.eex:1
+msgid "edit %{item_group}"
+msgstr "%{item} bearbeiten"
+
+#: lib/athena_web/admin/templates/location/edit.html.eex:1
+msgid "edit %{location}"
+msgstr "%{location} bearbeiten"
+
+#: lib/athena_web/admin/templates/location/index.html.eex:28
+msgid "event"
+msgstr "Veranstaltung"
+
+#: lib/athena_web/admin/templates/movement/show.html.eex:40
+msgid "source"
+msgstr "Quelle"
+
+#: lib/athena_web/admin/templates/movement/index.html.eex:9
+#: lib/athena_web/admin/templates/movement/show.html.eex:59
+msgid "time"
+msgstr "Zeit"
+
+#: lib/athena_web/admin/templates/location/show.html.eex:3
+msgid "vendor link"
+msgstr "Verkäufer Link"
+
+#: lib/athena_web/admin/templates/movement/edit.html.eex:1
+msgid "edit movement"
+msgstr "Verschiebung bearbeiten"

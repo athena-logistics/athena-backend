@@ -1,42 +1,44 @@
-<h1>Listing Movements</h1>
+<h1><%= gettext("movements") %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Amount</th>
-      <th>Source Location</th>
-      <th>Destination Location</th>
-      <th>Time</th>
-
-      <th></th>
+      <th><%= gettext("amount") %></th>
+      <th><%= gettext("source location") %></th>
+      <th><%= gettext("destination location") %></th>
+      <th><%= gettext("time") %></th>
+      <th><%= gettext("actions") %></th>
     </tr>
   </thead>
   <tbody>
-<%= for movement <- @movements do %>
-    <tr>
-      <td><%= movement.amount %></td>
-      <td>
-        <%= case movement.source_location do
-          nil -> "Supply"
-          %{name: location_name, id: location_id} -> link location_name, to: Routes.admin_location_path(@conn, :show, location_id)
-        end %>
-      </td>
-      <td>
-        <%= case movement.destination_location do
-          nil -> "Consumption"
-          %{name: location_name, id: location_id} -> link location_name, to: Routes.admin_location_path(@conn, :show, location_id)
-        end %>
-      </td>
-      <td><%= movement.inserted_at %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.admin_movement_path(@conn, :show, movement) %></span>
-        <span><%= link "Edit", to: Routes.admin_movement_path(@conn, :edit, movement) %></span>
-        <span><%= link "Delete", to: Routes.admin_movement_path(@conn, :delete, movement), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
+    <%= for movement <- @movements do %>
+      <tr>
+        <td><%= movement.amount %></td>
+        <td>
+          <%= case movement.source_location do
+            nil -> gettext("supply")
+            %{name: location_name, id: location_id} -> link location_name, to: Routes.admin_location_path(@conn, :show, location_id)
+          end %>
+        </td>
+        <td>
+          <%= case movement.destination_location do
+            nil -> gettext("consumption")
+            %{name: location_name, id: location_id} -> link location_name, to: Routes.admin_location_path(@conn, :show, location_id)
+          end %>
+        </td>
+        <td><%= movement.inserted_at %></td>
+        <td>
+          <span><%= "show" |> gettext |> link(to: Routes.admin_movement_path(@conn, :show, movement)) %></span>
+          <span><%= "edit" |> gettext |> link(to: Routes.admin_movement_path(@conn, :edit, movement)) %></span>
+          <span><%= "delete" |> gettext |> link(to: Routes.admin_movement_path(@conn, :delete, movement), method: :delete, data: [confirm: "Are you sure?"]) %></span>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Movement", to: Routes.admin_movement_path(@conn, :new, @item.id) %></span>
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li><%= link "New Movement", to: Routes.admin_movement_path(@conn, :new, @item.id) %></li>
+</ul>

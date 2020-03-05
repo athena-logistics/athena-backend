@@ -28,6 +28,21 @@ defmodule AthenaWeb do
       alias AthenaWeb.Router.Helpers, as: Routes
 
       alias Athena.Repo
+
+      defp render_with_navigation(conn, event, template, assigns) do
+        render(
+          conn,
+          template,
+          assigns ++
+            [
+              navigation: %{
+                event: event,
+                locations: Athena.Inventory.list_locations(event),
+                item_groups: Athena.Inventory.list_item_groups(event)
+              }
+            ]
+        )
+      end
     end
   end
 
@@ -95,6 +110,14 @@ defmodule AthenaWeb do
       use Phoenix.LiveView
 
       alias Athena.Repo
+
+      defp assign_navigation(socket, event) do
+        assign(socket, :navigation, %{
+          event: event,
+          locations: Athena.Inventory.list_locations(event),
+          item_groups: Athena.Inventory.list_item_groups(event)
+        })
+      end
     end
   end
 

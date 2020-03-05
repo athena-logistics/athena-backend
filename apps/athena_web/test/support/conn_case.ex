@@ -31,6 +31,7 @@ defmodule AthenaWeb.ConnCase do
   end
 
   setup do
+    Gettext.put_locale(AthenaWeb.Gettext, "en")
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

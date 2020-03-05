@@ -15,7 +15,7 @@ defmodule AthenaWeb.Admin.LocationControllerTest do
 
     test "lists all locations", %{conn: conn, event: event} do
       conn = get(conn, Routes.admin_location_path(conn, :index, event.id))
-      assert html_response(conn, 200) =~ "Listing Locations"
+      assert html_response(conn, 200) =~ "locations"
     end
   end
 
@@ -24,7 +24,7 @@ defmodule AthenaWeb.Admin.LocationControllerTest do
 
     test "renders form", %{conn: conn, event: event} do
       conn = get(conn, Routes.admin_location_path(conn, :new, event.id))
-      assert html_response(conn, 200) =~ "New Location"
+      assert html_response(conn, 200) =~ "create location"
     end
   end
 
@@ -49,7 +49,7 @@ defmodule AthenaWeb.Admin.LocationControllerTest do
       conn =
         post(conn, Routes.admin_location_path(conn, :create, event.id), location: @invalid_attrs)
 
-      assert html_response(conn, 200) =~ "New Location"
+      assert html_response(conn, 200) =~ "create location"
     end
   end
 
@@ -58,7 +58,7 @@ defmodule AthenaWeb.Admin.LocationControllerTest do
 
     test "renders form for editing chosen location", %{conn: conn, location: location} do
       conn = get(conn, Routes.admin_location_path(conn, :edit, location))
-      assert html_response(conn, 200) =~ "Edit Location"
+      assert html_response(conn, 200) =~ "edit #{location.name}"
     end
   end
 
@@ -79,7 +79,7 @@ defmodule AthenaWeb.Admin.LocationControllerTest do
       conn =
         put(conn, Routes.admin_location_path(conn, :update, location), location: @invalid_attrs)
 
-      assert html_response(conn, 200) =~ "Edit Location"
+      assert html_response(conn, 200) =~ "edit #{location.name}"
     end
   end
 

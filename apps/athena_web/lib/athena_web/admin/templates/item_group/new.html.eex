@@ -1,5 +1,9 @@
-<h1>New Item group</h1>
+<h1><%= gettext("create item group") %></h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.admin_item_group_path(@conn, :create, @event.id)) %>
 
-<span><%= link "Back", to: Routes.admin_item_group_path(@conn, :index, @event.id) %></span>
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li><%= "back" |> gettext |> link(to: Routes.admin_item_group_path(@conn, :index, @event.id)) %></li>
+</ul>

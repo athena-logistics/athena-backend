@@ -5,37 +5,60 @@ defmodule AthenaWeb.Admin.ItemController do
   alias Athena.Inventory.Item
 
   def index(conn, %{"item_group" => item_group}) do
-    item_group = Inventory.get_item_group!(item_group)
+    item_group =
+      item_group
+      |> Inventory.get_item_group!()
+      |> Repo.preload(:event)
+
     items = Inventory.list_items(item_group)
 
-    render(conn, "index.html", items: items, item_group: item_group)
+    render_with_navigation(conn, item_group.event, "index.html",
+      items: items,
+      item_group: item_group
+    )
   end
 
   def new(conn, %{"item_group" => item_group}) do
-    item_group = Inventory.get_item_group!(item_group)
+    item_group =
+      item_group
+      |> Inventory.get_item_group!()
+      |> Repo.preload(:event)
+
     changeset = Inventory.change_item(%Item{})
 
-    render(conn, "new.html", changeset: changeset, item_group: item_group)
+    render_with_navigation(conn, item_group.event, "new.html",
+      changeset: changeset,
+      item_group: item_group
+    )
   end
 
   def create(conn, %{"item" => item_params, "item_group" => item_group}) do
-    item_group = Inventory.get_item_group!(item_group)
+    item_group =
+      item_group
+      |> Inventory.get_item_group!()
+      |> Repo.preload(:event)
 
     case Inventory.create_item(item_group, item_params) do
       {:ok, item} ->
         conn
-        |> put_flash(:info, "Item created successfully.")
+        |> put_flash(:info, gettext("Item created successfully."))
         |> redirect(to: Routes.admin_item_path(conn, :show, item))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, item_group: item_group)
+        render_with_navigation(conn, item_group.event, "new.html",
+          changeset: changeset,
+          item_group: item_group
+        )
     end
   end
 
   def show(conn, %{"id" => id}) do
-    item = Inventory.get_item!(id)
+    item =
+      id
+      |> Inventory.get_item!()
+      |> Repo.preload(:event)
 
-    render(conn, "show.html",
+    render_with_navigation(conn, item.event, "show.html",
       item: item,
       supply: Inventory.get_item_supply(item),
       consumption: Inventory.get_item_consumption(item),
@@ -45,23 +68,30 @@ defmodule AthenaWeb.Admin.ItemController do
   end
 
   def edit(conn, %{"id" => id}) do
-    item = Inventory.get_item!(id)
+    item =
+      id
+      |> Inventory.get_item!()
+      |> Repo.preload(:event)
+
     changeset = Inventory.change_item(item)
 
-    render(conn, "edit.html", item: item, changeset: changeset)
+    render_with_navigation(conn, item.event, "edit.html", item: item, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "item" => item_params}) do
-    item = Inventory.get_item!(id)
+    item =
+      id
+      |> Inventory.get_item!()
+      |> Repo.preload(:event)
 
     case Inventory.update_item(item, item_params) do
       {:ok, item} ->
         conn
-        |> put_flash(:info, "Item updated successfully.")
+        |> put_flash(:info, gettext("Item updated successfully."))
         |> redirect(to: Routes.admin_item_path(conn, :show, item))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", item: item, changeset: changeset)
+        render_with_navigation(conn, item.event, "edit.html", item: item, changeset: changeset)
     end
   end
 
@@ -70,7 +100,7 @@ defmodule AthenaWeb.Admin.ItemController do
     {:ok, _item} = Inventory.delete_item(item)
 
     conn
-    |> put_flash(:info, "Item deleted successfully.")
+    |> put_flash(:info, gettext("Item deleted successfully."))
     |> redirect(to: Routes.admin_item_path(conn, :index, item_group_id))
   end
 end

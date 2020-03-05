@@ -1,14 +1,9 @@
-<h1>Show Item group</h1>
+<h1><%= @item_group.name %></h1>
+
+<h2><%= gettext("actions") %></h2>
 
 <ul>
-
-  <li>
-    <strong>Name:</strong>
-    <%= @item_group.name %>
-  </li>
-
+  <li><%= "edit" |> gettext |> link(to: Routes.admin_item_group_path(@conn, :edit, @item_group)) %></li>
+  <li><%= "back" |> gettext |> link(to: Routes.admin_item_group_path(@conn, :index, @item_group.event_id)) %></li>
+  <li><%= "items" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item_group.id)) %></li>
 </ul>
-
-<span><%= link "Edit", to: Routes.admin_item_group_path(@conn, :edit, @item_group) %></span>
-<span><%= link "Back", to: Routes.admin_item_group_path(@conn, :index, @item_group.event_id) %></span>
-<span><%= link "Items", to: Routes.admin_item_path(@conn, :index, @item_group.id) %></span>

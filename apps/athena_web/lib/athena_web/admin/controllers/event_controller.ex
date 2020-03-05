@@ -19,7 +19,7 @@ defmodule AthenaWeb.Admin.EventController do
     case Inventory.create_event(event_params) do
       {:ok, event} ->
         conn
-        |> put_flash(:info, "Event created successfully.")
+        |> put_flash(:info, gettext("Event created successfully."))
         |> redirect(to: Routes.admin_event_path(conn, :show, event))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -29,13 +29,13 @@ defmodule AthenaWeb.Admin.EventController do
 
   def show(conn, %{"id" => id}) do
     event = Inventory.get_event!(id)
-    render(conn, "show.html", event: event)
+    render_with_navigation(conn, event, "show.html", event: event)
   end
 
   def edit(conn, %{"id" => id}) do
     event = Inventory.get_event!(id)
     changeset = Inventory.change_event(event)
-    render(conn, "edit.html", event: event, changeset: changeset)
+    render_with_navigation(conn, event, "edit.html", event: event, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "event" => event_params}) do
@@ -44,11 +44,11 @@ defmodule AthenaWeb.Admin.EventController do
     case Inventory.update_event(event, event_params) do
       {:ok, event} ->
         conn
-        |> put_flash(:info, "Event updated successfully.")
+        |> put_flash(:info, gettext("Event updated successfully."))
         |> redirect(to: Routes.admin_event_path(conn, :show, event))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", event: event, changeset: changeset)
+        render_with_navigation(conn, event, "edit.html", event: event, changeset: changeset)
     end
   end
 
@@ -57,7 +57,7 @@ defmodule AthenaWeb.Admin.EventController do
     {:ok, _event} = Inventory.delete_event(event)
 
     conn
-    |> put_flash(:info, "Event deleted successfully.")
+    |> put_flash(:info, gettext("Event deleted successfully."))
     |> redirect(to: Routes.admin_event_path(conn, :index))
   end
 end

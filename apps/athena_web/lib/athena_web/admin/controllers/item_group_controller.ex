@@ -8,14 +8,14 @@ defmodule AthenaWeb.Admin.ItemGroupController do
     event = Inventory.get_event!(event)
     item_groups = Inventory.list_item_groups(event)
 
-    render(conn, "index.html", item_groups: item_groups, event: event)
+    render_with_navigation(conn, event, "index.html", item_groups: item_groups, event: event)
   end
 
   def new(conn, %{"event" => event}) do
     event = Inventory.get_event!(event)
     changeset = Inventory.change_item_group(%ItemGroup{})
 
-    render(conn, "new.html", changeset: changeset, event: event)
+    render_with_navigation(conn, event, "new.html", changeset: changeset, event: event)
   end
 
   def create(conn, %{"item_group" => item_group_params, "event" => event}) do
@@ -24,38 +24,54 @@ defmodule AthenaWeb.Admin.ItemGroupController do
     case Inventory.create_item_group(event, item_group_params) do
       {:ok, item_group} ->
         conn
-        |> put_flash(:info, "Item group created successfully.")
+        |> put_flash(:info, gettext("Item group created successfully."))
         |> redirect(to: Routes.admin_item_group_path(conn, :show, item_group))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, event: event)
+        render_with_navigation(conn, event, "new.html", changeset: changeset, event: event)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    item_group = Inventory.get_item_group!(id)
+    item_group =
+      id
+      |> Inventory.get_item_group!()
+      |> Repo.preload(:event)
 
-    render(conn, "show.html", item_group: item_group)
+    render_with_navigation(conn, item_group.event, "show.html", item_group: item_group)
   end
 
   def edit(conn, %{"id" => id}) do
-    item_group = Inventory.get_item_group!(id)
+    item_group =
+      id
+      |> Inventory.get_item_group!()
+      |> Repo.preload(:event)
+
     changeset = Inventory.change_item_group(item_group)
 
-    render(conn, "edit.html", item_group: item_group, changeset: changeset)
+    render_with_navigation(conn, item_group.event, "edit.html",
+      item_group: item_group,
+      changeset: changeset
+    )
   end
 
   def update(conn, %{"id" => id, "item_group" => item_group_params}) do
-    item_group = Inventory.get_item_group!(id)
+    item_group =
+      id
+      |> Inventory.get_item_group!()
+      |> Repo.preload(:event)
 
     case Inventory.update_item_group(item_group, item_group_params) do
       {:ok, item_group} ->
         conn
-        |> put_flash(:info, "Item group updated successfully.")
+        |> put_flash(:info, gettext("Item group updated successfully."))
         |> redirect(to: Routes.admin_item_group_path(conn, :show, item_group))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", item_group: item_group, changeset: changeset)
+        render_with_navigation(conn, item_group.event, "edit.html",
+          item_group: item_group,
+          changeset: changeset
+        )
     end
   end
 
@@ -64,7 +80,7 @@ defmodule AthenaWeb.Admin.ItemGroupController do
     {:ok, _item_group} = Inventory.delete_item_group(item_group)
 
     conn
-    |> put_flash(:info, "Item group deleted successfully.")
+    |> put_flash(:info, gettext("Item group deleted successfully."))
     |> redirect(to: Routes.admin_item_group_path(conn, :index, event_id))
   end
 end

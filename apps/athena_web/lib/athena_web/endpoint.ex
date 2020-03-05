@@ -45,5 +45,17 @@ defmodule AthenaWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+
+  plug Cldr.Plug.AcceptLanguage, cldr_backend: AthenaWeb.Cldr
+
+  plug Cldr.Plug.SetLocale,
+    apps: [:cldr, :gettext],
+    from: [:query, :body, :cookie, :accept_language],
+    param: "locale",
+    session_key: "cldr_locale",
+    default: "de",
+    gettext: AthenaWeb.Gettext,
+    cldr: AthenaWeb.Cldr
+
   plug AthenaWeb.Router
 end

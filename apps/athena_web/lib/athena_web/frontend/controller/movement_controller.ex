@@ -20,7 +20,7 @@ defmodule AthenaWeb.Frontend.MovementController do
 
     changeset = Inventory.change_movement(%Movement{})
 
-    render(conn, template,
+    render_with_navigation(conn, event, template,
       item_groups: item_groups,
       event: event,
       locations: locations,
@@ -40,13 +40,13 @@ defmodule AthenaWeb.Frontend.MovementController do
     case Inventory.create_movement_directly(movement_params) do
       {:ok, _movement} ->
         conn
-        |> put_flash(:info, "Movement created successfully.")
+        |> put_flash(:info, gettext("Movement created successfully."))
         |> redirect(
           to: Routes.frontend_logistics_live_path(conn, AthenaWeb.Frontend.LogisticsLive, event)
         )
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, template,
+        render_with_navigation(conn, event, template,
           item_groups: item_groups,
           event: event,
           locations: locations,

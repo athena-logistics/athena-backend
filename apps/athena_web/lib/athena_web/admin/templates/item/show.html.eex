@@ -1,37 +1,33 @@
-<h1>Show Item</h1>
+<h1><%= @item.name %></h1>
 
-<ul>
+<dl>
+  <dt><%= gettext("unit") %></dt>
+  <dd><%= @item.unit %></dd>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @item.name %>
-  </li>
+  <dt><%= gettext("inverse") %></dt>
+  <dd><%= if @item.inverse, do: "Ja", else: "Nein" %></dd>
+</dl>
 
-  <li>
-    <strong>Einheit:</strong>
-    <%= @item.unit %>
-  </li>
+<h2><%= gettext("movements") %></h2>
 
-  <li>
-    <strong>Inverse:</strong>
-    <%= if @item.inverse, do: "Ja", else: "Nein" %>
-  </li>
-
-</ul>
-
-<h2>Movements</h2>
-<h3>Stats</h3>
 <dl>
   <dt>Supply</dt>
   <dd><%= @supply %></dd>
+
   <dt>Stock</dt>
   <dd><%= @stock %></dd>
+
   <dt>Consumption</dt>
   <dd><%= @consumption %></dd>
+
   <dt>Relocations</dt>
   <dd><%= @relocations %></dd>
 </dl>
 
-<span><%= link "Edit", to: Routes.admin_item_path(@conn, :edit, @item) %></span>
-<span><%= link "Back", to: Routes.admin_item_path(@conn, :index, @item.item_group_id) %></span>
-<span><%= link "Movements", to: Routes.admin_movement_path(@conn, :index, @item.id) %></span>
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li><%= "edit" |> gettext |> link(to: Routes.admin_item_path(@conn, :edit, @item)) %></li>
+  <li><%= "back" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item.item_group_id)) %></li>
+  <li><%= "movements" |> gettext |> link(to: Routes.admin_movement_path(@conn, :index, @item.id)) %></li>
+</ul>

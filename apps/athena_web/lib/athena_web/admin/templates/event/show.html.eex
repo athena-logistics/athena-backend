@@ -1,25 +1,42 @@
 <h1><%= @event.name %></h1>
 
-<h2>Logistics Overview Link</h2>
+<h2>
+	<%= gettext("logistics overview link") %>
+</h2>
 
 <% link = Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.LogisticsLive, @event.id) %>
 
-<%= link "To Public View", to: link %>
+<%= "go to public view" |> gettext |> link(to: link) %>
 
 <div>
-	<h3>QR Code</h3>
+	<h3>
+		<%= gettext("QR code") %>
+	</h3>
 
 	<%
-  qr_code = link
-  |> EQRCode.encode()
-  |> EQRCode.svg()
-%>
+		qr_code = link
+		|> EQRCode.encode()
+		|> EQRCode.svg()
+	%>
 
-	<a href="data:image/svg+xml;base64,<%= Base.encode64(qr_code) %>" download="<%= @event.name %> Logistik.svg">
+	<a href="data:image/svg+xml;base64,<%= Base.encode64(qr_code) %>" download="<%= gettext("%{event} logistics", event: @event.name) %>.svg">
 		<%= raw(qr_code) %>
 	</a>
 </div>
-<span><%= link "Edit", to: Routes.admin_event_path(@conn, :edit, @event) %></span>
-<span><%= link "Back", to: Routes.admin_event_path(@conn, :index) %></span>
-<span><%= link "Locations", to: Routes.admin_location_path(@conn, :index, @event.id) %></span>
-<span><%= link "ItemGroups", to: Routes.admin_item_group_path(@conn, :index, @event.id) %></span>
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+	<li>
+		<%= "edit" |> gettext |> link(to: Routes.admin_event_path(@conn, :edit, @event)) %>
+	</li>
+	<li>
+		<%= "back" |> gettext |> link(to: Routes.admin_event_path(@conn, :index)) %>
+	</li>
+	<li>
+		<%= "locations" |> gettext |> link(to: Routes.admin_location_path(@conn, :index, @event.id)) %>
+	</li>
+	<li>
+		<%= "item groups" |> gettext |> link(to: Routes.admin_item_group_path(@conn, :index, @event.id)) %>
+	</li>
+</ul>

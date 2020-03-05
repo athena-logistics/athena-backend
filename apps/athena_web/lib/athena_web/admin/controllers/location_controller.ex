@@ -8,7 +8,7 @@ defmodule AthenaWeb.Admin.LocationController do
     event = Inventory.get_event!(event)
     locations = Inventory.list_locations(event)
 
-    render(conn, "index.html", event: event, locations: locations)
+    render_with_navigation(conn, event, "index.html", event: event, locations: locations)
   end
 
   def new(conn, %{"event" => event}) do
@@ -16,7 +16,7 @@ defmodule AthenaWeb.Admin.LocationController do
 
     changeset = Inventory.change_location(%Location{})
 
-    render(conn, "new.html", changeset: changeset, event: event)
+    render_with_navigation(conn, event, "new.html", changeset: changeset, event: event)
   end
 
   def create(conn, %{"event" => event, "location" => location_params}) do
@@ -25,11 +25,11 @@ defmodule AthenaWeb.Admin.LocationController do
     case Inventory.create_location(event, location_params) do
       {:ok, location} ->
         conn
-        |> put_flash(:info, "Location created successfully.")
+        |> put_flash(:info, gettext("Location created successfully."))
         |> redirect(to: Routes.admin_location_path(conn, :show, location))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, event: event)
+        render_with_navigation(conn, event, "new.html", changeset: changeset, event: event)
     end
   end
 
@@ -39,7 +39,7 @@ defmodule AthenaWeb.Admin.LocationController do
       |> Inventory.get_location!()
       |> Repo.preload(:event)
 
-    render(conn, "show.html", location: location)
+    render_with_navigation(conn, location.event, "show.html", location: location)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -50,7 +50,10 @@ defmodule AthenaWeb.Admin.LocationController do
 
     changeset = Inventory.change_location(location)
 
-    render(conn, "edit.html", location: location, changeset: changeset)
+    render_with_navigation(conn, location.event, "edit.html",
+      location: location,
+      changeset: changeset
+    )
   end
 
   def update(conn, %{"id" => id, "location" => location_params}) do
@@ -62,11 +65,14 @@ defmodule AthenaWeb.Admin.LocationController do
     case Inventory.update_location(location, location_params) do
       {:ok, location} ->
         conn
-        |> put_flash(:info, "Location updated successfully.")
+        |> put_flash(:info, gettext("Location updated successfully."))
         |> redirect(to: Routes.admin_location_path(conn, :show, location))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", location: location, changeset: changeset)
+        render_with_navigation(conn, location.event, "edit.html",
+          location: location,
+          changeset: changeset
+        )
     end
   end
 
@@ -75,7 +81,7 @@ defmodule AthenaWeb.Admin.LocationController do
     {:ok, _location} = Inventory.delete_location(location)
 
     conn
-    |> put_flash(:info, "Location deleted successfully.")
+    |> put_flash(:info, gettext("Location deleted successfully."))
     |> redirect(to: Routes.admin_location_path(conn, :index, event_id))
   end
 end

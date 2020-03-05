@@ -48,7 +48,8 @@ defmodule AthenaWeb.MixProject do
       {:athena, in_umbrella: true},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:eqrcode, "~> 0.1"}
+      {:eqrcode, "~> 0.1"},
+      {:ex_cldr, "~> 2.13"}
     ]
   end
 

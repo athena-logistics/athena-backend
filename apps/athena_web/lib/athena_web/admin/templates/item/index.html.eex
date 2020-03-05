@@ -1,30 +1,33 @@
-<h1>Listing Items</h1>
+<h1><%= gettext("items") %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Einheit</th>
-      <th>Inverse</th>
-
-      <th></th>
+      <th><%= gettext("name") %></th>
+      <th><%= gettext("unit") %></th>
+      <th><%= gettext("inverse") %></th>
+      <th><%= gettext("actions") %></th>
     </tr>
   </thead>
   <tbody>
-<%= for item <- @items do %>
-    <tr>
-      <td><%= item.name %></td>
-      <td><%= item.unit %></td>
-      <td><%= if item.inverse, do: "Ja", else: "Nein" %></td>
+    <%= for item <- @items do %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= item.unit %></td>
+          <td><%= if item.inverse, do: gettext("yes"), else: gettext("no") %></td>
 
-      <td>
-        <span><%= link "Show", to: Routes.admin_item_path(@conn, :show, item) %></span>
-        <span><%= link "Edit", to: Routes.admin_item_path(@conn, :edit, item) %></span>
-        <span><%= link "Delete", to: Routes.admin_item_path(@conn, :delete, item), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
+          <td>
+            <span><%= "show" |> gettext |> link(to: Routes.admin_item_path(@conn, :show, item)) %></span>
+            <span><%= "edit" |> gettext |> link(to: Routes.admin_item_path(@conn, :edit, item)) %></span>
+            <span><%= "delete" |> gettext |> link(to: Routes.admin_item_path(@conn, :delete, item), method: :delete, data: [confirm: "Are you sure?"]) %></span>
+          </td>
+        </tr>
+    <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Item", to: Routes.admin_item_path(@conn, :new, @item_group.id) %></span>
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li><%= "create item" |> gettext |> link(to: Routes.admin_item_path(@conn, :new, @item_group.id)) %></li>
+</ul>

@@ -13,14 +13,14 @@ defmodule AthenaWeb.Admin.EventControllerTest do
   describe "index" do
     test "lists all events", %{conn: conn} do
       conn = get(conn, Routes.admin_event_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Events"
+      assert html_response(conn, 200) =~ "events"
     end
   end
 
   describe "new event" do
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.admin_event_path(conn, :new))
-      assert html_response(conn, 200) =~ "New Event"
+      assert html_response(conn, 200) =~ "create event"
     end
   end
 
@@ -39,7 +39,7 @@ defmodule AthenaWeb.Admin.EventControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.admin_event_path(conn, :create), event: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New Event"
+      assert html_response(conn, 200) =~ "create event"
     end
   end
 
@@ -48,7 +48,7 @@ defmodule AthenaWeb.Admin.EventControllerTest do
 
     test "renders form for editing chosen event", %{conn: conn, event: event} do
       conn = get(conn, Routes.admin_event_path(conn, :edit, event))
-      assert html_response(conn, 200) =~ "Edit Event"
+      assert html_response(conn, 200) =~ "edit #{event.name}"
     end
   end
 
@@ -65,7 +65,7 @@ defmodule AthenaWeb.Admin.EventControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, event: event} do
       conn = put(conn, Routes.admin_event_path(conn, :update, event), event: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Event"
+      assert html_response(conn, 200) =~ "edit #{event.name}"
     end
   end
 

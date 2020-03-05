@@ -4,7 +4,7 @@
 		<meta charset="utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<title><%= assigns[:page_title] || "Athena · Phoenix Framework" %></title>
+		<title><%= @event.name %></title>
 		<link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/style.css") %>"/>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 		<%= csrf_meta_tag() %>
@@ -13,7 +13,7 @@
 		<input type="checkbox" id="toggle-nav" hidden />
 		<nav>
 			<header>
-				<span><%= @event.name %></span>
+				<span><%= @navigation.event.name %></span>
 				<label for="toggle-nav">
 					<span></span>
 				</label>
@@ -21,16 +21,16 @@
 			<main>
 				<ul>
 					<li>
-						<%= link "Logistik Übersicht", to: Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.LogisticsLive, @event.id) %>
+						<%= "Logistics Overview" |> gettext |> link(to: Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.LogisticsLive, @navigation.event.id)) %>
 					</li>
 					<li>
-						<%= link "Eingang Artikel", to: Routes.frontend_logistics_movement_url(@conn, :supply_new, @event.id) %>
+						<%= "Supply Item" |> gettext |> link(to: Routes.frontend_logistics_movement_url(@conn, :supply_new, @navigation.event.id)) %>
 					</li>
 					<li>
-						<%= link "Verschiebung Artikel", to: Routes.frontend_logistics_movement_url(@conn, :relocate_new, @event.id) %>
+						<%= "Move Item" |> gettext |> link(to: Routes.frontend_logistics_movement_url(@conn, :relocate_new, @navigation.event.id)) %>
 					</li>
 					<li class="divider"></li>
-					<%= for %{id: location_id, name: location_name} <- @locations do %>
+					<%= for %{id: location_id, name: location_name} <- @navigation.locations do %>
 						<li>
 							<%= link location_name, to: Routes.frontend_logistics_location_url(@conn, :show, location_id) %>
 						</li>
