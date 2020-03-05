@@ -1,5 +1,7 @@
-<h1>Edit Movement</h1>
+<h1><%= gettext("edit movement") %></h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.admin_movement_path(@conn, :update, @movement)) %>
 
-<span><%= link "Back", to: Routes.admin_movement_path(@conn, :index, @movement.item_id) %></span>
+<ul>
+  <li><%= "back" |> gettext |> link(to: Routes.admin_movement_path(@conn, :index, @movement.item_id)) %></li>
+</ul>

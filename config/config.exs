@@ -27,6 +27,8 @@ config :athena_web, AthenaWeb.Endpoint,
   pubsub: [name: AthenaWeb.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [signing_salt: "rEImWHdz"]
 
+config :athena_web, AthenaWeb.Gettext, default_locale: "de"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

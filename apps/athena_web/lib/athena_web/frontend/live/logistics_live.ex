@@ -16,7 +16,7 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
      socket
      |> assign(:sort, {"status", "desc"})
      |> update(event_id)
-     |> assign(:locations, Inventory.list_locations(event))}
+     |> assign_navigation(event)}
   end
 
   @impl Phoenix.LiveView

@@ -1,23 +1,30 @@
-<h1>  <%= @location.name %></h1>
+<h1><%= @location.name %></h1>
 
-<h2>Public Link</h2>
+<h2><%= gettext("vendor link") %></h2>
 
 <% link = Routes.frontend_vendor_location_url(@conn, :show, @location.id) %>
 
-<%= link "To Public View", to: link %>
+<%= "go to public view" |> gettext |> link(to: link) %>
 
 <div>
-	<h3>QR Code</h3>
+	<h3>
+		<%= gettext("QR code") %>
+	</h3>
 
 	<%
-  qr_code = link
-  |> EQRCode.encode()
-  |> EQRCode.svg()
-%>
+		qr_code = link
+		|> EQRCode.encode()
+		|> EQRCode.svg()
+	%>
 
 	<a href="data:image/svg+xml;base64,<%= Base.encode64(qr_code) %>" download="<%= @location.name %>.svg">
 		<%= raw(qr_code) %>
 	</a>
 </div>
-<span><%= link "Edit", to: Routes.admin_location_path(@conn, :edit, @location) %></span>
-<span><%= link "Back", to: Routes.admin_location_path(@conn, :index, @location.event.id) %></span>
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+	<li><%= "edit" |> gettext |> link(to: Routes.admin_location_path(@conn, :edit, @location)) %></li>
+	<li><%= "back" |> gettext |> link(to: Routes.admin_location_path(@conn, :index, @location.event.id)) %></li>
+</ul>

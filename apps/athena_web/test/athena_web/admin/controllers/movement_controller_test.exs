@@ -13,7 +13,7 @@ defmodule AthenaWeb.Admin.MovementControllerTest do
 
     test "lists all movements", %{conn: conn, item: item} do
       conn = get(conn, Routes.admin_movement_path(conn, :index, item.id))
-      assert html_response(conn, 200) =~ "Listing Movements"
+      assert html_response(conn, 200) =~ "movements"
     end
   end
 
@@ -22,7 +22,7 @@ defmodule AthenaWeb.Admin.MovementControllerTest do
 
     test "renders form", %{conn: conn, item: item} do
       conn = get(conn, Routes.admin_movement_path(conn, :new, item.id))
-      assert html_response(conn, 200) =~ "New Movement"
+      assert html_response(conn, 200) =~ "create movement"
     end
   end
 
@@ -39,7 +39,8 @@ defmodule AthenaWeb.Admin.MovementControllerTest do
       assert redirected_to(conn) == Routes.admin_movement_path(conn, :show, id)
 
       conn = get(conn, Routes.admin_movement_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Movement"
+      assert html_response(conn, 200) =~ item.name
+      assert html_response(conn, 200) =~ location.name
     end
 
     test "renders errors when data is invalid", %{conn: conn, item: item, location: location} do
@@ -48,7 +49,7 @@ defmodule AthenaWeb.Admin.MovementControllerTest do
           movement: Map.put(@invalid_attrs, :source_location_id, location.id)
         )
 
-      assert html_response(conn, 200) =~ "New Movement"
+      assert html_response(conn, 200) =~ "create movement"
     end
   end
 
@@ -57,7 +58,7 @@ defmodule AthenaWeb.Admin.MovementControllerTest do
 
     test "renders form for editing chosen movement", %{conn: conn, movement: movement} do
       conn = get(conn, Routes.admin_movement_path(conn, :edit, movement))
-      assert html_response(conn, 200) =~ "Edit Movement"
+      assert html_response(conn, 200) =~ "edit movement"
     end
   end
 
@@ -78,7 +79,7 @@ defmodule AthenaWeb.Admin.MovementControllerTest do
       conn =
         put(conn, Routes.admin_movement_path(conn, :update, movement), movement: @invalid_attrs)
 
-      assert html_response(conn, 200) =~ "Edit Movement"
+      assert html_response(conn, 200) =~ "edit movement"
     end
   end
 

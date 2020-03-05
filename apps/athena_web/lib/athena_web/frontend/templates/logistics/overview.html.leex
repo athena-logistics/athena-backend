@@ -1,15 +1,17 @@
-<h1>Logistik Übersicht</h1>
+<h1>
+	<%= gettext("Logistics Overview") %>
+</h1>
 
 <%
     cols = [
-        {"location", "Standort", :string, ""},
-        {"item_group", "Artikel Gruppe", :string, ""},
-        {"item", "Artikel", :string, ""},
-        {"supply", "Anlieferung", :integer, ""},
-        {"consumption", "Konsumation", :integer, ""},
-        {"movement_out", "Verschiebung ausgehend", :integer, " hide show-desktop"},
-        {"movement_in", "Verschiebung eingehend", :integer, " hide show-desktop"},
-        {"stock", "Bestand", :integer, ""},
+        {"location", gettext("location"), :string, ""},
+        {"item_group", gettext("item group"), :string, ""},
+        {"item", gettext("item"), :string, ""},
+        {"supply", gettext("supply"), :integer, ""},
+        {"consumption", gettext("consumption"), :integer, ""},
+        {"movement_out", gettext("movement out"), :integer, " hide show-desktop"},
+        {"movement_in", gettext("movement in"), :integer, " hide show-desktop"},
+        {"stock", gettext("stock"), :integer, ""},
     ]
 %>
 

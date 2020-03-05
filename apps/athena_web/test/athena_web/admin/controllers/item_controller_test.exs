@@ -13,7 +13,7 @@ defmodule AthenaWeb.Admin.ItemControllerTest do
 
     test "lists all items", %{conn: conn, item_group: item_group} do
       conn = get(conn, Routes.admin_item_path(conn, :index, item_group.id))
-      assert html_response(conn, 200) =~ "Listing Items"
+      assert html_response(conn, 200) =~ "items"
     end
   end
 
@@ -22,7 +22,7 @@ defmodule AthenaWeb.Admin.ItemControllerTest do
 
     test "renders form", %{conn: conn, item_group: item_group} do
       conn = get(conn, Routes.admin_item_path(conn, :new, item_group.id))
-      assert html_response(conn, 200) =~ "New Item"
+      assert html_response(conn, 200) =~ "create item"
     end
   end
 
@@ -36,14 +36,14 @@ defmodule AthenaWeb.Admin.ItemControllerTest do
       assert redirected_to(conn) == Routes.admin_item_path(conn, :show, id)
 
       conn = get(conn, Routes.admin_item_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Item"
+      assert html_response(conn, 200) =~ @create_attrs[:name]
     end
 
     test "renders errors when data is invalid", %{conn: conn, item_group: item_group} do
       conn =
         post(conn, Routes.admin_item_path(conn, :create, item_group.id), item: @invalid_attrs)
 
-      assert html_response(conn, 200) =~ "New Item"
+      assert html_response(conn, 200) =~ "create item"
     end
   end
 
@@ -52,7 +52,7 @@ defmodule AthenaWeb.Admin.ItemControllerTest do
 
     test "renders form for editing chosen item", %{conn: conn, item: item} do
       conn = get(conn, Routes.admin_item_path(conn, :edit, item))
-      assert html_response(conn, 200) =~ "Edit Item"
+      assert html_response(conn, 200) =~ "edit #{item.name}"
     end
   end
 
@@ -69,7 +69,7 @@ defmodule AthenaWeb.Admin.ItemControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, item: item} do
       conn = put(conn, Routes.admin_item_path(conn, :update, item), item: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Item"
+      assert html_response(conn, 200) =~ "edit #{item.name}"
     end
   end
 

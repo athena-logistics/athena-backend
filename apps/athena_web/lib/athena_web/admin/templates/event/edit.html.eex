@@ -1,5 +1,11 @@
-<h1>Edit Event</h1>
+<h1>
+  <%= gettext("edit %{event}", event: @event.name) %>
+</h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.admin_event_path(@conn, :update, @event)) %>
 
-<span><%= link "Back", to: Routes.admin_event_path(@conn, :index) %></span>
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li><%= "back" |> gettext |> link(to: Routes.admin_event_path(@conn, :index)) %></li>
+</ul>

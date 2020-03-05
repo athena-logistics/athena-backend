@@ -1,26 +1,28 @@
-<h1>Listing Item groups</h1>
+<h1><%= gettext("item groups") %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-
-      <th></th>
+      <th><%= gettext("name") %></th>
+      <th><%= gettext("actions") %></th>
     </tr>
   </thead>
   <tbody>
-<%= for item_group <- @item_groups do %>
-    <tr>
-      <td><%= item_group.name %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.admin_item_group_path(@conn, :show, item_group) %></span>
-        <span><%= link "Edit", to: Routes.admin_item_group_path(@conn, :edit, item_group) %></span>
-        <span><%= link "Delete", to: Routes.admin_item_group_path(@conn, :delete, item_group), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
+    <%= for item_group <- @item_groups do %>
+      <tr>
+        <td><%= item_group.name %></td>
+        <td>
+          <span><%= link "Show", to: Routes.admin_item_group_path(@conn, :show, item_group) %></span>
+          <span><%= link "Edit", to: Routes.admin_item_group_path(@conn, :edit, item_group) %></span>
+          <span><%= link "Delete", to: Routes.admin_item_group_path(@conn, :delete, item_group), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Item group", to: Routes.admin_item_group_path(@conn, :new, @event.id) %></span>
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li><%= "create item group" |> gettext |> link(to: Routes.admin_item_group_path(@conn, :new, @event.id)) %></li>
+</ul>

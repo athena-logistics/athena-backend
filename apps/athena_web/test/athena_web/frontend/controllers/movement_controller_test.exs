@@ -25,7 +25,7 @@ defmodule AthenaWeb.Frontend.MovementControllerTest do
   describe "supply new movement" do
     test "renders form", %{conn: conn, event: event} do
       conn = get(conn, Routes.frontend_logistics_movement_path(conn, :supply_new, event.id))
-      assert html_response(conn, 200) =~ "Eingang Artikel"
+      assert html_response(conn, 200) =~ "Supply Item"
     end
   end
 
@@ -64,14 +64,14 @@ defmodule AthenaWeb.Frontend.MovementControllerTest do
             |> Map.put(:item_id, item.id)
         )
 
-      assert html_response(conn, 200) =~ "Eingang Artikel"
+      assert html_response(conn, 200) =~ "Supply Item"
     end
   end
 
   describe "relocate new movement" do
     test "renders form", %{conn: conn, event: event} do
       conn = get(conn, Routes.frontend_logistics_movement_path(conn, :relocate_new, event.id))
-      assert html_response(conn, 200) =~ "Verschiebung Artikel"
+      assert html_response(conn, 200) =~ "Move Item"
     end
   end
 
@@ -114,7 +114,7 @@ defmodule AthenaWeb.Frontend.MovementControllerTest do
             |> Map.put(:item_id, item.id)
         )
 
-      assert html_response(conn, 200) =~ "Verschiebung Artikel"
+      assert html_response(conn, 200) =~ "Move Item"
     end
   end
 end
