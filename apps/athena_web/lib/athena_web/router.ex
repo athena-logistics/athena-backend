@@ -13,6 +13,7 @@ defmodule AthenaWeb.Router do
   end
 
   pipeline :admin do
+    plug BasicAuth, use_config: {:athena_web, BasicAuth}
     plug :put_live_layout, {AthenaWeb.Admin.LayoutView, "app.html"}
     plug :put_layout, {AthenaWeb.Admin.LayoutView, "app.html"}
   end
@@ -34,8 +35,7 @@ defmodule AthenaWeb.Router do
   scope "/admin", AthenaWeb.Admin, as: :admin do
     pipe_through [:browser, :admin]
 
-    get "/", EventController, :index
-    resources "/events", EventController, except: [:index]
+    resources "/events", EventController
     resources "/events/:event/locations", LocationController, only: @subresource_actions
     resources "/locations", LocationController, except: @subresource_actions
     resources "/events/:event/item_groups", ItemGroupController, only: @subresource_actions
@@ -63,6 +63,10 @@ defmodule AthenaWeb.Router do
     pipe_through [:browser, :frontend_vendor]
 
     get "/locations/:id", LocationController, :show
+  end
+
+  scope "/", AthenaWeb do
+    get "/", Redirector, to: "/admin/events"
   end
 
   # Other scopes may use custom stacks.

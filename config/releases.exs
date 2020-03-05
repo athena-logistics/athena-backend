@@ -32,3 +32,14 @@ config :libcluster,
       ]
     ]
   ]
+
+config :athena_web, BasicAuth,
+  username:
+    System.get_env("BASIC_AUTH_USERNAME") ||
+      raise("Set BASIC_AUTH_USERNAME env variable",
+        password:
+          System.get_env("BASIC_AUTH_PASSWORD") ||
+            raise("Set BASIC_AUTH_PASSWORD env variable",
+              realm: System.get_env("BASIC_AUTH_REALM", "Admin Area")
+            )
+      )

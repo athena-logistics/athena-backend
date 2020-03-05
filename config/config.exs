@@ -29,6 +29,11 @@ config :athena_web, AthenaWeb.Endpoint,
 
 config :athena_web, AthenaWeb.Gettext, default_locale: "de"
 
+config :athena_web, BasicAuth,
+  username: System.get_env("BASIC_AUTH_USERNAME", "admin"),
+  password: System.get_env("BASIC_AUTH_PASSWORD", "admin"),
+  realm: System.get_env("BASIC_AUTH_REALM", "Admin Area")
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

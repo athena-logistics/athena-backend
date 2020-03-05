@@ -49,7 +49,8 @@ defmodule AthenaWeb.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:eqrcode, "~> 0.1"},
-      {:ex_cldr, "~> 2.13"}
+      {:ex_cldr, "~> 2.13"},
+      {:basic_auth, "~> 2.2"}
     ]
   end
 
