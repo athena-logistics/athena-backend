@@ -1,4 +1,5 @@
 %{
+  "basic_auth": {:hex, :basic_auth, "2.2.4", "d8c748237870dd1df3bc5c0f1ab4f1fad6270c75472d7e62b19302ec59e92a79", [:mix], [{:plug, "~> 0.14 or ~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm", "a595b5f2a07e94cbde7be3dfeba24573e18655c88e74c8eb118364f856642e62"},
   "cldr_utils": {:hex, :cldr_utils, "2.8.0", "a1355a658fdf7118a678002a5333562d464e1bbdc3c89a5e0c3d8088038e57f5", [:mix], [{:decimal, "~> 1.6 or ~> 2.0", [hex: :decimal, repo: "hexpm", optional: false]}], "hexpm", "b37b2ae815bf62a01ba4deb90bd75c70fa0ed07f05b5a1b530d21a99b223844b"},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], [], "hexpm", "4a0850c9be22a43af9920a71ab17c051f5f7d45c209e40269a1938832510e4d9"},
   "cowboy": {:hex, :cowboy, "2.7.0", "91ed100138a764355f43316b1d23d7ff6bdb0de4ea618cb5d8677c93a7a2f115", [:rebar3], [{:cowlib, "~> 2.8.0", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.7.1", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm", "04fd8c6a39edc6aaa9c26123009200fc61f92a3a94f3178c527b70b767c6e605"},

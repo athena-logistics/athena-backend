@@ -17,6 +17,8 @@ defmodule AthenaWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  import Plug.Conn
+
   using do
     quote do
       # Import conveniences for testing with connections
@@ -30,8 +32,12 @@ defmodule AthenaWeb.ConnCase do
     end
   end
 
+  @username Application.get_env(:athena_web, BasicAuth)[:username]
+  @password Application.get_env(:athena_web, BasicAuth)[:password]
+
   setup do
     Gettext.put_locale(AthenaWeb.Gettext, "en")
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    header_content = "Basic " <> Base.encode64("#{@username}:#{@password}")
+    {:ok, conn: put_req_header(Phoenix.ConnTest.build_conn(), "authorization", header_content)}
   end
 end
