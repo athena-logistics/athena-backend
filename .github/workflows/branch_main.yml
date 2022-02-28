@@ -7,6 +7,7 @@ name: "Main Branch"
 
 # Secrets:
 # * CACHE_VERSION - Set to `date +%s`, set new when the cache should be busted
+# * FLY_API_TOKEN - API Token for Deployment
 
 jobs:
   detectToolVersions:
@@ -39,3 +40,12 @@ jobs:
       dockerTag: "${{ github.ref_name }}"
     secrets:
       CACHE_VERSION: "${{ secrets.CACHE_VERSION }}"
+
+  deploy:
+    name: "Deploy"
+
+    needs: ['build']
+
+    uses: maennchen/athena/.github/workflows/part_deploy.yml@main
+    secrets:
+      FLY_API_TOKEN: "${{ secrets.FLY_API_TOKEN }}"

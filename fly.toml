@@ -1,0 +1,51 @@
+# fly.toml file generated for athena on 2022-02-28T21:49:58+01:00
+
+app = "athena"
+
+kill_signal = "SIGTERM"
+kill_timeout = 5
+processes = []
+
+[build]
+  image = "ghcr.io/maennchen/athena:main"
+
+[deploy]
+  release_command = "/app/bin/migrate"
+
+[env]
+  EXTERNAL_HOST = "athena.fly.dev"
+  EXTERNAL_PORT = "443"
+  EXTERNAL_SCHEME = "https"
+  LOG_LEVEL = "info"
+  PORT = "4000"
+  BASIC_AUTH_USERNAME = "admin"
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
+  internal_port = 4000
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
