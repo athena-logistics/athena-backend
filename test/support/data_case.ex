@@ -16,6 +16,8 @@ defmodule Athena.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias Athena.Repo
@@ -28,10 +30,10 @@ defmodule Athena.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Athena.Repo)
+    :ok = Sandbox.checkout(Athena.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Athena.Repo, {:shared, self()})
+      Sandbox.mode(Athena.Repo, {:shared, self()})
     end
 
     :ok
@@ -47,7 +49,7 @@ defmodule Athena.DataCase do
   """
   def errors_on(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->
-      Regex.replace(~r"%{(\w+)}", message, fn _, key ->
+      Regex.replace(~r"%{(\w+)}", message, fn _string, key ->
         opts |> Keyword.get(String.to_existing_atom(key), key) |> to_string()
       end)
     end)

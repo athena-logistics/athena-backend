@@ -50,7 +50,7 @@ defmodule AthenaWeb do
     quote do
       use Phoenix.View,
         root: "lib/athena_web/#{String.downcase(inspect(unquote(context)))}/templates",
-        namespace: Module.concat(AthenaWeb, unquote(context))
+        namespace: Module.safe_concat(AthenaWeb, unquote(context))
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]

@@ -1,7 +1,13 @@
 defmodule Athena.Inventory.Movement do
+  @moduledoc """
+  Movement Model
+  """
+
   use Athena, :model
 
+  alias Athena.Inventory.Event
   alias Athena.Inventory.Item
+  alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Location
 
   @type t :: %__MODULE__{

@@ -1,9 +1,9 @@
 defmodule Athena.InventoryTest do
   use Athena.DataCase
 
-  alias Athena.Inventory
-
   import Athena.Fixture
+
+  alias Athena.Inventory
 
   describe "events" do
     alias Athena.Inventory.Event

@@ -33,8 +33,8 @@ defmodule AthenaWeb.ConnCase do
     end
   end
 
-  @username Application.get_env(:athena, Plug.BasicAuth)[:username]
-  @password Application.get_env(:athena, Plug.BasicAuth)[:password]
+  @username Application.compile_env!(:athena, [Plug.BasicAuth, :username])
+  @password Application.compile_env!(:athena, [Plug.BasicAuth, :password])
 
   setup do
     Gettext.put_locale(AthenaWeb.Gettext, "en")

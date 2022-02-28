@@ -5,12 +5,12 @@ defmodule Athena.Inventory do
 
   import Ecto.Query, warn: false
 
-  alias Athena.Repo
   alias Athena.Inventory.Event
-  alias Athena.Inventory.Movement
+  alias Athena.Inventory.Item
   alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Location
-  alias Athena.Inventory.Item
+  alias Athena.Inventory.Movement
+  alias Athena.Repo
   alias Phoenix.PubSub
 
   @movement_sum from(m in Movement,

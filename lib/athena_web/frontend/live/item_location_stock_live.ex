@@ -1,4 +1,6 @@
 defmodule AthenaWeb.Frontend.ItemLocationStockLive do
+  @moduledoc false
+
   use AthenaWeb, :live
 
   alias Athena.Inventory

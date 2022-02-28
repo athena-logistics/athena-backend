@@ -1,4 +1,8 @@
 defmodule AthenaWeb.Redirector do
+  @moduledoc """
+  Plug to redirect request
+  """
+
   @behaviour Plug
 
   @impl Plug

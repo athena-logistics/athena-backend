@@ -1,4 +1,6 @@
 defmodule AthenaWeb.Frontend.LogisticsLive do
+  @moduledoc false
+
   use AthenaWeb, :live
 
   alias Athena.Inventory
@@ -53,12 +55,6 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
     event = Inventory.get_event!(event_id)
     {sort_field, sort_order} = socket.assigns.sort
 
-    sort_function =
-      case sort_order do
-        "asc" -> &<=/2
-        "desc" -> &>=/2
-      end
-
     socket
     |> assign(:event, event)
     |> assign(
@@ -68,43 +64,31 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
       |> Repo.all()
       |> Enum.map(&calculate_status/1)
       |> Enum.sort_by(
-        fn row ->
-          case sort_field do
-            "location" ->
-              row.location.name
-
-            "item_group" ->
-              row.item_group.name
-
-            "item" ->
-              row.item.name
-
-            "supply" ->
-              row.supply
-
-            "consumption" ->
-              abs(row.consumption)
-
-            "movement_in" ->
-              row.movement_in
-
-            "movement_out" ->
-              row.movement_out
-
-            "stock" ->
-              row.stock
-
-            "status" ->
-              case row.status do
-                :important -> 2
-                :warning -> 1
-                :normal -> 0
-              end
-          end
-        end,
-        sort_function
+        &sort_by(sort_field, &1),
+        case sort_order do
+          "asc" -> &<=/2
+          "desc" -> &>=/2
+        end
       )
     )
+  end
+
+  defp sort_by(field, row)
+  defp sort_by("location", row), do: row.location.name
+  defp sort_by("item_group", row), do: row.item_group.name
+  defp sort_by("item", row), do: row.item.name
+  defp sort_by("supply", row), do: row.supply
+  defp sort_by("consumption", row), do: abs(row.consumption)
+  defp sort_by("movement_in", row), do: row.movement_in
+  defp sort_by("movement_out", row), do: row.movement_out
+  defp sort_by("stock", row), do: row.stock
+
+  defp sort_by("status", row) do
+    case row.status do
+      :important -> 2
+      :warning -> 1
+      :normal -> 0
+    end
   end
 
   defp calculate_status(
@@ -123,21 +107,28 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
     percentage =
       case total_in do
         0 -> :in_empty
-        _ -> 1 / total_in * total_out
+        _other -> 1 / total_in * total_out
       end
 
-    Map.put(
-      row,
-      :status,
-      cond do
-        stock in [0, 1] and not inverse -> :important
-        percentage >= 0.8 and not inverse -> :important
-        percentage >= 0.6 and not inverse -> :warning
-        not inverse -> :normal
-        stock > 5 and inverse -> :important
-        stock > 2 and inverse -> :warning
-        inverse -> :normal
-      end
-    )
+    Map.put(row, :status, status(percentage, inverse, stock))
+  end
+
+  defp status(percentage, inverse, stock)
+
+  defp status(_percentage, true, stock) do
+    cond do
+      stock > 5 -> :important
+      stock > 2 -> :warning
+      true -> :normal
+    end
+  end
+
+  defp status(percentage, false, stock) do
+    cond do
+      stock in [0, 1] -> :important
+      percentage >= 0.8 -> :important
+      percentage >= 0.6 -> :warning
+      true -> :normal
+    end
   end
 end

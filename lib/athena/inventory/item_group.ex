@@ -1,4 +1,8 @@
 defmodule Athena.Inventory.ItemGroup do
+  @moduledoc """
+  Item Group Model
+  """
+
   use Athena, :model
 
   alias Athena.Inventory.Event

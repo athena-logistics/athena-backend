@@ -1,9 +1,13 @@
 defmodule Athena.Inventory.Event do
+  @moduledoc """
+  Event Model
+  """
+
   use Athena, :model
 
-  alias Athena.Inventory.Location
-  alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Item
+  alias Athena.Inventory.ItemGroup
+  alias Athena.Inventory.Location
 
   @type t :: %__MODULE__{
           name: String.t(),
