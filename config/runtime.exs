@@ -8,6 +8,12 @@ case config_env() do
     nil
 end
 
+database_socket_options =
+  case System.get_env("ECTO_IPV6", "false") do
+    truthy when truthy in ["true", "1"] -> [:inet6]
+    _falsy -> []
+  end
+
 database_ssl =
   case System.get_env("DATABASE_SSL", "false") do
     truthy when truthy in ["true", "1"] -> true
@@ -21,16 +27,30 @@ database_prepare =
     other -> raise "Invalid value #{inspect(other)} for env DATABASE_PREPARE"
   end
 
-config :athena, Athena.Repo,
-  ssl: database_ssl,
-  backoff_type: :stop,
-  port: System.get_env("DATABASE_PORT", "5432"),
-  username: System.get_env("DATABASE_USER", "root"),
-  password: System.get_env("DATABASE_PASSWORD", ""),
-  database: System.get_env("DATABASE_NAME", "athena_#{config_env()}"),
-  hostname: System.get_env("DATABASE_HOST", "localhost"),
-  pool_size: String.to_integer(System.get_env("DATABASE_POOL_SIZE", "10")),
-  prepare: database_prepare
+database_connection_params =
+  case System.get_env("DATABASE_URL") do
+    nil ->
+      [
+        port: System.get_env("DATABASE_PORT", "5432"),
+        username: System.get_env("DATABASE_USER", "root"),
+        password: System.get_env("DATABASE_PASSWORD", ""),
+        database: System.get_env("DATABASE_NAME", "athena_#{config_env()}"),
+        hostname: System.get_env("DATABASE_HOST", "localhost")
+      ]
+
+    url ->
+      [url: url]
+  end
+
+config :athena,
+       Athena.Repo,
+       [
+         ssl: database_ssl,
+         socket_options: database_socket_options,
+         backoff_type: :stop,
+         pool_size: String.to_integer(System.get_env("DATABASE_POOL_SIZE", "10")),
+         prepare: database_prepare
+       ] ++ database_connection_params
 
 port =
   String.to_integer(
