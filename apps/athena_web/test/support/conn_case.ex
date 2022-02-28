@@ -22,18 +22,19 @@ defmodule AthenaWeb.ConnCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      use Phoenix.ConnTest
-      alias AthenaWeb.Router.Helpers, as: Routes
-
+      import Plug.Conn
+      import Phoenix.ConnTest
       import Phoenix.LiveViewTest
+
+      alias AthenaWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
       @endpoint AthenaWeb.Endpoint
     end
   end
 
-  @username Application.get_env(:athena_web, BasicAuth)[:username]
-  @password Application.get_env(:athena_web, BasicAuth)[:password]
+  @username Application.get_env(:athena_web, Plug.BasicAuth)[:username]
+  @password Application.get_env(:athena_web, Plug.BasicAuth)[:password]
 
   setup do
     Gettext.put_locale(AthenaWeb.Gettext, "en")

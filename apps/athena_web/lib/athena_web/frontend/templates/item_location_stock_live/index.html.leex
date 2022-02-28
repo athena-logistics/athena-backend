@@ -1,7 +1,7 @@
 <form phx-submit="advance_consumption" class="location__item-stock">
 	<div class="location__item-stock--count p-important" phx-click="toggle_show_correction"<%= if @show_correction do %> hidden<% end %>><%= @stock %></div>
 
-	<input class="p-important" type="number" name="new_total" value="<%= @stock %>" phx-hook="SelectContent"<%= unless @show_correction do %> hidden<% end %> />
+	<input class="p-important" type="number" name="new_total" value="<%= @stock %>" phx-hook="SelectContent"<%= unless @show_correction do %> hidden<% end %> id="<%= "#{@item.id}_new_total" %>" />
 
 	<div class="location__item-stock--unit"><%= @item.unit %></div>
 

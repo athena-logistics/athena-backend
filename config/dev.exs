@@ -25,7 +25,8 @@ config :athena_web, AthenaWeb.Endpoint,
       "node_modules/webpack/bin/webpack.js",
       "--mode",
       "development",
-      "--watch-stdin",
+      "--watch",
+      "--watch-options-stdin",
       cd: Path.expand("../apps/athena_web/assets", __DIR__)
     ]
   ]

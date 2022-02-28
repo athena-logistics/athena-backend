@@ -39,7 +39,7 @@ defmodule Athena.MixProject do
       {:ecto_sql, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.0"},
-      {:phoenix_pubsub, "~> 1.1"}
+      {:phoenix_pubsub, "~> 2.0"}
     ]
   end
 
