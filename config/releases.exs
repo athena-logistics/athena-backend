@@ -4,7 +4,7 @@ config :athena, Athena.Repo,
   url: System.get_env("DATABASE_URL"),
   pool_size: String.to_integer(System.get_env("POOL_SIZE", "2"))
 
-config :athena_web, AthenaWeb.Endpoint,
+config :athena, AthenaWeb.Endpoint,
   server: true,
   url: [
     host: System.get_env("DOMAIN", System.get_env("APP_NAME", "") <> ".gigalixirapp.com"),
@@ -33,7 +33,7 @@ config :libcluster,
     ]
   ]
 
-config :athena_web, BasicAuth,
+config :athena, BasicAuth,
   username:
     System.get_env("BASIC_AUTH_USERNAME") ||
       raise("Set BASIC_AUTH_USERNAME env variable"),

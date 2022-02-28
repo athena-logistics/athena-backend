@@ -8,7 +8,7 @@
 
 To start your Phoenix server:
 
-  * Install Elixir - https://elixir-lang.org/install.html
+  * Install Elixir / Node / Erlang using [`asdf`](https://asdf-vm.com/) as specified in `.tool-versions`
   * Start Local Postgres for example using Docker
 ```bash
 docker run \
@@ -25,7 +25,7 @@ docker run \
   * Setup Environment Variables with `export DATABASE_USER="root" DATABASE_PASSWORD="" DATABASE_HOST="127.0.0.1"`
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
+  * Install Node.js dependencies with `npm install --prefix assets`
   * Create Database with `mix ecto.create`
   * Start Phoenix endpoint with `mix phx.server`
 

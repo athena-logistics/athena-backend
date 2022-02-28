@@ -11,25 +11,22 @@ import Config
 
 # Configure Mix tasks and generators
 config :athena,
-  ecto_repos: [Athena.Repo]
-
-config :athena_web,
   ecto_repos: [Athena.Repo],
   generators: [context_app: :athena, binary_id: true]
 
 config :athena, Athena.Repo, migration_primary_key: [id: :uuid, type: :binary_id]
 
 # Configures the endpoint
-config :athena_web, AthenaWeb.Endpoint,
+config :athena, AthenaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "E4DiijyhDsKLZ20eXlrrS/vLf3kNLWT9zH6lG+VtCnote2CLBjW4ZiwM2fayaz03",
   render_errors: [view: AthenaWeb.ErrorView, accepts: ~w(html json)],
   pubsub_server: Athena.PubSub,
   live_view: [signing_salt: "rEImWHdz"]
 
-config :athena_web, AthenaWeb.Gettext, default_locale: "de"
+config :athena, AthenaWeb.Gettext, default_locale: "de"
 
-config :athena_web, Plug.BasicAuth,
+config :athena, Plug.BasicAuth,
   username: System.get_env("BASIC_AUTH_USERNAME", "admin"),
   password: System.get_env("BASIC_AUTH_PASSWORD", "admin"),
   realm: System.get_env("BASIC_AUTH_REALM", "Admin Area")
