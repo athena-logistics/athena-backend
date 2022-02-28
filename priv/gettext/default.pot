@@ -11,19 +11,19 @@ msgid ""
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/layout/logistics.html.eex:25
+#: lib/athena_web/frontend/templates/layout/root.html.heex:32
 #: lib/athena_web/frontend/templates/logistics/overview.html.leex:2
 msgid "Logistics Overview"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/layout/logistics.html.eex:31
+#: lib/athena_web/frontend/templates/layout/root.html.heex:38
 #: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:2
 msgid "Move Item"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/layout/logistics.html.eex:28
+#: lib/athena_web/frontend/templates/layout/root.html.heex:35
 #: lib/athena_web/frontend/templates/movement/supply_new.html.eex:2
 msgid "Supply Item"
 msgstr ""
