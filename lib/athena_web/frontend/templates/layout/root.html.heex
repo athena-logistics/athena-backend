@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><%= @event.name %></title>
+    <link rel="stylesheet" href={ Routes.static_path(@conn, "/css/app.css") } />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <%= csrf_meta_tag() %>
+    <script async type="text/javascript" src={ Routes.static_path(@conn, "/js/app.js") }></script>
+  </head>
+  <body class={
+    case @access do
+      :logistics -> "has_nav"
+      :vendor -> ""
+    end
+  }>
+    <%= case @access do %>
+      <% :logistics -> %>
+        <input type="checkbox" id="toggle-nav" hidden />
+        <nav>
+          <header>
+            <span><%= @navigation.event.name %></span>
+            <label for="toggle-nav">
+              <span></span>
+            </label>
+          </header>
+          <main>
+            <ul>
+              <li>
+                <%= "Logistics Overview" |> gettext |> link(to: Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.LogisticsLive, @navigation.event.id)) %>
+              </li>
+              <li>
+                <%= "Supply Item" |> gettext |> link(to: Routes.frontend_logistics_movement_url(@conn, :supply_new, @navigation.event.id)) %>
+              </li>
+              <li>
+                <%= "Move Item" |> gettext |> link(to: Routes.frontend_logistics_movement_url(@conn, :relocate_new, @navigation.event.id)) %>
+              </li>
+              <li class="divider"></li>
+              <%= for %{id: location_id, name: location_name} <- @navigation.locations do %>
+                <li>
+                  <%= link location_name, to: Routes.frontend_logistics_location_url(@conn, :show, location_id) %>
+                </li>
+              <% end %>
+            </ul>
+          </main>
+        </nav>
+
+      <% :vendor -> %>
+    <% end %>
+    
+    <%= @inner_content %>
+  </body>
+</html>

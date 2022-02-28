@@ -31,22 +31,16 @@ defmodule AthenaWeb.Router do
 
   pipeline :admin do
     plug :auth
-    plug :put_layout, {AthenaWeb.Admin.LayoutView, "app.html"}
+    plug :put_layout, {AthenaWeb.Admin.LayoutView, :app}
+    plug :put_root_layout, {AthenaWeb.Admin.LayoutView, :root}
   end
 
-  pipeline :frontend_logistics do
-    plug :put_layout, {AthenaWeb.Frontend.LayoutView, "logistics.html"}
+  pipeline :frontend do
+    plug :put_layout, {AthenaWeb.Frontend.LayoutView, :app}
+    plug :put_root_layout, {AthenaWeb.Frontend.LayoutView, :root}
   end
 
-  pipeline :frontend_vendor do
-    plug :put_layout, {AthenaWeb.Frontend.LayoutView, "vendor.html"}
-  end
-
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
-  scope "/admin", AthenaWeb.Admin, as: :admin do
+  scope "/admin", AthenaWeb.Admin, as: :admin, assigns: %{access: :admin} do
     pipe_through [:browser, :admin]
 
     resources "/events", EventController
@@ -66,7 +60,7 @@ defmodule AthenaWeb.Router do
   end
 
   scope "/logistics/", AthenaWeb.Frontend, as: :frontend_logistics, assigns: %{access: :logistics} do
-    pipe_through [:browser, :frontend_logistics]
+    pipe_through [:browser, :frontend]
 
     get "/locations/:id", LocationController, :show
 
@@ -79,7 +73,7 @@ defmodule AthenaWeb.Router do
   end
 
   scope "/vendor/", AthenaWeb.Frontend, as: :frontend_vendor, assigns: %{access: :vendor} do
-    pipe_through [:browser, :frontend_vendor]
+    pipe_through [:browser, :frontend]
 
     get "/locations/:id", LocationController, :show
   end
@@ -87,11 +81,6 @@ defmodule AthenaWeb.Router do
   scope "/", AthenaWeb do
     get "/", Redirector, to: "/admin/events"
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", AthenaWeb do
-  #   pipe_through :api
-  # end
 
   defp auth(conn, _opts),
     do: Plug.BasicAuth.basic_auth(conn, Application.fetch_env!(:athena, Plug.BasicAuth))
