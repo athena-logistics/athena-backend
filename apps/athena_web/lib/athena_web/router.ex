@@ -13,18 +13,15 @@ defmodule AthenaWeb.Router do
   end
 
   pipeline :admin do
-    plug BasicAuth, use_config: {:athena_web, BasicAuth}
-    plug :put_live_layout, {AthenaWeb.Admin.LayoutView, "app.html"}
+    plug :auth
     plug :put_layout, {AthenaWeb.Admin.LayoutView, "app.html"}
   end
 
   pipeline :frontend_logistics do
-    plug :put_live_layout, {AthenaWeb.Frontend.LayoutView, "logistics.html"}
     plug :put_layout, {AthenaWeb.Frontend.LayoutView, "logistics.html"}
   end
 
   pipeline :frontend_vendor do
-    plug :put_live_layout, {AthenaWeb.Frontend.LayoutView, "vendor.html"}
     plug :put_layout, {AthenaWeb.Frontend.LayoutView, "vendor.html"}
   end
 
@@ -73,4 +70,7 @@ defmodule AthenaWeb.Router do
   # scope "/api", AthenaWeb do
   #   pipe_through :api
   # end
+
+  defp auth(conn, _opts),
+    do: Plug.BasicAuth.basic_auth(conn, Application.fetch_env!(:athena_web, Plug.BasicAuth))
 end

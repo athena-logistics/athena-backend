@@ -12,9 +12,10 @@
 				end
 			%>
 		</title>
-		<link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/style.css") %>"/>
+		<link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 		<%= csrf_meta_tag() %>
+		<script async type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 	</head>
 	<body<%= if Map.has_key?(assigns, :navigation) do %> class="has_nav"<% end %>>
 		<input type="checkbox" id="toggle-nav" hidden />
@@ -46,8 +47,7 @@
 		<main role="main" class="container">
 			<p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
 			<p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-			<%= render @view_module, @view_template, assigns %>
+			<%= @inner_content %>
 		</main>
-		<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 	</body>
 </html>

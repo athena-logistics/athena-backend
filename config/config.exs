@@ -24,12 +24,12 @@ config :athena_web, AthenaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "E4DiijyhDsKLZ20eXlrrS/vLf3kNLWT9zH6lG+VtCnote2CLBjW4ZiwM2fayaz03",
   render_errors: [view: AthenaWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: AthenaWeb.PubSub, adapter: Phoenix.PubSub.PG2],
+  pubsub_server: Athena.PubSub,
   live_view: [signing_salt: "rEImWHdz"]
 
 config :athena_web, AthenaWeb.Gettext, default_locale: "de"
 
-config :athena_web, BasicAuth,
+config :athena_web, Plug.BasicAuth,
   username: System.get_env("BASIC_AUTH_USERNAME", "admin"),
   password: System.get_env("BASIC_AUTH_PASSWORD", "admin"),
   realm: System.get_env("BASIC_AUTH_REALM", "Admin Area")
