@@ -1,6 +1,7 @@
 # Athena
 
-![.github/workflows/elixir.yml](https://github.com/maennchen/athena/workflows/.github/workflows/elixir.yml/badge.svg)
+[![Main Branch](https://github.com/maennchen/athena/actions/workflows/branch_main.yml/badge.svg)](https://github.com/maennchen/athena/actions/workflows/branch_main.yml)
+[![Coverage Status](https://coveralls.io/repos/github/maennchen/athena/badge.svg?branch=main)](https://coveralls.io/github/maennchen/athena?branch=main)
 
 :beer::tropical_drink::wine_glass: Event Logistics Management
 

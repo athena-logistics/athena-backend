@@ -2,9 +2,9 @@ defmodule AthenaWeb.Admin.LocationControllerTest do
   use Athena.DataCase
   use AthenaWeb.ConnCase
 
-  alias Athena.Inventory
-
   import Athena.Fixture
+
+  alias Athena.Inventory
 
   @create_attrs %{name: "some name"}
   @update_attrs %{name: "some updated name"}

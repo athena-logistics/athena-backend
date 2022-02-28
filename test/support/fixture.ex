@@ -1,4 +1,9 @@
 defmodule Athena.Fixture do
+  @moduledoc """
+  This module defines test helpers for creating
+  entities via the `Athena.Inventory` context.
+  """
+
   alias Athena.Inventory
   alias Athena.Repo
 

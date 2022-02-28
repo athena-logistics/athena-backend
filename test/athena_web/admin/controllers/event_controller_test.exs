@@ -2,9 +2,9 @@ defmodule AthenaWeb.Admin.EventControllerTest do
   use Athena.DataCase
   use AthenaWeb.ConnCase
 
-  alias Athena.Inventory
-
   import Athena.Fixture
+
+  alias Athena.Inventory
 
   @create_attrs %{name: "some name"}
   @update_attrs %{name: "some updated name"}
@@ -82,7 +82,7 @@ defmodule AthenaWeb.Admin.EventControllerTest do
     end
   end
 
-  defp create_event(_) do
+  defp create_event(_tags) do
     {:ok, event: event()}
   end
 end

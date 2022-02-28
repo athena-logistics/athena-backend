@@ -10,7 +10,27 @@ defmodule Athena.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer:
+        [
+          # ignore_warnings: ".dialyzer_ignore.exs",
+          list_unused_filters: true,
+          plt_add_apps: [:mix]
+        ] ++
+          if System.get_env("DIALYZER_PLT_PRIV", "false") in ["1", "true"] do
+            [plt_file: {:no_warn, "priv/plts/dialyzer.plt"}]
+          else
+            []
+          end,
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.html": :test,
+        "coveralls.json": :test,
+        "coveralls.post": :test,
+        "coveralls.xml": :test
+      ]
     ]
   end
 
@@ -26,17 +46,21 @@ defmodule Athena.MixProject do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_), do: ["lib"]
+  defp elixirc_paths(_env), do: ["lib"]
 
   # Specifies your project dependencies.
   #
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:credo, "~> 1.4", runtime: false, only: [:dev]},
       {:ecto_psql_extras, "~> 0.6"},
       {:ecto_sql, "~> 3.1"},
       {:eqrcode, "~> 0.1"},
       {:ex_cldr, "~> 2.13"},
+      {:excoveralls, "~> 0.4", runtime: false, only: [:test]},
+      {:ex_doc, "~> 0.24", runtime: false, only: [:dev]},
+      {:dialyxir, "~> 1.0", runtime: false, only: [:dev]},
       {:floki, ">= 0.0.0", only: :test},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
