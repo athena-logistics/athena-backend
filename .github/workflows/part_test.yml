@@ -55,7 +55,6 @@ jobs:
 
     env:
       MIX_ENV: test
-      SECRET_KEY_BASE: invalid
       DATABASE_USER: runner
       DATABASE_PASSWORD: runner
       DATABASE_NAME: athena
