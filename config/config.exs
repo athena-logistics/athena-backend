@@ -19,17 +19,11 @@ config :athena, Athena.Repo, migration_primary_key: [id: :uuid, type: :binary_id
 # Configures the endpoint
 config :athena, AthenaWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "E4DiijyhDsKLZ20eXlrrS/vLf3kNLWT9zH6lG+VtCnote2CLBjW4ZiwM2fayaz03",
   render_errors: [view: AthenaWeb.ErrorView, accepts: ~w(html json)],
   pubsub_server: Athena.PubSub,
   live_view: [signing_salt: "rEImWHdz"]
 
 config :athena, AthenaWeb.Gettext, default_locale: "de"
-
-config :athena, Plug.BasicAuth,
-  username: System.get_env("BASIC_AUTH_USERNAME", "admin"),
-  password: System.get_env("BASIC_AUTH_PASSWORD", "admin"),
-  realm: System.get_env("BASIC_AUTH_REALM", "Admin Area")
 
 # Configures Elixir's Logger
 config :logger, :console,

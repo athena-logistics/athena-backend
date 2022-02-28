@@ -33,12 +33,13 @@ defmodule AthenaWeb.ConnCase do
     end
   end
 
-  @username Application.compile_env!(:athena, [Plug.BasicAuth, :username])
-  @password Application.compile_env!(:athena, [Plug.BasicAuth, :password])
-
   setup do
     Gettext.put_locale(AthenaWeb.Gettext, "en")
-    header_content = "Basic " <> Base.encode64("#{@username}:#{@password}")
+
+    config = Application.fetch_env!(:athena, Plug.BasicAuth)
+
+    header_content = "Basic " <> Base.encode64("#{config[:username]}:#{config[:password]}")
+
     {:ok, conn: put_req_header(Phoenix.ConnTest.build_conn(), "authorization", header_content)}
   end
 end
