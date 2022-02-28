@@ -1,5 +1,5 @@
 defmodule AthenaWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :athena_web
+  use Phoenix.Endpoint, otp_app: :athena
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -22,7 +22,7 @@ defmodule AthenaWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :athena_web,
+    from: :athena,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -32,7 +32,12 @@ defmodule AthenaWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :athena
   end
+
+  plug Phoenix.LiveDashboard.RequestLogger,
+    param_key: "request_logger",
+    cookie_key: "request_logger"
 
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
@@ -45,17 +50,6 @@ defmodule AthenaWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-
-  plug Cldr.Plug.AcceptLanguage, cldr_backend: AthenaWeb.Cldr
-
-  plug Cldr.Plug.SetLocale,
-    apps: [:cldr, :gettext],
-    from: [:query, :body, :cookie, :accept_language],
-    param: "locale",
-    session_key: "cldr_locale",
-    default: "de",
-    gettext: AthenaWeb.Gettext,
-    cldr: AthenaWeb.Cldr
 
   plug AthenaWeb.Router
 end

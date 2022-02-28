@@ -1,13 +1,30 @@
 defmodule AthenaWeb.Router do
   use AthenaWeb, :router
 
+  import Phoenix.LiveDashboard.Router
+
   @subresource_actions [:index, :new, :create]
 
   pipeline :browser do
     plug :accepts, ["html"]
+
     plug :fetch_session
+
+    plug Cldr.Plug.AcceptLanguage, cldr_backend: AthenaWeb.Cldr
+
+    plug Cldr.Plug.SetLocale,
+      apps: [:cldr, :gettext],
+      from: [:query, :body, :cookie, :accept_language],
+      param: "locale",
+      default: "de",
+      gettext: AthenaWeb.Gettext,
+      cldr: AthenaWeb.Cldr
+
+    plug Cldr.Plug.PutSession
+
     plug :fetch_flash
     plug :fetch_live_flash
+
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -41,6 +58,11 @@ defmodule AthenaWeb.Router do
     resources "/items", ItemController, except: @subresource_actions
     resources "/items/:item/movements", MovementController, only: @subresource_actions
     resources "/movements", MovementController, except: @subresource_actions
+
+    live_dashboard "/dashboard",
+      metrics: {Athena.Telemetry, :dashboard_metrics},
+      ecto_repos: [Athena.Repo],
+      allow_destructive_actions: true
   end
 
   scope "/logistics/", AthenaWeb.Frontend, as: :frontend_logistics, assigns: %{access: :logistics} do
@@ -72,5 +94,5 @@ defmodule AthenaWeb.Router do
   # end
 
   defp auth(conn, _opts),
-    do: Plug.BasicAuth.basic_auth(conn, Application.fetch_env!(:athena_web, Plug.BasicAuth))
+    do: Plug.BasicAuth.basic_auth(conn, Application.fetch_env!(:athena, Plug.BasicAuth))
 end
