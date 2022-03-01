@@ -121,6 +121,33 @@ defmodule AthenaWeb do
     end
   end
 
+  @doc false
+  @spec subschema :: Macro.t()
+  def subschema do
+    quote do
+      use Absinthe.Schema.Notation
+      use Absinthe.Relay.Schema.Notation, :modern
+
+      import Absinthe.Resolution.Helpers, only: [dataloader: 1]
+      # import AbsintheErrorPayload.Payload
+
+      alias __MODULE__.Resolver
+
+      alias AthenaWeb.Schema.Dataloader, as: RepoDataLoader
+    end
+  end
+
+  @doc false
+  @spec resolver :: Macro.t()
+  def resolver do
+    quote do
+      import Absinthe.Resolution.Helpers
+      import Ecto.Query
+
+      alias Athena.Repo
+    end
+  end
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """

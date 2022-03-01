@@ -1,5 +1,5 @@
 [
-  import_deps: [:ecto, :phoenix],
+  import_deps: [:ecto, :phoenix, :absinthe],
   inputs: [
     "{mix,.formatter}.exs",
     "*.{ex,exs}",

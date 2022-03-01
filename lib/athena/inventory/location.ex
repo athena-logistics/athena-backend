@@ -17,8 +17,8 @@ defmodule Athena.Inventory.Location do
           items: association([Item.t()]),
           movements_in: association([Movement.t()]),
           movements_out: association([Movement.t()]),
-          inserted_at: NaiveDateTime.t(),
-          updated_at: NaiveDateTime.t()
+          inserted_at: DateTime.t(),
+          updated_at: DateTime.t()
         }
 
   schema "locations" do

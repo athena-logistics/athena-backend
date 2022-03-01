@@ -14,7 +14,10 @@ config :athena,
   ecto_repos: [Athena.Repo],
   generators: [context_app: :athena, binary_id: true]
 
-config :athena, Athena.Repo, migration_primary_key: [id: :uuid, type: :binary_id]
+config :athena, Athena.Repo,
+  migration_primary_key: [id: :uuid, type: :binary_id],
+  migration_foreign_key: [column: :id, type: :binary_id],
+  migration_timestamps: [type: :utc_datetime_usec]
 
 # Configures the endpoint
 config :athena, AthenaWeb.Endpoint,

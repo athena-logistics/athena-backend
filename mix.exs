@@ -53,7 +53,12 @@ defmodule Athena.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:absinthe, "~> 1.7", override: true},
+      {:absinthe_graphql_ws, "~> 0.3.3"},
+      {:absinthe_plug, "~> 1.5"},
+      {:absinthe_relay, "~> 1.5"},
       {:credo, "~> 1.4", runtime: false, only: [:dev]},
+      {:dataloader, "~> 1.0"},
       {:ecto_psql_extras, "~> 0.6"},
       {:ecto_sql, "~> 3.1"},
       {:eqrcode, "~> 0.1"},

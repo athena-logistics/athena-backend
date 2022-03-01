@@ -17,8 +17,8 @@ defmodule Athena.Inventory.Movement do
           item_group: association(ItemGroup.t()),
           source_location: association(Location.t() | nil),
           destination_location: association(Location.t() | nil),
-          inserted_at: NaiveDateTime.t(),
-          updated_at: NaiveDateTime.t()
+          inserted_at: DateTime.t(),
+          updated_at: DateTime.t()
         }
 
   schema "movements" do

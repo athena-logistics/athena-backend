@@ -15,8 +15,8 @@ defmodule Athena.Inventory.Item do
           inverse: boolean,
           item_group: association(ItemGroup.t()),
           event: association(Event.t()),
-          inserted_at: NaiveDateTime.t(),
-          updated_at: NaiveDateTime.t()
+          inserted_at: DateTime.t(),
+          updated_at: DateTime.t()
         }
 
   schema "items" do
