@@ -41,6 +41,18 @@ jobs:
     secrets:
       CACHE_VERSION: "${{ secrets.CACHE_VERSION }}"
 
+  docs:
+    name: "Docs"
+
+    needs: ['detectToolVersions']
+
+    uses: maennchen/athena/.github/workflows/part_docs.yml@main
+    with:
+      elixirVersion: "${{ needs.detectToolVersions.outputs.elixirVersion }}"
+      otpVersion: "${{ needs.detectToolVersions.outputs.otpVersion }}"
+    secrets:
+      CACHE_VERSION: "${{ secrets.CACHE_VERSION }}"
+
   deploy:
     name: "Deploy"
 
