@@ -7,13 +7,18 @@ defmodule Athena do
   if it comes from the database, an external API or others.
   """
 
+  @doc false
   def model do
     quote do
       use Ecto.Schema
+
       import Ecto.Changeset
+
+      alias Ecto.Changeset
 
       @primary_key {:id, :binary_id, autogenerate: true}
       @foreign_key_type :binary_id
+      @timestamps_opts type: :utc_datetime_usec
 
       @type association(type) :: Ecto.Association.NotLoaded.t() | type
     end

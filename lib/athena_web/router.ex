@@ -5,6 +5,10 @@ defmodule AthenaWeb.Router do
 
   @subresource_actions [:index, :new, :create]
 
+  pipeline :api do
+    plug :accepts, ["json"]
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
 
@@ -80,6 +84,18 @@ defmodule AthenaWeb.Router do
 
   scope "/", AthenaWeb do
     get "/", Redirector, to: "/admin/events"
+  end
+
+  scope "/api" do
+    pipe_through [:api]
+
+    forward(
+      "/",
+      Absinthe.Plug.GraphiQL,
+      schema: AthenaWeb.Schema,
+      socket: AthenaWeb.UserSocket,
+      interface: :playground
+    )
   end
 
   defp auth(conn, _opts),

@@ -14,8 +14,8 @@ defmodule Athena.Inventory.Event do
           locations: association([Location.t()]),
           item_groups: association([ItemGroup.t()]),
           items: association([Item.t()]),
-          inserted_at: NaiveDateTime.t(),
-          updated_at: NaiveDateTime.t()
+          inserted_at: DateTime.t(),
+          updated_at: DateTime.t()
         }
 
   schema "events" do
