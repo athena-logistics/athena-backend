@@ -22,6 +22,10 @@ form {
       -webkit-appearance: none;
       margin: 0;
     }
+
+    &.right {
+      text-align: right;
+    }
   }
 
   input[type='checkbox'] {

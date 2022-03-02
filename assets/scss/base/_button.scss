@@ -1,8 +1,8 @@
 button {
   border: 1px solid $color-primary;
-  border-radius: 50px;
-  padding: 1rem;
-  font-size: 1.4rem;
+  border-radius: 2.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
   font-family: inherit;
   cursor: pointer;
   background-color: transparent;
@@ -10,6 +10,9 @@ button {
   align-items: center;
   justify-content: center;
   -webkit-tap-highlight-color: transparent;
+  text-transform: uppercase;
+
+  transition: all 0.1s linear;
 
   &:not([hidden]) {
     display: flex;
@@ -30,11 +33,29 @@ button {
     outline: none;
   }
 
-  &.button--small {
+  &.button-icon--small {
     padding: 0.5rem;
-    svg {
+    svg,
+    i {
       width: 1.5rem;
       height: 1.5rem;
+      font-size: 1.5rem;
     }
+  }
+
+  &.button-icon {
+    padding: 1rem;
+    svg,
+    i {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 2.5rem;
+    }
+  }
+
+  &.inverted {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-secondary;
   }
 }

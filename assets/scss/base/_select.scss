@@ -1,0 +1,15 @@
+select {
+  font-family: 'Open sans', sans-serif;
+  font-weight: 300;
+  font-size: 1.8rem;
+  padding: 0.6rem;
+  background-color: $color-secondary;
+  color: $color-primary;
+  outline: none;
+  border: 1px solid;
+  border-radius: 2px;
+
+  option {
+    color: red;
+  }
+}
