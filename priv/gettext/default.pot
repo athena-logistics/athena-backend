@@ -11,19 +11,18 @@ msgid ""
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/layout/root.html.heex:32
+#: lib/athena_web/frontend/templates/layout/root.html.heex:33
 #: lib/athena_web/frontend/templates/logistics/overview.html.leex:2
 msgid "Logistics Overview"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/layout/root.html.heex:38
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:2
+#: lib/athena_web/frontend/templates/layout/root.html.heex:39
 msgid "Move Item"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/layout/root.html.heex:35
+#: lib/athena_web/frontend/templates/layout/root.html.heex:36
 #: lib/athena_web/frontend/templates/movement/supply_new.html.eex:2
 msgid "Supply Item"
 msgstr ""
@@ -43,8 +42,6 @@ msgstr ""
 #: lib/athena_web/admin/templates/movement/form.html.eex:18
 #: lib/athena_web/admin/templates/movement/index.html.eex:6
 #: lib/athena_web/admin/templates/movement/show.html.eex:56
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:26
-#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:22
 msgid "amount"
 msgstr ""
 
@@ -59,17 +56,12 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/athena_web/admin/templates/movement/form.html.eex:14
 #: lib/athena_web/admin/templates/movement/index.html.eex:8
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:22
-#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:18
 msgid "destination location"
 msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/athena_web/admin/templates/movement/show.html.eex:35
 #: lib/athena_web/frontend/templates/logistics/overview.html.leex:9
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:14
-#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:14
-#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:15
 msgid "item"
 msgstr ""
 
@@ -81,9 +73,6 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/athena_web/frontend/templates/logistics/overview.html.leex:7
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:19
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:23
-#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:19
 msgid "location"
 msgstr ""
 
@@ -103,8 +92,8 @@ msgstr ""
 #: lib/athena_web/admin/templates/item_group/form.html.eex:15
 #: lib/athena_web/admin/templates/location/form.html.eex:15
 #: lib/athena_web/admin/templates/movement/form.html.eex:23
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:31
-#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:27
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:44
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:41
 msgid "save"
 msgstr ""
 
@@ -130,7 +119,6 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/athena_web/admin/templates/movement/form.html.eex:10
 #: lib/athena_web/admin/templates/movement/index.html.eex:7
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:18
 msgid "source location"
 msgstr ""
 
@@ -461,4 +449,26 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/athena_web/admin/templates/movement/edit.html.eex:1
 msgid "edit movement"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:31
+msgid "From"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:2
+msgid "Move Things"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:23
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:23
+msgid "Thing"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.eex:37
+#: lib/athena_web/frontend/templates/movement/supply_new.html.eex:35
+msgid "To"
 msgstr ""
