@@ -1,4 +1,4 @@
-defmodule AthenaWeb.Schema.Query.Node.EventTest do
+defmodule AthenaWeb.Schema.Query.Node.ItemGroupTest do
   @moduledoc false
 
   use Athena.DataCase
@@ -10,23 +10,10 @@ defmodule AthenaWeb.Schema.Query.Node.EventTest do
   query Node($id: ID!) {
     node(id: $id) {
       id
-      ... on Event {
+      ... on ItemGroup {
         name
-        insertedAt
-        updatedAt
-        locations(first: 10) {
-          edges {
-            node {
-              id
-            }
-          }
-        }
-        itemGroups(first: 10) {
-          edges {
-            node {
-              id
-            }
-          }
+        event {
+          id
         }
         items(first: 10) {
           edges {
@@ -62,39 +49,36 @@ defmodule AthenaWeb.Schema.Query.Node.EventTest do
             }
           }
         }
+        insertedAt
+        updatedAt
       }
     }
   }
   """
 
-  test "gets event by id" do
-    event = event(name: "Awesome Gathering")
-    location = location(event, name: "Gallusplatz")
+  test "gets item group by id" do
+    event = event()
     item_group = item_group(event, name: "Bier")
     item = item(item_group, name: "Lager")
+    location = location(event, name: "Gallusplatz")
     movement = movement(item, amount: 1, destination_location_id: location.id)
 
-    event_node_id = global_id!(:event, event.id)
-    location_node_id = global_id!(:location, location.id)
+    event_node_id = global_id!(:event, item_group.event_id)
     item_group_node_id = global_id!(:item_group, item_group.id)
     item_node_id = global_id!(:item, item.id)
+    location_node_id = global_id!(:location, location.id)
     movement_node_id = global_id!(:supply, movement.id)
 
-    assert result = run!(@query, variables: %{"id" => event_node_id})
+    assert result = run!(@query, variables: %{"id" => item_group_node_id})
 
     assert %{
              data: %{
                "node" => %{
-                 "id" => ^event_node_id,
-                 "name" => "Awesome Gathering",
+                 "id" => ^item_group_node_id,
+                 "name" => "Bier",
                  "insertedAt" => _inserted_at,
                  "updatedAt" => _updated_at,
-                 "locations" => %{
-                   "edges" => [%{"node" => %{"id" => ^location_node_id}}]
-                 },
-                 "itemGroups" => %{
-                   "edges" => [%{"node" => %{"id" => ^item_group_node_id}}]
-                 },
+                 "event" => %{"id" => ^event_node_id},
                  "items" => %{
                    "edges" => [%{"node" => %{"id" => ^item_node_id}}]
                  },

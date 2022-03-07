@@ -47,6 +47,7 @@ defmodule Athena.Fixture do
   def movement(item \\ item(), attrs \\ %{}) do
     attrs =
       attrs
+      |> Map.new()
       |> Map.put_new_lazy(:destination_location_id, fn ->
         item
         |> Repo.preload(:event)

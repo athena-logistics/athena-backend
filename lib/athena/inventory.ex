@@ -693,7 +693,7 @@ defmodule Athena.Inventory do
   def change_movement(%Movement{} = movement, attrs \\ %{}),
     do: Movement.changeset(movement, attrs)
 
-  def logistics_table_query(%Event{id: event_id}) do
+  def stock_query do
     supply_query =
       from(m in Movement,
         select: %{
@@ -744,8 +744,11 @@ defmodule Athena.Inventory do
 
     from(e in Event,
       join: l in assoc(e, :locations),
+      as: :location,
       join: ig in assoc(e, :item_groups),
+      as: :item_group,
       join: i in assoc(ig, :items),
+      as: :item,
       left_join: m_supply in subquery(supply_query),
       on: m_supply.item_id == i.id and m_supply.location_id == l.id,
       left_join: m_consumption in subquery(consumption_query),
@@ -760,7 +763,6 @@ defmodule Athena.Inventory do
       group_by: l.id,
       group_by: ig.id,
       group_by: i.id,
-      where: e.id == ^event_id,
       select: %{
         location: l,
         item_group: ig,
@@ -780,4 +782,7 @@ defmodule Athena.Inventory do
       order_by: i.name
     )
   end
+
+  def logistics_table_query(%Event{id: event_id}),
+    do: from(event in stock_query(), where: event.id == ^event_id)
 end

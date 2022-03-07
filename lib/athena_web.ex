@@ -129,6 +129,7 @@ defmodule AthenaWeb do
       use Absinthe.Relay.Schema.Notation, :modern
 
       import Absinthe.Resolution.Helpers, only: [dataloader: 1]
+      import AthenaWeb.Schema.Helpers, only: [many_dataloader: 0]
       # import AbsintheErrorPayload.Payload
 
       alias __MODULE__.Resolver
@@ -142,6 +143,7 @@ defmodule AthenaWeb do
   def resolver do
     quote do
       import Absinthe.Resolution.Helpers
+      import AthenaWeb.Schema.Helpers
       import Ecto.Query
 
       alias Athena.Repo
