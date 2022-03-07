@@ -22,7 +22,9 @@ defmodule AthenaWeb.Schema.Movement do
     field :event, non_null(:event), resolve: dataloader(RepoDataLoader)
     field :item_group, non_null(:item_group), resolve: dataloader(RepoDataLoader)
     field :item, non_null(:item), resolve: dataloader(RepoDataLoader)
-    field :destination_location, non_null(:location), resolve: dataloader(RepoDataLoader)
+
+    field :location, non_null(:location),
+      resolve: dataloader(RepoDataLoader, :destination_location)
 
     field :inserted_at, non_null(:datetime)
     field :updated_at, non_null(:datetime)
@@ -45,7 +47,7 @@ defmodule AthenaWeb.Schema.Movement do
     field :event, non_null(:event), resolve: dataloader(RepoDataLoader)
     field :item_group, non_null(:item_group), resolve: dataloader(RepoDataLoader)
     field :item, non_null(:item), resolve: dataloader(RepoDataLoader)
-    field :source_location, non_null(:location), resolve: dataloader(RepoDataLoader)
+    field :location, non_null(:location), resolve: dataloader(RepoDataLoader, :source_location)
 
     field :inserted_at, non_null(:datetime)
     field :updated_at, non_null(:datetime)
@@ -64,7 +66,7 @@ defmodule AthenaWeb.Schema.Movement do
 
   connection(node_type: :consumption, non_null: true)
 
-  node object(:transfer) do
+  node object(:relocation) do
     field :event, non_null(:event), resolve: dataloader(RepoDataLoader)
     field :item_group, non_null(:item_group), resolve: dataloader(RepoDataLoader)
     field :item, non_null(:item), resolve: dataloader(RepoDataLoader)
@@ -89,5 +91,65 @@ defmodule AthenaWeb.Schema.Movement do
     interface :movement
   end
 
-  connection(node_type: :transfer, non_null: true)
+  connection(node_type: :relocation, non_null: true)
+
+  object :movement_mutations do
+    payload field :supply do
+      input do
+        field :amount, non_null(:integer), default_value: 1
+        field :item_id, non_null(:id)
+        field :location_id, non_null(:id)
+      end
+
+      output do
+        payload_fields(:supply)
+      end
+
+      middleware Absinthe.Relay.Node.ParseIDs, item_id: :item, location_id: :location
+
+      resolve &Resolver.supply/3
+
+      middleware(&build_payload/2)
+    end
+
+    payload field :consume do
+      input do
+        field :amount, non_null(:integer), default_value: 1
+        field :item_id, non_null(:id)
+        field :location_id, non_null(:id)
+      end
+
+      output do
+        payload_fields(:consumption)
+      end
+
+      middleware Absinthe.Relay.Node.ParseIDs, item_id: :item, location_id: :location
+
+      resolve &Resolver.consume/3
+
+      middleware(&build_payload/2)
+    end
+
+    payload field :relocate do
+      input do
+        field :amount, non_null(:integer), default_value: 1
+        field :item_id, non_null(:id)
+        field :source_location_id, non_null(:id)
+        field :destination_location_id, non_null(:id)
+      end
+
+      output do
+        payload_fields(:relocation)
+      end
+
+      middleware Absinthe.Relay.Node.ParseIDs,
+        item_id: :item,
+        source_location_id: :location,
+        destination_location_id: :location
+
+      resolve &Resolver.relocate/3
+
+      middleware(&build_payload/2)
+    end
+  end
 end

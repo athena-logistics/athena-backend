@@ -34,7 +34,7 @@ defmodule AthenaWeb.Schema do
     do: Enum.map(middleware, &Safe.add_error_handling/1)
 
   import_types Absinthe.Plug.Types
-  # import_types AbsintheErrorPayload.ValidationMessageTypes
+  import_types AbsintheErrorPayload.ValidationMessageTypes
   import_types AthenaWeb.Schema.Event
   import_types AthenaWeb.Schema.Item
   import_types AthenaWeb.Schema.ItemGroup
@@ -67,6 +67,7 @@ defmodule AthenaWeb.Schema do
     import_fields :location_queries
   end
 
-  # mutation do
-  # end
+  mutation do
+    import_fields :movement_mutations
+  end
 end

@@ -128,9 +128,9 @@ defmodule AthenaWeb do
       use Absinthe.Schema.Notation
       use Absinthe.Relay.Schema.Notation, :modern
 
-      import Absinthe.Resolution.Helpers, only: [dataloader: 1]
-      import AthenaWeb.Schema.Helpers, only: [many_dataloader: 0]
-      # import AbsintheErrorPayload.Payload
+      import Absinthe.Resolution.Helpers, only: [dataloader: 1, dataloader: 2]
+      import AthenaWeb.Schema.Helpers, only: [many_dataloader: 0, payload_fields: 1]
+      import AbsintheErrorPayload.Payload
 
       alias __MODULE__.Resolver
 

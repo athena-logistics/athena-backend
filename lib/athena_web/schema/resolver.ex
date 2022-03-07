@@ -13,6 +13,6 @@ defmodule AthenaWeb.Schema.Resolver do
   def node(%{type: :item, id: id}, _resolution), do: {:ok, Inventory.get_item!(id)}
 
   def node(%{type: movement_type, id: id}, _resolution)
-      when movement_type in [:supply, :consumption, :transfer],
+      when movement_type in [:supply, :consumption, :relocation],
       do: {:ok, Inventory.get_movement!(id)}
 end
