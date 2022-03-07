@@ -37,6 +37,7 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
               movementOut
               stock
               supply
+              status
               item {
                 id
               }
@@ -102,7 +103,8 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
                          "supply" => 1,
                          "item" => %{"id" => ^item_node_id},
                          "itemGroup" => %{"id" => ^item_group_node_id},
-                         "location" => %{"id" => ^location_node_id}
+                         "location" => %{"id" => ^location_node_id},
+                         "status" => "IMPORTANT"
                        }
                      }
                    ]
