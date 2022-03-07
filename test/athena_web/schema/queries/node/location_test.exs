@@ -1,4 +1,4 @@
-defmodule AthenaWeb.Schema.Query.Node.EventTest do
+defmodule AthenaWeb.Schema.Query.Node.LocationTest do
   @moduledoc false
 
   use Athena.DataCase
@@ -10,32 +10,19 @@ defmodule AthenaWeb.Schema.Query.Node.EventTest do
   query Node($id: ID!) {
     node(id: $id) {
       id
-      ... on Event {
+      ... on Location {
         name
-        insertedAt
-        updatedAt
-        locations(first: 10) {
+        event {
+          id
+        }
+        movementsIn(first: 10) {
           edges {
             node {
               id
             }
           }
         }
-        itemGroups(first: 10) {
-          edges {
-            node {
-              id
-            }
-          }
-        }
-        items(first: 10) {
-          edges {
-            node {
-              id
-            }
-          }
-        }
-        movements(first: 10) {
+        movementsOut(first: 10) {
           edges {
             node {
               id
@@ -62,53 +49,56 @@ defmodule AthenaWeb.Schema.Query.Node.EventTest do
             }
           }
         }
+        insertedAt
+        updatedAt
       }
     }
   }
   """
 
-  test "gets event by id" do
-    event = event(name: "Awesome Gathering")
+  test "gets location by id" do
+    event = event()
     location = location(event, name: "Gallusplatz")
     item_group = item_group(event, name: "Bier")
     item = item(item_group, name: "Lager")
-    movement = movement(item, amount: 1, destination_location_id: location.id)
+
+    supply =
+      movement(item, amount: 1, source_location_id: nil, destination_location_id: location.id)
+
+    consumption =
+      movement(item, amount: 1, source_location_id: location.id, destination_location_id: nil)
 
     event_node_id = global_id!(:event, event.id)
     location_node_id = global_id!(:location, location.id)
+    supply_node_id = global_id!(:supply, supply.id)
     item_group_node_id = global_id!(:item_group, item_group.id)
     item_node_id = global_id!(:item, item.id)
-    movement_node_id = global_id!(:supply, movement.id)
+    consumption_node_id = global_id!(:consumption, consumption.id)
 
-    assert result = run!(@query, variables: %{"id" => event_node_id})
+    assert result = run!(@query, variables: %{"id" => location_node_id})
 
     assert %{
              data: %{
                "node" => %{
-                 "id" => ^event_node_id,
-                 "name" => "Awesome Gathering",
+                 "id" => ^location_node_id,
+                 "name" => "Gallusplatz",
                  "insertedAt" => _inserted_at,
                  "updatedAt" => _updated_at,
-                 "locations" => %{
-                   "edges" => [%{"node" => %{"id" => ^location_node_id}}]
+                 "event" => %{"id" => ^event_node_id},
+                 "movementsIn" => %{
+                   "edges" => [%{"node" => %{"id" => ^supply_node_id}}]
                  },
-                 "itemGroups" => %{
-                   "edges" => [%{"node" => %{"id" => ^item_group_node_id}}]
-                 },
-                 "items" => %{
-                   "edges" => [%{"node" => %{"id" => ^item_node_id}}]
-                 },
-                 "movements" => %{
-                   "edges" => [%{"node" => %{"id" => ^movement_node_id}}]
+                 "movementsOut" => %{
+                   "edges" => [%{"node" => %{"id" => ^consumption_node_id}}]
                  },
                  "stock" => %{
                    "edges" => [
                      %{
                        "node" => %{
-                         "consumption" => 0,
+                         "consumption" => 1,
                          "movementIn" => 0,
                          "movementOut" => 0,
-                         "stock" => 1,
+                         "stock" => 0,
                          "supply" => 1,
                          "item" => %{"id" => ^item_node_id},
                          "itemGroup" => %{"id" => ^item_group_node_id},
