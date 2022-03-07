@@ -25,16 +25,16 @@ defmodule AthenaWeb.Schema.Query.Node.MovementTest do
         updatedAt
 
         ... on Supply {
-          destinationLocation {
+          location {
             id
           }
         }
         ... on Consumption {
-          sourceLocation {
+          location {
             id
           }
         }
-        ... on Transfer {
+        ... on Relocation {
           sourceLocation {
             id
           }
@@ -73,7 +73,7 @@ defmodule AthenaWeb.Schema.Query.Node.MovementTest do
                  "event" => %{"id" => ^event_node_id},
                  "itemGroup" => %{"id" => ^item_group_node_id},
                  "item" => %{"id" => ^item_node_id},
-                 "destinationLocation" => %{"id" => ^location_node_id}
+                 "location" => %{"id" => ^location_node_id}
                }
              }
            } = result
@@ -105,20 +105,20 @@ defmodule AthenaWeb.Schema.Query.Node.MovementTest do
                  "event" => %{"id" => ^event_node_id},
                  "itemGroup" => %{"id" => ^item_group_node_id},
                  "item" => %{"id" => ^item_node_id},
-                 "sourceLocation" => %{"id" => ^location_node_id}
+                 "location" => %{"id" => ^location_node_id}
                }
              }
            } = result
   end
 
-  test "gets transfer by id" do
+  test "gets relocation by id" do
     event = event()
     item_group = item_group(event)
     item = item(item_group, name: "Lager")
     location_central = location(event, name: "Gallusplatz")
     location_sattelite = location(event, name: "Vadian")
 
-    transfer =
+    relocation =
       movement(item,
         amount: 1,
         source_location_id: location_central.id,
@@ -128,16 +128,16 @@ defmodule AthenaWeb.Schema.Query.Node.MovementTest do
     event_node_id = global_id!(:event, item_group.event_id)
     item_group_node_id = global_id!(:item_group, item_group.id)
     item_node_id = global_id!(:item, item.id)
-    transfer_node_id = global_id!(:transfer, transfer.id)
+    relocation_node_id = global_id!(:relocation, relocation.id)
     location_central_node_id = global_id!(:location, location_central.id)
     location_sattelite_node_id = global_id!(:location, location_sattelite.id)
 
-    assert result = run!(@query, variables: %{"id" => transfer_node_id})
+    assert result = run!(@query, variables: %{"id" => relocation_node_id})
 
     assert %{
              data: %{
                "node" => %{
-                 "id" => ^transfer_node_id,
+                 "id" => ^relocation_node_id,
                  "insertedAt" => _inserted_at,
                  "updatedAt" => _updated_at,
                  "event" => %{"id" => ^event_node_id},
