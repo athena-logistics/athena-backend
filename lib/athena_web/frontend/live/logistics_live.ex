@@ -4,6 +4,7 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
   use AthenaWeb, :live
 
   alias Athena.Inventory
+  alias Athena.Inventory.Movement
   alias Phoenix.PubSub
 
   @impl Phoenix.LiveView
@@ -62,7 +63,7 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
       event
       |> Inventory.logistics_table_query()
       |> Repo.all()
-      |> Enum.map(&calculate_status/1)
+      |> Enum.map(&Map.put(&1, :status, Movement.stock_status(&1)))
       |> Enum.sort_by(
         &sort_by(sort_field, &1),
         case sort_order do
@@ -88,47 +89,6 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
       :important -> 2
       :warning -> 1
       :normal -> 0
-    end
-  end
-
-  defp calculate_status(
-         %{
-           item: %{inverse: inverse},
-           movement_in: movement_in,
-           movement_out: movement_out,
-           supply: supply,
-           consumption: consumption,
-           stock: stock
-         } = row
-       ) do
-    total_in = movement_in + supply
-    total_out = movement_out + consumption
-
-    percentage =
-      case total_in do
-        0 -> :in_empty
-        _other -> 1 / total_in * total_out
-      end
-
-    Map.put(row, :status, status(percentage, inverse, stock))
-  end
-
-  defp status(percentage, inverse, stock)
-
-  defp status(_percentage, true, stock) do
-    cond do
-      stock > 5 -> :important
-      stock > 2 -> :warning
-      true -> :normal
-    end
-  end
-
-  defp status(percentage, false, stock) do
-    cond do
-      stock in [0, 1] -> :important
-      percentage >= 0.8 -> :important
-      percentage >= 0.6 -> :warning
-      true -> :normal
     end
   end
 end

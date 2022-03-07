@@ -693,6 +693,7 @@ defmodule Athena.Inventory do
   def change_movement(%Movement{} = movement, attrs \\ %{}),
     do: Movement.changeset(movement, attrs)
 
+  @spec stock_query :: Ecto.Queryable.t()
   def stock_query do
     supply_query =
       from(m in Movement,
@@ -775,7 +776,25 @@ defmodule Athena.Inventory do
           fragment("COALESCE(?, 0)", max(m_supply.amount)) -
             fragment("COALESCE(?, 0)", max(m_consumption.amount)) +
             fragment("COALESCE(?, 0)", max(m_in.amount)) -
-            fragment("COALESCE(?, 0)", max(m_out.amount))
+            fragment("COALESCE(?, 0)", max(m_out.amount)),
+        percentage:
+          fragment(
+            """
+            CASE
+              WHEN ? = ? THEN ?
+              ELSE ?
+            END
+            """,
+            fragment("COALESCE(?, 0)", max(m_in.amount)) +
+              fragment("COALESCE(?, 0)", max(m_supply.amount)),
+            0,
+            0.0,
+            1 /
+              (fragment("COALESCE(?, 0)", max(m_in.amount)) +
+                 fragment("COALESCE(?, 0)", max(m_supply.amount))) *
+              (fragment("COALESCE(?, 0)", max(m_out.amount)) +
+                 fragment("COALESCE(?, 0)", max(m_consumption.amount)))
+          )
       },
       order_by: l.name,
       order_by: ig.name,
@@ -783,6 +802,7 @@ defmodule Athena.Inventory do
     )
   end
 
+  @spec logistics_table_query(Event.t()) :: Ecto.Queryable.t()
   def logistics_table_query(%Event{id: event_id}),
     do: from(event in stock_query(), where: event.id == ^event_id)
 end
