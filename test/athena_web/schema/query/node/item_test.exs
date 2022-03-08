@@ -13,6 +13,7 @@ defmodule AthenaWeb.Schema.Query.Node.ItemTest do
       ... on Item {
         name
         inverse
+        unit
         event {
           id
         }
@@ -56,7 +57,7 @@ defmodule AthenaWeb.Schema.Query.Node.ItemTest do
   test "gets item group by id" do
     event = event()
     item_group = item_group(event)
-    item = item(item_group, name: "Lager", inverse: false)
+    item = item(item_group, name: "Lager", inverse: false, unit: "cask")
     location = location(event, name: "Gallusplatz")
     movement = movement(item, amount: 1, destination_location_id: location.id)
 
@@ -74,6 +75,7 @@ defmodule AthenaWeb.Schema.Query.Node.ItemTest do
                  "id" => ^item_node_id,
                  "name" => "Lager",
                  "inverse" => false,
+                 "unit" => "cask",
                  "insertedAt" => _inserted_at,
                  "updatedAt" => _updated_at,
                  "event" => %{"id" => ^event_node_id},
