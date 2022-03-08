@@ -22,4 +22,20 @@ defmodule AthenaWeb.Schema.Location.Resolver do
       nil
     )
   end
+
+  @spec items(parent :: Location.t(), args :: map(), resolution :: Absinthe.Resolution.t()) ::
+          {:ok, term()} | {:error, term()}
+  def items(%Location{} = location, args, _resolution) do
+    location
+    |> Inventory.list_relevant_items_query()
+    |> connection_from_query(args, &Repo.all/1, nil)
+  end
+
+  @spec item_groups(parent :: Location.t(), args :: map(), resolution :: Absinthe.Resolution.t()) ::
+          {:ok, term()} | {:error, term()}
+  def item_groups(%Location{} = location, args, _resolution) do
+    location
+    |> Inventory.list_relevant_item_groups_query()
+    |> connection_from_query(args, &Repo.all/1, nil)
+  end
 end

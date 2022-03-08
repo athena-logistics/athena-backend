@@ -363,6 +363,30 @@ defmodule Athena.Inventory do
   def list_items(%ItemGroup{} = item_group), do: item_group |> Ecto.assoc(:items) |> Repo.all()
   def list_items(%Event{} = event), do: event |> Ecto.assoc(:items) |> Repo.all()
 
+  def list_relevant_items_query(location)
+
+  def list_relevant_items_query(%Location{id: location_id}) do
+    from(item in Item,
+      join: item_group in assoc(item, :item_group),
+      as: :item_group,
+      join: movement in assoc(item, :movements),
+      as: :movement,
+      where:
+        movement.source_location_id == ^location_id or
+          movement.destination_location_id == ^location_id,
+      group_by: item.id,
+      order_by: item.name
+    )
+  end
+
+  def list_relevant_item_groups_query(%Location{} = location) do
+    from([item, item_group: item_group] in list_relevant_items_query(location),
+      group_by: item_group.id,
+      select: item_group,
+      order_by: item_group.name
+    )
+  end
+
   def list_relevant_items(%Location{id: location_id}, %ItemGroup{id: item_group_id}),
     do:
       Repo.all(
