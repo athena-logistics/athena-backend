@@ -1,3 +1,0 @@
-<svg class="icon--<%= @type %> icon__<%= @name %>">
-	<use xlink:href="<%= Routes.static_path(@socket, "/images/svg/icons.svg") %>#icon-<%= @name %>"></use>
-</svg>
