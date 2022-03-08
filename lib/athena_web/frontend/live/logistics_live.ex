@@ -27,7 +27,7 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
     do: Phoenix.View.render(AthenaWeb.Frontend.LogisticsView, "overview.html", assigns)
 
   @impl Phoenix.LiveView
-  def handle_info({action, %type{}}, socket)
+  def handle_info({action, %type{}, _extra}, socket)
       when action in [:created, :updated, :deleted] and
              type in [
                Athena.Inventory.Event,

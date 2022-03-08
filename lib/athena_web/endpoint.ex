@@ -1,5 +1,6 @@
 defmodule AthenaWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :athena
+  use Absinthe.Phoenix.Endpoint
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -15,6 +16,9 @@ defmodule AthenaWeb.Endpoint do
   socket "/socket", AthenaWeb.UserSocket,
     websocket: true,
     longpoll: false
+
+  socket "/api/graphql-ws", AthenaWeb.GraphqlWSSocket,
+    websocket: [path: "", subprotocols: ["graphql-transport-ws"]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #

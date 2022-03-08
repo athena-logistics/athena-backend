@@ -152,4 +152,13 @@ defmodule AthenaWeb.Schema.Movement do
       middleware(&build_payload/2)
     end
   end
+
+  object :location_subscriptions do
+    field :movement_created, :movement do
+      arg :event_id, :id
+      arg :location_id, :id
+
+      config(&SubscriptionConfig.created/2)
+    end
+  end
 end

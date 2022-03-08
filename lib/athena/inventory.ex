@@ -28,10 +28,10 @@ defmodule Athena.Inventory do
 
   @movement_consumption where(@movement_sum, [m], is_nil(m.destination_location_id))
 
-  defp notify_pubsub(result, action, resource_name, modifiers \\ [])
+  defp notify_pubsub(result, action, resource_name, modifiers \\ [], extra \\ %{})
 
-  defp notify_pubsub({:ok, %{id: id} = result}, action, resource_name, modifiers) do
-    message = {action, result}
+  defp notify_pubsub({:ok, %{id: id} = result}, action, resource_name, modifiers, extra) do
+    message = {action, result, extra}
 
     for modifier <- modifiers do
       :ok = PubSub.broadcast(Athena.PubSub, "#{resource_name}:#{modifier}", message)
@@ -48,7 +48,7 @@ defmodule Athena.Inventory do
     {:ok, result}
   end
 
-  defp notify_pubsub(other_result, _action, _resource_name, _modifiers), do: other_result
+  defp notify_pubsub(other_result, _action, _resource_name, _modifiers, _extra), do: other_result
 
   @doc """
   Returns the list of events.
@@ -597,13 +597,19 @@ defmodule Athena.Inventory do
       {:ok,
        %{source_location_id: source_location_id, destination_location_id: destination_location_id} =
            movement} ->
-        notify_pubsub({:ok, movement}, :created, "movement", [
-          "location:#{source_location_id}",
-          "location:#{destination_location_id}",
-          "item:#{item_id}",
-          "item_group:#{item_group_id}",
-          "event:#{event_id}"
-        ])
+        notify_pubsub(
+          {:ok, movement},
+          :created,
+          "movement",
+          [
+            "location:#{source_location_id}",
+            "location:#{destination_location_id}",
+            "item:#{item_id}",
+            "item_group:#{item_group_id}",
+            "event:#{event_id}"
+          ],
+          %{event_id: event_id}
+        )
 
       other ->
         other
@@ -624,13 +630,19 @@ defmodule Athena.Inventory do
         %{event: %{id: event_id}, item_group: %{id: item_group_id}} =
           Repo.preload(movement, [:item_group, :event])
 
-        notify_pubsub({:ok, movement}, :created, "movement", [
-          "location:#{source_location_id}",
-          "location:#{destination_location_id}",
-          "item:#{item_id}",
-          "item_group:#{item_group_id}",
-          "event:#{event_id}"
-        ])
+        notify_pubsub(
+          {:ok, movement},
+          :created,
+          "movement",
+          [
+            "location:#{source_location_id}",
+            "location:#{destination_location_id}",
+            "item:#{item_id}",
+            "item_group:#{item_group_id}",
+            "event:#{event_id}"
+          ],
+          %{event_id: event_id}
+        )
 
       other ->
         other
@@ -660,13 +672,19 @@ defmodule Athena.Inventory do
       {:ok,
        %{source_location_id: source_location_id, destination_location_id: destination_location_id} =
            movement} ->
-        notify_pubsub({:ok, movement}, :updated, "movement", [
-          "location:#{source_location_id}",
-          "location:#{destination_location_id}",
-          "item:#{item_id}",
-          "item_group:#{item_group_id}",
-          "event:#{event_id}"
-        ])
+        notify_pubsub(
+          {:ok, movement},
+          :updated,
+          "movement",
+          [
+            "location:#{source_location_id}",
+            "location:#{destination_location_id}",
+            "item:#{item_id}",
+            "item_group:#{item_group_id}",
+            "event:#{event_id}"
+          ],
+          %{event_id: event_id}
+        )
 
       other ->
         other
@@ -697,13 +715,18 @@ defmodule Athena.Inventory do
 
     movement
     |> Repo.delete()
-    |> notify_pubsub(:deleted, "movement", [
-      "location:#{source_location_id}",
-      "location:#{destination_location_id}",
-      "item:#{item_id}",
-      "item_group:#{item_group_id}",
-      "event:#{event_id}"
-    ])
+    |> notify_pubsub(
+      :deleted,
+      "movement",
+      [
+        "location:#{source_location_id}",
+        "location:#{destination_location_id}",
+        "item:#{item_id}",
+        "item_group:#{item_group_id}",
+        "event:#{event_id}"
+      ],
+      %{event_id: event_id}
+    )
   end
 
   @doc """

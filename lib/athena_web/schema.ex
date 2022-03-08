@@ -70,4 +70,8 @@ defmodule AthenaWeb.Schema do
   mutation do
     import_fields :movement_mutations
   end
+
+  subscription do
+    import_fields :location_subscriptions
+  end
 end

@@ -1,6 +1,9 @@
 defmodule AthenaWeb.UserSocket do
   use Phoenix.Socket
 
+  use Absinthe.Phoenix.Socket,
+    schema: AthenaWeb.Schema
+
   ## Channels
   # channel "room:*", AthenaWeb.RoomChannel
 
