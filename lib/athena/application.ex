@@ -17,7 +17,9 @@ defmodule Athena.Application do
         Athena.Repo,
         {Phoenix.PubSub, name: Athena.PubSub},
         # Start the endpoint when the application starts
-        AthenaWeb.Endpoint
+        AthenaWeb.Endpoint,
+        AthenaWeb.Schema.SubscriptionNotifier,
+        {Absinthe.Subscription, AthenaWeb.Endpoint}
         # Starts a worker by calling: AthenaWeb.Worker.start_link(arg)
         # {AthenaWeb.Worker, arg},
       ],

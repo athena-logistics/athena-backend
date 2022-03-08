@@ -63,7 +63,8 @@ defmodule AthenaWeb.Frontend.ItemLocationStockLive do
   end
 
   @impl Phoenix.LiveView
-  def handle_info({action, _movement}, socket) when action in [:created, :updated, :deleted] do
+  def handle_info({action, _movement, _extra}, socket)
+      when action in [:created, :updated, :deleted] do
     {:noreply,
      assign(
        socket,

@@ -5,6 +5,7 @@ defmodule AthenaWeb.Schema.Helpers do
 
   alias Absinthe.Relay.Connection
   alias Athena.Repo
+  alias AthenaWeb.Schema.InvalidIdError
   alias Ecto.Changeset
 
   @spec connection_from_query(
@@ -68,4 +69,27 @@ defmodule AthenaWeb.Schema.Helpers do
   def changeset_result({:ok, _result} = result), do: result
   def changeset_result({:error, %Changeset{} = changeset}), do: {:ok, changeset}
   def changeset_result({:error, _error} = result), do: result
+
+  @spec from_global_id!(id :: String.t(), type :: atom) :: String.t()
+  def from_global_id!(id, type) when is_atom(type) do
+    %{id: id} = from_global_id!(id, [type])
+    id
+  end
+
+  @spec from_global_id!(id :: String.t(), types :: [atom]) :: %{type: atom(), id: binary()}
+  def from_global_id!(id, types) when is_list(types) do
+    id
+    |> Absinthe.Relay.Node.from_global_id(AthenaWeb.Schema)
+    |> case do
+      {:ok, %{type: type} = id_map} ->
+        unless type in types do
+          raise InvalidIdError, message: "Invalid ID Type"
+        end
+
+        id_map
+
+      {:error, _reason} ->
+        raise InvalidIdError, message: "Invalid ID"
+    end
+  end
 end

@@ -133,6 +133,7 @@ defmodule AthenaWeb do
       import AbsintheErrorPayload.Payload
 
       alias __MODULE__.Resolver
+      alias __MODULE__.SubscriptionConfig
 
       alias AthenaWeb.Schema.Dataloader, as: RepoDataLoader
     end
@@ -147,6 +148,21 @@ defmodule AthenaWeb do
       import Ecto.Query
 
       alias Athena.Repo
+    end
+  end
+
+  @doc false
+  @spec subscription_config :: Macro.t()
+  def subscription_config do
+    quote location: :keep do
+      @type config_result ::
+              {:ok, [{:topic, term | [term]}, {:context_id, term}]} | {:error, term}
+
+      import AthenaWeb.Schema.Helpers
+      import AthenaWeb.Schema.SubscriptionConfig
+
+      alias AthenaWeb.Schema
+      alias AthenaWeb.Schema.InvalidIdError
     end
   end
 

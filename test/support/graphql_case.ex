@@ -22,9 +22,21 @@ defmodule AthenaWeb.GraphQLCase do
 
   using do
     quote do
+      use AthenaWeb.ChannelCase
+
       import unquote(__MODULE__)
+      import Absinthe.Phoenix.SubscriptionTest
 
       use Absinthe.Phoenix.SubscriptionTest, schema: AthenaWeb.Schema
+
+      setup tags do
+        {:ok, socket} =
+          AthenaWeb.UserSocket
+          |> socket(tags[:socket_id] || nil, tags[:socket_assigns] || [])
+          |> join_absinthe
+
+        {:ok, socket: socket}
+      end
     end
   end
 
