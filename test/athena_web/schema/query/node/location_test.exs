@@ -29,6 +29,20 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
             }
           }
         }
+        itemGroups(first: 10) {
+          edges {
+            node {
+              id
+            }
+          }
+        }
+        items(first: 10) {
+          edges {
+            node {
+              id
+            }
+          }
+        }
         stock(first: 10) {
           edges {
             node {
@@ -61,7 +75,9 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
     event = event()
     location = location(event, name: "Gallusplatz")
     item_group = item_group(event, name: "Bier")
+    unrelated_item_group = item_group(event, name: "Cookies")
     item = item(item_group, name: "Lager")
+    _unrelated_item = item(unrelated_item_group, name: "Chocolate Chip")
 
     supply =
       movement(item, amount: 1, source_location_id: nil, destination_location_id: location.id)
@@ -91,6 +107,12 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
                  },
                  "movementsOut" => %{
                    "edges" => [%{"node" => %{"id" => ^consumption_node_id}}]
+                 },
+                 "itemGroups" => %{
+                   "edges" => [%{"node" => %{"id" => ^item_group_node_id}}]
+                 },
+                 "items" => %{
+                   "edges" => [%{"node" => %{"id" => ^item_node_id}}]
                  },
                  "stock" => %{
                    "edges" => [

@@ -21,6 +21,14 @@ defmodule AthenaWeb.Schema.Location do
       resolve &Resolver.stock/3
     end
 
+    connection field :items, node_type: :item do
+      resolve &Resolver.items/3
+    end
+
+    connection field :item_groups, node_type: :item_group do
+      resolve &Resolver.item_groups/3
+    end
+
     field :inserted_at, non_null(:datetime)
     field :updated_at, non_null(:datetime)
 
