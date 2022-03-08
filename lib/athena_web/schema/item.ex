@@ -10,6 +10,7 @@ defmodule AthenaWeb.Schema.Item do
     field :event, non_null(:event), resolve: dataloader(RepoDataLoader)
     field :item_group, non_null(:item_group), resolve: dataloader(RepoDataLoader)
     field :inverse, non_null(:boolean)
+    field :unit, non_null(:string)
 
     connection field :movements, node_type: :movement do
       resolve many_dataloader()
