@@ -380,26 +380,27 @@ defmodule Athena.Inventory do
   end
 
   def list_relevant_item_groups_query(%Location{} = location) do
-    from([item, item_group: item_group] in list_relevant_items_query(location),
+    relevant_items_query =
+      location
+      |> list_relevant_items_query
+      |> Ecto.Query.exclude(:group_by)
+      |> Ecto.Query.exclude(:order_by)
+
+    from([item, item_group: item_group] in relevant_items_query,
       group_by: item_group.id,
       select: item_group,
       order_by: item_group.name
     )
   end
 
-  def list_relevant_items(%Location{id: location_id}, %ItemGroup{id: item_group_id}),
-    do:
-      Repo.all(
-        from(i in Item,
-          join: ig in assoc(i, :item_group),
-          join: m in assoc(i, :movements),
-          where:
-            ig.id == ^item_group_id and
-              (m.source_location_id == ^location_id or m.destination_location_id == ^location_id),
-          group_by: i.id,
-          order_by: i.name
-        )
+  def list_relevant_items(%Location{} = location, %ItemGroup{id: item_group_id}) do
+    Repo.all(
+      from(
+        [item, item_group: item_group] in list_relevant_items_query(location),
+        where: item_group.id == ^item_group_id
       )
+    )
+  end
 
   @doc """
   Gets a single item.
