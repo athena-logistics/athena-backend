@@ -17,7 +17,7 @@
   <%= number_input f, :amount, required: true, min: 0, max: 99, placeholder: "0", class: "space-around right justify-self-end" %>
   <%= error_tag f, :amount %>
 
-	<i class="fa-solid fa-circle-xmark"></i>
+  <i class="fa-solid fa-circle-xmark"></i>
 
   <%# <%= label f, :item_id, gettext("item") %>
   <%= select f, :item_id, Enum.map(@item_groups, &{elem(&1, 0).name, Enum.map(elem(&1, 1), fn %{name: name, id: id} -> {name, id} end)}), prompt: gettext("Thing"), required: true , class: "select space-around"%>

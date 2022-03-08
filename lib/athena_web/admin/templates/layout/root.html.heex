@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>
-			<%=
-				case assigns[:event] do
-					nil -> "Athena"
-					%{name: name} -> name
-				end
-			%>
-		</title>
+      <%=
+        case assigns[:event] do
+          nil -> "Athena"
+          %{name: name} -> name
+        end
+      %>
+    </title>
     <link rel="stylesheet" href={ Routes.static_path(@conn, "/css/app.css") } />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <script src="https://kit.fontawesome.com/8775096c60.js" crossorigin="anonymous"></script>

@@ -1,0 +1,30 @@
+<h1>
+  <%= gettext("events") %>
+</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= gettext("name") %></th>
+      <th><%= gettext("actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for event <- @events do %>
+      <tr>
+        <td><%= event.name %></td>
+        <td>
+          <span><%= "show" |> gettext |> link(to: Routes.admin_event_path(@conn, :show, event)) %></span>
+          <span><%= "edit" |> gettext |> link(to: Routes.admin_event_path(@conn, :edit, event)) %></span>
+          <span><%= "delete" |> gettext |> link(to: Routes.admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"]) %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li><%= "create event" |> gettext |> link(to: Routes.admin_event_path(@conn, :new)) %></li>
+</ul>
