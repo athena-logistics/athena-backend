@@ -14,7 +14,9 @@ defmodule AthenaWeb.Schema.SubscriptionNotifier do
   @server __MODULE__
 
   @graphql_resource_override %{
-    supply: :movement
+    supply: :movement,
+    consumption: :movement,
+    relocation: :movement
   }
 
   @graphql_action_override %{}
