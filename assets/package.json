@@ -9,7 +9,7 @@
     "@webcomponents/template": "^1.5.0",
     "child-replace-with-polyfill": "^1.0.1",
     "classlist-polyfill": "^1.2.0",
-    "core-js": "^3.22.0",
+    "core-js": "^3.22.2",
     "formdata-polyfill": "^4.0.10",
     "mdn-polyfills": "^5.20.0",
     "new-event-polyfill": "^1.0.1",
