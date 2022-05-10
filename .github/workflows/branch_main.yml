@@ -13,14 +13,14 @@ jobs:
   detectToolVersions:
     name: "Detect Tool Versions"
 
-    uses: maennchen/athena/.github/workflows/part_tool_versioning.yml@main
+    uses: ./.github/workflows/part_tool_versioning.yml
 
   test:
     name: "Test"
 
     needs: ['detectToolVersions']
 
-    uses: maennchen/athena/.github/workflows/part_test.yml@main
+    uses: ./.github/workflows/part_test.yml
     with:
       elixirVersion: "${{ needs.detectToolVersions.outputs.elixirVersion }}"
       otpVersion: "${{ needs.detectToolVersions.outputs.otpVersion }}"
@@ -32,7 +32,7 @@ jobs:
 
     needs: ['detectToolVersions']
 
-    uses: maennchen/athena/.github/workflows/part_build.yml@main
+    uses: ./.github/workflows/part_build.yml
     with:
       elixirVersion: "${{ needs.detectToolVersions.outputs.elixirVersion }}"
       otpVersion: "${{ needs.detectToolVersions.outputs.otpVersion }}"
@@ -46,7 +46,7 @@ jobs:
 
     needs: ['detectToolVersions']
 
-    uses: maennchen/athena/.github/workflows/part_docs.yml@main
+    uses: ./.github/workflows/part_docs.yml
     with:
       elixirVersion: "${{ needs.detectToolVersions.outputs.elixirVersion }}"
       otpVersion: "${{ needs.detectToolVersions.outputs.otpVersion }}"
@@ -58,6 +58,6 @@ jobs:
 
     needs: ['build']
 
-    uses: maennchen/athena/.github/workflows/part_deploy.yml@main
+    uses: ./.github/workflows/part_deploy.yml
     secrets:
       FLY_API_TOKEN: "${{ secrets.FLY_API_TOKEN }}"
