@@ -15,9 +15,17 @@
                   ) %>
                 </th>
               <% %ItemGroup{name: name} -> %>
-                <th class="item-group"><%= name %></th>
+                <th class="item-group">
+                  <div>
+                    <%= name %>
+                  </div>
+                </th>
               <% %Item{name: name} -> %>
-                <th class="item"><%= name %></th>
+                <th class="item">
+                  <div>
+                    <%= name %>
+                  </div>
+                </th>
               <% :empty_header -> %>
                 <th class="empty-header"></th>
               <% :item_group_spacer -> %>

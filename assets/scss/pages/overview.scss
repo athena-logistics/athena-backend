@@ -9,48 +9,48 @@
 
   tr {
     &:nth-child(2n) {
-      background-color: rgba($color-secondary-dark, .4);
+      background-color: rgba($color-secondary-dark, 0.4);
     }
 
     td,
     th {
       vertical-align: middle;
-      padding: 5px;
+      padding: .5em;
 
       &:nth-child(2n) {
-        background-color: rgba($color-secondary-dark, .4);
+        background-color: rgba($color-secondary-dark, 0.4);
       }
 
-          &.important {
-      background-color: $color-red;
-      color: $color-cream;
-      a,
-      a:visited {
+      &.important {
+        background-color: $color-red;
         color: $color-cream;
-      }
+        a,
+        a:visited {
+          color: $color-cream;
+        }
 
-      td {
-        border-color: $color-secondary;
-      }
+        td {
+          border-color: $color-secondary;
+        }
 
-      &:hover {
-        background-color: darken($color-red, 10%);
+        &:hover {
+          background-color: darken($color-red, 10%);
+        }
       }
-    }
-    &.warning {
-      background-color: $color-orange;
-      color: $color-black;
-      a {
+      &.warning {
+        background-color: $color-orange;
         color: $color-black;
-      }
-      td {
-        border-color: $color-secondary;
-      }
+        a {
+          color: $color-black;
+        }
+        td {
+          border-color: $color-secondary;
+        }
 
-      &:hover {
-        background-color: darken($color-orange, 10%);
+        &:hover {
+          background-color: darken($color-orange, 10%);
+        }
       }
-    }
     }
 
     &:hover {
@@ -99,8 +99,12 @@
 
     &:first-child th {
       text-align: left;
-      writing-mode: vertical-rl;
-      transform: rotate(-180deg);
+      min-width: 2em;
+      > * {
+        writing-mode: vertical-rl;
+        transform: rotate(-180deg);
+        min-width: 2em;
+      }
     }
   }
 }
