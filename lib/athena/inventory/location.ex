@@ -23,9 +23,16 @@ defmodule Athena.Inventory.Location do
     field :name, :string
 
     belongs_to :event, Event
-    has_many :movements_in, Movement, foreign_key: :destination_location_id
-    has_many :movements_out, Movement, foreign_key: :source_location_id
-    has_many :stock_entries, StockEntry
+
+    has_many :movements_in, Movement,
+      foreign_key: :destination_location_id,
+      preload_order: [asc: :inserted_at]
+
+    has_many :movements_out, Movement,
+      foreign_key: :source_location_id,
+      preload_order: [asc: :inserted_at]
+
+    has_many :stock_entries, StockEntry, preload_order: [asc: :item_id]
 
     timestamps()
   end
@@ -35,6 +42,7 @@ defmodule Athena.Inventory.Location do
     do:
       location
       |> cast(attrs, [:name, :event_id])
+      |> fill_uuid()
       |> validate_required([:name, :event_id])
       |> foreign_key_constraint(:event_id)
 end

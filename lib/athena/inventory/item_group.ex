@@ -24,9 +24,9 @@ defmodule Athena.Inventory.ItemGroup do
     field :name, :string
 
     belongs_to :event, Event
-    has_many :items, Item
-    has_many :movements, through: [:items, :movements]
-    has_many :stock_entries, StockEntry
+    has_many :items, Item, preload_order: [asc: :name]
+    has_many :movements, through: [:items, :movements], preload_order: [asc: :inserted_at]
+    has_many :stock_entries, StockEntry, preload_order: [asc: :item_id, asc: :location_id]
 
     timestamps()
   end
@@ -36,6 +36,7 @@ defmodule Athena.Inventory.ItemGroup do
     do:
       item_group
       |> cast(attrs, [:name, :event_id])
+      |> fill_uuid()
       |> validate_required([:name, :event_id])
       |> foreign_key_constraint(:event_id)
 end

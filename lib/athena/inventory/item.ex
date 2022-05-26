@@ -28,8 +28,8 @@ defmodule Athena.Inventory.Item do
 
     belongs_to :item_group, ItemGroup
     has_one :event, through: [:item_group, :event]
-    has_many :movements, Movement
-    has_many :stock_entries, StockEntry
+    has_many :movements, Movement, preload_order: [asc: :inserted_at]
+    has_many :stock_entries, StockEntry, preload_order: [asc: :location_id]
 
     timestamps()
   end
@@ -38,6 +38,7 @@ defmodule Athena.Inventory.Item do
   def changeset(item, attrs) do
     item
     |> cast(attrs, [:name, :unit, :inverse, :item_group_id])
+    |> fill_uuid()
     |> validate_required([:name, :unit, :inverse, :item_group_id])
     |> foreign_key_constraint(:item_group_id)
   end
