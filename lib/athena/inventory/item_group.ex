@@ -8,12 +8,14 @@ defmodule Athena.Inventory.ItemGroup do
   alias Athena.Inventory.Event
   alias Athena.Inventory.Item
   alias Athena.Inventory.Movement
+  alias Athena.Inventory.StockEntry
 
   @type t :: %__MODULE__{
           name: String.t(),
           event: Ecto.Schema.belongs_to(Event.t()),
           items: Ecto.Schema.has_many(Item.t()),
           movements: Ecto.Schema.has_many(Movement.t()),
+          stock_entries: Ecto.Schema.has_many(StockEntry.t()),
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -24,6 +26,7 @@ defmodule Athena.Inventory.ItemGroup do
     belongs_to :event, Event
     has_many :items, Item
     has_many :movements, through: [:items, :movements]
+    has_many :stock_entries, StockEntry
 
     timestamps()
   end

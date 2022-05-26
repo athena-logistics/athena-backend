@@ -7,12 +7,14 @@ defmodule Athena.Inventory.Location do
 
   alias Athena.Inventory.Event
   alias Athena.Inventory.Movement
+  alias Athena.Inventory.StockEntry
 
   @type t :: %__MODULE__{
           name: String.t(),
-          event: association(Event.t()),
-          movements_in: association([Movement.t()]),
-          movements_out: association([Movement.t()]),
+          event: Ecto.Schema.belongs_to(Event.t()),
+          movements_in: Ecto.Schema.has_many([Movement.t()]),
+          movements_out: Ecto.Schema.has_many([Movement.t()]),
+          stock_entries: Ecto.Schema.has_many(StockEntry.t()),
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -23,6 +25,7 @@ defmodule Athena.Inventory.Location do
     belongs_to :event, Event
     has_many :movements_in, Movement, foreign_key: :destination_location_id
     has_many :movements_out, Movement, foreign_key: :source_location_id
+    has_many :stock_entries, StockEntry
 
     timestamps()
   end

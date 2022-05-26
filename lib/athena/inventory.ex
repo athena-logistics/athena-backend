@@ -743,107 +743,20 @@ defmodule Athena.Inventory do
 
   @spec stock_query :: Ecto.Queryable.t()
   def stock_query do
-    supply_query =
-      from(m in Movement,
-        select: %{
-          item_id: m.item_id,
-          amount: sum(m.amount),
-          location_id: m.destination_location_id
-        },
-        where: is_nil(m.source_location_id),
-        group_by: m.item_id,
-        group_by: m.destination_location_id
-      )
-
-    consumption_query =
-      from(m in Movement,
-        select: %{
-          item_id: m.item_id,
-          amount: sum(m.amount),
-          location_id: m.source_location_id
-        },
-        where: is_nil(m.destination_location_id),
-        group_by: m.item_id,
-        group_by: m.source_location_id
-      )
-
-    movement_out_query =
-      from(m in Movement,
-        select: %{
-          item_id: m.item_id,
-          amount: sum(m.amount),
-          location_id: m.source_location_id
-        },
-        where: not is_nil(m.destination_location_id),
-        group_by: m.item_id,
-        group_by: m.source_location_id
-      )
-
-    movement_in_query =
-      from(m in Movement,
-        select: %{
-          item_id: m.item_id,
-          amount: sum(m.amount),
-          location_id: m.destination_location_id
-        },
-        where: not is_nil(m.source_location_id),
-        group_by: m.item_id,
-        group_by: m.destination_location_id
-      )
-
-    from(e in Event,
-      join: l in assoc(e, :locations),
+    from(
+      event in Event,
+      join: stock_entry in assoc(event, :stock_entries),
+      as: :stock_entry,
+      join: l in assoc(stock_entry, :location),
       as: :location,
-      join: ig in assoc(e, :item_groups),
+      join: ig in assoc(stock_entry, :item_group),
       as: :item_group,
-      join: i in assoc(ig, :items),
+      join: i in assoc(stock_entry, :item),
       as: :item,
-      left_join: m_supply in subquery(supply_query),
-      on: m_supply.item_id == i.id and m_supply.location_id == l.id,
-      left_join: m_consumption in subquery(consumption_query),
-      on: m_consumption.item_id == i.id and m_consumption.location_id == l.id,
-      left_join: m_out in subquery(movement_out_query),
-      on: m_out.item_id == i.id and m_out.location_id == l.id,
-      left_join: m_in in subquery(movement_in_query),
-      on: m_in.item_id == i.id and m_in.location_id == l.id,
-      having:
-        count(m_supply.item_id) != 0 or count(m_consumption.item_id) != 0 or
-          count(m_in.item_id) != 0 or count(m_out.item_id) != 0,
-      group_by: l.id,
-      group_by: ig.id,
-      group_by: i.id,
-      select: %{
-        location: l,
-        item_group: ig,
-        item: i,
-        supply: fragment("COALESCE(?, 0)", max(m_supply.amount)),
-        consumption: fragment("COALESCE(?, 0)", max(m_consumption.amount)),
-        movement_out: fragment("COALESCE(?, 0)", max(m_out.amount)),
-        movement_in: fragment("COALESCE(?, 0)", max(m_in.amount)),
-        stock:
-          fragment("COALESCE(?, 0)", max(m_supply.amount)) -
-            fragment("COALESCE(?, 0)", max(m_consumption.amount)) +
-            fragment("COALESCE(?, 0)", max(m_in.amount)) -
-            fragment("COALESCE(?, 0)", max(m_out.amount)),
-        percentage:
-          fragment(
-            """
-            CASE
-              WHEN ? = ? THEN ?
-              ELSE ?
-            END
-            """,
-            fragment("COALESCE(?, 0)", max(m_in.amount)) +
-              fragment("COALESCE(?, 0)", max(m_supply.amount)),
-            0,
-            0.0,
-            1 /
-              (fragment("COALESCE(?, 0)", max(m_in.amount)) +
-                 fragment("COALESCE(?, 0)", max(m_supply.amount))) *
-              (fragment("COALESCE(?, 0)", max(m_out.amount)) +
-                 fragment("COALESCE(?, 0)", max(m_consumption.amount)))
-          )
-      },
+      where:
+        stock_entry.supply > 0 or stock_entry.consumption > 0 or stock_entry.movement_in > 0 or
+          stock_entry.movement_out > 0,
+      select: stock_entry,
       order_by: l.name,
       order_by: ig.name,
       order_by: i.name

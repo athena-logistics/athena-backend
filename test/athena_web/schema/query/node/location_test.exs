@@ -53,7 +53,7 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
               supply
               status
               item {
-                id
+                id name
               }
               itemGroup {
                 id

@@ -4,7 +4,11 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
   use AthenaWeb, :live
 
   alias Athena.Inventory
-  alias Athena.Inventory.Movement
+  alias Athena.Inventory.Event
+  alias Athena.Inventory.Item
+  alias Athena.Inventory.ItemGroup
+  alias Athena.Inventory.Location
+  alias Athena.Inventory.StockEntry
   alias Phoenix.PubSub
 
   @impl Phoenix.LiveView
@@ -17,14 +21,10 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
 
     {:ok,
      socket
-     |> assign(:sort, {"status", "desc"})
+     |> assign(orientation: "landscape")
      |> update(event_id)
      |> assign_navigation(event)}
   end
-
-  @impl Phoenix.LiveView
-  def render(assigns),
-    do: Phoenix.View.render(AthenaWeb.Frontend.LogisticsView, "overview.html", assigns)
 
   @impl Phoenix.LiveView
   def handle_info({action, %type{}, _extra}, socket)
@@ -38,57 +38,56 @@ defmodule AthenaWeb.Frontend.LogisticsLive do
   end
 
   @impl Phoenix.LiveView
-  def handle_event("change_sort", %{"name" => sort_name}, socket) do
-    sort =
-      case {sort_name, socket.assigns.sort} do
-        {sort_name, {sort_name, "asc"}} -> {sort_name, "desc"}
-        {sort_name, {sort_name, "desc"}} -> {sort_name, "asc"}
-        {sort_name, _} -> {sort_name, "asc"}
-      end
+  def handle_event(
+        "orientationchange",
+        %{"orientation" => orientation},
+        %Phoenix.LiveView.Socket{assigns: %{orientation: orientation}} = socket
+      ),
+      do: {:noreply, socket}
 
-    {:noreply,
-     socket
-     |> assign(:sort, sort)
-     |> update(socket.assigns.event.id)}
-  end
+  def handle_event("orientationchange", %{"orientation" => orientation}, socket),
+    do:
+      {:noreply, assign(socket, orientation: orientation, table: transpose(socket.assigns.table))}
 
   defp update(socket, event_id) do
-    event = Inventory.get_event!(event_id)
-    {sort_field, sort_order} = socket.assigns.sort
+    %Event{locations: locations, item_groups: item_groups, stock_entries: stock_entries} =
+      event =
+      event_id
+      |> Inventory.get_event!()
+      |> Repo.preload(locations: [], item_groups: [items: []], stock_entries: [item: []])
 
-    socket
-    |> assign(:event, event)
-    |> assign(
-      :table,
-      event
-      |> Inventory.logistics_table_query()
-      |> Repo.all()
-      |> Enum.map(&Map.put(&1, :status, Movement.stock_status(&1)))
-      |> Enum.sort_by(
-        &sort_by(sort_field, &1),
-        case sort_order do
-          "asc" -> &<=/2
-          "desc" -> &>=/2
+    stock_entries_map = Map.new(stock_entries, &{{&1.location_id, &1.item_id}, &1})
+
+    table = [
+      List.flatten([
+        :empty_header
+        | for %ItemGroup{items: items} = item_group <- item_groups do
+            [item_group | items]
+          end
+      ])
+      | for location <- locations do
+          List.flatten([
+            location
+            | for %ItemGroup{items: items} <- item_groups do
+                [
+                  :item_group_spacer
+                  | for item <- items do
+                      stock_entries_map[{location.id, item.id}]
+                    end
+                ]
+              end
+          ])
         end
-      )
-    )
+    ]
+
+    table =
+      case socket.assigns.orientation do
+        "landscape" -> table
+        "portrait" -> transpose(table)
+      end
+
+    assign(socket, event: event, table: table)
   end
 
-  defp sort_by(field, row)
-  defp sort_by("location", row), do: row.location.name
-  defp sort_by("item_group", row), do: row.item_group.name
-  defp sort_by("item", row), do: row.item.name
-  defp sort_by("supply", row), do: row.supply
-  defp sort_by("consumption", row), do: abs(row.consumption)
-  defp sort_by("movement_in", row), do: row.movement_in
-  defp sort_by("movement_out", row), do: row.movement_out
-  defp sort_by("stock", row), do: row.stock
-
-  defp sort_by("status", row) do
-    case row.status do
-      :important -> 2
-      :warning -> 1
-      :normal -> 0
-    end
-  end
+  defp transpose(table), do: table |> Enum.zip() |> Enum.map(&Tuple.to_list/1)
 end

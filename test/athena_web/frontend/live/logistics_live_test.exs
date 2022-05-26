@@ -31,12 +31,12 @@ defmodule AthenaWeb.Frontend.LogisticsLiveTest do
 
     assert html = html_response(conn, 200)
 
-    assert "1" = html |> Floki.parse_document!() |> Floki.find("td.stock") |> Floki.text()
+    assert "1" = html |> Floki.parse_document!() |> Floki.find("td.stock-entry") |> Floki.text()
 
     movement(item, %{destination_location_id: location.id})
 
     {:ok, _view, html} = live(conn)
 
-    assert "2" = html |> Floki.parse_document!() |> Floki.find("td.stock") |> Floki.text()
+    assert "2" = html |> Floki.parse_document!() |> Floki.find("td.stock-entry") |> Floki.text()
   end
 end

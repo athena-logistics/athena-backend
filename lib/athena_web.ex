@@ -17,6 +17,8 @@ defmodule AthenaWeb do
   and import those modules here.
   """
 
+  @type resolver_result :: {:ok, term()} | {:error, term()} | {:middleware, module(), term()}
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: AthenaWeb
@@ -58,12 +60,7 @@ defmodule AthenaWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Phoenix.LiveView.Helpers
-
-      import AthenaWeb.ErrorHelpers
-      import AthenaWeb.Gettext
-
-      alias AthenaWeb.Router.Helpers, as: Routes
+      unquote(view_helpers())
     end
   end
 
@@ -79,12 +76,7 @@ defmodule AthenaWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Phoenix.LiveView.Helpers
-
-      import AthenaWeb.ErrorHelpers
-      import AthenaWeb.Gettext
-
-      alias AthenaWeb.Router.Helpers, as: Routes
+      unquote(view_helpers())
     end
   end
 
@@ -110,6 +102,8 @@ defmodule AthenaWeb do
       use Phoenix.LiveView
 
       alias Athena.Repo
+
+      unquote(view_helpers())
 
       defp assign_navigation(socket, event) do
         assign(socket, :navigation, %{
@@ -163,6 +157,24 @@ defmodule AthenaWeb do
 
       alias AthenaWeb.Schema
       alias AthenaWeb.Schema.InvalidIdError
+    end
+  end
+
+  defp view_helpers do
+    quote do
+      # Use all HTML functionality (forms, tags, etc)
+      use Phoenix.HTML
+
+      # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
+      import Phoenix.LiveView.Helpers
+
+      # Import basic rendering functionality (render, render_layout, etc)
+      import Phoenix.View
+
+      import AthenaWeb.ErrorHelpers
+      import AthenaWeb.Gettext
+
+      alias AthenaWeb.Router.Helpers, as: Routes
     end
   end
 

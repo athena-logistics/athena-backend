@@ -22,11 +22,6 @@ defmodule AthenaWeb.Frontend.ItemLocationStockLive do
   end
 
   @impl Phoenix.LiveView
-  def render(assigns) do
-    Phoenix.View.render(AthenaWeb.Frontend.ItemLocationStockLiveView, "index.html", assigns)
-  end
-
-  @impl Phoenix.LiveView
   def handle_event("advance_consumption", %{"new_total" => new_total}, socket) do
     {:ok, _movement} =
       Inventory.create_movement(socket.assigns.item, %{

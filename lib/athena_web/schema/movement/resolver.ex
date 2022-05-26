@@ -6,7 +6,7 @@ defmodule AthenaWeb.Schema.Movement.Resolver do
   alias Athena.Inventory
 
   @spec supply(parent :: any(), args :: map(), resolution :: Absinthe.Resolution.t()) ::
-          {:ok, term()} | {:error, term()}
+          AthenaWeb.resolver_result()
   def supply(
         _parent,
         %{item_id: item_id, amount: amount, location_id: location_id},
@@ -19,7 +19,7 @@ defmodule AthenaWeb.Schema.Movement.Resolver do
   end
 
   @spec consume(parent :: any(), args :: map(), resolution :: Absinthe.Resolution.t()) ::
-          {:ok, term()} | {:error, term()}
+          AthenaWeb.resolver_result()
   def consume(
         _parent,
         %{item_id: item_id, amount: amount, location_id: location_id},
@@ -32,7 +32,7 @@ defmodule AthenaWeb.Schema.Movement.Resolver do
   end
 
   @spec relocate(parent :: any(), args :: map(), resolution :: Absinthe.Resolution.t()) ::
-          {:ok, term()} | {:error, term()}
+          AthenaWeb.resolver_result()
   def relocate(
         _parent,
         %{item_id: item_id} = args,
