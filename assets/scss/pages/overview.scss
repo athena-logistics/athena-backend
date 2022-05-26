@@ -4,7 +4,6 @@
   border-collapse: collapse;
   min-width: 100%;
   overflow: hidden;
-  position: relative;
   box-sizing: border-box;
 
   tr {
@@ -75,8 +74,6 @@
     th {
       text-align: left;
       font-weight: normal;
-
-      position: sticky;
       top: 0;
       left: 0;
 
@@ -100,10 +97,13 @@
     &:first-child th {
       text-align: left;
       min-width: 2em;
+      vertical-align: bottom;
       > * {
         writing-mode: vertical-rl;
-        transform: rotate(-180deg);
+        // transform: rotate(-180deg);
         min-width: 2em;
+        white-space: nowrap;
+        text-align: left;
       }
     }
   }
