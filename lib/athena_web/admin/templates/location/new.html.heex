@@ -1,9 +1,14 @@
 <h1><%= gettext("create location") %></h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.admin_location_path(@conn, :create, @event.id)) %>
+<%= render(
+  "form.html",
+  Map.put(assigns, :action, Routes.admin_location_path(@conn, :create, @event.id))
+) %>
 
 <h2><%= gettext("actions") %></h2>
 
 <ul>
-  <li><%= "back" |> gettext |> link(to: Routes.admin_location_path(@conn, :index, @event.id)) %></li>
+  <li>
+    <%= "back" |> gettext |> link(to: Routes.admin_location_path(@conn, :index, @event.id)) %>
+  </li>
 </ul>

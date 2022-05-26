@@ -12,9 +12,21 @@
       <tr>
         <td><%= location.name %></td>
         <td>
-          <span><%= "show" |> gettext |> link(to: Routes.admin_location_path(@conn, :show, location)) %></span>
-          <span><%= "edit" |> gettext |> link(to: Routes.admin_location_path(@conn, :edit, location)) %></span>
-          <span><%= "delete" |> gettext |> link(to: Routes.admin_location_path(@conn, :delete, location), method: :delete, data: [confirm: "Are you sure?"]) %></span>
+          <span>
+            <%= "show" |> gettext |> link(to: Routes.admin_location_path(@conn, :show, location)) %>
+          </span>
+          <span>
+            <%= "edit" |> gettext |> link(to: Routes.admin_location_path(@conn, :edit, location)) %>
+          </span>
+          <span>
+            <%= "delete"
+            |> gettext
+            |> link(
+              to: Routes.admin_location_path(@conn, :delete, location),
+              method: :delete,
+              data: [confirm: "Are you sure?"]
+            ) %>
+          </span>
         </td>
       </tr>
     <% end %>
@@ -24,6 +36,10 @@
 <h2><%= gettext("actions") %></h2>
 
 <ul>
-  <li><%="create location" |> gettext |> link(to: Routes.admin_location_path(@conn, :new, @event.id)) %></li>
+  <li>
+    <%= "create location"
+    |> gettext
+    |> link(to: Routes.admin_location_path(@conn, :new, @event.id)) %>
+  </li>
   <li><%= "event" |> gettext |> link(to: Routes.admin_event_path(@conn, :show, @event.id)) %></li>
 </ul>

@@ -21,18 +21,18 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/layout/root.html.heex:33
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:2
+#: lib/athena_web/frontend/live/logistics_live.html.heex:3
+#: lib/athena_web/frontend/templates/layout/root.html.heex:39
 msgid "Logistics Overview"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/layout/root.html.heex:39
+#: lib/athena_web/frontend/templates/layout/root.html.heex:63
 msgid "Move Item"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/layout/root.html.heex:36
+#: lib/athena_web/frontend/templates/layout/root.html.heex:51
 #: lib/athena_web/frontend/templates/movement/supply_new.html.heex:2
 msgid "Supply Item"
 msgstr ""
@@ -49,51 +49,33 @@ msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/form.html.heex:18
+#: lib/athena_web/admin/templates/movement/form.html.heex:22
 #: lib/athena_web/admin/templates/movement/index.html.heex:6
-#: lib/athena_web/admin/templates/movement/show.html.heex:56
+#: lib/athena_web/admin/templates/movement/show.html.heex:65
 msgid "amount"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/form.html.heex:15
-#: lib/athena_web/admin/templates/movement/index.html.heex:25
-#: lib/athena_web/admin/templates/movement/show.html.heex:51
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:11
+#: lib/athena_web/admin/templates/movement/form.html.heex:18
+#: lib/athena_web/admin/templates/movement/index.html.heex:29
+#: lib/athena_web/admin/templates/movement/show.html.heex:58
 msgid "consumption"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/form.html.heex:14
+#: lib/athena_web/admin/templates/movement/form.html.heex:16
 #: lib/athena_web/admin/templates/movement/index.html.heex:8
 msgid "destination location"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/show.html.heex:35
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:9
+#: lib/athena_web/admin/templates/movement/show.html.heex:38
 msgid "item"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/show.html.heex:30
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:8
+#: lib/athena_web/admin/templates/movement/show.html.heex:31
 msgid "item group"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:7
-msgid "location"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:13
-msgid "movement in"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:12
-msgid "movement out"
 msgstr ""
 
 #, elixir-autogen, elixir-format
@@ -101,22 +83,16 @@ msgstr ""
 #: lib/athena_web/admin/templates/item/form.html.heex:23
 #: lib/athena_web/admin/templates/item_group/form.html.heex:15
 #: lib/athena_web/admin/templates/location/form.html.heex:15
-#: lib/athena_web/admin/templates/movement/form.html.heex:23
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.heex:44
-#: lib/athena_web/frontend/templates/movement/supply_new.html.heex:41
+#: lib/athena_web/admin/templates/movement/form.html.heex:27
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.heex:63
+#: lib/athena_web/frontend/templates/movement/supply_new.html.heex:57
 msgid "save"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:14
-msgid "stock"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/form.html.heex:11
-#: lib/athena_web/admin/templates/movement/index.html.heex:19
-#: lib/athena_web/admin/templates/movement/show.html.heex:43
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:10
+#: lib/athena_web/admin/templates/movement/form.html.heex:12
+#: lib/athena_web/admin/templates/movement/index.html.heex:20
+#: lib/athena_web/admin/templates/movement/show.html.heex:47
 msgid "supply"
 msgstr ""
 
@@ -203,7 +179,7 @@ msgid "Movement updated successfully."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/event/show.html.heex:22
+#: lib/athena_web/admin/templates/event/show.html.heex:23
 msgid "%{event} logistics"
 msgstr ""
 
@@ -214,62 +190,62 @@ msgid "QR code"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/event/edit.html.heex:7
+#: lib/athena_web/admin/templates/event/edit.html.heex:10
 #: lib/athena_web/admin/templates/event/index.html.heex:9
-#: lib/athena_web/admin/templates/event/index.html.heex:26
+#: lib/athena_web/admin/templates/event/index.html.heex:38
 #: lib/athena_web/admin/templates/event/new.html.heex:5
-#: lib/athena_web/admin/templates/event/show.html.heex:27
+#: lib/athena_web/admin/templates/event/show.html.heex:29
 #: lib/athena_web/admin/templates/item/edit.html.heex:7
 #: lib/athena_web/admin/templates/item/index.html.heex:9
-#: lib/athena_web/admin/templates/item/index.html.heex:29
-#: lib/athena_web/admin/templates/item/new.html.heex:5
+#: lib/athena_web/admin/templates/item/index.html.heex:41
+#: lib/athena_web/admin/templates/item/new.html.heex:8
 #: lib/athena_web/admin/templates/item/show.html.heex:27
-#: lib/athena_web/admin/templates/item_group/edit.html.heex:5
+#: lib/athena_web/admin/templates/item_group/edit.html.heex:8
 #: lib/athena_web/admin/templates/item_group/index.html.heex:7
-#: lib/athena_web/admin/templates/item_group/index.html.heex:24
-#: lib/athena_web/admin/templates/item_group/new.html.heex:5
+#: lib/athena_web/admin/templates/item_group/index.html.heex:34
+#: lib/athena_web/admin/templates/item_group/new.html.heex:8
 #: lib/athena_web/admin/templates/item_group/show.html.heex:3
-#: lib/athena_web/admin/templates/location/edit.html.heex:5
+#: lib/athena_web/admin/templates/location/edit.html.heex:8
 #: lib/athena_web/admin/templates/location/index.html.heex:7
-#: lib/athena_web/admin/templates/location/index.html.heex:24
-#: lib/athena_web/admin/templates/location/new.html.heex:5
-#: lib/athena_web/admin/templates/location/show.html.heex:25
+#: lib/athena_web/admin/templates/location/index.html.heex:36
+#: lib/athena_web/admin/templates/location/new.html.heex:8
+#: lib/athena_web/admin/templates/location/show.html.heex:27
 #: lib/athena_web/admin/templates/movement/index.html.heex:10
-#: lib/athena_web/admin/templates/movement/index.html.heex:40
-#: lib/athena_web/admin/templates/movement/new.html.heex:5
-#: lib/athena_web/admin/templates/movement/show.html.heex:64
+#: lib/athena_web/admin/templates/movement/index.html.heex:58
+#: lib/athena_web/admin/templates/movement/new.html.heex:8
+#: lib/athena_web/admin/templates/movement/show.html.heex:72
 msgid "actions"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/event/edit.html.heex:10
+#: lib/athena_web/admin/templates/event/edit.html.heex:13
 #: lib/athena_web/admin/templates/event/new.html.heex:8
-#: lib/athena_web/admin/templates/event/show.html.heex:34
-#: lib/athena_web/admin/templates/item/edit.html.heex:10
-#: lib/athena_web/admin/templates/item/new.html.heex:8
-#: lib/athena_web/admin/templates/item/show.html.heex:31
-#: lib/athena_web/admin/templates/item_group/edit.html.heex:8
-#: lib/athena_web/admin/templates/item_group/new.html.heex:8
-#: lib/athena_web/admin/templates/item_group/show.html.heex:7
-#: lib/athena_web/admin/templates/location/edit.html.heex:8
-#: lib/athena_web/admin/templates/location/new.html.heex:8
-#: lib/athena_web/admin/templates/location/show.html.heex:29
-#: lib/athena_web/admin/templates/movement/edit.html.heex:6
-#: lib/athena_web/admin/templates/movement/new.html.heex:8
-#: lib/athena_web/admin/templates/movement/show.html.heex:68
+#: lib/athena_web/admin/templates/event/show.html.heex:36
+#: lib/athena_web/admin/templates/item/edit.html.heex:11
+#: lib/athena_web/admin/templates/item/new.html.heex:12
+#: lib/athena_web/admin/templates/item/show.html.heex:32
+#: lib/athena_web/admin/templates/item_group/edit.html.heex:13
+#: lib/athena_web/admin/templates/item_group/new.html.heex:12
+#: lib/athena_web/admin/templates/item_group/show.html.heex:11
+#: lib/athena_web/admin/templates/location/edit.html.heex:13
+#: lib/athena_web/admin/templates/location/new.html.heex:12
+#: lib/athena_web/admin/templates/location/show.html.heex:35
+#: lib/athena_web/admin/templates/movement/edit.html.heex:11
+#: lib/athena_web/admin/templates/movement/new.html.heex:12
+#: lib/athena_web/admin/templates/movement/show.html.heex:80
 msgid "back"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/event/index.html.heex:18
-#: lib/athena_web/admin/templates/event/show.html.heex:31
-#: lib/athena_web/admin/templates/item/index.html.heex:21
+#: lib/athena_web/admin/templates/event/index.html.heex:21
+#: lib/athena_web/admin/templates/event/show.html.heex:33
+#: lib/athena_web/admin/templates/item/index.html.heex:24
 #: lib/athena_web/admin/templates/item/show.html.heex:30
-#: lib/athena_web/admin/templates/item_group/show.html.heex:6
-#: lib/athena_web/admin/templates/location/index.html.heex:16
-#: lib/athena_web/admin/templates/location/show.html.heex:28
-#: lib/athena_web/admin/templates/movement/index.html.heex:32
-#: lib/athena_web/admin/templates/movement/show.html.heex:67
+#: lib/athena_web/admin/templates/item_group/show.html.heex:7
+#: lib/athena_web/admin/templates/location/index.html.heex:19
+#: lib/athena_web/admin/templates/location/show.html.heex:31
+#: lib/athena_web/admin/templates/movement/index.html.heex:41
+#: lib/athena_web/admin/templates/movement/show.html.heex:76
 msgid "edit"
 msgstr ""
 
@@ -280,13 +256,13 @@ msgid "go to public view"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/event/show.html.heex:40
+#: lib/athena_web/admin/templates/event/show.html.heex:43
 #: lib/athena_web/admin/templates/item_group/index.html.heex:1
 msgid "item groups"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/event/show.html.heex:37
+#: lib/athena_web/admin/templates/event/show.html.heex:39
 #: lib/athena_web/admin/templates/location/index.html.heex:1
 msgid "locations"
 msgstr ""
@@ -314,22 +290,22 @@ msgid "name"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/event/index.html.heex:29
+#: lib/athena_web/admin/templates/event/index.html.heex:41
 #: lib/athena_web/admin/templates/event/new.html.heex:1
 msgid "create event"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/item/index.html.heex:32
+#: lib/athena_web/admin/templates/item/index.html.heex:45
 #: lib/athena_web/admin/templates/item/new.html.heex:1
 msgid "create item"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/event/index.html.heex:19
-#: lib/athena_web/admin/templates/item/index.html.heex:22
-#: lib/athena_web/admin/templates/location/index.html.heex:17
-#: lib/athena_web/admin/templates/movement/index.html.heex:33
+#: lib/athena_web/admin/templates/event/index.html.heex:25
+#: lib/athena_web/admin/templates/item/index.html.heex:28
+#: lib/athena_web/admin/templates/location/index.html.heex:23
+#: lib/athena_web/admin/templates/movement/index.html.heex:45
 msgid "delete"
 msgstr ""
 
@@ -352,13 +328,13 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/athena_web/admin/templates/item/index.html.heex:1
-#: lib/athena_web/admin/templates/item_group/show.html.heex:8
+#: lib/athena_web/admin/templates/item_group/show.html.heex:15
 msgid "items"
 msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/athena_web/admin/templates/item/show.html.heex:11
-#: lib/athena_web/admin/templates/item/show.html.heex:32
+#: lib/athena_web/admin/templates/item/show.html.heex:35
 #: lib/athena_web/admin/templates/movement/index.html.heex:1
 msgid "movements"
 msgstr ""
@@ -369,10 +345,10 @@ msgid "no"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/event/index.html.heex:17
-#: lib/athena_web/admin/templates/item/index.html.heex:20
-#: lib/athena_web/admin/templates/location/index.html.heex:15
-#: lib/athena_web/admin/templates/movement/index.html.heex:31
+#: lib/athena_web/admin/templates/event/index.html.heex:18
+#: lib/athena_web/admin/templates/item/index.html.heex:21
+#: lib/athena_web/admin/templates/location/index.html.heex:16
+#: lib/athena_web/admin/templates/movement/index.html.heex:38
 msgid "show"
 msgstr ""
 
@@ -389,28 +365,28 @@ msgid "yes"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/show.html.heex:13
+#: lib/athena_web/admin/templates/movement/show.html.heex:15
 msgid "%{item} consumption at %{location}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/show.html.heex:5
+#: lib/athena_web/admin/templates/movement/show.html.heex:7
 msgid "%{item} movement from %{source_location} to %{destination_location}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/show.html.heex:20
+#: lib/athena_web/admin/templates/movement/show.html.heex:22
 msgid "%{item} supply to %{location}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/item_group/index.html.heex:27
+#: lib/athena_web/admin/templates/item_group/index.html.heex:39
 #: lib/athena_web/admin/templates/item_group/new.html.heex:1
 msgid "create item group"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/location/index.html.heex:27
+#: lib/athena_web/admin/templates/location/index.html.heex:41
 #: lib/athena_web/admin/templates/location/new.html.heex:1
 msgid "create location"
 msgstr ""
@@ -421,7 +397,7 @@ msgid "create movement"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/show.html.heex:48
+#: lib/athena_web/admin/templates/movement/show.html.heex:54
 msgid "destination_location"
 msgstr ""
 
@@ -436,18 +412,18 @@ msgid "edit %{location}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/location/index.html.heex:28
+#: lib/athena_web/admin/templates/location/index.html.heex:44
 msgid "event"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/admin/templates/movement/show.html.heex:40
+#: lib/athena_web/admin/templates/movement/show.html.heex:43
 msgid "source"
 msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/athena_web/admin/templates/movement/index.html.heex:9
-#: lib/athena_web/admin/templates/movement/show.html.heex:59
+#: lib/athena_web/admin/templates/movement/show.html.heex:68
 msgid "time"
 msgstr ""
 
@@ -462,7 +438,7 @@ msgid "edit movement"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.heex:31
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.heex:45
 msgid "From"
 msgstr ""
 
@@ -472,13 +448,13 @@ msgid "Move Things"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.heex:23
-#: lib/athena_web/frontend/templates/movement/supply_new.html.heex:23
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.heex:34
+#: lib/athena_web/frontend/templates/movement/supply_new.html.heex:34
 msgid "Thing"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/movement/relocate_new.html.heex:37
-#: lib/athena_web/frontend/templates/movement/supply_new.html.heex:35
+#: lib/athena_web/frontend/templates/movement/relocate_new.html.heex:54
+#: lib/athena_web/frontend/templates/movement/supply_new.html.heex:48
 msgid "To"
 msgstr ""

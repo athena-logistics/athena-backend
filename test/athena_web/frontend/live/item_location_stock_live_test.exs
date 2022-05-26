@@ -20,10 +20,9 @@ defmodule AthenaWeb.Frontend.ItemLocationStockLiveTest do
 
     assert html = html_response(conn, 200)
 
-    assert "1" =
-             html
-             |> Floki.parse_document!()
-             |> Floki.find(".location__item-stock--count")
-             |> Floki.text()
+    assert html
+           |> Floki.parse_document!()
+           |> Floki.find(".location__item-stock--count")
+           |> Floki.text() =~ "1"
   end
 end

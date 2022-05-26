@@ -1,9 +1,14 @@
 <h1><%= gettext("create item") %></h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.admin_item_path(@conn, :create, @item_group.id)) %>
+<%= render(
+  "form.html",
+  Map.put(assigns, :action, Routes.admin_item_path(@conn, :create, @item_group.id))
+) %>
 
 <h2><%= gettext("actions") %></h2>
 
 <ul>
-  <li><%= "back" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item_group.id)) %></li>
+  <li>
+    <%= "back" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item_group.id)) %>
+  </li>
 </ul>

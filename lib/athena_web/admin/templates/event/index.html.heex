@@ -14,9 +14,21 @@
       <tr>
         <td><%= event.name %></td>
         <td>
-          <span><%= "show" |> gettext |> link(to: Routes.admin_event_path(@conn, :show, event)) %></span>
-          <span><%= "edit" |> gettext |> link(to: Routes.admin_event_path(@conn, :edit, event)) %></span>
-          <span><%= "delete" |> gettext |> link(to: Routes.admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"]) %></span>
+          <span>
+            <%= "show" |> gettext |> link(to: Routes.admin_event_path(@conn, :show, event)) %>
+          </span>
+          <span>
+            <%= "edit" |> gettext |> link(to: Routes.admin_event_path(@conn, :edit, event)) %>
+          </span>
+          <span>
+            <%= "delete"
+            |> gettext
+            |> link(
+              to: Routes.admin_event_path(@conn, :delete, event),
+              method: :delete,
+              data: [confirm: "Are you sure?"]
+            ) %>
+          </span>
         </td>
       </tr>
     <% end %>

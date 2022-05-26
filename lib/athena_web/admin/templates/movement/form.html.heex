@@ -7,17 +7,21 @@
     </div>
   <% end %>
 
-  <%= label f, :source_location_id, gettext("source location") %>
-  <%= select f, :source_location_id, Enum.map(@locations, &{&1.name, &1.id}), prompt: gettext("supply") %>
-  <%= error_tag f, :source_location_id %>
+  <%= label(f, :source_location_id, gettext("source location")) %>
+  <%= select(f, :source_location_id, Enum.map(@locations, &{&1.name, &1.id}),
+    prompt: gettext("supply")
+  ) %>
+  <%= error_tag(f, :source_location_id) %>
 
-  <%= label f, :destination_location_id, gettext("destination location") %>
-  <%= select f, :destination_location_id, Enum.map(@locations, &{&1.name, &1.id}), prompt: gettext("consumption") %>
-  <%= error_tag f, :destination_location_id %>
+  <%= label(f, :destination_location_id, gettext("destination location")) %>
+  <%= select(f, :destination_location_id, Enum.map(@locations, &{&1.name, &1.id}),
+    prompt: gettext("consumption")
+  ) %>
+  <%= error_tag(f, :destination_location_id) %>
 
-  <%= label f, :amount, gettext("amount") %>
-  <%= number_input f, :amount %>
-  <%= error_tag f, :amount %>
+  <%= label(f, :amount, gettext("amount")) %>
+  <%= number_input(f, :amount) %>
+  <%= error_tag(f, :amount) %>
 
   <div>
     <%= "save" |> gettext |> submit %>

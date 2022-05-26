@@ -1,55 +1,64 @@
 <h1>
-  <%=
-    case @movement do
-      %{source_location: %{name: source_location_name}, destination_location: %{name: destination_location_name}} ->
-        gettext(
-          "%{item} movement from %{source_location} to %{destination_location}",
-          item: @movement.item.name,
-          source_location: source_location_name,
-          destination_location: destination_location_name
-        )
+  <%= case @movement do
+    %{
+      source_location: %{name: source_location_name},
+      destination_location: %{name: destination_location_name}
+    } ->
+      gettext(
+        "%{item} movement from %{source_location} to %{destination_location}",
+        item: @movement.item.name,
+        source_location: source_location_name,
+        destination_location: destination_location_name
+      )
 
-      %{source_location: %{name: source_location_name}} ->
-        gettext(
-          "%{item} consumption at %{location}",
-          item: @movement.item.name,
-          location: source_location_name
-        )
+    %{source_location: %{name: source_location_name}} ->
+      gettext(
+        "%{item} consumption at %{location}",
+        item: @movement.item.name,
+        location: source_location_name
+      )
 
-      %{destination_location: %{name: destination_location_name}} ->
-        gettext(
-          "%{item} supply to %{location}",
-          item: @movement.item.name,
-          location: destination_location_name
-        )
-    end
-  %>
+    %{destination_location: %{name: destination_location_name}} ->
+      gettext(
+        "%{item} supply to %{location}",
+        item: @movement.item.name,
+        location: destination_location_name
+      )
+  end %>
 </h1>
 
 <dl>
   <dt><%= gettext("item group") %></dt>
   <dd>
-    <%= link @movement.item_group.name, to: Routes.admin_item_group_path(@conn, :show, @movement.item_group.id) %>
+    <%= link(@movement.item_group.name,
+      to: Routes.admin_item_group_path(@conn, :show, @movement.item_group.id)
+    ) %>
   </dd>
 
   <dt><%= gettext("item") %></dt>
   <dd>
-    <%= link @movement.item.name, to: Routes.admin_item_path(@conn, :show, @movement.item_id) %>
+    <%= link(@movement.item.name, to: Routes.admin_item_path(@conn, :show, @movement.item_id)) %>
   </dd>
-  
+
   <dt><%= gettext("source") %></dt>
   <dd>
     <%= case @movement.source_location do
-      nil -> gettext("supply")
-      %{name: location_name, id: location_id} -> link location_name, to: Routes.admin_location_path(@conn, :show, location_id)
+      nil ->
+        gettext("supply")
+
+      %{name: location_name, id: location_id} ->
+        link(location_name, to: Routes.admin_location_path(@conn, :show, location_id))
     end %>
   </dd>
 
   <dt><%= gettext("destination_location") %></dt>
   <dd>
     <%= case @movement.destination_location do
-      nil -> gettext("consumption")
-      %{name: location_name, id: location_id} -> link location_name, to: Routes.admin_location_path(@conn, :show, location_id)
+      nil ->
+        gettext("consumption")
+
+      %{name: location_name, id: location_id} ->
+        link(location_name, to: Routes.admin_location_path(@conn, :show, location_id))
     end %>
   </dd>
 
@@ -60,10 +69,15 @@
   <dd><%= @movement.inserted_at %></dd>
 </dl>
 
-
 <h2><%= gettext("actions") %></h2>
 
 <ul>
-  <li><%= "edit" |> gettext |> link(to: Routes.admin_movement_path(@conn, :edit, @movement)) %></li>
-  <li><%= "back" |> gettext |> link(to: Routes.admin_movement_path(@conn, :index, @movement.item_id)) %></li>
+  <li>
+    <%= "edit" |> gettext |> link(to: Routes.admin_movement_path(@conn, :edit, @movement)) %>
+  </li>
+  <li>
+    <%= "back"
+    |> gettext
+    |> link(to: Routes.admin_movement_path(@conn, :index, @movement.item_id)) %>
+  </li>
 </ul>

@@ -3,7 +3,15 @@
 <h2><%= gettext("actions") %></h2>
 
 <ul>
-  <li><%= "edit" |> gettext |> link(to: Routes.admin_item_group_path(@conn, :edit, @item_group)) %></li>
-  <li><%= "back" |> gettext |> link(to: Routes.admin_item_group_path(@conn, :index, @item_group.event_id)) %></li>
-  <li><%= "items" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item_group.id)) %></li>
+  <li>
+    <%= "edit" |> gettext |> link(to: Routes.admin_item_group_path(@conn, :edit, @item_group)) %>
+  </li>
+  <li>
+    <%= "back"
+    |> gettext
+    |> link(to: Routes.admin_item_group_path(@conn, :index, @item_group.event_id)) %>
+  </li>
+  <li>
+    <%= "items" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item_group.id)) %>
+  </li>
 </ul>

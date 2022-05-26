@@ -11,34 +11,53 @@
     </div>
   <% end %>
 
-<div class="center">
-<div class="grid-3">
- <%# <%= label f, :amount, gettext("amount") %>
-  <%= number_input f, :amount, required: true, min: 0, max: 99, placeholder: "0", class: "space-around right justify-self-end" %>
-  <%= error_tag f, :amount %>
+  <div class="center">
+    <div class="grid-3">
+      <%= number_input(f, :amount,
+        required: true,
+        min: 0,
+        max: 99,
+        placeholder: "0",
+        class: "space-around right justify-self-end"
+      ) %>
+      <%= error_tag(f, :amount) %>
 
-  <i class="fa-solid fa-circle-xmark"></i>
+      <i class="fa-solid fa-circle-xmark"></i>
 
-  <%# <%= label f, :item_id, gettext("item") %>
-  <%= select f, :item_id, Enum.map(@item_groups, &{elem(&1, 0).name, Enum.map(elem(&1, 1), fn %{name: name, id: id} -> {name, id} end)}), prompt: gettext("Thing"), required: true , class: "select space-around"%>
-  <%= error_tag f, :item_id %>
-</div>
-</div>
+      <%= select(
+        f,
+        :item_id,
+        Enum.map(
+          @item_groups,
+          &{elem(&1, 0).name, Enum.map(elem(&1, 1), fn %{name: name, id: id} -> {name, id} end)}
+        ),
+        prompt: gettext("Thing"),
+        required: true,
+        class: "select space-around"
+      ) %>
+      <%= error_tag(f, :item_id) %>
+    </div>
+  </div>
 
-<div class="center">
-<div class="grid-3">
-  <%# <%= label f, :source_location_id, gettext("From") %>
-  <%= select f, :source_location_id, Enum.map(@locations, &{&1.name, &1.id}), prompt: gettext("From"), required: true, class: "space-around"%>
-  <%= error_tag f, :source_location_id %>
+  <div class="center">
+    <div class="grid-3">
+      <%= select(f, :source_location_id, Enum.map(@locations, &{&1.name, &1.id}),
+        prompt: gettext("From"),
+        required: true,
+        class: "space-around"
+      ) %>
+      <%= error_tag(f, :source_location_id) %>
 
-  <i class="fa-solid fa-circle-arrow-right"></i>
+      <i class="fa-solid fa-circle-arrow-right"></i>
 
-  <%# <%= label f, :destination_location_id, gettext("To") %>
-  <%= select f, :destination_location_id, Enum.map(@locations, &{&1.name, &1.id}), prompt: gettext("To"), required: true, class: "space-around" %>
-  <%= error_tag f, :destination_location_id %>
-</div>
-</div>
-
+      <%= select(f, :destination_location_id, Enum.map(@locations, &{&1.name, &1.id}),
+        prompt: gettext("To"),
+        required: true,
+        class: "space-around"
+      ) %>
+      <%= error_tag(f, :destination_location_id) %>
+    </div>
+  </div>
 
   <div class="center space-around">
     <%= "save" |> gettext |> submit %>
