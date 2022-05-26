@@ -36,6 +36,8 @@ import "core-js/features/url"
 import { Socket } from 'phoenix';
 import 'phoenix_html';
 import {LiveSocket} from 'phoenix_live_view';
+import SelectContent from './select-content.hook';
+import Orientation from './orientation.hook';
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -43,20 +45,8 @@ let csrfToken = document
 let liveSocket = new LiveSocket('/live', Socket, {
   params: { _csrf_token: csrfToken },
   hooks: {
-    SelectContent: {
-      mounted() {
-        if (!this.el.hidden) this.focus();
-        this.hiddenBefore = this.el.hidden;
-      },
-      updated() {
-        if (this.hiddenBefore && !this.el.hidden) this.focus();
-        this.hiddenBefore = this.el.hidden;
-      },
-      focus() {
-        this.el.focus();
-        this.el.select();
-      }
-    }
+    SelectContent,
+    Orientation,
   }
 });
 liveSocket.connect();

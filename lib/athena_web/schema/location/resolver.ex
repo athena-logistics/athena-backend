@@ -9,11 +9,11 @@ defmodule AthenaWeb.Schema.Location.Resolver do
   alias Athena.Inventory.Location
 
   @spec location(parent :: term(), args :: map(), resolution :: Absinthe.Resolution.t()) ::
-          {:ok, term()} | {:error, term()}
+          AthenaWeb.resolver_result()
   def location(_parent, %{id: id}, _resolution), do: {:ok, Inventory.get_location!(id)}
 
   @spec stock(parent :: Location.t(), args :: map(), resolution :: Absinthe.Resolution.t()) ::
-          {:ok, term()} | {:error, term()}
+          AthenaWeb.resolver_result()
   def stock(%Location{id: id}, args, _resolution) do
     connection_from_query(
       from([event, location: location] in Inventory.stock_query(), where: location.id == ^id),
@@ -24,7 +24,7 @@ defmodule AthenaWeb.Schema.Location.Resolver do
   end
 
   @spec items(parent :: Location.t(), args :: map(), resolution :: Absinthe.Resolution.t()) ::
-          {:ok, term()} | {:error, term()}
+          AthenaWeb.resolver_result()
   def items(%Location{} = location, args, _resolution) do
     location
     |> Inventory.list_relevant_items_query()
@@ -32,7 +32,7 @@ defmodule AthenaWeb.Schema.Location.Resolver do
   end
 
   @spec item_groups(parent :: Location.t(), args :: map(), resolution :: Absinthe.Resolution.t()) ::
-          {:ok, term()} | {:error, term()}
+          AthenaWeb.resolver_result()
   def item_groups(%Location{} = location, args, _resolution) do
     location
     |> Inventory.list_relevant_item_groups_query()

@@ -10,9 +10,9 @@ defmodule AthenaWeb.Schema.StockEntry do
   end
 
   object :stock_entry do
-    field :item, non_null(:item)
-    field :item_group, non_null(:item_group)
-    field :location, non_null(:location)
+    field :item, non_null(:item), resolve: dataloader(RepoDataLoader)
+    field :item_group, non_null(:item_group), resolve: dataloader(RepoDataLoader)
+    field :location, non_null(:location), resolve: dataloader(RepoDataLoader)
     field :consumption, non_null(:integer)
     field :movement_in, non_null(:integer)
     field :movement_out, non_null(:integer)

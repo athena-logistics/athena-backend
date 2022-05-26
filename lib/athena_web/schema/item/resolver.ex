@@ -9,7 +9,7 @@ defmodule AthenaWeb.Schema.Item.Resolver do
   alias Athena.Inventory.Item
 
   @spec stock(parent :: Item.t(), args :: map(), resolution :: Absinthe.Resolution.t()) ::
-          {:ok, term()} | {:error, term()}
+          AthenaWeb.resolver_result()
   def stock(%Item{id: id}, args, _resolution) do
     connection_from_query(
       from([event, item: item] in Inventory.stock_query(), where: item.id == ^id),

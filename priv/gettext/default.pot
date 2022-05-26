@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 
 #, elixir-autogen, elixir-format
+#: lib/athena_web/frontend/live/logistics_live.html.heex:3
 #: lib/athena_web/frontend/templates/layout/root.html.heex:33
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:2
 msgid "Logistics Overview"
 msgstr ""
 
@@ -49,7 +49,6 @@ msgstr ""
 #: lib/athena_web/admin/templates/movement/form.html.heex:15
 #: lib/athena_web/admin/templates/movement/index.html.heex:25
 #: lib/athena_web/admin/templates/movement/show.html.heex:51
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:11
 msgid "consumption"
 msgstr ""
 
@@ -61,29 +60,12 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/athena_web/admin/templates/movement/show.html.heex:35
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:9
 msgid "item"
 msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/athena_web/admin/templates/movement/show.html.heex:30
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:8
 msgid "item group"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:7
-msgid "location"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:13
-msgid "movement in"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:12
-msgid "movement out"
 msgstr ""
 
 #, elixir-autogen, elixir-format
@@ -98,15 +80,9 @@ msgid "save"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:14
-msgid "stock"
-msgstr ""
-
-#, elixir-autogen, elixir-format
 #: lib/athena_web/admin/templates/movement/form.html.heex:11
 #: lib/athena_web/admin/templates/movement/index.html.heex:19
 #: lib/athena_web/admin/templates/movement/show.html.heex:43
-#: lib/athena_web/frontend/templates/logistics/overview.html.heex:10
 msgid "supply"
 msgstr ""
 

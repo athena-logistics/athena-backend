@@ -1,0 +1,35 @@
+<div phx-hook="Orientation" id="overview" class={@orientation}>
+  <h1>
+    <%= gettext("Logistics Overview") %>
+  </h1>
+  <div class="table-scroll-container break-out">
+    <table class="overview-table">
+      <%= for row <- @table do %>
+        <tr>
+          <%= for cell <- row do %>
+            <%= case cell do %>
+              <% %Location{name: name} = location -> %>
+                <th class="location">
+                  <%= link name, to: Routes.frontend_logistics_location_url(@socket, :show, location) %>
+                </th>
+              <% %ItemGroup{name: name} -> %>
+                <th class="item-group"><%= name %></th>
+              <% %Item{name: name} -> %>
+                <th class="item"><%= name %></th>
+              <% :empty_header -> %>
+                <th class="empty-header"></th>
+              <% :item_group_spacer -> %>
+                <td class="item-group-spacer"></td>
+              <% %StockEntry{stock: stock} = entry -> %>
+                <td class={["stock-entry", StockEntry.status(entry)]}>
+                  <%= link stock, to: Routes.frontend_logistics_location_url(@socket, :show, entry.location_id) <> "#item-#{entry.item_id}" %>
+                </td>
+              <% nil -> %>
+                <td class="stock-entry empty">0</td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

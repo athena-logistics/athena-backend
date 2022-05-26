@@ -1,0 +1,106 @@
+.overview-table {
+  margin-top: 2rem;
+  border-spacing: 1px;
+  border-collapse: collapse;
+  min-width: 100%;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+
+  tr {
+    &:nth-child(2n) {
+      background-color: rgba($color-secondary-dark, .4);
+    }
+
+    td,
+    th {
+      vertical-align: middle;
+      padding: 5px;
+
+      &:nth-child(2n) {
+        background-color: rgba($color-secondary-dark, .4);
+      }
+
+          &.important {
+      background-color: $color-red;
+      color: $color-cream;
+      a,
+      a:visited {
+        color: $color-cream;
+      }
+
+      td {
+        border-color: $color-secondary;
+      }
+
+      &:hover {
+        background-color: darken($color-red, 10%);
+      }
+    }
+    &.warning {
+      background-color: $color-orange;
+      color: $color-black;
+      a {
+        color: $color-black;
+      }
+      td {
+        border-color: $color-secondary;
+      }
+
+      &:hover {
+        background-color: darken($color-orange, 10%);
+      }
+    }
+    }
+
+    &:hover {
+      background-color: $color-secondary-dark;
+    }
+
+    td {
+      text-align: center;
+
+      &.item-group-spacer {
+        font-weight: bold;
+
+        .landscape & {
+          border-left: 1px solid $color-secondary-dark;
+        }
+
+        .portrait & {
+          border-top: 1px solid $color-secondary-dark;
+        }
+      }
+    }
+    th {
+      text-align: left;
+      font-weight: normal;
+
+      position: sticky;
+      top: 0;
+      left: 0;
+
+      &:first-child {
+        min-width: 180px;
+      }
+
+      &.item-group {
+        font-weight: bold;
+
+        .landscape & {
+          border-left: 1px solid $color-secondary-dark;
+        }
+
+        .portrait & {
+          border-top: 1px solid $color-secondary-dark;
+        }
+      }
+    }
+
+    &:first-child th {
+      text-align: left;
+      writing-mode: vertical-rl;
+      transform: rotate(-180deg);
+    }
+  }
+}
