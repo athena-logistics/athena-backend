@@ -28,6 +28,10 @@
 
 <ul>
   <li><%= "edit" |> gettext |> link(to: Routes.admin_item_path(@conn, :edit, @item)) %></li>
-  <li><%= "back" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item.item_group_id)) %></li>
-  <li><%= "movements" |> gettext |> link(to: Routes.admin_movement_path(@conn, :index, @item.id)) %></li>
+  <li>
+    <%= "back" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item.item_group_id)) %>
+  </li>
+  <li>
+    <%= "movements" |> gettext |> link(to: Routes.admin_movement_path(@conn, :index, @item.id)) %>
+  </li>
 </ul>

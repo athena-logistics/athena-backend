@@ -1,9 +1,16 @@
 <h1><%= gettext("edit %{item_group}", item_group: @item_group.name) %></h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.admin_item_group_path(@conn, :update, @item_group)) %>
+<%= render(
+  "form.html",
+  Map.put(assigns, :action, Routes.admin_item_group_path(@conn, :update, @item_group))
+) %>
 
 <h2><%= gettext("actions") %></h2>
 
 <ul>
-  <li><%= "back" |> gettext |> link(to: Routes.admin_item_group_path(@conn, :index, @item_group.event_id)) %></li>
+  <li>
+    <%= "back"
+    |> gettext
+    |> link(to: Routes.admin_item_group_path(@conn, :index, @item_group.event_id)) %>
+  </li>
 </ul>

@@ -11,13 +11,15 @@
     <%= gettext("QR code") %>
   </h3>
 
-  <%
-    qr_code = link
+  <% qr_code =
+    link
     |> EQRCode.encode()
-    |> EQRCode.svg()
-  %>
+    |> EQRCode.svg() %>
 
-  <a href={"data:image/svg+xml;base64,#{ Base.encode64(qr_code) }"} download={ @location.name <> ".svg"}>
+  <a
+    href={"data:image/svg+xml;base64,#{Base.encode64(qr_code)}"}
+    download={@location.name <> ".svg"}
+  >
     <%= raw(qr_code) %>
   </a>
 </div>
@@ -25,6 +27,12 @@
 <h2><%= gettext("actions") %></h2>
 
 <ul>
-  <li><%= "edit" |> gettext |> link(to: Routes.admin_location_path(@conn, :edit, @location)) %></li>
-  <li><%= "back" |> gettext |> link(to: Routes.admin_location_path(@conn, :index, @location.event.id)) %></li>
+  <li>
+    <%= "edit" |> gettext |> link(to: Routes.admin_location_path(@conn, :edit, @location)) %>
+  </li>
+  <li>
+    <%= "back"
+    |> gettext
+    |> link(to: Routes.admin_location_path(@conn, :index, @location.event.id)) %>
+  </li>
 </ul>

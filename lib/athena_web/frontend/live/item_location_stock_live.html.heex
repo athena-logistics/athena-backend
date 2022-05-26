@@ -1,26 +1,68 @@
 <form phx-submit="advance_consumption" class="location__item-stock">
-  <div class="location__item-stock--count p-important" phx-click="toggle_show_correction" hidden={@show_correction}><%= @stock %></div>
+  <div
+    class="location__item-stock--count p-important"
+    phx-click="toggle_show_correction"
+    hidden={@show_correction}
+  >
+    <%= @stock %>
+  </div>
 
-  <input class="p-important" type="number" name="new_total" min="0" value={ @stock } phx-hook="SelectContent" hidden={ not @show_correction} id={ "#{@item.id}_new_total" } />
+  <input
+    class="p-important"
+    type="number"
+    name="new_total"
+    min="0"
+    value={@stock}
+    phx-hook="SelectContent"
+    hidden={not @show_correction}
+    id={"#{@item.id}_new_total"}
+  />
 
   <div class="location__item-stock--unit"><%= @item.unit %></div>
 
-  <button type="button" class="button-icon" phx-click="advance_consumption" hidden={@show_correction}>
+  <button
+    type="button"
+    class="button-icon"
+    phx-click="advance_consumption"
+    hidden={@show_correction}
+  >
     <%= if @item.inverse do %>
-      <%= render(AthenaWeb.Frontend.SharedView, "icon.html", socket: @socket, name: "plus", type: "button") %>
+      <%= render(AthenaWeb.Frontend.SharedView, "icon.html",
+        socket: @socket,
+        name: "plus",
+        type: "button"
+      ) %>
     <% else %>
-      <%= render(AthenaWeb.Frontend.SharedView, "icon.html", socket: @socket, name: "minus", type: "button") %>
+      <%= render(AthenaWeb.Frontend.SharedView, "icon.html",
+        socket: @socket,
+        name: "minus",
+        type: "button"
+      ) %>
     <% end %>
   </button>
 
-  <button type="button" phx-click="toggle_show_correction" class="button-icon--small" hidden={@show_correction}>
+  <button
+    type="button"
+    phx-click="toggle_show_correction"
+    class="button-icon--small"
+    hidden={@show_correction}
+  >
     <i class="fa-solid fa-pencil"></i>
   </button>
 
   <button class="button-icon inverted" type="submit" hidden={not @show_correction}>
     <i class="fa-solid fa-floppy-disk"></i>
   </button>
-  <button type="button" phx-click="toggle_show_correction" class="button-icon--small" hidden={not @show_correction}>
-    <%= render(AthenaWeb.Frontend.SharedView, "icon.html", socket: @socket, name: "cross", type: "button") %>
+  <button
+    type="button"
+    phx-click="toggle_show_correction"
+    class="button-icon--small"
+    hidden={not @show_correction}
+  >
+    <%= render(AthenaWeb.Frontend.SharedView, "icon.html",
+      socket: @socket,
+      name: "cross",
+      type: "button"
+    ) %>
   </button>
 </form>

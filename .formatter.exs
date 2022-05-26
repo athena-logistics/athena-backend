@@ -4,7 +4,8 @@
     "{mix,.formatter}.exs",
     "*.{ex,exs}",
     "priv/*/seeds.exs",
-    "{config,lib,test}/**/*.{ex,exs}"
+    "{config,lib,test}/**/*.{ex,exs,heex}"
   ],
-  subdirectories: ["priv/*/migrations"]
+  subdirectories: ["priv/*/migrations"],
+  plugins: [Phoenix.LiveView.HTMLFormatter]
 ]

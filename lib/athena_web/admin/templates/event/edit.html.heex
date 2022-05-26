@@ -2,7 +2,10 @@
   <%= gettext("edit %{event}", event: @event.name) %>
 </h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.admin_event_path(@conn, :update, @event)) %>
+<%= render(
+  "form.html",
+  Map.put(assigns, :action, Routes.admin_event_path(@conn, :update, @event))
+) %>
 
 <h2><%= gettext("actions") %></h2>
 

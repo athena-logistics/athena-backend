@@ -7,17 +7,17 @@
     </div>
   <% end %>
 
-  <%= label f, :name, gettext("name") %>
-  <%= text_input f, :name %>
-  <%= error_tag f, :name %>
+  <%= label(f, :name, gettext("name")) %>
+  <%= text_input(f, :name) %>
+  <%= error_tag(f, :name) %>
 
-  <%= label f, :unit, gettext("unit") %>
-  <%= text_input f, :unit %>
-  <%= error_tag f, :unit %>
+  <%= label(f, :unit, gettext("unit")) %>
+  <%= text_input(f, :unit) %>
+  <%= error_tag(f, :unit) %>
 
-  <%= label f, :inverse, gettext("inverse") %>
-  <%= checkbox f, :inverse %>
-  <%= error_tag f, :inverse %>
+  <%= label(f, :inverse, gettext("inverse")) %>
+  <%= checkbox(f, :inverse) %>
+  <%= error_tag(f, :inverse) %>
 
   <div>
     <%= "save" |> gettext |> submit %>
