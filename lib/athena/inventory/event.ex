@@ -25,11 +25,15 @@ defmodule Athena.Inventory.Event do
   schema "events" do
     field :name, :string
 
-    has_many :locations, Location
-    has_many :item_groups, ItemGroup
-    has_many :items, through: [:item_groups, :items]
-    has_many :movements, through: [:item_groups, :items, :movements]
-    has_many :stock_entries, StockEntry
+    has_many :locations, Location, preload_order: [asc: :name]
+    has_many :item_groups, ItemGroup, preload_order: [asc: :name]
+    has_many :items, through: [:item_groups, :items], preload_order: [asc: :name]
+
+    has_many :movements,
+      through: [:item_groups, :items, :movements],
+      preload_order: [asc: :inserted_at]
+
+    has_many :stock_entries, StockEntry, preload_order: [asc: :item_id, asc: :location_id]
 
     timestamps()
   end
@@ -39,5 +43,6 @@ defmodule Athena.Inventory.Event do
     do:
       event
       |> cast(attrs, [:name])
+      |> fill_uuid()
       |> validate_required([:name])
 end

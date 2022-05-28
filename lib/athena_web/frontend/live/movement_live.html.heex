@@ -1,0 +1,84 @@
+<h1>
+  <%= case @live_action do %>
+    <% :supply -> %>
+      <%= gettext("Supply Items") %>
+    <% :relocate -> %>
+      <%= gettext("Relocate Items") %>
+  <% end %>
+</h1>
+
+<.form let={f} for={@changeset} phx-change="validate" phx-submit="save">
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>
+        <%= gettext("Oops, something went wrong! Please check the errors below.") %>
+      </p>
+    </div>
+  <% end %>
+
+  <div class="center">
+    <div class="grid-3">
+      <%= if @live_action == :relocate do %>
+        <%= select(f, :source_location_id, Enum.map(@event.locations, &{&1.name, &1.id}),
+          prompt: gettext("From"),
+          required: true,
+          class: "space-around"
+        ) %>
+        <%= error_tag(f, :source_location_id) %>
+      <% else %>
+        <div></div>
+      <% end %>
+
+      <i class="fa-solid fa-circle-arrow-right"></i>
+
+      <%= select(f, :destination_location_id, Enum.map(@event.locations, &{&1.name, &1.id}),
+        prompt: gettext("To"),
+        required: true,
+        class: "space-around"
+      ) %>
+      <%= error_tag(f, :destination_location_id) %>
+    </div>
+  </div>
+
+  <%= for movement_form <- inputs_for(f, :movements, prepend: [%Movement{}]) do %>
+    <%= hidden_input(movement_form, :id) %>
+
+    <div class="center">
+      <div class="grid-3">
+        <%= number_input(movement_form, :amount,
+          required: true,
+          min: 0,
+          max: 99,
+          placeholder: "0",
+          class: "space-around right justify-self-end"
+        ) %>
+        <%= error_tag(movement_form, :amount) %>
+
+        <i class="fa-solid fa-circle-xmark"></i>
+
+        <%= select(
+          movement_form,
+          :item_id,
+          Enum.map(
+            @event.item_groups,
+            &{&1.name, Enum.map(&1.items, fn %{name: name, id: id} -> {name, id} end)}
+          ),
+          prompt: gettext("item"),
+          required: true,
+          class: "select space-around"
+        ) %>
+        <%= error_tag(movement_form, :item_id) %>
+      </div>
+    </div>
+
+    <button phx-click="remove_movement" type="button" phx-value-id={movement_form.data.id}>
+      remove movement
+    </button>
+  <% end %>
+
+  <button phx-click="add_movement" type="button">add movement</button>
+
+  <div class="center space-around">
+    <%= "save" |> gettext |> submit %>
+  </div>
+</.form>

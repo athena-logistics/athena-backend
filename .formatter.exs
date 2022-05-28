@@ -1,5 +1,10 @@
 [
-  import_deps: [:ecto, :phoenix, :absinthe],
+  locals_without_parens: [
+    # Phoenix.LiveViewTest
+    assert_redirect: 1,
+    refute_redirected: 2
+  ],
+  import_deps: [:ecto, :phoenix, :phoenix_live_view, :absinthe],
   inputs: [
     "{mix,.formatter}.exs",
     "*.{ex,exs}",

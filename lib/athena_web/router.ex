@@ -70,10 +70,8 @@ defmodule AthenaWeb.Router do
 
     live "/events/:event/overview", LogisticsLive
 
-    get "/events/:event/movements/supply/new", MovementController, :supply_new
-    post "/events/:event/movements/supply", MovementController, :supply_create
-    get "/events/:event/movements/relocate/new", MovementController, :relocate_new
-    post "/events/:event/movements/relocate", MovementController, :relocate_create
+    live "/events/:event/movements/supply", MovementLive, :supply
+    live "/events/:event/movements/relocate", MovementLive, :relocate
   end
 
   scope "/vendor/", AthenaWeb.Frontend, as: :frontend_vendor, assigns: %{access: :vendor} do

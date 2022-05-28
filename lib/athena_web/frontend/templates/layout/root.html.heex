@@ -50,12 +50,7 @@
                 <%= "Supply Item"
                 |> gettext
                 |> link(
-                  to:
-                    Routes.frontend_logistics_movement_url(
-                      @conn,
-                      :supply_new,
-                      @navigation.event.id
-                    )
+                  to: Routes.frontend_logistics_movement_url(@conn, :supply, @navigation.event.id)
                 ) %>
               </li>
               <li>
@@ -63,11 +58,7 @@
                 |> gettext
                 |> link(
                   to:
-                    Routes.frontend_logistics_movement_url(
-                      @conn,
-                      :relocate_new,
-                      @navigation.event.id
-                    )
+                    Routes.frontend_logistics_movement_url(@conn, :relocate, @navigation.event.id)
                 ) %>
               </li>
               <li class="divider"></li>

@@ -12,6 +12,7 @@ defmodule Athena do
     quote do
       use Ecto.Schema
 
+      import Athena.ChangesetHelper
       import Ecto.Changeset
 
       alias Ecto.Changeset
