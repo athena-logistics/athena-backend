@@ -115,6 +115,16 @@ defmodule AthenaWeb do
     end
   end
 
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      alias Athena.Repo
+
+      unquote(view_helpers())
+    end
+  end
+
   @doc false
   @spec subschema :: Macro.t()
   def subschema do

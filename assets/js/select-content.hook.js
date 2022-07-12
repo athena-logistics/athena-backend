@@ -1,14 +1,9 @@
 export default {
   mounted() {
-    if (!this.el.hidden) this.focus();
-    this.hiddenBefore = this.el.hidden;
+    this.onFocus = () => this.el.select();
+    this.el.addEventListener('focus', this.onFocus);
   },
-  updated() {
-    if (this.hiddenBefore && !this.el.hidden) this.focus();
-    this.hiddenBefore = this.el.hidden;
-  },
-  focus() {
-    this.el.focus();
-    this.el.select();
+  destroyed() {
+    this.el.removeEventListener('focus', this.onFocus);
   },
 };

@@ -19,10 +19,6 @@
 
   &__item {
     list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
   }
 
   &__item-name {
@@ -42,7 +38,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    margin-right: -1rem;
+    margin-top: 1rem;
 
     & > * {
       margin-right: 1rem;
@@ -64,11 +60,9 @@
       width: 8.5rem;
     }
 
-    &--unit {
-      font-size: 1.4rem;
-      line-height: 1.4;
-      font-weight: 300;
-      max-width: 3rem;
+    button:disabled {
+      opacity: .7;
+      pointer-events: none;
     }
   }
 

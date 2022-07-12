@@ -1,0 +1,30 @@
+<section class="location__details">
+  <h1 class="location__header"><%= @location.name %></h1>
+
+  <%= for {item_group, _items} <- @item_groups do %>
+    <a class="bookmark" href={"##{item_group.id}"}><%= item_group.name %></a>
+  <% end %>
+
+  <div class="location__grid">
+    <%= for %ItemGroup{name: item_group_name, id: item_group_id} <- @item_groups, stock_entries = Enum.filter(@stock_entries, & &1.item_group.id == item_group_id) do %>
+      <div class="location__group">
+        <h2 class="location__group-title" id={item_group_id}><%= item_group_name %></h2>
+
+        <ul class="location__item-list">
+          <%= for %StockEntry{item: item} = stock_entry <- stock_entries do %>
+            <li class="location__item">
+              <div class="location__item-name">
+                <%= item.name %> <small>(<%= item.unit %>)</small>
+              </div>
+              <.live_component
+                module={AthenaWeb.Frontend.StockEntry}
+                id={"stock_entry_#{@location.id}_#{item.id}"}
+                stock_entry={stock_entry}
+              />
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</section>
