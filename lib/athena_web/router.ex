@@ -66,7 +66,8 @@ defmodule AthenaWeb.Router do
   scope "/logistics/", AthenaWeb.Frontend, as: :frontend_logistics, assigns: %{access: :logistics} do
     pipe_through [:browser, :frontend]
 
-    live "/locations/:location", LocationLive, :show
+    live "/locations/:location", Location.InventoryLive, :show_logistics
+    live "/locations/:location/stats", Location.StatsLive, :show
 
     live "/events/:event/overview", Dashboard.TableLive
     live "/events/:event/overview/item", Dashboard.ItemLive
@@ -79,7 +80,7 @@ defmodule AthenaWeb.Router do
   scope "/vendor/", AthenaWeb.Frontend, as: :frontend_vendor, assigns: %{access: :vendor} do
     pipe_through [:browser, :frontend]
 
-    live "/locations/:location", LocationLive, :show
+    live "/locations/:location", Location.InventoryLive, :show_vendor
   end
 
   scope "/", AthenaWeb do

@@ -6,6 +6,7 @@ defmodule Athena.Inventory.Location do
   use Athena, :model
 
   alias Athena.Inventory.Event
+  alias Athena.Inventory.Location.Total
   alias Athena.Inventory.Movement
   alias Athena.Inventory.StockEntry
 
@@ -15,6 +16,7 @@ defmodule Athena.Inventory.Location do
           movements_in: Ecto.Schema.has_many([Movement.t()]),
           movements_out: Ecto.Schema.has_many([Movement.t()]),
           stock_entries: Ecto.Schema.has_many(StockEntry.t()),
+          totals: Ecto.Schema.has_many(Total.t()),
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -33,6 +35,8 @@ defmodule Athena.Inventory.Location do
       preload_order: [asc: :inserted_at]
 
     has_many :stock_entries, StockEntry, preload_order: [asc: :item_id]
+
+    has_many :totals, Total, preload_order: [asc: :inserted_at]
 
     timestamps()
   end

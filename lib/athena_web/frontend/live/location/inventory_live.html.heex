@@ -1,6 +1,14 @@
 <section class="location__details">
   <h1 class="location__header"><%= @location.name %></h1>
 
+  <%= if @live_action == :show_logistics do %>
+    <AthenaWeb.Frontend.Location.Tabs.tabs
+      active_tab={:inventory}
+      socket={@socket}
+      location={@location}
+    />
+  <% end %>
+
   <%= for %ItemGroup{name: item_group_name, id: item_group_id} <- @item_groups do %>
     <a class="bookmark" href={"##{item_group_id}"}><%= item_group_name %></a>
   <% end %>

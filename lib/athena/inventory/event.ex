@@ -5,6 +5,7 @@ defmodule Athena.Inventory.Event do
 
   use Athena, :model
 
+  alias Athena.Inventory.Event.Total
   alias Athena.Inventory.Item
   alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Location
@@ -18,6 +19,7 @@ defmodule Athena.Inventory.Event do
           items: Ecto.Schema.has_many(Item.t()),
           movements: Ecto.Schema.has_many(Movement.t()),
           stock_entries: Ecto.Schema.has_many(StockEntry.t()),
+          totals: Ecto.Schema.has_many(Total.t()),
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -34,6 +36,8 @@ defmodule Athena.Inventory.Event do
       preload_order: [asc: :inserted_at]
 
     has_many :stock_entries, StockEntry, preload_order: [asc: :item_id, asc: :location_id]
+
+    has_many :totals, Total, preload_order: [asc: :inserted_at]
 
     timestamps()
   end
