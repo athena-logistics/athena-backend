@@ -1,8 +1,8 @@
 <section class="location__details">
   <h1 class="location__header"><%= @location.name %></h1>
 
-  <%= for {item_group, _items} <- @item_groups do %>
-    <a class="bookmark" href={"##{item_group.id}"}><%= item_group.name %></a>
+  <%= for %ItemGroup{name: item_group_name, id: item_group_id} <- @item_groups do %>
+    <a class="bookmark" href={"##{item_group_id}"}><%= item_group_name %></a>
   <% end %>
 
   <div class="location__grid">
