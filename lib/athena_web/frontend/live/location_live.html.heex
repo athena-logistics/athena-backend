@@ -14,13 +14,16 @@
           <%= for %StockEntry{item: item} = stock_entry <- stock_entries do %>
             <li class="location__item">
               <div class="location__item-name">
-                <%= item.name %> <small>(<%= item.unit %>)</small>
+                <%= item.name %>
               </div>
-              <.live_component
-                module={AthenaWeb.Frontend.StockEntry}
-                id={"stock_entry_#{@location.id}_#{item.id}"}
-                stock_entry={stock_entry}
-              />
+              <div class="location__item-stockContainer">
+                <.live_component
+                  module={AthenaWeb.Frontend.StockEntry}
+                  id={"stock_entry_#{@location.id}_#{item.id}"}
+                  stock_entry={stock_entry}
+                />
+                <div class="location__item-unit"><%= item.unit %></div>
+              </div>
             </li>
           <% end %>
         </ul>

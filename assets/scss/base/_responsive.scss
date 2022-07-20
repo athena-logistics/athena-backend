@@ -1,16 +1,22 @@
 @mixin desktop-up {
-    @media (min-width: 1024px) {
-        @content;
-    }
+  @media (min-width: 1024px) {
+    @content;
+  }
 }
 @mixin desktop-down {
-    @media (max-width: 1023px) {
-        @content;
-    }
+  @media (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media (max-width: 767px) {
+    @content;
+  }
 }
 
 .show-desktop.hide {
-    @include desktop-down {
-        display: none;
-    }
+  @include desktop-down {
+    display: none;
+  }
 }

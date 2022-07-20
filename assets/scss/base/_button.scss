@@ -47,9 +47,19 @@ button {
     padding: 1rem;
     svg,
     i {
-      width: 2.5rem;
-      height: 2.5rem;
-      font-size: 2.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    @include tablet-down {
+      padding: 1rem;
+      svg,
+      i {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 2.5rem;
+      }
     }
   }
 
