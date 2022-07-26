@@ -10,6 +10,6 @@ select {
   border-radius: 2px;
 
   option {
-    color: red;
+    color: darken($color-primary, .2);
   }
 }
