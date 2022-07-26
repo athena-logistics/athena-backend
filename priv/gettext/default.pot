@@ -31,7 +31,7 @@ msgstr ""
 #: lib/athena_web/admin/templates/item_group/form.html.heex:5
 #: lib/athena_web/admin/templates/location/form.html.heex:5
 #: lib/athena_web/admin/templates/movement/form.html.heex:5
-#: lib/athena_web/frontend/live/movement_live.html.heex:14
+#: lib/athena_web/frontend/live/movement_live.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
@@ -57,7 +57,7 @@ msgid "destination location"
 msgstr ""
 
 #: lib/athena_web/admin/templates/movement/show.html.heex:38
-#: lib/athena_web/frontend/live/movement_live.html.heex:66
+#: lib/athena_web/frontend/live/movement_live.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "item"
 msgstr ""
@@ -72,7 +72,7 @@ msgstr ""
 #: lib/athena_web/admin/templates/item_group/form.html.heex:15
 #: lib/athena_web/admin/templates/location/form.html.heex:15
 #: lib/athena_web/admin/templates/movement/form.html.heex:27
-#: lib/athena_web/frontend/live/movement_live.html.heex:82
+#: lib/athena_web/frontend/live/movement_live.html.heex:155
 #, elixir-autogen, elixir-format
 msgid "save"
 msgstr ""
@@ -85,7 +85,7 @@ msgid "supply"
 msgstr ""
 
 #: lib/athena_web/admin/controllers/movement_controller.ex:48
-#: lib/athena_web/frontend/live/movement_live.ex:60
+#: lib/athena_web/frontend/live/movement_live.ex:68
 #, elixir-autogen, elixir-format
 msgid "Movement created successfully."
 msgstr ""
@@ -425,22 +425,22 @@ msgstr ""
 msgid "edit movement"
 msgstr ""
 
-#: lib/athena_web/frontend/live/movement_live.html.heex:23
+#: lib/athena_web/frontend/live/movement_live.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "From"
 msgstr ""
 
-#: lib/athena_web/frontend/live/movement_live.html.heex:35
+#: lib/athena_web/frontend/live/movement_live.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "To"
 msgstr ""
 
-#: lib/athena_web/frontend/live/movement_live.html.heex:6
+#: lib/athena_web/frontend/live/movement_live.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Relocate Items"
 msgstr ""
 
-#: lib/athena_web/frontend/live/movement_live.html.heex:4
+#: lib/athena_web/frontend/live/movement_live.html.heex:5
 #, elixir-autogen, elixir-format
 msgid "Supply Items"
 msgstr ""
