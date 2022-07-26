@@ -1,7 +1,7 @@
 # Athena
 
-[![Main Branch](https://github.com/Athena-Logistics/athena-backend/actions/workflows/branch_main.yml/badge.svg)](https://github.com/Athena-Logistics/athena-backend/actions/workflows/branch_main.yml)
-[![Coverage Status](https://coveralls.io/repos/github/Athena-Logistics/athena-backend/badge.svg?branch=main)](https://coveralls.io/github/Athena-Logistics/athena-backend?branch=main)
+[![Main Branch](https://github.com/athena-logistics/athena-backend/actions/workflows/branch_main.yml/badge.svg)](https://github.com/athena-logistics/athena-backend/actions/workflows/branch_main.yml)
+[![Coverage Status](https://coveralls.io/repos/github/athena-logistics/athena-backend/badge.svg?branch=main)](https://coveralls.io/github/athena-logistics/athena-backend?branch=main)
 
 :beer::tropical_drink::wine_glass: Event Logistics Management
 

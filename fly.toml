@@ -7,7 +7,7 @@ kill_timeout = 5
 processes = []
 
 [build]
-  image = "ghcr.io/Athena-Logistics/athena-backend/athena:main"
+  image = "ghcr.io/athena-logistics/athena-backend/athena:main"
 
 [deploy]
   release_command = "/app/bin/migrate"
