@@ -11,7 +11,7 @@
     <div class="location">
       <h2>
         <%= link(location_name,
-          to: Routes.frontend_logistics_location_url(@socket, :show, location_id)
+          to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location_id)
         ) %>
       </h2>
       I <%= length(status_count.important) %> W <%= length(status_count.warning) %> N <%= length(

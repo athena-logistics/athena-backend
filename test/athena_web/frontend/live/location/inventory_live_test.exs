@@ -1,4 +1,4 @@
-defmodule AthenaWeb.Frontend.LocationControllerTest do
+defmodule AthenaWeb.Frontend.Location.InventoryLiveTest do
   use Athena.DataCase
   use AthenaWeb.ConnCase
 
@@ -8,13 +8,15 @@ defmodule AthenaWeb.Frontend.LocationControllerTest do
     setup [:create_location]
 
     test "for logistics", %{conn: conn, location: location} do
-      conn = get(conn, Routes.frontend_logistics_location_path(conn, :show, location.id))
+      conn =
+        get(conn, Routes.frontend_logistics_inventory_path(conn, :show_logistics, location.id))
 
       assert html_response(conn, 200) =~ location.name
     end
 
     test "for vendor", %{conn: conn, location: location} do
-      conn = get(conn, Routes.frontend_logistics_location_path(conn, :show, location.id))
+      conn =
+        get(conn, Routes.frontend_logistics_inventory_path(conn, :show_logistics, location.id))
 
       assert html_response(conn, 200) =~ location.name
     end

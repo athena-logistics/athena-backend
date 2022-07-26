@@ -38,6 +38,7 @@ import 'phoenix_html';
 import {LiveSocket} from 'phoenix_live_view';
 import SelectContent from './select-content.hook';
 import Orientation from './orientation.hook';
+import Chart from './chart.hook';
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -47,6 +48,7 @@ let liveSocket = new LiveSocket('/live', Socket, {
   hooks: {
     SelectContent,
     Orientation,
+    Chart,
   }
 });
 liveSocket.connect();

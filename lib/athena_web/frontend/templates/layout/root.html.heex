@@ -65,7 +65,12 @@
               <%= for %{id: location_id, name: location_name} <- @navigation.locations do %>
                 <li>
                   <%= link(location_name,
-                    to: Routes.frontend_logistics_location_url(@conn, :show, location_id)
+                    to:
+                      Routes.frontend_logistics_inventory_path(
+                        @conn,
+                        :show_logistics,
+                        location_id
+                      )
                   ) %>
                 </li>
               <% end %>

@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "@webcomponents/template": "^1.5.0",
+    "chart.js": "^3.8.2",
+    "chartjs-adapter-luxon": "^1.1.0",
     "child-replace-with-polyfill": "^1.0.1",
     "classlist-polyfill": "^1.2.0",
     "core-js": "^3.24.0",
