@@ -70,7 +70,7 @@ defmodule AthenaWeb.Frontend.MovementLive do
            to:
              Routes.frontend_logistics_live_path(
                socket,
-               AthenaWeb.Frontend.LogisticsLive,
+               AthenaWeb.Frontend.Dashboard.TableLive,
                socket.assigns.event
              )
          )}

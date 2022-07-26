@@ -1,0 +1,22 @@
+<div id="overview-item">
+  <h1>
+    <%= gettext("Logistics Overview") %>
+  </h1>
+
+  <AthenaWeb.Frontend.Dashboard.Tabs.tabs event={@event} active_tab={:item} socket={@socket} />
+
+  <%= for %ItemGroup{id: item_group_id, name: item_group_name} <- @event.item_groups,
+  stock_entries = Enum.filter(@event.stock_entries, &match?(%StockEntry{item: %Item{item_group_id: ^item_group_id}}, &1)) do %>
+    <div class="item-group">
+      <h2><%= item_group_name %></h2>
+
+      <%= for { %Item{name: item_name, unit: unit}, item_stock_entries} <- Enum.group_by(stock_entries, & &1.item),
+        status_count = Map.merge(%{important: [], warning: [], normal: []},  Enum.group_by(item_stock_entries, &StockEntry.status/1)) do %>
+        <h3><%= item_name %>(<%= unit %>)</h3>
+        I <%= length(status_count.important) %> W <%= length(status_count.warning) %> N <%= length(
+          status_count.normal
+        ) %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -4,7 +4,8 @@
   <%= gettext("logistics overview link") %>
 </h2>
 
-<% link = Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.LogisticsLive, @event.id) %>
+<% link =
+  Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.Dashboard.TableLive, @event.id) %>
 
 <%= "go to public view" |> gettext |> link(to: link) %>
 

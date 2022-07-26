@@ -20,7 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.3\n"
 
-#: lib/athena_web/frontend/live/logistics_live.html.heex:3
+#: lib/athena_web/frontend/live/dashboard/item_live.html.heex:3
+#: lib/athena_web/frontend/live/dashboard/location_live.html.heex:3
+#: lib/athena_web/frontend/live/dashboard/table_live.html.heex:3
 #: lib/athena_web/frontend/templates/layout/root.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "Logistics Overview"
@@ -176,12 +178,12 @@ msgstr ""
 msgid "Movement updated successfully."
 msgstr ""
 
-#: lib/athena_web/admin/templates/event/show.html.heex:23
+#: lib/athena_web/admin/templates/event/show.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "%{event} logistics"
 msgstr ""
 
-#: lib/athena_web/admin/templates/event/show.html.heex:13
+#: lib/athena_web/admin/templates/event/show.html.heex:14
 #: lib/athena_web/admin/templates/location/show.html.heex:11
 #, elixir-autogen, elixir-format
 msgid "QR code"
@@ -191,7 +193,7 @@ msgstr ""
 #: lib/athena_web/admin/templates/event/index.html.heex:9
 #: lib/athena_web/admin/templates/event/index.html.heex:38
 #: lib/athena_web/admin/templates/event/new.html.heex:5
-#: lib/athena_web/admin/templates/event/show.html.heex:29
+#: lib/athena_web/admin/templates/event/show.html.heex:30
 #: lib/athena_web/admin/templates/item/edit.html.heex:7
 #: lib/athena_web/admin/templates/item/index.html.heex:9
 #: lib/athena_web/admin/templates/item/index.html.heex:41
@@ -217,7 +219,7 @@ msgstr ""
 
 #: lib/athena_web/admin/templates/event/edit.html.heex:13
 #: lib/athena_web/admin/templates/event/new.html.heex:8
-#: lib/athena_web/admin/templates/event/show.html.heex:36
+#: lib/athena_web/admin/templates/event/show.html.heex:37
 #: lib/athena_web/admin/templates/item/edit.html.heex:11
 #: lib/athena_web/admin/templates/item/new.html.heex:12
 #: lib/athena_web/admin/templates/item/show.html.heex:32
@@ -235,7 +237,7 @@ msgid "back"
 msgstr ""
 
 #: lib/athena_web/admin/templates/event/index.html.heex:21
-#: lib/athena_web/admin/templates/event/show.html.heex:33
+#: lib/athena_web/admin/templates/event/show.html.heex:34
 #: lib/athena_web/admin/templates/item/index.html.heex:24
 #: lib/athena_web/admin/templates/item/show.html.heex:30
 #: lib/athena_web/admin/templates/item_group/show.html.heex:7
@@ -247,19 +249,19 @@ msgstr ""
 msgid "edit"
 msgstr ""
 
-#: lib/athena_web/admin/templates/event/show.html.heex:9
+#: lib/athena_web/admin/templates/event/show.html.heex:10
 #: lib/athena_web/admin/templates/location/show.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "go to public view"
 msgstr ""
 
-#: lib/athena_web/admin/templates/event/show.html.heex:43
+#: lib/athena_web/admin/templates/event/show.html.heex:44
 #: lib/athena_web/admin/templates/item_group/index.html.heex:1
 #, elixir-autogen, elixir-format
 msgid "item groups"
 msgstr ""
 
-#: lib/athena_web/admin/templates/event/show.html.heex:39
+#: lib/athena_web/admin/templates/event/show.html.heex:40
 #: lib/athena_web/admin/templates/location/index.html.heex:1
 #, elixir-autogen, elixir-format
 msgid "locations"
@@ -453,4 +455,19 @@ msgstr ""
 #: lib/athena_web/frontend/live/movement_live.html.heex:5
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Supply Items"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/tabs.ex:24
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Item"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/tabs.ex:36
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Location"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/tabs.ex:12
+#, elixir-autogen, elixir-format
+msgid "Table"
 msgstr ""
