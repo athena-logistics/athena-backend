@@ -1,4 +1,4 @@
-defmodule AthenaWeb.Frontend.LogisticsLive do
+defmodule AthenaWeb.Frontend.Dashboard.TableLive do
   @moduledoc false
 
   use AthenaWeb, :live

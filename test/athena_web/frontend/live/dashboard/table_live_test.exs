@@ -1,4 +1,4 @@
-defmodule AthenaWeb.Frontend.LogisticsLiveTest do
+defmodule AthenaWeb.Frontend.Dashboard.TableLiveTest do
   use Athena.DataCase
   use AthenaWeb.ConnCase
 
@@ -26,7 +26,11 @@ defmodule AthenaWeb.Frontend.LogisticsLiveTest do
     conn =
       get(
         conn,
-        Routes.frontend_logistics_live_path(conn, AthenaWeb.Frontend.LogisticsLive, event.id)
+        Routes.frontend_logistics_live_path(
+          conn,
+          AthenaWeb.Frontend.Dashboard.TableLive,
+          event.id
+        )
       )
 
     assert html = html_response(conn, 200)

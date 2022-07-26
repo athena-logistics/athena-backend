@@ -68,7 +68,9 @@ defmodule AthenaWeb.Router do
 
     live "/locations/:location", LocationLive, :show
 
-    live "/events/:event/overview", LogisticsLive
+    live "/events/:event/overview", Dashboard.TableLive
+    live "/events/:event/overview/item", Dashboard.ItemLive
+    live "/events/:event/overview/location", Dashboard.LocationLive
 
     live "/events/:event/movements/supply", MovementLive, :supply
     live "/events/:event/movements/relocate", MovementLive, :relocate

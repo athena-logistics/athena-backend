@@ -47,7 +47,11 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
       {path, flash} = assert_redirect view
 
       assert path ==
-               Routes.frontend_logistics_live_path(conn, AthenaWeb.Frontend.LogisticsLive, event)
+               Routes.frontend_logistics_live_path(
+                 conn,
+                 AthenaWeb.Frontend.Dashboard.TableLive,
+                 event
+               )
 
       assert %{"info" => _message} = flash
     end
@@ -73,7 +77,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
       refute_redirected view,
                         Routes.frontend_logistics_live_path(
                           conn,
-                          AthenaWeb.Frontend.LogisticsLive,
+                          AthenaWeb.Frontend.Dashboard.TableLive,
                           event
                         )
 
@@ -114,7 +118,11 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
       {path, flash} = assert_redirect view
 
       assert path ==
-               Routes.frontend_logistics_live_path(conn, AthenaWeb.Frontend.LogisticsLive, event)
+               Routes.frontend_logistics_live_path(
+                 conn,
+                 AthenaWeb.Frontend.Dashboard.TableLive,
+                 event
+               )
 
       assert %{"info" => _message} = flash
     end
@@ -140,7 +148,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
       refute_redirected view,
                         Routes.frontend_logistics_live_path(
                           conn,
-                          AthenaWeb.Frontend.LogisticsLive,
+                          AthenaWeb.Frontend.Dashboard.TableLive,
                           event
                         )
 

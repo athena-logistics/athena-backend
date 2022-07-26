@@ -2,6 +2,9 @@
   <h1>
     <%= gettext("Logistics Overview") %>
   </h1>
+
+  <AthenaWeb.Frontend.Dashboard.Tabs.tabs event={@event} active_tab={:table} socket={@socket} />
+
   <div class="table-scroll-container break-out">
     <table class="overview-table">
       <%= for row <- @table do %>

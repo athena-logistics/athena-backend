@@ -125,6 +125,14 @@ defmodule AthenaWeb do
     end
   end
 
+  def component do
+    quote do
+      use Phoenix.Component
+
+      unquote(view_helpers())
+    end
+  end
+
   @doc false
   @spec subschema :: Macro.t()
   def subschema do
