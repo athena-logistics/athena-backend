@@ -6,20 +6,22 @@
   <% end %>
 
   <div class="location__grid">
-    <%= for %ItemGroup{name: item_group_name, id: item_group_id} <- @item_groups, stock_entries = Enum.filter(@stock_entries, & &1.item_group.id == item_group_id) do %>
+    <%= for %ItemGroup{name: item_group_name, id: item_group_id} = item_group <- @item_groups,
+      stock_entries = relevant_stock_entries(@stock_entries, item_group),
+      stock_entries != [] do %>
       <div class="location__group">
         <h2 class="location__group-title" id={item_group_id}><%= item_group_name %></h2>
 
         <ul class="location__item-list">
-          <%= for %StockEntry{item: item} = stock_entry <- stock_entries do %>
-            <li class="location__item">
+          <%= for %StockEntry{item: %Item{id: item_id} = item} = stock_entry <- stock_entries do %>
+            <li class="location__item" id={"item-#{item_id}"}>
               <div class="location__item-name">
                 <%= item.name %>
               </div>
               <div class="location__item-stockContainer">
                 <.live_component
                   module={AthenaWeb.Frontend.StockEntry}
-                  id={"stock_entry_#{@location.id}_#{item.id}"}
+                  id={"stock_entry_#{@location.id}_#{item_id}"}
                   stock_entry={stock_entry}
                 />
                 <div class="location__item-unit"><%= item.unit %></div>

@@ -4,6 +4,7 @@ defmodule AthenaWeb.Frontend.LocationLive do
   use AthenaWeb, :live
 
   alias Athena.Inventory
+  alias Athena.Inventory.Item
   alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Location
   alias Athena.Inventory.StockEntry
@@ -37,4 +38,12 @@ defmodule AthenaWeb.Frontend.LocationLive do
     |> assign(location: location, stock_entries: stock_entries, item_groups: item_groups)
     |> assign_navigation(event)
   end
+
+  defp relevant_stock_entries(stock_entries, %ItemGroup{id: item_group_id}),
+    do:
+      Enum.filter(
+        stock_entries,
+        &(&1.item_group_id == item_group_id and
+            (&1.item.inverse or (&1.movement_in > 0 or &1.supply > 0)))
+      )
 end
