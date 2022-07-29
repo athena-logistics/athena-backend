@@ -24,10 +24,17 @@
                     <%= name %>
                   </div>
                 </th>
-              <% %Item{name: name} -> %>
+              <% %Item{name: name, unit: unit} = item -> %>
                 <th class="item">
                   <div>
-                    <%= name %>
+                    <%= link(name,
+                      to:
+                        Routes.frontend_logistics_live_path(
+                          @socket,
+                          AthenaWeb.Frontend.Dashboard.ItemStatsLive,
+                          item
+                        )
+                    ) %> (<%= unit %>)
                   </div>
                 </th>
               <% :empty_header -> %>

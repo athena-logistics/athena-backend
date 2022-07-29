@@ -472,6 +472,7 @@ msgstr ""
 msgid "Stats"
 msgstr ""
 
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:26
 #: lib/athena_web/frontend/live/location/stats_live.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "Time"
@@ -480,4 +481,29 @@ msgstr ""
 #: lib/athena_web/frontend/live/location/stats_live.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "Units"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:1
+#, elixir-autogen, elixir-format
+msgid "%{item} total stats"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "Amount"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "Consumption"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Movements"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Supply"
 msgstr ""
