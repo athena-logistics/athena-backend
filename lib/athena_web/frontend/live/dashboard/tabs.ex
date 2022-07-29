@@ -12,7 +12,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
           |> gettext
           |> link(
             to:
-              Routes.frontend_logistics_live_url(
+              Routes.frontend_logistics_live_path(
                 @socket,
                 AthenaWeb.Frontend.Dashboard.TableLive,
                 @event
@@ -24,7 +24,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
           |> gettext
           |> link(
             to:
-              Routes.frontend_logistics_live_url(
+              Routes.frontend_logistics_live_path(
                 @socket,
                 AthenaWeb.Frontend.Dashboard.ItemLive,
                 @event
@@ -36,7 +36,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
           |> gettext
           |> link(
             to:
-              Routes.frontend_logistics_live_url(
+              Routes.frontend_logistics_live_path(
                 @socket,
                 AthenaWeb.Frontend.Dashboard.LocationLive,
                 @event

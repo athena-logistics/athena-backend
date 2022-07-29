@@ -13,17 +13,17 @@ msgstr ""
 #: lib/athena_web/frontend/live/dashboard/item_live.html.heex:3
 #: lib/athena_web/frontend/live/dashboard/location_live.html.heex:3
 #: lib/athena_web/frontend/live/dashboard/table_live.html.heex:3
-#: lib/athena_web/frontend/templates/layout/root.html.heex:39
+#: lib/athena_web/frontend/templates/layout/root.html.heex:50
 #, elixir-autogen, elixir-format
 msgid "Logistics Overview"
 msgstr ""
 
-#: lib/athena_web/frontend/templates/layout/root.html.heex:58
+#: lib/athena_web/frontend/templates/layout/root.html.heex:69
 #, elixir-autogen, elixir-format
 msgid "Move Item"
 msgstr ""
 
-#: lib/athena_web/frontend/templates/layout/root.html.heex:51
+#: lib/athena_web/frontend/templates/layout/root.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Supply Item"
 msgstr ""
