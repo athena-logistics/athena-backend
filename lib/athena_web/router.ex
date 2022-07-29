@@ -16,7 +16,7 @@ defmodule AthenaWeb.Router do
 
     plug Cldr.Plug.AcceptLanguage, cldr_backend: AthenaWeb.Cldr
 
-    plug Cldr.Plug.SetLocale,
+    plug Cldr.Plug.PutLocale,
       apps: [:cldr, :gettext],
       from: [:query, :body, :cookie, :accept_language],
       param: "locale",
@@ -72,6 +72,7 @@ defmodule AthenaWeb.Router do
     live "/events/:event/overview", Dashboard.TableLive
     live "/events/:event/overview/item", Dashboard.ItemLive
     live "/events/:event/overview/location", Dashboard.LocationLive
+    live "/items/:item/overview", Dashboard.ItemStatsLive
 
     live "/events/:event/movements/supply", MovementLive, :supply
     live "/events/:event/movements/relocate", MovementLive, :relocate

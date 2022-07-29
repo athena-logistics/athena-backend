@@ -1,0 +1,36 @@
+<h1><%= gettext("%{item} total stats", item: @item.name) %></h1>
+
+<dl>
+  <dt><%= gettext("Supply") %></dt>
+  <dd><%= Enum.reduce(@item.stock_entries, 0, &(&1.supply + &2)) %></dd>
+  <dt><%= gettext("Consumption") %></dt>
+  <dd><%= Enum.reduce(@item.stock_entries, 0, &(&1.consumption + &2)) %></dd>
+  <dt><%= gettext("Movements") %></dt>
+  <dd><%= Enum.reduce(@item.stock_entries, 0, &(&1.movement_in + &2)) %></dd>
+</dl>
+
+<AthenaWeb.Chart.chart
+  dom_id="event_totals_chart"
+  config={
+    %{
+      type: "line",
+      options: %{
+        scales: %{
+          y: %{title: %{display: false, text: gettext("Amount")}},
+          x: %{
+            type: :time,
+            time: %{tooltipFormat: "DD T"},
+            ticks: %{autoskip: true, major: %{enabled: true}, maxRotation: 0},
+            title: %{
+              display: false,
+              text: gettext("Time")
+            }
+          }
+        }
+      },
+      data: %{
+        datasets: [%{data: Enum.map(@item_totals, &%{x: elem(&1, 1), y: elem(&1, 0)})}]
+      }
+    }
+  }
+/>
