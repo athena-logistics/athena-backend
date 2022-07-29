@@ -8,11 +8,13 @@ defmodule AthenaWeb.Frontend.Location.StatsLive do
   alias Athena.Inventory.Location
   alias Phoenix.PubSub
 
+  require Ecto.Query
+
   @impl Phoenix.LiveView
   def mount(%{"location" => location_id}, _session, socket) do
     PubSub.subscribe(Athena.PubSub, "movement:location:#{location_id}")
 
-    {:ok, load_location(socket, location_id)}
+    {:ok, load_location(socket, location_id), temporary_assigns: [item_totals: []]}
   end
 
   @impl Phoenix.LiveView
@@ -25,13 +27,16 @@ defmodule AthenaWeb.Frontend.Location.StatsLive do
       location =
       id
       |> Inventory.get_location!()
-      |> Repo.preload(event: [])
+      |> Repo.preload(event: [items: []])
 
     item_totals =
       location
       |> Inventory.location_totals_by_location_query()
+      |> Ecto.Query.select(
+        [location_total],
+        {location_total.item_id, location_total.amount, location_total.inserted_at}
+      )
       |> Repo.all()
-      |> Repo.preload(item: [])
 
     socket
     |> assign(

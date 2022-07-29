@@ -29,9 +29,15 @@
         data: %{
           datasets:
             @item_totals
-            |> Enum.group_by(& &1.item)
-            |> Enum.map(fn {%Item{name: item_name}, totals} ->
-              %{label: item_name, data: Enum.map(totals, &%{y: &1.amount, x: &1.inserted_at})}
+            |> Enum.group_by(&elem(&1, 0), &%{y: elem(&1, 1), x: elem(&1, 2)})
+            |> Enum.map(fn {item_id, totals} ->
+              item_name =
+                Enum.find_value(@location.event.items, fn
+                  %Item{id: ^item_id, name: item_name} -> item_name
+                  _item -> false
+                end)
+
+              %{label: item_name, data: totals}
             end)
         }
       }
