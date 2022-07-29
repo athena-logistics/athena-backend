@@ -473,7 +473,7 @@ msgid "Stats"
 msgstr ""
 
 #: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:26
-#: lib/athena_web/frontend/live/location/stats_live.html.heex:24
+#: lib/athena_web/frontend/live/location/stats_live.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "Time"
 msgstr ""

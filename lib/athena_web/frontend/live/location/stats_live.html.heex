@@ -19,6 +19,7 @@
               type: :time,
               time: %{tooltipFormat: "DD T"},
               ticks: %{autoskip: true, major: %{enabled: true}, maxRotation: 0},
+              suggestedMax: DateTime.to_iso8601(DateTime.utc_now()),
               title: %{
                 display: false,
                 text: gettext("Time")
