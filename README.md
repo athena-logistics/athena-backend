@@ -1,3 +1,5 @@
+<img align="right" src="./assets/static/images/logo.png" width="300px">
+
 # Athena
 
 [![Main Branch](https://github.com/athena-logistics/athena-backend/actions/workflows/branch_main.yml/badge.svg)](https://github.com/athena-logistics/athena-backend/actions/workflows/branch_main.yml)
