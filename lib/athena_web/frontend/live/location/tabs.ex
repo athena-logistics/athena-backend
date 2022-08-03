@@ -5,17 +5,23 @@ defmodule AthenaWeb.Frontend.Location.Tabs do
 
   def tabs(assigns) do
     ~H"""
-    <nav>
-      <ul>
-        <li class={if @active_tab == :inventory, do: "active"}>
+    <nav class="container mb-5">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
           <%= "Inventory"
           |> gettext()
-          |> link(to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, @location)) %>
+          |> link(
+            to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, @location),
+            class: ["nav-link", if(@active_tab == :inventory, do: "active")]
+          ) %>
         </li>
-        <li class={if @active_tab == :stats, do: "active"}>
+        <li class="nav-item">
           <%= "Stats"
           |> gettext()
-          |> link(to: Routes.frontend_logistics_stats_path(@socket, :show, @location)) %>
+          |> link(
+            to: Routes.frontend_logistics_stats_path(@socket, :show, @location),
+            class: ["nav-link", if(@active_tab == :stats, do: "active")]
+          ) %>
         </li>
       </ul>
     </nav>

@@ -1,8 +1,8 @@
-<section class="location__details">
+<section class="location__details container">
   <h1 class="location__header"><%= @location.name %></h1>
 
   <AthenaWeb.Frontend.Location.Tabs.tabs
-    active_tab={:inventory}
+    active_tab={:stats}
     socket={@socket}
     location={@location}
   />
@@ -14,11 +14,11 @@
         type: "line",
         options: %{
           scales: %{
-            y: %{title: %{display: false, text: gettext("Units")}},
+            y: %{title: %{display: false, text: gettext("Units")}, ticks: %{color: "#efbb35"}},
             x: %{
               type: :time,
               time: %{tooltipFormat: "DD T"},
-              ticks: %{autoskip: true, major: %{enabled: true}, maxRotation: 0},
+              ticks: %{autoskip: true, major: %{enabled: true}, maxRotation: 0, color: "#efbb35"},
               suggestedMax: DateTime.to_iso8601(DateTime.utc_now()),
               title: %{
                 display: false,

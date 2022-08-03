@@ -8,11 +8,11 @@
   -webkit-animation-play-state: running;
   animation-play-state: running;
   opacity: 1;
-  content: 'Server error';
+  content: "Server error";
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba($color-secondary, 0.8);
+  background-color: rgba($secondary, 0.8);
   height: 100%;
   width: 100%;
   display: flex;
@@ -45,10 +45,10 @@
   animation: 0.8s linear infinite phx-spinner;
   -webkit-animation-play-state: inherit;
   animation-play-state: inherit;
-  border: solid 3px $color-grey-light-1;
-  border-bottom-color: $color-primary-dark;
+  border: solid 3px $gray-100;
+  border-bottom-color: $primary;
   border-radius: 50%;
-  content: '';
+  content: "";
   height: 40px;
   left: 50%;
   opacity: inherit;
@@ -62,5 +62,5 @@
 }
 
 .phx-error {
-  background: $color-brown !important;
+  background: $danger !important;
 }

@@ -23,7 +23,7 @@ defmodule AthenaWeb.Frontend.ItemLocationStockLiveTest do
     assert ["1"] =
              html
              |> Floki.parse_document!()
-             |> Floki.find(".location__item-stock input")
+             |> Floki.find(~S(input[type="number"]))
              |> Floki.attribute("value")
   end
 end

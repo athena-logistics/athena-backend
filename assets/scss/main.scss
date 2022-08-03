@@ -1,16 +1,26 @@
-@import 'base/responsive';
-@import 'base/variables';
-@import 'base/base';
-@import 'base/typography';
-@import 'base/form';
-@import 'base/button';
-@import 'base/icon';
-@import 'base/live_view';
-@import 'base/bookmark';
-@import 'base/table';
-@import 'base/nav';
-@import 'base/select';
-@import 'base/utils';
-@import 'pages/location';
-@import 'pages/overview';
-@import 'pages/movement';
+@import "bootstrap/scss/functions";
+
+@import "base/variables";
+
+@import "bootstrap/scss/bootstrap";
+
+@import "base/typography";
+@import "base/form";
+@import "base/live_view";
+@import "base/bookmark";
+@import "base/table";
+@import "base/nav";
+@import "base/utils";
+@import "pages/location";
+@import "pages/overview";
+@import "pages/movement";
+
+::selection {
+  color: $secondary;
+  background-color: $primary;
+}
+
+// Alerts and form errors
+.alert:empty {
+  display: none;
+}

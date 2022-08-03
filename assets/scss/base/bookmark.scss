@@ -1,7 +1,6 @@
 a {
   &.bookmark {
     text-align: center;
-    font-size: 1.4rem;
     font-family: inherit;
     border: 1px solid currentColor;
     border-radius: 50px;
@@ -14,11 +13,11 @@ a {
     position: relative;
 
     &:hover {
-      color: $color-grey-light-1;
+      color: $gray-100;
     }
 
     &:after {
-      content: '\2193';
+      content: "↓";
       position: relative;
       top: -1px;
       margin-left: 4px;

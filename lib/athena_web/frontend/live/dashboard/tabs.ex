@@ -5,9 +5,9 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
 
   def tabs(assigns) do
     ~H"""
-    <nav>
-      <ul>
-        <li class={if @active_tab == :table, do: "active"}>
+    <nav class="container mb-5">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
           <%= "Table"
           |> gettext
           |> link(
@@ -16,10 +16,11 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
                 @socket,
                 AthenaWeb.Frontend.Dashboard.TableLive,
                 @event
-              )
+              ),
+            class: ["nav-link", if(@active_tab == :table, do: "active")]
           ) %>
         </li>
-        <li class={if @active_tab == :item, do: "active"}>
+        <li class="nav-item">
           <%= "Item"
           |> gettext
           |> link(
@@ -28,10 +29,11 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
                 @socket,
                 AthenaWeb.Frontend.Dashboard.ItemLive,
                 @event
-              )
+              ),
+            class: ["nav-link", if(@active_tab == :item, do: "active")]
           ) %>
         </li>
-        <li class={if @active_tab == :location, do: "active"}>
+        <li class="nav-item">
           <%= "Location"
           |> gettext
           |> link(
@@ -40,7 +42,8 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
                 @socket,
                 AthenaWeb.Frontend.Dashboard.LocationLive,
                 @event
-              )
+              ),
+            class: ["nav-link", if(@active_tab == :location, do: "active")]
           ) %>
         </li>
       </ul>

@@ -1,4 +1,4 @@
-<section class="location__details">
+<section class="location__details container-fluid">
   <h1 class="location__header"><%= @location.name %></h1>
 
   <%= if @live_action == :show_logistics do %>
@@ -9,7 +9,9 @@
     />
   <% end %>
 
-  <%= for %ItemGroup{name: item_group_name, id: item_group_id} <- @item_groups do %>
+  <%= for %ItemGroup{name: item_group_name, id: item_group_id} = item_group <- @item_groups,
+  stock_entries = relevant_stock_entries(@stock_entries, item_group),
+      stock_entries != [] do %>
     <a class="bookmark" href={"##{item_group_id}"}><%= item_group_name %></a>
   <% end %>
 
@@ -18,21 +20,23 @@
       stock_entries = relevant_stock_entries(@stock_entries, item_group),
       stock_entries != [] do %>
       <div class="location__group">
-        <h2 class="location__group-title" id={item_group_id}><%= item_group_name %></h2>
+        <h2 class="location__group-title text-center" id={item_group_id}>
+          <%= item_group_name %>
+        </h2>
 
-        <ul class="location__item-list">
+        <ul class="list-unstyled">
           <%= for %StockEntry{item: %Item{id: item_id} = item} = stock_entry <- stock_entries do %>
-            <li class="location__item" id={"item-#{item_id}"}>
-              <div class="location__item-name">
+            <li class="row mb-2" id={"item-#{item_id}"}>
+              <div class="col">
                 <%= item.name %>
               </div>
-              <div class="location__item-stockContainer">
+              <div class="col-7 text-center">
                 <.live_component
                   module={AthenaWeb.Frontend.StockEntry}
                   id={"stock_entry_#{@location.id}_#{item_id}"}
                   stock_entry={stock_entry}
                 />
-                <div class="location__item-unit"><%= item.unit %></div>
+                <small><%= item.unit %></small>
               </div>
             </li>
           <% end %>

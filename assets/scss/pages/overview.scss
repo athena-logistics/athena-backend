@@ -8,52 +8,40 @@
 
   tr {
     &:nth-child(2n) {
-      background-color: rgba($color-secondary-dark, 0.4);
+      background-color: rgba($secondary, 0.1);
     }
 
     td,
     th {
       vertical-align: middle;
-      padding: .5em;
+      padding: 0.5em;
 
       &:nth-child(2n) {
-        background-color: rgba($color-secondary-dark, 0.4);
+        background-color: rgba($secondary, 0.1);
       }
 
       &.important {
-        background-color: $color-red;
-        color: $color-cream;
+        background-color: $red;
+        color: $danger;
         a,
         a:visited {
-          color: $color-cream;
+          color: $white;
         }
 
         td {
-          border-color: $color-secondary;
-        }
-
-        &:hover {
-          background-color: darken($color-red, 10%);
+          border-color: $secondary;
         }
       }
       &.warning {
-        background-color: $color-orange;
-        color: $color-black;
+        background-color: $warning;
+        color: $black;
         a {
-          color: $color-black;
+          color: $black;
         }
         td {
-          border-color: $color-secondary;
-        }
-
-        &:hover {
-          background-color: darken($color-orange, 10%);
+          border-color: $secondary;
         }
       }
-    }
-
-    &:hover {
-      background-color: $color-secondary-dark;
     }
 
     td {
@@ -63,11 +51,11 @@
         font-weight: bold;
 
         .landscape & {
-          border-left: 1px solid $color-secondary-dark;
+          border-left: 1px solid $secondary;
         }
 
         .portrait & {
-          border-top: 1px solid $color-secondary-dark;
+          border-top: 1px solid $secondary;
         }
       }
     }
@@ -85,25 +73,37 @@
         font-weight: bold;
 
         .landscape & {
-          border-left: 1px solid $color-secondary-dark;
+          border-left: 1px solid $secondary;
         }
 
         .portrait & {
-          border-top: 1px solid $color-secondary-dark;
+          border-top: 1px solid $secondary;
         }
       }
     }
+  }
 
-    &:first-child th {
-      text-align: left;
-      min-width: 2em;
-      vertical-align: bottom;
-      > * {
-        writing-mode: vertical-rl;
-        // transform: rotate(-180deg);
-        min-width: 2em;
-        white-space: nowrap;
+  thead {
+    tr {
+      th {
         text-align: left;
+        min-width: 2em;
+        vertical-align: bottom;
+        > * {
+          writing-mode: vertical-rl;
+          // transform: rotate(-180deg);
+          min-width: 2em;
+          white-space: nowrap;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:hover {
+        background-color: $secondary;
       }
     }
   }

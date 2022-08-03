@@ -1,4 +1,4 @@
-<div class="movement">
+<div class="movement container">
   <h1>
     <%= case @live_action do %>
       <% :supply -> %>
@@ -17,25 +17,27 @@
       </div>
     <% end %>
 
-    <div class="center">
-      <div class="grid-3">
+    <div class="row align-items-center">
+      <div class="col">
         <%= if @live_action == :relocate do %>
           <%= select(f, :source_location_id, Enum.map(@event.locations, &{&1.name, &1.id}),
             prompt: gettext("From"),
             required: true,
-            class: "space-around"
+            class: "form-select form-select-lg"
           ) %>
           <%= error_tag(f, :source_location_id) %>
-        <% else %>
-          <div></div>
         <% end %>
+      </div>
 
-        <i class="fa-solid fa-circle-arrow-right"></i>
+      <div class="col flex-shrink">
+        <i class="fa-solid fa-2xl fa-circle-arrow-right"></i>
+      </div>
 
+      <div class="col">
         <%= select(f, :destination_location_id, Enum.map(@event.locations, &{&1.name, &1.id}),
           prompt: gettext("To"),
           required: true,
-          class: "space-around"
+          class: "form-select form-select-lg"
         ) %>
         <%= error_tag(f, :destination_location_id) %>
       </div>
@@ -43,116 +45,111 @@
 
     <%= for movement_form <- inputs_for(f, :movements),
   {stock_out, stock_in} = get_stock(@event, @changeset, movement_form.source) do %>
-      <div class="item">
+      <div class="item mb-5 mt-5">
         <%= hidden_input(movement_form, :id) %>
 
-        <div class="center">
-          <div class="grid-2">
-            <div>
-              <%= select(
-                movement_form,
-                :item_id,
-                Enum.map(
-                  @event.item_groups,
-                  &{&1.name,
-                   Enum.map(&1.items, fn %Item{name: name, id: id, unit: unit} ->
-                     {"#{name} (#{unit})", id}
-                   end)}
-                ),
-                prompt: gettext("item"),
-                required: true,
-                class: "select space-around"
-              ) %>
-              <%= error_tag(movement_form, :item_id) %>
-            </div>
+        <div class="row align-items-center mb-2">
+          <div class="col">
+            <%= select(
+              movement_form,
+              :item_id,
+              Enum.map(
+                @event.item_groups,
+                &{&1.name,
+                 Enum.map(&1.items, fn %Item{name: name, id: id, unit: unit} ->
+                   {"#{name} (#{unit})", id}
+                 end)}
+              ),
+              prompt: gettext("item"),
+              required: true,
+              class: "form-select form-select-lg"
+            ) %>
+            <%= error_tag(movement_form, :item_id) %>
+          </div>
 
+          <div class="col flex-shrink">
             <button
               phx-click="remove_movement"
+              class="btn btn-outline-danger"
               type="button"
               phx-value-id={Changeset.fetch_field!(movement_form.source, :id)}
             >
-              <i class="fa-solid fa-x"></i>
+              <i class="fa-lg fa-solid fa-x"></i>
             </button>
           </div>
         </div>
-        <div class="center">
-          <div class="grid-3">
+        <div class="row align-items-center mb-2">
+          <div class="col">
             <button
               type="button"
-              class="button-icon"
+              class="btn btn-outline-light float-end btn-lg"
               phx-click="advance_amount"
               phx-value-delta={-1}
               phx-value-id={Changeset.fetch_field!(movement_form.source, :id)}
               disabled={Changeset.fetch_field!(movement_form.source, :amount) < 2}
             >
-              <%= render(AthenaWeb.Frontend.SharedView, "icon.html",
-                socket: @socket,
-                name: "minus",
-                type: "button"
-              ) %>
+              <i class="fa-lg fa-solid fa-minus"></i>
             </button>
+          </div>
 
+          <div class="col align-items-center">
             <%= number_input(movement_form, :amount,
               required: true,
               min: 0,
               max: 999,
               placeholder: "0",
-              class: "space-around right justify-self-end"
+              class: "form-control"
             ) %>
             <%= error_tag(movement_form, :amount) %>
+          </div>
 
+          <div class="col">
             <button
               type="button"
-              class="button-icon"
+              class="btn btn-outline-primary btn-lg"
               phx-click="advance_amount"
               phx-value-delta={1}
               phx-value-id={Changeset.fetch_field!(movement_form.source, :id)}
               disabled={Changeset.fetch_field!(movement_form.source, :amount) > 999}
             >
-              <%= render(AthenaWeb.Frontend.SharedView, "icon.html",
-                socket: @socket,
-                name: "plus",
-                type: "button"
-              ) %>
+              <i class="fa-lg fa-solid fa-plus"></i>
             </button>
           </div>
         </div>
 
         <%= if stock_out || stock_in do %>
-          <div class="center">
-            <div class="grid-3 preview">
-              <div class="out">
-                <%= if stock_out do %>
-                  <s><%= stock_out %></s><br />
-                  <%= stock_out - Changeset.fetch_field!(movement_form.source, :amount) %>
-                <% end %>
-              </div>
+          <div class="row preview">
+            <div class="text-end col">
+              <%= if stock_out do %>
+                <s><%= stock_out %></s><br />
+                <%= stock_out - Changeset.fetch_field!(movement_form.source, :amount) %>
+              <% end %>
+            </div>
 
-              <svg class="arrow" xmlns="http://www.w3.org/2000/svg" viewBox="10 447.5 980 105">
-                <path d="M10 482.5h910v35H10v-35z"></path>
-                <path d="M815 447.5 990 500l-175 52.5v-105z"></path>
-              </svg>
+            <svg class="arrow col" xmlns="http://www.w3.org/2000/svg" viewBox="10 447.5 980 105">
+              <path d="M10 482.5h910v35H10v-35z"></path>
+              <path d="M815 447.5 990 500l-175 52.5v-105z"></path>
+            </svg>
 
-              <div class="in">
-                <%= if stock_in do %>
-                  <s><%= stock_in %></s><br />
-                  <%= stock_in + Changeset.fetch_field!(movement_form.source, :amount) %>
-                <% end %>
-              </div>
+            <div class="in col">
+              <%= if stock_in do %>
+                <s><%= stock_in %></s><br />
+                <%= stock_in + Changeset.fetch_field!(movement_form.source, :amount) %>
+              <% end %>
             </div>
           </div>
         <% end %>
       </div>
     <% end %>
 
-    <div class="center space-around">
-      <button phx-click="add_movement" type="button">
-        <i class="fa-solid fa-plus"></i>
-      </button>
-    </div>
+    <button
+      phx-click="add_movement"
+      type="button"
+      class="d-block btn btn-outline-success mx-auto mb-5"
+    >
+      <i class="fa-solid fa-plus"></i>
+    </button>
 
-    <div class="center space-around">
-      <%= "save" |> gettext |> submit %>
-    </div>
+    <%= "save" |> gettext |> submit(class: "d-block btn btn-primary btn-lg mx-auto") %>
   </.form>
 </div>

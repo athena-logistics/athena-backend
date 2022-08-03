@@ -1,0 +1,14 @@
+h1 {
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: -0.3rem;
+  line-height: 1;
+}
+
+h2 {
+  padding: 0px 50px;
+  margin-bottom: 1rem;
+  border-radius: 50px;
+  background-color: darken($body-bg, .2);
+  border: 1px dashed currentColor;
+}

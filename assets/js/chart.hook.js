@@ -47,7 +47,7 @@ const backgrounds = [
 
 Chart.defaults.responsive = true;
 Chart.defaults.maintainAspectRatio = true;
-Chart.defaults.aspectRatio = 4 / 3;
+Chart.defaults.aspectRatio = 16 / 9;
 
 function prepareConfig(config) {
   config = addColorsToDataset(config);

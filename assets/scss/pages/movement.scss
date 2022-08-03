@@ -1,23 +1,10 @@
 .movement {
   .item {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    
     .preview {
-      > *:not(:last-child) {
-        margin-right: 10px;
-      }
-      .out {
-        text-align: right;
-      }
       .arrow {
-        width: 200px;
         path {
-          fill: $color-primary;
+          fill: currentColor;
         }
-      }
-      .in {
-        text-align: left;
       }
     }
   }

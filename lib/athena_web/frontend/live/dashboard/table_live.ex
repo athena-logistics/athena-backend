@@ -90,4 +90,58 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
   end
 
   defp transpose(table), do: table |> Enum.zip() |> Enum.map(&Tuple.to_list/1)
+
+  defp row(assigns, row) do
+    ~H"""
+    <tr>
+      <%= for cell <- row do %>
+        <%= case cell do %>
+          <% %Location{name: name} = location -> %>
+            <th class="location">
+              <%= link(name,
+                to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location)
+              ) %>
+            </th>
+          <% %ItemGroup{name: name} -> %>
+            <th class="item-group">
+              <div>
+                <%= name %>
+              </div>
+            </th>
+          <% %Item{name: name, unit: unit} = item -> %>
+            <th class="item">
+              <div>
+                <%= link(name,
+                  to:
+                    Routes.frontend_logistics_live_path(
+                      @socket,
+                      AthenaWeb.Frontend.Dashboard.ItemStatsLive,
+                      item
+                    )
+                ) %> (<%= unit %>)
+              </div>
+            </th>
+          <% :empty_header -> %>
+            <th class="empty-header"></th>
+          <% :item_group_spacer -> %>
+            <td class="item-group-spacer"></td>
+          <% %StockEntry{stock: stock} = entry -> %>
+            <td class={["stock-entry", StockEntry.status(entry)]}>
+              <%= link(stock,
+                to:
+                  Routes.frontend_logistics_inventory_path(
+                    @socket,
+                    :show_logistics,
+                    entry.location_id
+                  ) <>
+                    "#item-#{entry.item_id}"
+              ) %>
+            </td>
+          <% nil -> %>
+            <td class="stock-entry empty">0</td>
+        <% end %>
+      <% end %>
+    </tr>
+    """
+  end
 end

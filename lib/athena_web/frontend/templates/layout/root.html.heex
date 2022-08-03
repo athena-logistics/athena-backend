@@ -35,59 +35,7 @@
   }>
     <%= case @access do %>
       <% :logistics -> %>
-        <input type="checkbox" id="toggle-nav" hidden />
-        <nav>
-          <header>
-            <span><%= @navigation.event.name %></span>
-            <label for="toggle-nav">
-              <span></span>
-            </label>
-          </header>
-          <main>
-            <ul>
-              <li>
-                <%= "Logistics Overview"
-                |> gettext
-                |> link(
-                  to:
-                    Routes.frontend_logistics_live_url(
-                      @conn,
-                      AthenaWeb.Frontend.Dashboard.TableLive,
-                      @navigation.event.id
-                    )
-                ) %>
-              </li>
-              <li>
-                <%= "Supply Item"
-                |> gettext
-                |> link(
-                  to: Routes.frontend_logistics_movement_url(@conn, :supply, @navigation.event.id)
-                ) %>
-              </li>
-              <li>
-                <%= "Move Item"
-                |> gettext
-                |> link(
-                  to:
-                    Routes.frontend_logistics_movement_url(@conn, :relocate, @navigation.event.id)
-                ) %>
-              </li>
-              <li class="divider"></li>
-              <%= for %{id: location_id, name: location_name} <- @navigation.locations do %>
-                <li>
-                  <%= link(location_name,
-                    to:
-                      Routes.frontend_logistics_inventory_path(
-                        @conn,
-                        :show_logistics,
-                        location_id
-                      )
-                  ) %>
-                </li>
-              <% end %>
-            </ul>
-          </main>
-        </nav>
+        <AthenaWeb.Frontend.Navigation.navigation {@navigation} conn={@conn} />
       <% :vendor -> %>
     <% end %>
 

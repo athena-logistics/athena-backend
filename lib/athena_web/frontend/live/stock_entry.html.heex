@@ -1,33 +1,27 @@
-<form phx-submit="advance_consumption" class="location__item-stock" phx-target={@myself}>
-  <button
-    class="button-icon"
-    type="reset"
-    hidden={not @changed}
-    phx-click="reset"
-    phx-target={@myself}
-  >
-    <%= render(AthenaWeb.Frontend.SharedView, "icon.html",
-      socket: @socket,
-      name: "cross",
-      type: "button"
-    ) %>
-  </button>
+<form phx-submit="advance_consumption" class="row" phx-target={@myself}>
+  <div class="col flex-shrink">
+    <button
+      class="btn btn-outline-danger btn-lg col flex-shrink"
+      type="reset"
+      hidden={not @changed}
+      phx-click="reset"
+      phx-target={@myself}
+    >
+      <i class="fa-lg fa-solid fa-x"></i>
+    </button>
 
-  <button
-    type="button"
-    class="button-icon"
-    phx-click="advance_consumption"
-    phx-value-delta={1}
-    phx-target={@myself}
-    disabled={@stock_entry.stock < 1}
-    hidden={@changed}
-  >
-    <%= render(AthenaWeb.Frontend.SharedView, "icon.html",
-      socket: @socket,
-      name: "minus",
-      type: "button"
-    ) %>
-  </button>
+    <button
+      type="button"
+      class="btn btn-outline-primary btn-lg col flex-shrink"
+      phx-click="advance_consumption"
+      phx-value-delta={1}
+      phx-target={@myself}
+      disabled={@stock_entry.stock < 1}
+      hidden={@changed}
+    >
+      <i class="fa-lg fa-solid fa-minus"></i>
+    </button>
+  </div>
 
   <input
     type="number"
@@ -37,24 +31,23 @@
     phx-hook="SelectContent"
     id={"#{@id}_new_total_#{@stock_entry.stock}"}
     phx-change="change"
+    class="col form-control"
   />
 
-  <button class="button-icon inverted" type="submit" hidden={not @changed}>
-    <i class="fa-solid fa-floppy-disk"></i>
-  </button>
+  <div class="col flex-shrink">
+    <button class="btn btn-outline-success btn-lg inverted" type="submit" hidden={not @changed}>
+      <i class="fa-solid fa-floppy-disk"></i>
+    </button>
 
-  <button
-    type="button"
-    class="button-icon"
-    phx-click="advance_consumption"
-    phx-value-delta={-1}
-    phx-target={@myself}
-    hidden={@changed}
-  >
-    <%= render(AthenaWeb.Frontend.SharedView, "icon.html",
-      socket: @socket,
-      name: "plus",
-      type: "button"
-    ) %>
-  </button>
+    <button
+      type="button"
+      class="btn btn-outline-primary btn-lg col flex-shrink"
+      phx-click="advance_consumption"
+      phx-value-delta={-1}
+      phx-target={@myself}
+      hidden={@changed}
+    >
+      <i class="fa-lg fa-solid fa-plus"></i>
+    </button>
+  </div>
 </form>

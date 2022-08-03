@@ -1,0 +1,11 @@
+body > nav {
+  @include media-breakpoint-down(lg) {
+    #toggle-nav:not(:checked) ~ main {
+      display: none;
+    }
+  }
+
+  .toggle-dropdown:not(:checked) + .dropdown-menu {
+    display: none;
+  }
+}
