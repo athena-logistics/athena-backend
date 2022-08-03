@@ -11,4 +11,8 @@ h2 {
   border-radius: 50px;
   background-color: darken($body-bg, .2);
   border: 1px dashed currentColor;
+
+  a {
+    text-decoration: none;
+  }
 }

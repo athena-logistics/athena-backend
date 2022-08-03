@@ -5,18 +5,25 @@
 
   <AthenaWeb.Frontend.Dashboard.Tabs.tabs event={@event} active_tab={:location} socket={@socket} />
 
-  <%= for %Location{id: location_id, name: location_name} <- @event.locations,
+  <div class="row">
+    <%= for %Location{id: location_id, name: location_name} <- @event.locations,
   stock_entries = Enum.filter(@event.stock_entries, &match?(%StockEntry{location_id: ^location_id}, &1)),
   status_count = Map.merge(%{important: [], warning: [], normal: []},  Enum.group_by(stock_entries, &StockEntry.status/1))  do %>
-    <div class="location">
-      <h2>
-        <%= link(location_name,
-          to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location_id)
-        ) %>
-      </h2>
-      I <%= length(status_count.important) %> W <%= length(status_count.warning) %> N <%= length(
-        status_count.normal
-      ) %>
-    </div>
-  <% end %>
+      <div class="col-12 col-md-6 col-lg-4">
+        <h2 class="text-center">
+          <%= link(location_name,
+            to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location_id)
+          ) %>
+        </h2>
+        <ul class="list-unstyled row">
+          <%= for {color, rows} <- [danger: status_count.important, warning: status_count.warning, success: status_count.normal], count = length(rows) do %>
+            <li class={["col", "text-#{color}"]}>
+              <i class="fa fa-solid fa-circle"></i>
+              <%= count %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
 </div>
