@@ -245,16 +245,16 @@ msgstr ""
 msgid "go to public view"
 msgstr ""
 
-#: lib/athena_web/admin/live/navigation.ex:60
-#: lib/athena_web/admin/live/navigation.ex:73
+#: lib/athena_web/admin/live/navigation.ex:61
+#: lib/athena_web/admin/live/navigation.ex:74
 #: lib/athena_web/admin/templates/event/show.html.heex:44
 #: lib/athena_web/admin/templates/item_group/index.html.heex:1
 #, elixir-autogen, elixir-format
 msgid "item groups"
 msgstr ""
 
-#: lib/athena_web/admin/live/navigation.ex:31
-#: lib/athena_web/admin/live/navigation.ex:44
+#: lib/athena_web/admin/live/navigation.ex:32
+#: lib/athena_web/admin/live/navigation.ex:45
 #: lib/athena_web/admin/templates/event/show.html.heex:40
 #: lib/athena_web/admin/templates/location/index.html.heex:1
 #, elixir-autogen, elixir-format

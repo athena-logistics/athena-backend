@@ -3,6 +3,7 @@ defmodule AthenaWeb.Admin.Navigation do
 
   use AthenaWeb, :component
 
+  alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Location
 
   def navigation(assigns) do
@@ -74,10 +75,10 @@ defmodule AthenaWeb.Admin.Navigation do
               </label>
               <input type="checkbox" id="toggle-nav-item-groups" hidden class="toggle-dropdown" />
               <ul class="dropdown-menu show">
-                <%= for %Location{name: location_name} = location <- @locations do %>
+                <%= for %ItemGroup{name: item_group_name} = item_group <- @item_groups do %>
                   <li class="nav-item">
-                    <%= link(location_name,
-                      to: Routes.admin_location_path(@conn, :show, location),
+                    <%= link(item_group_name,
+                      to: Routes.admin_item_group_path(@conn, :show, item_group),
                       class: "dropdown-item"
                     ) %>
                   </li>

@@ -22,18 +22,18 @@ msgstr ""
 
 #: lib/athena_web/frontend/live/dashboard/item_live.html.heex:3
 #: lib/athena_web/frontend/live/dashboard/location_live.html.heex:3
-#: lib/athena_web/frontend/live/dashboard/table_live.html.heex:3
-#: lib/athena_web/frontend/templates/layout/root.html.heex:50
+#: lib/athena_web/frontend/live/dashboard/table_live.html.heex:4
+#: lib/athena_web/frontend/live/navigation.ex:36
 #, elixir-autogen, elixir-format
 msgid "Logistics Overview"
 msgstr "Logistik Übersicht"
 
-#: lib/athena_web/frontend/templates/layout/root.html.heex:69
+#: lib/athena_web/frontend/live/navigation.ex:57
 #, elixir-autogen, elixir-format
 msgid "Move Item"
 msgstr "Verschiebung Artikel"
 
-#: lib/athena_web/frontend/templates/layout/root.html.heex:62
+#: lib/athena_web/frontend/live/navigation.ex:49
 #, elixir-autogen, elixir-format
 msgid "Supply Item"
 msgstr "Eingang Artikel"
@@ -69,7 +69,7 @@ msgid "destination location"
 msgstr "Zielstandort"
 
 #: lib/athena_web/admin/templates/movement/show.html.heex:38
-#: lib/athena_web/frontend/live/movement_live.html.heex:62
+#: lib/athena_web/frontend/live/movement_live.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "item"
 msgstr "Artikel"
@@ -84,7 +84,7 @@ msgstr "Artikelgruppe"
 #: lib/athena_web/admin/templates/item_group/form.html.heex:15
 #: lib/athena_web/admin/templates/location/form.html.heex:15
 #: lib/athena_web/admin/templates/movement/form.html.heex:27
-#: lib/athena_web/frontend/live/movement_live.html.heex:155
+#: lib/athena_web/frontend/live/movement_live.html.heex:153
 #, elixir-autogen, elixir-format
 msgid "save"
 msgstr "Speichern"
@@ -255,12 +255,16 @@ msgstr "Bearbeiten"
 msgid "go to public view"
 msgstr "zur öffentlichen Ansicht"
 
+#: lib/athena_web/admin/live/navigation.ex:61
+#: lib/athena_web/admin/live/navigation.ex:74
 #: lib/athena_web/admin/templates/event/show.html.heex:44
 #: lib/athena_web/admin/templates/item_group/index.html.heex:1
 #, elixir-autogen, elixir-format
 msgid "item groups"
 msgstr "Artikelgruppen"
 
+#: lib/athena_web/admin/live/navigation.ex:32
+#: lib/athena_web/admin/live/navigation.ex:45
 #: lib/athena_web/admin/templates/event/show.html.heex:40
 #: lib/athena_web/admin/templates/location/index.html.heex:1
 #, elixir-autogen, elixir-format
@@ -442,7 +446,7 @@ msgstr "Verschiebung bearbeiten"
 msgid "From"
 msgstr "Von"
 
-#: lib/athena_web/frontend/live/movement_live.html.heex:36
+#: lib/athena_web/frontend/live/movement_live.html.heex:38
 #, elixir-autogen, elixir-format
 msgid "To"
 msgstr "Zu"
@@ -457,12 +461,12 @@ msgstr "Artikel verschieben"
 msgid "Supply Items"
 msgstr "Eingang Artikel"
 
-#: lib/athena_web/frontend/live/dashboard/tabs.ex:24
+#: lib/athena_web/frontend/live/dashboard/tabs.ex:25
 #, elixir-autogen, elixir-format
 msgid "Item"
 msgstr "Artikel"
 
-#: lib/athena_web/frontend/live/dashboard/tabs.ex:36
+#: lib/athena_web/frontend/live/dashboard/tabs.ex:38
 #, elixir-autogen, elixir-format
 msgid "Location"
 msgstr "Standort"
@@ -477,13 +481,13 @@ msgstr "Tabelle"
 msgid "Inventory"
 msgstr "Bestand"
 
-#: lib/athena_web/frontend/live/location/tabs.ex:17
+#: lib/athena_web/frontend/live/location/tabs.ex:20
 #, elixir-autogen, elixir-format
 msgid "Stats"
 msgstr "Statistiken"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:26
-#: lib/athena_web/frontend/live/location/stats_live.html.heex:24
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:27
+#: lib/athena_web/frontend/live/location/stats_live.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "Time"
 msgstr "Zeit"
@@ -493,27 +497,32 @@ msgstr "Zeit"
 msgid "Units"
 msgstr "Einheiten"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:1
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:2
 #, elixir-autogen, elixir-format
 msgid "%{item} total stats"
 msgstr "%{item} Statistiken"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:19
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Amount"
 msgstr "Menge"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:6
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Consumption"
 msgstr "Verbrauch"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:8
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:9
 #, elixir-autogen, elixir-format
 msgid "Movements"
 msgstr "Verschiebungungen"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:4
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:5
 #, elixir-autogen, elixir-format
 msgid "Supply"
 msgstr "Anlieferung"
+
+#: lib/athena_web/frontend/live/navigation.ex:71
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Locations"
+msgstr "Standort"
