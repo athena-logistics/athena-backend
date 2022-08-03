@@ -11,7 +11,7 @@
     "chartjs-adapter-luxon": "^1.1.0",
     "child-replace-with-polyfill": "^1.0.1",
     "classlist-polyfill": "^1.2.0",
-    "core-js": "^3.24.0",
+    "core-js": "^3.24.1",
     "formdata-polyfill": "^4.0.10",
     "mdn-polyfills": "^5.20.0",
     "new-event-polyfill": "^1.0.1",
