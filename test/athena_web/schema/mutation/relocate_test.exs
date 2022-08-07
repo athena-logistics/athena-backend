@@ -31,6 +31,8 @@ defmodule AthenaWeb.Schema.Mutation.RelocateTest do
     item_group = item_group(event, name: "Bier")
     item = item(item_group, name: "Lager")
 
+    movement(item, %{destination_location_id: source_location_id, amount: 100})
+
     source_location_node_id = global_id!(:location, source_location.id)
     destination_location_node_id = global_id!(:location, destination_location.id)
     item_node_id = global_id!(:item, item.id)

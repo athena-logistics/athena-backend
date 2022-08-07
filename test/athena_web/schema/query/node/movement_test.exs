@@ -85,6 +85,8 @@ defmodule AthenaWeb.Schema.Query.Node.MovementTest do
     item = item(item_group, name: "Lager")
     location = location(event, name: "Gallusplatz")
 
+    movement(item, amount: 100, destination_location_id: location.id)
+
     consumption =
       movement(item, amount: 1, source_location_id: location.id, destination_location_id: nil)
 
@@ -117,6 +119,8 @@ defmodule AthenaWeb.Schema.Query.Node.MovementTest do
     item = item(item_group, name: "Lager")
     location_central = location(event, name: "Gallusplatz")
     location_sattelite = location(event, name: "Vadian")
+
+    movement(item, amount: 100, destination_location_id: location_central.id)
 
     relocation =
       movement(item,

@@ -27,7 +27,7 @@ defmodule AthenaWeb.Admin.MovementControllerTest do
   end
 
   describe "create movement" do
-    setup [:create_item, :create_location]
+    setup [:create_item, :create_location, :create_supply]
 
     test "redirects to show when data is valid", %{conn: conn, item: item, location: location} do
       conn =
@@ -111,5 +111,9 @@ defmodule AthenaWeb.Admin.MovementControllerTest do
 
   defp create_movement(_tags) do
     {:ok, movement: movement()}
+  end
+
+  defp create_supply(%{item: item, location: location} = _tags) do
+    {:ok, supply: movement(item, %{destination_location_id: location.id, amount: 100})}
   end
 end
