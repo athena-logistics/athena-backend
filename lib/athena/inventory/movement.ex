@@ -61,5 +61,7 @@ defmodule Athena.Inventory.Movement do
     |> foreign_key_constraint(:item_id)
     |> foreign_key_constraint(:source_location_id)
     |> foreign_key_constraint(:destination_location_id)
+    |> check_constraint(:amount, name: :source_stock_negative)
+    |> check_constraint(:amount, name: :destination_stock_negative)
   end
 end

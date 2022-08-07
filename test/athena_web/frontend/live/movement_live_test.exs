@@ -103,6 +103,8 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
       location_a: location_a,
       location_b: location_b
     } do
+      movement(item, %{destination_location_id: location_a.id, amount: 100})
+
       conn = get(conn, Routes.frontend_logistics_movement_path(conn, :relocate, event.id))
 
       {:ok, view, _html} = live(conn)
