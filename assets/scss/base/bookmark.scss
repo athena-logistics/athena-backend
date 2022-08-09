@@ -3,7 +3,7 @@ a {
     text-align: center;
     font-family: inherit;
     border: 1px solid currentColor;
-    border-radius: 50px;
+    border-radius: 3px;
     background-color: #1a1d24;
     text-decoration: none;
     padding: 0.5rem 1rem;
@@ -17,7 +17,7 @@ a {
     }
 
     &:after {
-      content: "↓";
+      content: '↓';
       position: relative;
       top: -1px;
       margin-left: 4px;

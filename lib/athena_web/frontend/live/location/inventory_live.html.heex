@@ -1,5 +1,5 @@
 <section class="container-fluid">
-  <h1><%= @location.name %></h1>
+  <h1 class="container"><%= @location.name %></h1>
 
   <%= if @live_action == :show_logistics do %>
     <AthenaWeb.Frontend.Location.Tabs.tabs
