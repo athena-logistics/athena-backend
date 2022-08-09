@@ -8,7 +8,7 @@
   -webkit-animation-play-state: running;
   animation-play-state: running;
   opacity: 1;
-  content: "Server error";
+  content: 'Server error';
   position: absolute;
   top: 0;
   left: 0;
@@ -45,10 +45,10 @@
   animation: 0.8s linear infinite phx-spinner;
   -webkit-animation-play-state: inherit;
   animation-play-state: inherit;
-  border: solid 3px $gray-100;
+  border: solid $base-border-radius $gray-100;
   border-bottom-color: $primary;
   border-radius: 50%;
-  content: "";
+  content: '';
   height: 40px;
   left: 50%;
   opacity: inherit;

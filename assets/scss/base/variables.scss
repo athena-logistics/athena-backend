@@ -5,6 +5,8 @@ $secondary: #32ad9a;
 $body-bg: #222831;
 $body-color: $primary;
 
+$base-border-radius: 3px;
+
 $font-size-base: 1rem;
 $h1-font-size: $font-size-base * 3;
 $h2-font-size: $font-size-base * 1.8;
@@ -21,5 +23,5 @@ $nav-tabs-link-active-color: $secondary;
 $nav-tabs-border-color: $primary-dark;
 $nav-tabs-link-active-border-color: $primary-dark $primary-dark $body-bg;
 $nav-tabs-link-hover-border-color: $primary $primary $body-bg;
-$nav-tabs-border-radius: 3px;
+$nav-tabs-border-radius: $base-border-radius;
 $nav-tabs-border-width: 2px;

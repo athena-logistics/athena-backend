@@ -3,7 +3,7 @@ a {
     text-align: center;
     font-family: inherit;
     border: 1px solid currentColor;
-    border-radius: 3px;
+    border-radius: $base-border-radius;
     background-color: #1a1d24;
     text-decoration: none;
     padding: 0.5rem 1rem;

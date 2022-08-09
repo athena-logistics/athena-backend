@@ -10,7 +10,7 @@ h2 {
   width: fit-content;
   padding: 3px 50px;
   margin-bottom: 1rem;
-  border-radius: 3px;
+  border-radius: $base-border-radius;
   background-color: darken($body-bg, 0.2);
   border: 2px solid $primary-dark;
 
