@@ -1,5 +1,5 @@
-<section class="location__details container-fluid">
-  <h1 class="location__header"><%= @location.name %></h1>
+<section class="container-fluid">
+  <h1><%= @location.name %></h1>
 
   <%= if @live_action == :show_logistics do %>
     <AthenaWeb.Frontend.Location.Tabs.tabs
@@ -19,7 +19,7 @@
     <%= for %ItemGroup{name: item_group_name, id: item_group_id} = item_group <- @item_groups,
       stock_entries = relevant_stock_entries(@stock_entries, item_group),
       stock_entries != [] do %>
-      <div class="location__group">
+      <div>
         <h2 class="location__group-title text-center" id={item_group_id}>
           <%= item_group_name %>
         </h2>
