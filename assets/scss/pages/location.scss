@@ -13,4 +13,17 @@
     width: inherit;
     padding: 3px 0;
   }
+
+  i {
+    margin-right: 5px;
+    &.text-important {
+      color: $danger;
+    }
+    &.text-warning {
+      color: $warning;
+    }
+    &.text-normal {
+      color: $success;
+    }
+  }
 }

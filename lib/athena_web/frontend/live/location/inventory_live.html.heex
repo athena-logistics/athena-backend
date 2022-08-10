@@ -30,6 +30,7 @@
             <%= for %StockEntry{item: %Item{id: item_id} = item} = stock_entry <- stock_entries do %>
               <li class="row mb-2" id={"item-#{item_id}"}>
                 <div class="col">
+                  <i class={["fa fa-solid fa-circle", "text-#{StockEntry.status(stock_entry)}"]} />
                   <%= item.name %>
                 </div>
                 <div class="col-7 text-center">
