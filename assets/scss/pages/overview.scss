@@ -25,7 +25,7 @@
         color: $danger;
         a,
         a:visited {
-          color: $white;
+          color: $primary-lightest;
         }
 
         td {
@@ -36,7 +36,7 @@
         background-color: $warning;
         color: $black;
         a {
-          color: $black;
+          color: $primary-darkest;
         }
         td {
           border-color: $secondary;
@@ -103,7 +103,22 @@
   tbody {
     tr {
       &:hover {
-        background-color: $secondary;
+        background-color: $primary-dark;
+
+        a {
+          color: $primary-lightest;
+        }
+
+        .important {
+          a {
+            color: $primary-lightest;
+          }
+        }
+        .warning {
+          a {
+            color: $primary-darkest;
+          }
+        }
       }
     }
   }

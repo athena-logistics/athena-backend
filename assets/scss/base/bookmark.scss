@@ -1,10 +1,12 @@
 a {
+  text-decoration: none;
+
   &.bookmark {
     text-align: center;
     font-family: inherit;
     border: 1px solid currentColor;
     border-radius: $base-border-radius;
-    background-color: #1a1d24;
+    background-color: $body-bg;
     text-decoration: none;
     padding: 0.5rem 1rem;
     margin-bottom: 1rem;
@@ -13,7 +15,8 @@ a {
     position: relative;
 
     &:hover {
-      color: $gray-100;
+      color: $body-bg;
+      background-color: $primary;
     }
 
     &:after {
