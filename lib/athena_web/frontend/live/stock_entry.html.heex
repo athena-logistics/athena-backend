@@ -1,53 +1,62 @@
 <form phx-submit="advance_consumption" class="row align-items-center" phx-target={@myself}>
   <div class="col flex-shrink">
-    <button
-      class="btn btn-outline-danger btn-lg col flex-shrink"
-      type="reset"
-      hidden={not @changed}
-      phx-click="reset"
-      phx-target={@myself}
-    >
-      <i class="fa-lg fa-solid fa-x"></i>
-    </button>
-
-    <button
-      type="button"
-      class="btn btn-outline-primary btn-lg col flex-shrink"
-      phx-click="advance_consumption"
-      phx-value-delta={1}
-      phx-target={@myself}
-      disabled={@stock_entry.stock < 1}
-      hidden={@changed}
-    >
-      <i class="fa-lg fa-solid fa-minus"></i>
-    </button>
+    <div class="elevated-wrapper">
+      <button
+        class="btn btn-outline-danger btn-lg col flex-shrink elevated"
+        type="reset"
+        hidden={not @changed}
+        phx-click="reset"
+        phx-target={@myself}
+      >
+        <i class="fa-lg fa-solid fa-x"></i>
+      </button>
+    </div>
+    <div class="elevated-wrapper">
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-lg col flex-shrink elevated"
+        phx-click="advance_consumption"
+        phx-value-delta={1}
+        phx-target={@myself}
+        disabled={@stock_entry.stock < 1}
+        hidden={@changed}
+      >
+        <i class="fa-lg fa-solid fa-minus"></i>
+      </button>
+    </div>
   </div>
 
-  <input
-    type="number"
-    name="new_total"
-    min="0"
-    value={@stock_entry.stock}
-    phx-hook="SelectContent"
-    id={"#{@id}_new_total_#{@stock_entry.stock}"}
-    phx-change="change"
-    class="col form-control"
-  />
+  <div class="col elevated-wrapper bright">
+    <input
+      type="number"
+      name="new_total"
+      min="0"
+      value={@stock_entry.stock}
+      phx-hook="SelectContent"
+      id={"#{@id}_new_total_#{@stock_entry.stock}"}
+      phx-change="change"
+      class="form-control elevated"
+    />
+  </div>
 
   <div class="col flex-shrink">
-    <button class="btn btn-outline-success btn-lg inverted" type="submit" hidden={not @changed}>
-      <i class="fa-solid fa-floppy-disk"></i>
-    </button>
+    <div class="elevated-wrapper">
+      <button class="btn btn-outline-success btn-lg inverted elevated" type="submit" hidden={not @changed}>
+        <i class="fa-solid fa-floppy-disk"></i>
+      </button>
+    </div>
 
-    <button
-      type="button"
-      class="btn btn-outline-primary btn-lg col flex-shrink"
-      phx-click="advance_consumption"
-      phx-value-delta={-1}
-      phx-target={@myself}
-      hidden={@changed}
-    >
-      <i class="fa-lg fa-solid fa-plus"></i>
-    </button>
+    <div class="elevated-wrapper">
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-lg col flex-shrink elevated"
+        phx-click="advance_consumption"
+        phx-value-delta={-1}
+        phx-target={@myself}
+        hidden={@changed}
+      >
+        <i class="fa-lg fa-solid fa-plus"></i>
+      </button>
+     </div>
   </div>
 </form>

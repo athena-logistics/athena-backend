@@ -10,11 +10,13 @@
   stock_entries = Enum.filter(@event.stock_entries, &match?(%StockEntry{location_id: ^location_id}, &1)),
   status_count = Map.merge(%{important: [], warning: [], normal: []},  Enum.group_by(stock_entries, &StockEntry.status/1))  do %>
       <div class="col-12 col-md-6 col-lg-4">
-        <h2 class="text-center">
-          <%= link(location_name,
-            to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location_id)
-          ) %>
-        </h2>
+        <div class="elevated-wrapper">
+          <h2 class="text-center elevated">
+            <%= link(location_name,
+              to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location_id)
+            ) %>
+          </h2>
+        </div>
         <ul class="list-unstyled row">
           <%= for {color, rows} <- [danger: status_count.important, warning: status_count.warning, success: status_count.normal], count = length(rows) do %>
             <li class={["col", "text-#{color}"]}>

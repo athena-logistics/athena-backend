@@ -5,6 +5,10 @@
     grid-template: repeat(3, min-content) / repeat(auto-fit, minmax(400px, 1fr));
   }
 
+  .elevated-wrapper {
+    width: inherit;
+  }
+
   &__group-title {
     width: inherit;
     padding: 3px 0;

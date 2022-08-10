@@ -1,4 +1,4 @@
-<section class="container-fluid">
+<section class="container-fluid location">
   <h1 class="container"><%= @location.name %></h1>
 
   <%= if @live_action == :show_logistics do %>
@@ -20,27 +20,30 @@
       stock_entries = relevant_stock_entries(@stock_entries, item_group),
       stock_entries != [] do %>
       <div>
-        <h2 class="location__group-title text-center" id={item_group_id}>
-          <%= item_group_name %>
-        </h2>
-
-        <ul class="list-unstyled">
-          <%= for %StockEntry{item: %Item{id: item_id} = item} = stock_entry <- stock_entries do %>
-            <li class="row mb-2" id={"item-#{item_id}"}>
-              <div class="col">
-                <%= item.name %>
-              </div>
-              <div class="col-7 text-center">
-                <.live_component
-                  module={AthenaWeb.Frontend.StockEntry}
-                  id={"stock_entry_#{@location.id}_#{item_id}"}
-                  stock_entry={stock_entry}
-                />
-                <small><%= item.unit %></small>
-              </div>
-            </li>
-          <% end %>
-        </ul>
+        <div class="elevated-wrapper">
+          <h2 class="location__group-title text-center elevated" id={item_group_id}>
+            <%= item_group_name %>
+          </h2>
+        </div>
+        <div>
+          <ul class="list-unstyled">
+            <%= for %StockEntry{item: %Item{id: item_id} = item} = stock_entry <- stock_entries do %>
+              <li class="row mb-2" id={"item-#{item_id}"}>
+                <div class="col">
+                  <%= item.name %>
+                </div>
+                <div class="col-7 text-center">
+                  <.live_component
+                    module={AthenaWeb.Frontend.StockEntry}
+                    id={"stock_entry_#{@location.id}_#{item_id}"}
+                    stock_entry={stock_entry}
+                  />
+                  <small><%= item.unit %></small>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     <% end %>
   </div>

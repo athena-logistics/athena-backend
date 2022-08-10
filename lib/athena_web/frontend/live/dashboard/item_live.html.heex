@@ -8,7 +8,9 @@
   <%= for %ItemGroup{id: item_group_id, name: item_group_name} <- @event.item_groups,
   stock_entries = Enum.filter(@event.stock_entries, &match?(%StockEntry{item: %Item{item_group_id: ^item_group_id}}, &1)) do %>
     <div class="item-group">
-      <h2 class="text-center"><%= item_group_name %></h2>
+      <div class="elevated-wrapper">
+        <h2 class="text-center elevated"><%= item_group_name %></h2>
+      </div>
 
       <div class="row">
         <%= for { %Item{name: item_name, unit: unit} = item, item_stock_entries} <- Enum.group_by(stock_entries, & &1.item),

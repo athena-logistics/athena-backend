@@ -1,0 +1,29 @@
+.elevated-wrapper {
+  width: fit-content;
+  background-color: $primary-dark;
+  border-radius: $base-border-radius;
+  padding: 0;
+}
+
+.elevated {
+  position: relative;
+  top: -3px;
+  left: 6px;
+  border-radius: $base-border-radius !important;
+  border: 2px solid $primary-dark !important;
+  background-color: $body-bg;
+}
+
+.elevated.btn:disabled {
+  background-color: $primary-darkest;
+  color: $primary-dark;
+  opacity: 1;
+}
+
+.elevated-wrapper.bright {
+  background-color: $primary;
+}
+
+.elevated-wrapper.bright .elevated {
+  border: 2px solid $primary !important;
+}
