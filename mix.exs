@@ -1,10 +1,12 @@
 defmodule Athena.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/athena-logistics/athena-backend"
+
   def project do
     [
       app: :athena_logistics,
-      version: "0.0.0",
+      version: "1.0.0",
       elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -29,6 +31,12 @@ defmodule Athena.MixProject do
         "coveralls.json": :test,
         "coveralls.post": :test,
         "coveralls.xml": :test
+      ],
+      description: "Athena Event Logistics - Backend / Web",
+      package: [
+        maintainers: ["Jonatan Männchen"],
+        licenses: ["MIT"],
+        links: %{"GitHub" => @source_url, "Website" => "https://athena-logistics.github.io/"}
       ]
     ]
   end
