@@ -1,5 +1,5 @@
 defmodule AthenaWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :athena
+  use Phoenix.Endpoint, otp_app: :athena_logistics
   use Absinthe.Phoenix.Endpoint
 
   # The session will be stored in the cookie and signed,
@@ -26,7 +26,7 @@ defmodule AthenaWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :athena,
+    from: :athena_logistics,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -36,7 +36,7 @@ defmodule AthenaWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :athena
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :athena_logistics
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

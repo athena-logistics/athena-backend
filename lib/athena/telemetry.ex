@@ -61,7 +61,7 @@ defmodule Athena.Telemetry do
         reporter_options: [
           buckets: power_two_durations(-8, 16)
         ],
-        event_name: [:athena, :repo, :query],
+        event_name: [:athena_logistics, :repo, :query],
         measurement: :total_time,
         unit: {:native, :millisecond}
       ),
@@ -70,7 +70,7 @@ defmodule Athena.Telemetry do
         reporter_options: [
           buckets: power_two_durations(-8, 16)
         ],
-        event_name: [:athena, :repo, :query],
+        event_name: [:athena_logistics, :repo, :query],
         measurement: :decode_time,
         unit: {:native, :millisecond}
       ),
@@ -79,7 +79,7 @@ defmodule Athena.Telemetry do
         reporter_options: [
           buckets: power_two_durations(-8, 16)
         ],
-        event_name: [:athena, :repo, :query],
+        event_name: [:athena_logistics, :repo, :query],
         measurement: :query_time,
         unit: {:native, :millisecond}
       ),
@@ -88,7 +88,7 @@ defmodule Athena.Telemetry do
         reporter_options: [
           buckets: power_two_durations(-8, 16)
         ],
-        event_name: [:athena, :repo, :query],
+        event_name: [:athena_logistics, :repo, :query],
         measurement: :queue_time,
         unit: {:native, :millisecond}
       ),
@@ -97,7 +97,7 @@ defmodule Athena.Telemetry do
         reporter_options: [
           buckets: power_two_durations(-8, 16)
         ],
-        event_name: [:athena, :repo, :query],
+        event_name: [:athena_logistics, :repo, :query],
         measurement: :idle_time,
         unit: {:native, :millisecond}
       ),

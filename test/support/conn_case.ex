@@ -36,7 +36,7 @@ defmodule AthenaWeb.ConnCase do
   setup do
     Gettext.put_locale(AthenaWeb.Gettext, "en")
 
-    config = Application.fetch_env!(:athena, Plug.BasicAuth)
+    config = Application.fetch_env!(:athena_logistics, Plug.BasicAuth)
 
     header_content = "Basic " <> Base.encode64("#{config[:username]}:#{config[:password]}")
 

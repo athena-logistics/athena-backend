@@ -1,3 +1,3 @@
 import Config
 
-config :athena, AthenaWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
+config :athena_logistics, AthenaWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"

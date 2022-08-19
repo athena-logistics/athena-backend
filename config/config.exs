@@ -10,23 +10,23 @@
 import Config
 
 # Configure Mix tasks and generators
-config :athena,
+config :athena_logistics,
   ecto_repos: [Athena.Repo],
-  generators: [context_app: :athena, binary_id: true]
+  generators: [context_app: :athena_logistics, binary_id: true]
 
-config :athena, Athena.Repo,
+config :athena_logistics, Athena.Repo,
   migration_primary_key: [id: :uuid, type: :binary_id],
   migration_foreign_key: [column: :id, type: :binary_id],
   migration_timestamps: [type: :utc_datetime_usec]
 
 # Configures the endpoint
-config :athena, AthenaWeb.Endpoint,
+config :athena_logistics, AthenaWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: AthenaWeb.ErrorView, accepts: ~w(html json)],
   pubsub_server: Athena.PubSub,
   live_view: [signing_salt: "rEImWHdz"]
 
-config :athena, AthenaWeb.Gettext, default_locale: "de"
+config :athena_logistics, AthenaWeb.Gettext, default_locale: "de"
 
 # Configures Elixir's Logger
 config :logger, :console,

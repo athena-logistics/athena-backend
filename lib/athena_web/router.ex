@@ -101,5 +101,5 @@ defmodule AthenaWeb.Router do
   end
 
   defp auth(conn, _opts),
-    do: Plug.BasicAuth.basic_auth(conn, Application.fetch_env!(:athena, Plug.BasicAuth))
+    do: Plug.BasicAuth.basic_auth(conn, Application.fetch_env!(:athena_logistics, Plug.BasicAuth))
 end

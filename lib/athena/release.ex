@@ -4,7 +4,7 @@ defmodule Athena.Release do
   installed.
   """
 
-  @app :athena
+  @app :athena_logistics
 
   def migrate do
     load_app()

@@ -2,7 +2,7 @@ import Config
 
 case config_env() do
   :prod ->
-    config :athena, AthenaWeb.Endpoint, server: true
+    config :athena_logistics, AthenaWeb.Endpoint, server: true
 
   _env ->
     nil
@@ -42,7 +42,7 @@ database_connection_params =
       [url: url]
   end
 
-config :athena,
+config :athena_logistics,
        Athena.Repo,
        [
          ssl: database_ssl,
@@ -63,7 +63,7 @@ port =
     )
   )
 
-config :athena, AthenaWeb.Endpoint,
+config :athena_logistics, AthenaWeb.Endpoint,
   url: [
     host: System.get_env("EXTERNAL_HOST", "localhost"),
     port: System.get_env("EXTERNAL_PORT", "#{port}"),
@@ -92,7 +92,7 @@ config :logger,
       )
     )
 
-config :athena, Plug.BasicAuth,
+config :athena_logistics, Plug.BasicAuth,
   username: System.get_env("BASIC_AUTH_USERNAME", "admin"),
   password: System.get_env("BASIC_AUTH_PASSWORD", "admin"),
   realm: System.get_env("BASIC_AUTH_REALM", "Admin Area")

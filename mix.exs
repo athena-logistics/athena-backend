@@ -3,7 +3,7 @@ defmodule Athena.MixProject do
 
   def project do
     [
-      app: :athena,
+      app: :athena_logistics,
       version: "0.0.0",
       elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),

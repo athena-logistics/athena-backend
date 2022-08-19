@@ -1,8 +1,8 @@
 import Config
 
-config :athena, Athena.Repo, show_sensitive_data_on_connection_error: true
+config :athena_logistics, Athena.Repo, show_sensitive_data_on_connection_error: true
 
-config :athena, AthenaWeb.Endpoint,
+config :athena_logistics, AthenaWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
