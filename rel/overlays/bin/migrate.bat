@@ -1,1 +1,1 @@
-call "%~dp0\athena" eval Athena.Release.migrate
+call "%~dp0\athena_logistics" eval Athena.Release.migrate
