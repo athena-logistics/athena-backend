@@ -42,7 +42,7 @@
                 data: Enum.map(@item_totals, &%{x: elem(&1, 1), y: elem(&1, 0)}),
                 label: "Total",
                 stack: "total",
-                tension: 0.3
+                tension: 0.15
               }
               | @location_totals
                 |> Enum.group_by(&elem(&1, 0), &%{y: elem(&1, 1), x: elem(&1, 2)})

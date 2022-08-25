@@ -24,6 +24,16 @@ defmodule AthenaWeb.Schema.Event do
       resolve many_dataloader()
     end
 
+    @desc "Get a timeline of stock for this event (granularity: 5 minutes)"
+    connection field :totals, node_type: :event_total do
+      resolve many_dataloader()
+    end
+
+    @desc "Get a timeline of stock for this event per location (granularity: 5 minutes)"
+    connection field :location_totals, node_type: :location_total do
+      resolve many_dataloader()
+    end
+
     connection field :stock, node_type: :stock_entry do
       resolve &Resolver.stock/3
     end
