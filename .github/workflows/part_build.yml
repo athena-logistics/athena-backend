@@ -116,7 +116,7 @@ jobs:
           path: priv/static
       - run: mix phx.digest
       - run: mix release --overwrite
-      - run: tar -czvf release.tar.gz _build/prod/rel/athena
+      - run: tar -czvf release.tar.gz _build/prod/rel/athena_logistics
       - uses: actions/upload-artifact@v3
         with:
           name: mix_release
