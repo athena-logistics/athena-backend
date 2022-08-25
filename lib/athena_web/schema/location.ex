@@ -29,6 +29,11 @@ defmodule AthenaWeb.Schema.Location do
       resolve &Resolver.item_groups/3
     end
 
+    @desc "Get a timeline of stock for this location (granularity: 5 minutes)"
+    connection field :totals, node_type: :location_total do
+      resolve many_dataloader()
+    end
+
     field :inserted_at, non_null(:datetime)
     field :updated_at, non_null(:datetime)
 

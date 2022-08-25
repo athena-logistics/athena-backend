@@ -20,6 +20,16 @@ defmodule AthenaWeb.Schema.Item do
       resolve &Resolver.stock/3
     end
 
+    @desc "Get a timeline of stock of this item per location (granularity: 5 minutes)"
+    connection field :location_totals, node_type: :location_total do
+      resolve many_dataloader()
+    end
+
+    @desc "Get a timeline of stock of this item in the whole event (granularity: 5 minutes)"
+    connection field :event_totals, node_type: :event_total do
+      resolve many_dataloader()
+    end
+
     field :inserted_at, non_null(:datetime)
     field :updated_at, non_null(:datetime)
 

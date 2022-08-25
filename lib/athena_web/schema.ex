@@ -36,9 +36,11 @@ defmodule AthenaWeb.Schema do
   import_types Absinthe.Plug.Types
   import_types AbsintheErrorPayload.ValidationMessageTypes
   import_types AthenaWeb.Schema.Event
+  import_types AthenaWeb.Schema.Event.Total
   import_types AthenaWeb.Schema.Item
   import_types AthenaWeb.Schema.ItemGroup
   import_types AthenaWeb.Schema.Location
+  import_types AthenaWeb.Schema.Location.Total
   import_types AthenaWeb.Schema.Movement
   import_types AthenaWeb.Schema.StockEntry
   import_types AthenaWeb.Schema.Scalar.Date
