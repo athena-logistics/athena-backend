@@ -122,7 +122,7 @@
             <div class="text-end col">
               <%= if stock_out do %>
                 <s><%= stock_out %></s><br />
-                <%= stock_out - Changeset.fetch_field!(movement_form.source, :amount) %>
+                <%= stock_out - (Changeset.fetch_field!(movement_form.source, :amount) || 0) %>
               <% end %>
             </div>
 
@@ -134,7 +134,7 @@
             <div class="in col">
               <%= if stock_in do %>
                 <s><%= stock_in %></s><br />
-                <%= stock_in + Changeset.fetch_field!(movement_form.source, :amount) %>
+                <%= stock_in + (Changeset.fetch_field!(movement_form.source, :amount) || 0) %>
               <% end %>
             </div>
           </div>
