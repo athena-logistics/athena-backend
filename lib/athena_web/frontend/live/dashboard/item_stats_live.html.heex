@@ -1,39 +1,111 @@
 <div class="container">
   <h1><%= gettext("%{item} total stats", item: @item.name) %></h1>
 
-  <dl>
-    <dt><%= gettext("Supply") %></dt>
-    <dd><%= Enum.reduce(@item.stock_entries, 0, &(&1.supply + &2)) %></dd>
-    <dt><%= gettext("Consumption") %></dt>
-    <dd><%= Enum.reduce(@item.stock_entries, 0, &(&1.consumption + &2)) %></dd>
-    <dt><%= gettext("Movements") %></dt>
-    <dd><%= Enum.reduce(@item.stock_entries, 0, &(&1.movement_in + &2)) %></dd>
-  </dl>
-
-  <AthenaWeb.Chart.chart
-    dom_id="event_totals_chart"
-    config={
-      %{
-        type: "line",
-        options: %{
-          scales: %{
-            y: %{title: %{display: false, text: gettext("Amount")}, ticks: %{color: "#efbb35"}},
-            x: %{
-              type: :time,
-              time: %{tooltipFormat: "DD T"},
-              ticks: %{autoskip: true, major: %{enabled: true}, maxRotation: 0, color: "#efbb35"},
-              title: %{
-                display: false,
-                text: gettext("Time")
+  <div class="mb-5">
+    <AthenaWeb.Chart.chart
+      dom_id="event_totals_chart"
+      config={
+        %{
+          type: "line",
+          options: %{
+            responsive: true,
+            scales: %{
+              y: %{
+                type: "linear",
+                title: %{display: false, text: gettext("Amount")},
+                ticks: %{color: "#efbb35"}
               },
-              suggestedMax: DateTime.to_iso8601(DateTime.utc_now())
+              x: %{
+                type: :time,
+                time: %{tooltipFormat: "DD T"},
+                ticks: %{
+                  autoskip: true,
+                  major: %{enabled: true},
+                  maxRotation: 0,
+                  color: "#efbb35"
+                },
+                title: %{
+                  display: false,
+                  text: gettext("Time")
+                }
+              }
+            },
+            plugins: %{
+              legend: %{
+                position: "bottom"
+              }
             }
+          },
+          data: %{
+            datasets: [
+              %{
+                data: Enum.map(@item_totals, &%{x: elem(&1, 1), y: elem(&1, 0)}),
+                label: "Total",
+                stack: "total",
+                tension: 0.3
+              }
+              | @location_totals
+                |> Enum.group_by(&elem(&1, 0), &%{y: elem(&1, 1), x: elem(&1, 2)})
+                |> Enum.map(fn {location, totals} ->
+                  %{
+                    data: totals,
+                    tension: 0.15,
+                    label: location
+                  }
+                end)
+            ]
           }
-        },
-        data: %{
-          datasets: [%{data: Enum.map(@item_totals, &%{x: elem(&1, 1), y: elem(&1, 0)})}]
         }
       }
-    }
-  />
+    />
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= pgettext("Item Stats Table", "Date") %></th>
+        <th><%= pgettext("Item Stats Table", "Type") %></th>
+        <th><%= pgettext("Item Stats Table", "Location") %></th>
+        <th><%= pgettext("Item Stats Table", "Amount") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for %OrderOverview{date: %Date{} = date, type: type, location: location, amount: amount} <- @order_overview do %>
+        <tr>
+          <td><%= AthenaWeb.Cldr.Date.to_string!(date) %></td>
+          <td><%= order_overview_type_label(type) %></td>
+          <%= case location do %>
+            <% %Location{name: location_name} -> %>
+              <td>
+                <%= link(location_name,
+                  to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location)
+                ) %>
+              </td>
+            <% nil -> %>
+              <th><%= pgettext("Item Stats Table", "Total") %></th>
+          <% end %>
+          <td><%= AthenaWeb.Cldr.Number.to_string!(amount) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <%= for %OrderOverview{date: nil, type: type, location: location, amount: amount} <- @order_overview do %>
+        <tr>
+          <th><%= gettext("Total") %></th>
+          <td><%= order_overview_type_label(type) %></td>
+          <%= case location do %>
+            <% %Location{name: location_name} -> %>
+              <td>
+                <%= link(location_name,
+                  to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location)
+                ) %>
+              </td>
+            <% nil -> %>
+              <th><%= pgettext("Item Stats Table", "Total") %></th>
+          <% end %>
+          <td><%= AthenaWeb.Cldr.Number.to_string!(amount) %></td>
+        </tr>
+      <% end %>
+    </tfoot>
+  </table>
 </div>

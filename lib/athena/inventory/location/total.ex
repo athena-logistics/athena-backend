@@ -17,7 +17,8 @@ defmodule Athena.Inventory.Location.Total do
           item_group: Ecto.Schema.has_one(ItemGroup.t()),
           item: Ecto.Schema.belongs_to(Item.t()),
           item_id: Ecto.UUID.t(),
-          event: Ecto.Schema.has_one(Event.t()),
+          event: Ecto.Schema.belongs_to(Event.t()),
+          event_id: Ecto.UUID.t(),
           inserted_at: DateTime.t()
         }
 
@@ -28,7 +29,7 @@ defmodule Athena.Inventory.Location.Total do
     belongs_to :location, Location
     belongs_to :item, Item
     has_one :item_group, through: [:item, :item_group]
-    has_one :event, through: [:location, :event]
+    belongs_to :event, Event
 
     timestamps(updated_at: false)
   end

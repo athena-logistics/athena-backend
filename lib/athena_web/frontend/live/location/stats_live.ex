@@ -5,6 +5,7 @@ defmodule AthenaWeb.Frontend.Location.StatsLive do
 
   alias Athena.Inventory
   alias Athena.Inventory.Item
+  alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Location
   alias Phoenix.PubSub
 
@@ -27,16 +28,23 @@ defmodule AthenaWeb.Frontend.Location.StatsLive do
       location =
       id
       |> Inventory.get_location!()
-      |> Repo.preload(event: [items: []])
+      |> Repo.preload(event: [items: [], item_groups: []])
 
     item_totals =
       location
       |> Inventory.location_totals_by_location_query()
-      |> Ecto.Query.select(
+      |> Ecto.Query.join(
+        :inner,
         [location_total],
-        {location_total.item_id, location_total.amount, location_total.inserted_at}
+        item_group in assoc(location_total, :item_group),
+        as: :item_group
+      )
+      |> Ecto.Query.select(
+        [location_total, item_group: item_group],
+        {item_group.id, location_total.item_id, location_total.amount, location_total.inserted_at}
       )
       |> Repo.all()
+      |> Enum.group_by(&elem(&1, 0), &Tuple.delete_at(&1, 0))
 
     socket
     |> assign(

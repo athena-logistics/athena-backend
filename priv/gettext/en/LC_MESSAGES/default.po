@@ -486,13 +486,13 @@ msgstr ""
 msgid "Stats"
 msgstr ""
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:27
-#: lib/athena_web/frontend/live/location/stats_live.html.heex:25
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:29
+#: lib/athena_web/frontend/live/location/stats_live.html.heex:36
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Time"
 msgstr ""
 
-#: lib/athena_web/frontend/live/location/stats_live.html.heex:17
+#: lib/athena_web/frontend/live/location/stats_live.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "Units"
 msgstr ""
@@ -502,22 +502,17 @@ msgstr ""
 msgid "%{item} total stats"
 msgstr ""
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:20
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:15
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Amount"
 msgstr ""
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:7
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.ex:86
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Consumption"
 msgstr ""
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:9
-#, elixir-autogen, elixir-format, fuzzy
-msgid "Movements"
-msgstr ""
-
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:5
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.ex:85
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Supply"
 msgstr ""
@@ -525,4 +520,40 @@ msgstr ""
 #: lib/athena_web/frontend/live/navigation.ex:71
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Locations"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:94
+#, elixir-autogen, elixir-format
+msgid "Total"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:69
+#, elixir-autogen, elixir-format, fuzzy
+msgctxt "Item Stats Table"
+msgid "Amount"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:66
+#, elixir-autogen, elixir-format
+msgctxt "Item Stats Table"
+msgid "Date"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:68
+#, elixir-autogen, elixir-format, fuzzy
+msgctxt "Item Stats Table"
+msgid "Location"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:85
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:104
+#, elixir-autogen, elixir-format
+msgctxt "Item Stats Table"
+msgid "Total"
+msgstr ""
+
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:67
+#, elixir-autogen, elixir-format
+msgctxt "Item Stats Table"
+msgid "Type"
 msgstr ""

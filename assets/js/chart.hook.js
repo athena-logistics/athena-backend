@@ -1,22 +1,28 @@
 import {
   CategoryScale,
   Chart,
+  Filler,
+  Legend,
   LineController,
   LineElement,
   LinearScale,
   PointElement,
   TimeScale,
+  Title,
   Tooltip,
 } from "chart.js";
 import "chartjs-adapter-luxon";
 
 Chart.register(
   CategoryScale,
+  Filler,
+  Legend,
   LineController,
   LineElement,
   LinearScale,
   PointElement,
   TimeScale,
+  Title,
   Tooltip
 );
 
