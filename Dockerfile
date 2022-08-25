@@ -9,7 +9,7 @@ WORKDIR "/app"
 RUN chown nobody /app
 
 # Only copy the final release from the build stage
-COPY --chown=nobody:root _build/prod/rel/athena ./
+COPY --chown=nobody:root _build/prod/rel/athena_logistics ./
 
 USER nobody
 
