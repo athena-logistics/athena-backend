@@ -71,6 +71,7 @@ defmodule Athena.MixProject do
       {:ecto_sql, "~> 3.1"},
       {:eqrcode, "~> 0.1"},
       {:ex_cldr, "~> 2.13"},
+      {:ex_cldr_dates_times, "~> 2.12"},
       {:ex_cldr_plugs, "~> 1.0"},
       {:excoveralls, "~> 0.4", runtime: false, only: [:test]},
       {:ex_doc, "~> 0.24", runtime: false, only: [:dev]},

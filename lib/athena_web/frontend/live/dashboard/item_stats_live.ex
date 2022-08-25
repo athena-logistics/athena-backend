@@ -4,6 +4,8 @@ defmodule AthenaWeb.Frontend.Dashboard.ItemStatsLive do
   use AthenaWeb, :live
 
   alias Athena.Inventory
+  alias Athena.Inventory.Event.OrderOverview
+  alias Athena.Inventory.Location
   alias Phoenix.PubSub
 
   require Ecto.Query
@@ -33,7 +35,21 @@ defmodule AthenaWeb.Frontend.Dashboard.ItemStatsLive do
   end
 
   defp update(socket, item_id) do
-    item = item_id |> Inventory.get_item!() |> Repo.preload(event: [], stock_entries: [])
+    item = item_id |> Inventory.get_item!() |> Repo.preload(event: [])
+
+    location_totals =
+      item
+      |> Inventory.location_totals_by_item_query()
+      |> Inventory.location_totals_by_event_query(item.event)
+      |> Ecto.Query.join(:inner, [location_total], location in assoc(location_total, :location),
+        as: :location
+      )
+      |> Ecto.Query.select(
+        [location_total, location: location],
+        {location.name, location_total.amount, location_total.inserted_at}
+      )
+      |> Ecto.Query.order_by([location_total], location_total.inserted_at)
+      |> Repo.all()
 
     item_totals =
       item
@@ -45,6 +61,27 @@ defmodule AthenaWeb.Frontend.Dashboard.ItemStatsLive do
       |> Ecto.Query.order_by([event_total], event_total.inserted_at)
       |> Repo.all()
 
-    assign(socket, item: item, item_totals: item_totals)
+    order_overview =
+      item
+      |> Inventory.event_order_overview_by_item_query()
+      |> Ecto.Query.order_by([order_overview], [
+        is_nil(order_overview.date),
+        order_overview.type,
+        order_overview.date,
+        order_overview.location_id
+      ])
+      |> Ecto.Query.preload(location: [], item: [], item_group: [])
+      |> Repo.all()
+
+    assign(socket,
+      item: item,
+      location_totals: location_totals,
+      item_totals: item_totals,
+      order_overview: order_overview
+    )
   end
+
+  defp order_overview_type_label(type)
+  defp order_overview_type_label(:supply), do: gettext("Supply")
+  defp order_overview_type_label(:consumption), do: gettext("Consumption")
 end

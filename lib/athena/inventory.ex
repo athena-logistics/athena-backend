@@ -772,6 +772,11 @@ defmodule Athena.Inventory do
   def location_totals_by_location_query(query \\ Location.Total, %Location{id: location_id}),
     do: from(total in query, where: total.location_id == ^location_id)
 
+  @spec location_totals_by_event_query(query :: Ecto.Queryable.t(), event :: Event.t()) ::
+          Ecto.Queryable.t()
+  def location_totals_by_event_query(query \\ Location.Total, %Event{id: event_id}),
+    do: from(total in query, where: total.event_id == ^event_id)
+
   @spec location_totals_by_item_query(query :: Ecto.Queryable.t(), item :: Item.t()) ::
           Ecto.Queryable.t()
   def location_totals_by_item_query(query \\ Location.Total, %Item{id: item_id}),
@@ -786,4 +791,14 @@ defmodule Athena.Inventory do
           Ecto.Queryable.t()
   def event_totals_by_item_query(query \\ Event.Total, %Item{id: item_id}),
     do: from(total in query, where: total.item_id == ^item_id)
+
+  @spec event_order_overview_by_event_query(query :: Ecto.Queryable.t(), event :: Event.t()) ::
+          Ecto.Queryable.t()
+  def event_order_overview_by_event_query(query \\ Event.OrderOverview, %Event{id: event_id}),
+    do: from(order_overview in query, where: order_overview.event_id == ^event_id)
+
+  @spec event_order_overview_by_item_query(query :: Ecto.Queryable.t(), item :: Item.t()) ::
+          Ecto.Queryable.t()
+  def event_order_overview_by_item_query(query \\ Event.OrderOverview, %Item{id: item_id}),
+    do: from(order_overview in query, where: order_overview.item_id == ^item_id)
 end

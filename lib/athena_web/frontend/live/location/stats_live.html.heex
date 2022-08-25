@@ -7,41 +7,62 @@
     location={@location}
   />
 
-  <AthenaWeb.Chart.chart
-    dom_id="location_totals_chart"
-    config={
-      %{
-        type: "line",
-        options: %{
-          scales: %{
-            y: %{title: %{display: false, text: gettext("Units")}, ticks: %{color: "#efbb35"}},
-            x: %{
-              type: :time,
-              time: %{tooltipFormat: "DD T"},
-              ticks: %{autoskip: true, major: %{enabled: true}, maxRotation: 0, color: "#efbb35"},
-              suggestedMax: DateTime.to_iso8601(DateTime.utc_now()),
+  <%= for {item_group_id, _stats} <- @item_totals, %ItemGroup{name: item_group_name} = Enum.find(@location.event.item_groups, &match?(%ItemGroup{id: ^item_group_id}, &1)) do %>
+    <a class="bookmark" href={"#location_totals_chart_#{item_group_id}_chart"}>
+      <%= item_group_name %>
+    </a>
+  <% end %>
+
+  <%= for {item_group_id, item_totals_by_group} <- @item_totals, %ItemGroup{name: item_group_name} = Enum.find(@location.event.item_groups, &match?(%ItemGroup{id: ^item_group_id}, &1)) do %>
+    <AthenaWeb.Chart.chart
+      dom_id={"location_totals_chart_#{item_group_id}"}
+      config={
+        %{
+          type: "line",
+          options: %{
+            scales: %{
+              y: %{title: %{display: false, text: gettext("Units")}, ticks: %{color: "#efbb35"}},
+              x: %{
+                type: :time,
+                time: %{tooltipFormat: "DD T"},
+                ticks: %{
+                  autoskip: true,
+                  major: %{enabled: true},
+                  maxRotation: 0,
+                  color: "#efbb35"
+                },
+                title: %{
+                  display: false,
+                  text: gettext("Time")
+                }
+              }
+            },
+            plugins: %{
               title: %{
-                display: false,
-                text: gettext("Time")
+                text: item_group_name,
+                display: true
+              },
+              legend: %{
+                position: "bottom"
               }
             }
-          }
-        },
-        data: %{
-          datasets:
-            @item_totals
-            |> Enum.group_by(&elem(&1, 0), &%{y: elem(&1, 1), x: elem(&1, 2)})
-            |> Enum.map(fn {item_id, totals} ->
-              item_name =
-                Enum.find_value(@location.event.items, fn
-                  %Item{id: ^item_id, name: item_name} -> item_name
-                  _item -> false
-                end)
+          },
+          data: %{
+            datasets:
+              item_totals_by_group
+              |> Enum.group_by(&elem(&1, 0), &%{y: elem(&1, 1), x: elem(&1, 2)})
+              |> Enum.map(fn {item_id, totals} ->
+                item_name =
+                  Enum.find_value(@location.event.items, fn
+                    %Item{id: ^item_id, name: item_name} -> item_name
+                    _item -> false
+                  end)
 
-              %{label: item_name, data: totals}
-            end)
+                %{label: item_name, data: totals, tension: 0.15}
+              end)
+          }
         }
       }
-    }
-  />
+    />
+  <% end %>
 </section>

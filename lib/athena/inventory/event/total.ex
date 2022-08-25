@@ -20,7 +20,7 @@ defmodule Athena.Inventory.Event.Total do
         }
 
   @primary_key false
-  schema "location_totals" do
+  schema "event_totals" do
     field :amount, :integer
 
     belongs_to :item, Item
