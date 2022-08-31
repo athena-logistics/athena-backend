@@ -10,6 +10,7 @@
     "bootstrap": "^5.2.0",
     "chart.js": "^3.9.1",
     "chartjs-adapter-luxon": "^1.2.0",
+    "chartjs-plugin-zoom": "^1.2.1",
     "child-replace-with-polyfill": "^1.0.1",
     "classlist-polyfill": "^1.2.0",
     "core-js": "^3.25.0",

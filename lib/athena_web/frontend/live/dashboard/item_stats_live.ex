@@ -46,9 +46,9 @@ defmodule AthenaWeb.Frontend.Dashboard.ItemStatsLive do
       )
       |> Ecto.Query.select(
         [location_total, location: location],
-        {location.name, location_total.amount, location_total.inserted_at}
+        {location.name, location_total.amount, location_total.date}
       )
-      |> Ecto.Query.order_by([location_total], location_total.inserted_at)
+      |> Ecto.Query.order_by([location_total], location_total.date)
       |> Repo.all()
 
     item_totals =
@@ -56,9 +56,9 @@ defmodule AthenaWeb.Frontend.Dashboard.ItemStatsLive do
       |> Inventory.event_totals_by_item_query()
       |> Ecto.Query.select(
         [event_total],
-        {event_total.amount, event_total.inserted_at}
+        {event_total.amount, event_total.date}
       )
-      |> Ecto.Query.order_by([event_total], event_total.inserted_at)
+      |> Ecto.Query.order_by([event_total], event_total.date)
       |> Repo.all()
 
     order_overview =

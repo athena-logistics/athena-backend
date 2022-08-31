@@ -7,7 +7,7 @@ defmodule AthenaWeb.Schema.Location.Total do
 
   object :location_total do
     field :amount, non_null(:integer)
-    field :inserted_at, non_null(:datetime)
+    field :date, non_null(:datetime)
 
     field :event, non_null(:event), resolve: dataloader(RepoDataLoader)
     field :location, non_null(:location), resolve: dataloader(RepoDataLoader)
