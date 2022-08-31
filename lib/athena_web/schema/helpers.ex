@@ -36,14 +36,30 @@ defmodule AthenaWeb.Schema.Helpers do
     )
   end
 
-  @spec many_dataloader :: Absinthe.Resolution.Helpers.dataloader_key_fun()
-  def many_dataloader do
+  @spec many_dataloader(
+          query_callback ::
+            (query :: Ecto.Queryable.t(),
+             parent :: term(),
+             params :: map(),
+             resolution :: Absinthe.Resolution.t() ->
+               Ecto.Queryable.t())
+        ) :: Absinthe.Resolution.Helpers.dataloader_key_fun()
+  def many_dataloader(query_callback \\ &many_dataloader_noop_query_callback/4) do
     fn parent, args, resolution ->
       parent
       |> Ecto.assoc(resolution.definition.schema_node.identifier)
+      |> query_callback.(parent, args, resolution)
       |> connection_from_query(args)
     end
   end
+
+  @spec many_dataloader_noop_query_callback(
+          query :: Ecto.Queryable.t(),
+          parent :: term(),
+          params :: map(),
+          resolution :: Absinthe.Resolution.t()
+        ) :: Ecto.Queryable.t()
+  defp many_dataloader_noop_query_callback(query, _parent, _params, _resolution), do: query
 
   defmacro payload_fields(output_type) do
     quote location: :keep do
