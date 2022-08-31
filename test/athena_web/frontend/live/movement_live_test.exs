@@ -21,7 +21,11 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
 
   describe "supply new movement" do
     test "renders form", %{conn: conn, event: event} do
-      conn = get(conn, Routes.frontend_logistics_movement_path(conn, :supply, event.id))
+      conn =
+        conn
+        |> put_req_header("accept-language", "en")
+        |> get(Routes.frontend_logistics_movement_path(conn, :supply, event.id))
+
       assert html_response(conn, 200) =~ "Supply Item"
     end
   end
@@ -90,7 +94,11 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
 
   describe "relocate new movement" do
     test "renders form", %{conn: conn, event: event} do
-      conn = get(conn, Routes.frontend_logistics_movement_path(conn, :relocate, event.id))
+      conn =
+        conn
+        |> put_req_header("accept-language", "en")
+        |> get(Routes.frontend_logistics_movement_path(conn, :relocate, event.id))
+
       assert html_response(conn, 200) =~ "Move Item"
     end
   end

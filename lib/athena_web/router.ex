@@ -66,22 +66,26 @@ defmodule AthenaWeb.Router do
   scope "/logistics/", AthenaWeb.Frontend, as: :frontend_logistics, assigns: %{access: :logistics} do
     pipe_through [:browser, :frontend]
 
-    live "/locations/:location", Location.InventoryLive, :show_logistics
-    live "/locations/:location/stats", Location.StatsLive, :show
+    live_session :logistics, on_mount: {AthenaWeb.LiveViewInit, access: :logistics} do
+      live "/locations/:location", Location.InventoryLive, :show
+      live "/locations/:location/stats", Location.StatsLive, :show
 
-    live "/events/:event/overview", Dashboard.TableLive
-    live "/events/:event/overview/item", Dashboard.ItemLive
-    live "/events/:event/overview/location", Dashboard.LocationLive
-    live "/items/:item/overview", Dashboard.ItemStatsLive
+      live "/events/:event/overview", Dashboard.TableLive
+      live "/events/:event/overview/item", Dashboard.ItemLive
+      live "/events/:event/overview/location", Dashboard.LocationLive
+      live "/items/:item/overview", Dashboard.ItemStatsLive
 
-    live "/events/:event/movements/supply", MovementLive, :supply
-    live "/events/:event/movements/relocate", MovementLive, :relocate
+      live "/events/:event/movements/supply", MovementLive, :supply
+      live "/events/:event/movements/relocate", MovementLive, :relocate
+    end
   end
 
   scope "/vendor/", AthenaWeb.Frontend, as: :frontend_vendor, assigns: %{access: :vendor} do
     pipe_through [:browser, :frontend]
 
-    live "/locations/:location", Location.InventoryLive, :show_vendor
+    live_session :vendor, on_mount: {AthenaWeb.LiveViewInit, access: :vendor} do
+      live "/locations/:location", Location.InventoryLive, :show
+    end
   end
 
   scope "/", AthenaWeb do

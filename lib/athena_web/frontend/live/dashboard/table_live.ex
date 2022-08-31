@@ -99,7 +99,7 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
           <% %Location{name: name} = location -> %>
             <th class="location">
               <%= link(name,
-                to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location)
+                to: Routes.frontend_logistics_inventory_path(@socket, :show, location)
               ) %>
             </th>
           <% %ItemGroup{name: name} -> %>
@@ -129,11 +129,7 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
             <td class={["stock-entry", StockEntry.status(entry)]}>
               <%= link(stock,
                 to:
-                  Routes.frontend_logistics_inventory_path(
-                    @socket,
-                    :show_logistics,
-                    entry.location_id
-                  ) <>
+                  Routes.frontend_logistics_inventory_path(@socket, :show, entry.location_id) <>
                     "#item-#{entry.item_id}"
               ) %>
             </td>

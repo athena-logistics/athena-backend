@@ -78,7 +78,7 @@
             <% %Location{name: location_name} -> %>
               <td>
                 <%= link(location_name,
-                  to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location)
+                  to: Routes.frontend_logistics_inventory_path(@socket, :show, location)
                 ) %>
               </td>
             <% nil -> %>
@@ -97,7 +97,7 @@
             <% %Location{name: location_name} -> %>
               <td>
                 <%= link(location_name,
-                  to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, location)
+                  to: Routes.frontend_logistics_inventory_path(@socket, :show, location)
                 ) %>
               </td>
             <% nil -> %>
