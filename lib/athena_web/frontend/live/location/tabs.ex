@@ -11,7 +11,7 @@ defmodule AthenaWeb.Frontend.Location.Tabs do
           <%= "Inventory"
           |> gettext()
           |> link(
-            to: Routes.frontend_logistics_inventory_path(@socket, :show_logistics, @location),
+            to: Routes.frontend_logistics_inventory_path(@socket, :show, @location),
             class: ["nav-link", if(@active_tab == :inventory, do: "active")]
           ) %>
         </li>

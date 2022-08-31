@@ -75,12 +75,7 @@ defmodule AthenaWeb.Frontend.Navigation do
                 <%= for %Location{name: location_name} = location <- @locations do %>
                   <li class="nav-item">
                     <%= link(location_name,
-                      to:
-                        Routes.frontend_logistics_inventory_path(
-                          @conn,
-                          :show_logistics,
-                          location
-                        ),
+                      to: Routes.frontend_logistics_inventory_path(@conn, :show, location),
                       class: "dropdown-item"
                     ) %>
                   </li>

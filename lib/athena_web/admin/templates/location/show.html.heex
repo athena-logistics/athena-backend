@@ -2,7 +2,7 @@
 
 <h2><%= gettext("vendor link") %></h2>
 
-<% link = Routes.frontend_vendor_inventory_url(@conn, :show_vendor, @location.id) %>
+<% link = Routes.frontend_vendor_inventory_url(@conn, :show, @location.id) %>
 
 <%= "go to public view" |> gettext |> link(to: link) %>
 
