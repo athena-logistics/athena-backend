@@ -5,7 +5,7 @@ defmodule AthenaWeb.Schema.Location.Total do
 
   alias Athena.Inventory.Event.Total
 
-  node object(:location_total) do
+  object :location_total do
     field :amount, non_null(:integer)
     field :inserted_at, non_null(:datetime)
 
