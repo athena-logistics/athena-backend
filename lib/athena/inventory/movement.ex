@@ -54,7 +54,13 @@ defmodule Athena.Inventory.Movement do
 
   def changeset(movement, attrs, %{location_required: false, validate_amount_positive: false}) do
     movement
-    |> cast(attrs, [:amount, :item_id, :source_location_id, :destination_location_id])
+    |> cast(attrs, [
+      :amount,
+      :item_id,
+      :source_location_id,
+      :destination_location_id,
+      :inserted_at
+    ])
     |> fill_uuid()
     |> validate_required([:amount, :item_id])
     |> validate_number(:amount, greater_than: -1000, less_than: 1000)

@@ -11,6 +11,7 @@ defmodule Athena.Inventory.Event.Total do
 
   @type t :: %__MODULE__{
           amount: non_neg_integer(),
+          delta: integer(),
           item_group: Ecto.Schema.has_one(ItemGroup.t()),
           item: Ecto.Schema.belongs_to(Item.t()),
           item_id: Ecto.UUID.t(),
@@ -22,6 +23,7 @@ defmodule Athena.Inventory.Event.Total do
   @primary_key false
   schema "event_totals" do
     field :amount, :integer
+    field :delta, :integer
     field :date, :utc_datetime
 
     belongs_to :item, Item
