@@ -18,4 +18,17 @@ defmodule AthenaWeb.Schema.Item.Resolver do
       nil
     )
   end
+
+  @spec location_totals_filter(
+          query :: Ecto.Queryable.t(),
+          parent :: Item.t(),
+          args :: map(),
+          resolution :: Absinthe.Resolution.t()
+        ) :: Ecto.Queryable.t()
+  def location_totals_filter(query, _parent, %{filters: filters} = _args, _resolution) do
+    Enum.reduce(filters, query, &location_totals_filter/2)
+  end
+
+  defp location_totals_filter({:location_id_equals, id}, query),
+    do: from(total in query, where: total.location_id == ^id)
 end
