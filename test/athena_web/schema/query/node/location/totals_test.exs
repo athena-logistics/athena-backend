@@ -7,11 +7,11 @@ defmodule AthenaWeb.Schema.Query.Node.Location.TotalsTest do
   import Athena.Fixture
 
   @query """
-  query Node($id: ID!) {
+  query Node($id: ID!, $filters: LocationTotalFilter) {
     node(id: $id) {
       id
       ... on Location {
-        totals(first: 10) {
+        totals(first: 10, filters: $filters) {
           edges {
             node {
               amount
@@ -28,6 +28,7 @@ defmodule AthenaWeb.Schema.Query.Node.Location.TotalsTest do
                 id
               }
               date
+              delta
             }
           }
         }

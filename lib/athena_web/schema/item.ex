@@ -4,6 +4,8 @@ defmodule AthenaWeb.Schema.Item do
   use AthenaWeb, :subschema
 
   alias Athena.Inventory.Item
+  alias AthenaWeb.Schema.Event.Total.Resolver, as: EventTotalResolver
+  alias AthenaWeb.Schema.Location.Total.Resolver, as: LocationTotalResolver
 
   node object(:item) do
     field :name, non_null(:string)
@@ -20,18 +22,20 @@ defmodule AthenaWeb.Schema.Item do
       resolve &Resolver.stock/3
     end
 
-    @desc "Get a timeline of stock of this item per location (granularity: 5 minutes)"
+    @desc "Get a timeline of stock of this item per location (granularity: 15 minutes)"
     connection field :location_totals, node_type: :location_total do
-      arg :filters, :item_location_totals_filter, default_value: %{}
+      arg :filters, :location_total_filter, default_value: %{}
 
       middleware Absinthe.Relay.Node.ParseIDs, filters: [location_id_equals: :location]
 
-      resolve many_dataloader(&Resolver.location_totals_filter/4)
+      resolve many_dataloader(&LocationTotalResolver.query_filter/4)
     end
 
-    @desc "Get a timeline of stock of this item in the whole event (granularity: 5 minutes)"
+    @desc "Get a timeline of stock of this item in the whole event (granularity: 15 minutes)"
     connection field :event_totals, node_type: :event_total do
-      resolve many_dataloader()
+      arg :filters, :event_total_filter, default_value: %{}
+
+      resolve many_dataloader(&EventTotalResolver.query_filter/4)
     end
 
     field :inserted_at, non_null(:datetime)
@@ -40,10 +44,6 @@ defmodule AthenaWeb.Schema.Item do
     is_type_of(&match?(%Item{}, &1))
 
     interface :resource
-  end
-
-  input_object :item_location_totals_filter do
-    field :location_id_equals, :id
   end
 
   connection(node_type: :item, non_null: true)

@@ -4,6 +4,8 @@ defmodule AthenaWeb.Schema.Event do
   use AthenaWeb, :subschema
 
   alias Athena.Inventory.Event
+  alias AthenaWeb.Schema.Event.Total.Resolver, as: EventTotalResolver
+  alias AthenaWeb.Schema.Location.Total.Resolver, as: LocationTotalResolver
 
   node object(:event) do
     field :name, non_null(:string)
@@ -24,14 +26,18 @@ defmodule AthenaWeb.Schema.Event do
       resolve many_dataloader()
     end
 
-    @desc "Get a timeline of stock for this event (granularity: 5 minutes)"
+    @desc "Get a timeline of stock for this event (granularity: 15 minutes)"
     connection field :totals, node_type: :event_total do
-      resolve many_dataloader()
+      arg :filters, :event_total_filter, default_value: %{}
+
+      resolve many_dataloader(&EventTotalResolver.query_filter/4)
     end
 
-    @desc "Get a timeline of stock for this event per location (granularity: 5 minutes)"
+    @desc "Get a timeline of stock for this event per location (granularity: 15 minutes)"
     connection field :location_totals, node_type: :location_total do
-      resolve many_dataloader()
+      arg :filters, :location_total_filter, default_value: %{}
+
+      resolve many_dataloader(&LocationTotalResolver.query_filter/4)
     end
 
     connection field :stock, node_type: :stock_entry do
