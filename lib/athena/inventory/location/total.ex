@@ -19,18 +19,17 @@ defmodule Athena.Inventory.Location.Total do
           item_id: Ecto.UUID.t(),
           event: Ecto.Schema.belongs_to(Event.t()),
           event_id: Ecto.UUID.t(),
-          inserted_at: DateTime.t()
+          date: DateTime.t()
         }
 
   @primary_key false
   schema "location_totals" do
     field :amount, :integer
+    field :date, :utc_datetime
 
     belongs_to :location, Location
     belongs_to :item, Item
     has_one :item_group, through: [:item, :item_group]
     belongs_to :event, Event
-
-    timestamps(updated_at: false)
   end
 end

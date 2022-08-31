@@ -7,7 +7,7 @@ defmodule AthenaWeb.Schema.Event.Total do
 
   object :event_total do
     field :amount, non_null(:integer)
-    field :inserted_at, non_null(:datetime)
+    field :date, non_null(:datetime)
 
     field :event, non_null(:event), resolve: dataloader(RepoDataLoader)
     field :item, non_null(:item), resolve: dataloader(RepoDataLoader)

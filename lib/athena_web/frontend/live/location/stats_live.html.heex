@@ -21,7 +21,11 @@
           type: "line",
           options: %{
             scales: %{
-              y: %{title: %{display: false, text: gettext("Units")}, ticks: %{color: "#efbb35"}},
+              y: %{
+                title: %{display: false, text: gettext("Units")},
+                ticks: %{color: "#efbb35"},
+                stacked: true
+              },
               x: %{
                 type: :time,
                 time: %{tooltipFormat: "DD T"},
@@ -44,7 +48,32 @@
               },
               legend: %{
                 position: "bottom"
+              },
+              zoom: %{
+                pan: %{
+                  enabled: true,
+                  mode: "x"
+                },
+                zoom: %{
+                  wheel: %{
+                    enabled: true
+                  },
+                  pinch: %{
+                    enabled: true
+                  },
+                  mode: "x"
+                }
               }
+            },
+            elements: %{
+              point: %{
+                radius: 0
+              }
+            },
+            interaction: %{
+              mode: "nearest",
+              axis: "x",
+              intersect: false
             }
           },
           data: %{
@@ -58,7 +87,7 @@
                     _item -> false
                   end)
 
-                %{label: item_name, data: totals, tension: 0.15}
+                %{label: item_name, data: totals, tension: 0.15, fill: true}
               end)
           }
         }

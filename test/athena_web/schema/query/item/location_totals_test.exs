@@ -27,7 +27,7 @@ defmodule AthenaWeb.Schema.Query.Node.Item.LocationTotalsTest do
               location {
                 id
               }
-              insertedAt
+              date
             }
           }
         }
@@ -60,7 +60,7 @@ defmodule AthenaWeb.Schema.Query.Node.Item.LocationTotalsTest do
                      %{
                        "node" => %{
                          "amount" => 1,
-                         "insertedAt" => "20" <> _rest_date,
+                         "date" => "20" <> _rest_date,
                          "item" => %{"id" => ^item_node_id},
                          "itemGroup" => %{"id" => ^item_group_node_id},
                          "location" => %{"id" => ^location_node_id},
@@ -108,7 +108,7 @@ defmodule AthenaWeb.Schema.Query.Node.Item.LocationTotalsTest do
                      %{
                        "node" => %{
                          "amount" => 1,
-                         "insertedAt" => "20" <> _rest_date,
+                         "date" => "20" <> _rest_date,
                          "item" => %{"id" => ^item_node_id},
                          "itemGroup" => %{"id" => ^item_group_node_id},
                          "location" => %{"id" => ^location_a_node_id},

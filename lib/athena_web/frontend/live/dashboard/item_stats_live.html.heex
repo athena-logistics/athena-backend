@@ -13,7 +13,8 @@
               y: %{
                 type: "linear",
                 title: %{display: false, text: gettext("Amount")},
-                ticks: %{color: "#efbb35"}
+                ticks: %{color: "#efbb35"},
+                stacked: true
               },
               x: %{
                 type: :time,
@@ -33,7 +34,32 @@
             plugins: %{
               legend: %{
                 position: "bottom"
+              },
+              zoom: %{
+                pan: %{
+                  enabled: true,
+                  mode: "x"
+                },
+                zoom: %{
+                  wheel: %{
+                    enabled: true
+                  },
+                  pinch: %{
+                    enabled: true
+                  },
+                  mode: "x"
+                }
               }
+            },
+            elements: %{
+              point: %{
+                radius: 0
+              }
+            },
+            interaction: %{
+              mode: "nearest",
+              axis: "x",
+              intersect: false
             }
           },
           data: %{
@@ -50,7 +76,8 @@
                   %{
                     data: totals,
                     tension: 0.15,
-                    label: location
+                    label: location,
+                    fill: true
                   }
                 end)
             ]

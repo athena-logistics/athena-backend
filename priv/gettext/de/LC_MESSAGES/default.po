@@ -486,13 +486,13 @@ msgstr "Bestand"
 msgid "Stats"
 msgstr "Statistiken"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:29
-#: lib/athena_web/frontend/live/location/stats_live.html.heex:36
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:30
+#: lib/athena_web/frontend/live/location/stats_live.html.heex:40
 #, elixir-autogen, elixir-format
 msgid "Time"
 msgstr "Zeit"
 
-#: lib/athena_web/frontend/live/location/stats_live.html.heex:24
+#: lib/athena_web/frontend/live/location/stats_live.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "Units"
 msgstr "Einheiten"
@@ -522,37 +522,37 @@ msgstr "Anlieferung"
 msgid "Locations"
 msgstr "Standorte"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:94
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:121
 #, elixir-autogen, elixir-format
 msgid "Total"
 msgstr "Total"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:69
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:96
 #, elixir-autogen, elixir-format
 msgctxt "Item Stats Table"
 msgid "Amount"
 msgstr "Menge"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:66
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:93
 #, elixir-autogen, elixir-format
 msgctxt "Item Stats Table"
 msgid "Date"
 msgstr "Datum"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:68
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:95
 #, elixir-autogen, elixir-format
 msgctxt "Item Stats Table"
 msgid "Location"
 msgstr "Standort"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:85
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:104
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:112
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:131
 #, elixir-autogen, elixir-format
 msgctxt "Item Stats Table"
 msgid "Total"
 msgstr "Total"
 
-#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:67
+#: lib/athena_web/frontend/live/dashboard/item_stats_live.html.heex:94
 #, elixir-autogen, elixir-format
 msgctxt "Item Stats Table"
 msgid "Type"

@@ -41,7 +41,7 @@ defmodule AthenaWeb.Frontend.Location.StatsLive do
       )
       |> Ecto.Query.select(
         [location_total, item_group: item_group],
-        {item_group.id, location_total.item_id, location_total.amount, location_total.inserted_at}
+        {item_group.id, location_total.item_id, location_total.amount, location_total.date}
       )
       |> Repo.all()
       |> Enum.group_by(&elem(&1, 0), &Tuple.delete_at(&1, 0))

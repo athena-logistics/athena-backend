@@ -24,7 +24,7 @@ defmodule AthenaWeb.Schema.Query.Node.Item.EventTotalsTest do
               event {
                 id
               }
-              insertedAt
+              date
             }
           }
         }
@@ -56,7 +56,7 @@ defmodule AthenaWeb.Schema.Query.Node.Item.EventTotalsTest do
                      %{
                        "node" => %{
                          "amount" => 1,
-                         "insertedAt" => "20" <> _rest_date,
+                         "date" => "20" <> _rest_date,
                          "item" => %{"id" => ^item_node_id},
                          "itemGroup" => %{"id" => ^item_group_node_id},
                          "event" => %{"id" => ^event_node_id}

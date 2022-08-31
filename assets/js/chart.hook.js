@@ -12,6 +12,7 @@ import {
   Tooltip,
 } from "chart.js";
 import "chartjs-adapter-luxon";
+import ZoomPlugin from "chartjs-plugin-zoom";
 
 Chart.register(
   CategoryScale,
@@ -23,10 +24,11 @@ Chart.register(
   PointElement,
   TimeScale,
   Title,
-  Tooltip
+  Tooltip,
+  ZoomPlugin
 );
 
-const baseColors = [
+const backgrounds = [
   "#37B8BF",
   "#5893A4",
   "#796F89",
@@ -40,15 +42,6 @@ const baseColors = [
   "#A17E68",
   "#7D7084",
   "#58639F",
-];
-
-const backgrounds = [
-  ...baseColors,
-  ...baseColors,
-  ...baseColors,
-  ...baseColors,
-  ...baseColors,
-  ...baseColors,
 ];
 
 Chart.defaults.responsive = true;
