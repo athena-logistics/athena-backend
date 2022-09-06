@@ -17,8 +17,9 @@ defmodule AthenaWeb.Schema.StockEntry do
     field :movement_in, non_null(:integer)
     field :movement_out, non_null(:integer)
     field :stock, non_null(:integer)
-    field :status, non_null(:stock_entry_status), resolve: &Resolver.status/3
+    field :status, non_null(:stock_entry_status)
     field :supply, non_null(:integer)
+    field :missing_count, non_null(:integer)
   end
 
   connection(node_type: :stock_entry, non_null: true)

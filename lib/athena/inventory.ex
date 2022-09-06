@@ -10,6 +10,7 @@ defmodule Athena.Inventory do
   alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Location
   alias Athena.Inventory.Movement
+  alias Athena.Inventory.StockExpectation
   alias Athena.Repo
   alias Phoenix.PubSub
 
@@ -801,4 +802,185 @@ defmodule Athena.Inventory do
           Ecto.Queryable.t()
   def event_order_overview_by_item_query(query \\ Event.OrderOverview, %Item{id: item_id}),
     do: from(order_overview in query, where: order_overview.item_id == ^item_id)
+
+  @doc """
+  Returns the list of stock_expectations.
+
+  ## Examples
+
+      iex> list_stock_expectations()
+      [%StockExpectation{}, ...]
+
+  """
+  def list_stock_expectations(%Location{} = location),
+    do: location |> Ecto.assoc(:stock_expectations) |> Repo.all()
+
+  def list_stock_expectations(%Item{} = item),
+    do: item |> Ecto.assoc(:stock_expectations) |> Repo.all()
+
+  @doc """
+  Gets a single stock_expectation.
+
+  Raises `Ecto.NoResultsError` if the StockExpectation does not exist.
+
+  ## Examples
+
+      iex> get_stock_expectation!(123)
+      %StockExpectation{}
+
+      iex> get_stock_expectation!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_stock_expectation!(id), do: Repo.get!(StockExpectation, id)
+
+  @doc """
+  Creates a stock_expectation.
+
+  ## Examples
+
+      iex> create_stock_expectation(%{field: value})
+      {:ok, %StockExpectation{}}
+
+      iex> create_stock_expectation(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_stock_expectation(%Item{} = item, %Location{} = location, attrs \\ %{}) do
+    %Item{event: %Event{id: event_id}, item_group: %ItemGroup{id: item_group_id}} =
+      Repo.preload(item, [:item_group, :event])
+
+    item
+    |> Ecto.build_assoc(:stock_expectations)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:location, location)
+    |> change_stock_expectation(attrs)
+    |> Repo.insert()
+    |> case do
+      {:ok, %StockExpectation{location_id: location_id, item_id: item_id} = stock_expectation} ->
+        notify_pubsub(
+          {:ok, stock_expectation},
+          :created,
+          "stock_expectation",
+          [
+            "location:#{location_id}",
+            "item:#{item_id}",
+            "item_group:#{item_group_id}",
+            "event:#{event_id}"
+          ],
+          %{event_id: event_id}
+        )
+
+      other ->
+        other
+    end
+  end
+
+  @doc """
+  Updates a stock_expectation.
+
+  ## Examples
+
+      iex> update_stock_expectation(stock_expectation, %{field: new_value})
+      {:ok, %StockExpectation{}}
+
+      iex> update_stock_expectation(stock_expectation, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_stock_expectation(%StockExpectation{} = stock_expectation, attrs) do
+    %StockExpectation{event: %Event{id: event_id}, item_group: %ItemGroup{id: item_group_id}} =
+      Repo.preload(stock_expectation, [:item_group, :event])
+
+    stock_expectation
+    |> change_stock_expectation(attrs)
+    |> Repo.update()
+    |> case do
+      {:ok, %StockExpectation{location_id: location_id, item_id: item_id} = stock_expectation} ->
+        notify_pubsub(
+          {:ok, stock_expectation},
+          :updated,
+          "stock_expectation",
+          [
+            "location:#{location_id}",
+            "item:#{item_id}",
+            "item_group:#{item_group_id}",
+            "event:#{event_id}"
+          ],
+          %{event_id: event_id}
+        )
+
+      other ->
+        other
+    end
+  end
+
+  def upsert_stock_expectation(
+        %Item{id: item_id} = item,
+        %Location{id: location_id} = location,
+        attrs \\ %{}
+      ) do
+    StockExpectation
+    |> Repo.get_by(item_id: item_id, location_id: location_id)
+    |> case do
+      nil ->
+        create_stock_expectation(item, location, attrs)
+
+      %StockExpectation{} = stock_expectation ->
+        update_stock_expectation(stock_expectation, attrs)
+    end
+  end
+
+  @doc """
+  Deletes a stock_expectation.
+
+  ## Examples
+
+      iex> delete_stock_expectation(stock_expectation)
+      {:ok, %StockExpectation{}}
+
+      iex> delete_stock_expectation(stock_expectation)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_stock_expectation(
+        %StockExpectation{
+          item_id: item_id,
+          location_id: location_id
+        } = stock_expectation
+      ) do
+    %StockExpectation{event: %Event{id: event_id}, item_group: %ItemGroup{id: item_group_id}} =
+      Repo.preload(stock_expectation, [:item_group, :event])
+
+    stock_expectation
+    |> Repo.delete()
+    |> notify_pubsub(
+      :deleted,
+      "stock_expectation",
+      [
+        "location:#{location_id}",
+        "item:#{item_id}",
+        "item_group:#{item_group_id}",
+        "event:#{event_id}"
+      ],
+      %{event_id: event_id}
+    )
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking stock_expectation changes.
+
+  ## Examples
+
+      iex> change_stock_expectation(stock_expectation)
+      %Ecto.Changeset{source: %StockExpectation{}}
+
+  """
+  def change_stock_expectation(stock_expectation_or_changeset, attrs \\ %{})
+
+  def change_stock_expectation(%StockExpectation{} = stock_expectation, attrs),
+    do: StockExpectation.changeset(stock_expectation, attrs)
+
+  def change_stock_expectation(%Ecto.Changeset{data: %StockExpectation{}} = changeset, attrs),
+    do: StockExpectation.changeset(changeset, attrs)
 end

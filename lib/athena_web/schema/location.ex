@@ -37,6 +37,10 @@ defmodule AthenaWeb.Schema.Location do
       resolve many_dataloader(&LocationTotalResolver.query_filter/4)
     end
 
+    connection field :stock_expectations, node_type: :stock_expectation do
+      resolve many_dataloader()
+    end
+
     field :inserted_at, non_null(:datetime)
     field :updated_at, non_null(:datetime)
 

@@ -14,7 +14,7 @@
 
       <div class="row">
         <%= for { %Item{name: item_name, unit: unit} = item, item_stock_entries} <- Enum.group_by(stock_entries, & &1.item),
-        status_count = Map.merge(%{important: [], warning: [], normal: []},  Enum.group_by(item_stock_entries, &StockEntry.status/1)) do %>
+        status_count = Map.merge(%{important: [], warning: [], normal: []},  Enum.group_by(item_stock_entries, & &1.status)) do %>
           <div class="col-6 col-sm-4 col-md-3">
             <h3>
               <%= link(item_name,

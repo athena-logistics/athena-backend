@@ -8,7 +8,7 @@
   <div class="row">
     <%= for %Location{id: location_id, name: location_name} <- @event.locations,
   stock_entries = Enum.filter(@event.stock_entries, &match?(%StockEntry{location_id: ^location_id}, &1)),
-  status_count = Map.merge(%{important: [], warning: [], normal: []},  Enum.group_by(stock_entries, &StockEntry.status/1))  do %>
+  status_count = Map.merge(%{important: [], warning: [], normal: []},  Enum.group_by(stock_entries, &(&1.status)))  do %>
       <div class="col-12 col-md-6 col-lg-4">
         <div class="elevated-wrapper">
           <h2 class="text-center elevated">
