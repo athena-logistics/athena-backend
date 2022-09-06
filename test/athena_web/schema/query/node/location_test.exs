@@ -64,6 +64,13 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
             }
           }
         }
+        stockExpectations(first: 10) {
+          edges {
+            node {
+              id
+            }
+          }
+        }
         insertedAt
         updatedAt
       }
@@ -79,6 +86,9 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
     item_lager = item(item_group, name: "Lager")
     item_kloesti = item(item_group, name: "Klösti")
     _unrelated_item = item(unrelated_item_group, name: "Chocolate Chip")
+
+    stock_expectation =
+      stock_expectation(item_lager, location, %{important_threshold: 3, warning_threshold: 5})
 
     supply_lager =
       movement(item_lager,
@@ -109,6 +119,7 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
     item_lager_node_id = global_id!(:item, item_lager.id)
     item_kloesti_node_id = global_id!(:item, item_kloesti.id)
     consumption_node_id = global_id!(:consumption, consumption.id)
+    stock_expectation_node_id = global_id!(:stock_expectation, stock_expectation.id)
 
     assert result = run!(@query, variables: %{"id" => location_node_id})
 
@@ -150,7 +161,7 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
                          "item" => %{"id" => ^item_kloesti_node_id},
                          "itemGroup" => %{"id" => ^item_group_node_id},
                          "location" => %{"id" => ^location_node_id},
-                         "status" => "IMPORTANT"
+                         "status" => "NORMAL"
                        }
                      },
                      %{
@@ -167,6 +178,9 @@ defmodule AthenaWeb.Schema.Query.Node.LocationTest do
                        }
                      }
                    ]
+                 },
+                 "stockExpectations" => %{
+                   "edges" => [%{"node" => %{"id" => ^stock_expectation_node_id}}]
                  }
                }
              }

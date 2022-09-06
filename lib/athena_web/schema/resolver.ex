@@ -15,4 +15,7 @@ defmodule AthenaWeb.Schema.Resolver do
   def node(%{type: movement_type, id: id}, _resolution)
       when movement_type in [:supply, :consumption, :relocation],
       do: {:ok, Inventory.get_movement!(id)}
+
+  def node(%{type: :stock_expectation, id: id}, _resolution),
+    do: {:ok, Inventory.get_stock_expectation!(id)}
 end

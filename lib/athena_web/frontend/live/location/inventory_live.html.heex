@@ -27,10 +27,10 @@
         </div>
         <div>
           <ul class="list-unstyled">
-            <%= for %StockEntry{item: %Item{id: item_id} = item} = stock_entry <- stock_entries do %>
+            <%= for %StockEntry{item: %Item{id: item_id} = item, status: status} = stock_entry <- stock_entries do %>
               <li class="row mb-2" id={"item-#{item_id}"}>
                 <div class="col">
-                  <i class={["fa fa-solid fa-circle", "text-#{StockEntry.status(stock_entry)}"]} />
+                  <i class={["fa fa-solid fa-circle", "text-#{status}"]} />
                   <%= item.name %>
                 </div>
                 <div class="col-7 text-center">

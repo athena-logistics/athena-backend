@@ -59,6 +59,7 @@ defmodule AthenaWeb.Schema.Query.Node.EventTest do
               location {
                 id
               }
+              missingCount
             }
           }
         }
@@ -110,6 +111,7 @@ defmodule AthenaWeb.Schema.Query.Node.EventTest do
                          "movementOut" => 0,
                          "stock" => 1,
                          "supply" => 1,
+                         "missingCount" => 0,
                          "item" => %{"id" => ^item_node_id},
                          "itemGroup" => %{"id" => ^item_group_node_id},
                          "location" => %{"id" => ^location_node_id}

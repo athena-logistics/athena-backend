@@ -43,6 +43,7 @@ defmodule AthenaWeb.Schema do
   import_types AthenaWeb.Schema.Location.Total
   import_types AthenaWeb.Schema.Movement
   import_types AthenaWeb.Schema.StockEntry
+  import_types AthenaWeb.Schema.StockExpectation
   import_types AthenaWeb.Schema.Scalar.Date
   import_types AthenaWeb.Schema.Scalar.Datetime
   import_types AthenaWeb.Schema.Scalar.Map
@@ -71,6 +72,7 @@ defmodule AthenaWeb.Schema do
 
   mutation do
     import_fields :movement_mutations
+    import_fields :stock_expectation_mutations
   end
 
   subscription do

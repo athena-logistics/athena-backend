@@ -510,4 +510,110 @@ defmodule Athena.InventoryTest do
       assert %Ecto.Changeset{} = Inventory.change_movement(movement)
     end
   end
+
+  describe "stock_expectations" do
+    alias Athena.Inventory.StockEntry
+    alias Athena.Inventory.StockExpectation
+
+    @valid_attrs %{important_threshold: 5, warning_threshold: 3}
+    @update_attrs %{important_threshold: 4}
+    @invalid_attrs %{important_threshold: -3}
+
+    setup do
+      event = event()
+      location = location(event)
+
+      item_group = item_group(event)
+      item = item(item_group)
+
+      {:ok, event: event, item_group: item_group, item: item, location: location}
+    end
+
+    test "list_stock_expectations/0 returns all stock_expectations", %{item: item} do
+      stock_expectation = stock_expectation(item)
+
+      assert item |> Inventory.list_stock_expectations() |> Repo.preload(:location) == [
+               stock_expectation
+             ]
+    end
+
+    test "get_stock_expectation!/1 returns the stock_expectation with given id" do
+      stock_expectation = stock_expectation()
+
+      assert stock_expectation.id |> Inventory.get_stock_expectation!() |> Repo.preload(:location) ==
+               stock_expectation
+    end
+
+    test "create_stock_expectation/1 with valid data creates a stock_expectation", %{
+      item: item,
+      location: location
+    } do
+      assert {:ok, %StockExpectation{} = stock_expectation} =
+               Inventory.create_stock_expectation(item, location, @valid_attrs)
+
+      assert stock_expectation.important_threshold == 5
+    end
+
+    test "create_stock_expectation/1 with invalid data returns error changeset", %{
+      item: item,
+      location: location
+    } do
+      assert {:error, %Ecto.Changeset{}} =
+               Inventory.create_stock_expectation(item, location, @invalid_attrs)
+    end
+
+    test "update_stock_expectation/2 with valid data updates the stock_expectation" do
+      stock_expectation = stock_expectation()
+
+      assert {:ok, %StockExpectation{} = stock_expectation} =
+               Inventory.update_stock_expectation(stock_expectation, @update_attrs)
+
+      assert stock_expectation.important_threshold == 4
+    end
+
+    test "update_stock_expectation/2 with invalid data returns error changeset" do
+      stock_expectation = stock_expectation()
+
+      assert {:error, %Ecto.Changeset{}} =
+               Inventory.update_stock_expectation(stock_expectation, @invalid_attrs)
+
+      assert stock_expectation ==
+               stock_expectation.id
+               |> Inventory.get_stock_expectation!()
+               |> Repo.preload(:location)
+    end
+
+    test "delete_stock_expectation/1 deletes the stock_expectation" do
+      stock_expectation = stock_expectation()
+      assert {:ok, %StockExpectation{}} = Inventory.delete_stock_expectation(stock_expectation)
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Inventory.get_stock_expectation!(stock_expectation.id)
+      end
+    end
+
+    test "change_stock_expectation/1 returns a stock_expectation changeset" do
+      stock_expectation = stock_expectation()
+      assert %Ecto.Changeset{} = Inventory.change_stock_expectation(stock_expectation)
+    end
+
+    test "sets status correctly in stock_entry", %{item: item, location: location} do
+      stock_expectation(item, location, %{important_threshold: 3, warning_threshold: 5})
+
+      movement(item, %{source_location_id: nil, destination_location_id: location.id, amount: 6})
+
+      assert %StockEntry{status: :normal, missing_count: 0} =
+               Repo.get_by(StockEntry, item_id: item.id)
+
+      movement(item, %{source_location_id: location.id, destination_location_id: nil, amount: 2})
+
+      assert %StockEntry{status: :warning, missing_count: 1} =
+               Repo.get_by(StockEntry, item_id: item.id)
+
+      movement(item, %{source_location_id: location.id, destination_location_id: nil, amount: 2})
+
+      assert %StockEntry{status: :important, missing_count: 3} =
+               Repo.get_by(StockEntry, item_id: item.id)
+    end
+  end
 end

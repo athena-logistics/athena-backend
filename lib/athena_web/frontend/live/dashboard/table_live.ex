@@ -125,8 +125,8 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
             <th class="empty-header"></th>
           <% :item_group_spacer -> %>
             <td class="item-group-spacer"></td>
-          <% %StockEntry{stock: stock} = entry -> %>
-            <td class={["stock-entry", StockEntry.status(entry)]}>
+          <% %StockEntry{stock: stock, status: status} = entry -> %>
+            <td class={["stock-entry", status]}>
               <%= link(stock,
                 to:
                   Routes.frontend_logistics_inventory_path(@socket, :show, entry.location_id) <>

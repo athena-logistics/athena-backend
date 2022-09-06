@@ -61,4 +61,13 @@ defmodule Athena.Fixture do
 
     movement
   end
+
+  @valid_attrs %{important_threshold: 5, warning_threshold: 3}
+
+  def stock_expectation(item \\ item(), location \\ location(), attrs \\ %{}) do
+    {:ok, stock_expectation} =
+      Inventory.create_stock_expectation(item, location, Map.merge(@valid_attrs, attrs))
+
+    stock_expectation
+  end
 end
