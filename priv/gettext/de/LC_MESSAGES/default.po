@@ -97,7 +97,7 @@ msgid "supply"
 msgstr "Anlieferung"
 
 #: lib/athena_web/admin/controllers/movement_controller.ex:48
-#: lib/athena_web/frontend/live/movement_live.ex:68
+#: lib/athena_web/frontend/live/movement_live.ex:72
 #, elixir-autogen, elixir-format
 msgid "Movement created successfully."
 msgstr "Verschiebung wurde erfolgreich erstellt."
@@ -481,7 +481,7 @@ msgstr "Tabelle"
 msgid "Inventory"
 msgstr "Bestand"
 
-#: lib/athena_web/frontend/live/location/tabs.ex:20
+#: lib/athena_web/frontend/live/location/tabs.ex:36
 #, elixir-autogen, elixir-format
 msgid "Stats"
 msgstr "Statistiken"
@@ -557,3 +557,128 @@ msgstr "Total"
 msgctxt "Item Stats Table"
 msgid "Type"
 msgstr "Typ"
+
+#: lib/athena_web/frontend/live/location/tabs.ex:28
+#, elixir-autogen, elixir-format
+msgid "Expectations"
+msgstr "Erwartungen"
+
+#: lib/athena_web/frontend/live/dashboard/tabs.ex:51
+#: lib/athena_web/frontend/live/location/tabs.ex:20
+#, elixir-autogen, elixir-format
+msgid "Missing Items"
+msgstr "Fehlende Artikel"
+
+#: lib/athena_web/frontend/live/dashboard/missing_items_live.html.heex:23
+#, elixir-autogen, elixir-format
+msgctxt "Event Missing Items"
+msgid "Actions"
+msgstr "Aktionen"
+
+#: lib/athena_web/frontend/live/dashboard/missing_items_live.html.heex:11
+#, elixir-autogen, elixir-format
+msgctxt "Event Missing Items"
+msgid "All items are stocked up to expectations."
+msgstr "Alle Artikel sind gemäss Erwartungen vorhanden."
+
+#: lib/athena_web/frontend/live/dashboard/missing_items_live.html.heex:21
+#, elixir-autogen, elixir-format
+msgctxt "Event Missing Items"
+msgid "Current"
+msgstr "Aktuell"
+
+#: lib/athena_web/frontend/live/dashboard/missing_items_live.html.heex:20
+#, elixir-autogen, elixir-format
+msgctxt "Event Missing Items"
+msgid "Desired"
+msgstr "Erwartet"
+
+#: lib/athena_web/frontend/live/dashboard/missing_items_live.html.heex:18
+#, elixir-autogen, elixir-format
+msgctxt "Event Missing Items"
+msgid "Item"
+msgstr "Artikel"
+
+#: lib/athena_web/frontend/live/dashboard/missing_items_live.html.heex:17
+#, elixir-autogen, elixir-format
+msgctxt "Event Missing Items"
+msgid "Location"
+msgstr "Standort"
+
+#: lib/athena_web/frontend/live/dashboard/missing_items_live.html.heex:74
+#, elixir-autogen, elixir-format
+msgctxt "Event Missing Items"
+msgid "Move"
+msgstr "Verschiebung"
+
+#: lib/athena_web/frontend/live/dashboard/missing_items_live.html.heex:22
+#, elixir-autogen, elixir-format
+msgctxt "Event Missing Items"
+msgid "To Move"
+msgstr "Zu verschieben"
+
+#: lib/athena_web/frontend/live/dashboard/missing_items_live.html.heex:85
+#, elixir-autogen, elixir-format
+msgctxt "Event Missing Items"
+msgid "Total"
+msgstr "Total"
+
+#: lib/athena_web/frontend/live/dashboard/missing_items_live.html.heex:19
+#, elixir-autogen, elixir-format
+msgctxt "Event Missing Items"
+msgid "Unit"
+msgstr "Einheit"
+
+#: lib/athena_web/frontend/live/location/missing_items_live.html.heex:24
+#, elixir-autogen, elixir-format
+msgctxt "Location Missing Items"
+msgid "Actions"
+msgstr "Aktionen"
+
+#: lib/athena_web/frontend/live/location/missing_items_live.html.heex:13
+#, elixir-autogen, elixir-format
+msgctxt "Location Missing Items"
+msgid "All items are stocked up to expectations."
+msgstr "Alle Artikel sind gemäss Erwartungen vorhanden."
+
+#: lib/athena_web/frontend/live/location/missing_items_live.html.heex:22
+#, elixir-autogen, elixir-format
+msgctxt "Location Missing Items"
+msgid "Current"
+msgstr "Aktuell"
+
+#: lib/athena_web/frontend/live/location/missing_items_live.html.heex:21
+#, elixir-autogen, elixir-format
+msgctxt "Location Missing Items"
+msgid "Desired"
+msgstr "Erwartet"
+
+#: lib/athena_web/frontend/live/location/missing_items_live.html.heex:19
+#, elixir-autogen, elixir-format
+msgctxt "Location Missing Items"
+msgid "Item"
+msgstr "Artikel"
+
+#: lib/athena_web/frontend/live/location/missing_items_live.html.heex:61
+#, elixir-autogen, elixir-format
+msgctxt "Location Missing Items"
+msgid "Move"
+msgstr "Verschiebung"
+
+#: lib/athena_web/frontend/live/location/missing_items_live.html.heex:23
+#, elixir-autogen, elixir-format
+msgctxt "Location Missing Items"
+msgid "To Move"
+msgstr "Zu verschieben"
+
+#: lib/athena_web/frontend/live/location/missing_items_live.html.heex:71
+#, elixir-autogen, elixir-format
+msgctxt "Location Missing Items"
+msgid "Total"
+msgstr "Total"
+
+#: lib/athena_web/frontend/live/location/missing_items_live.html.heex:20
+#, elixir-autogen, elixir-format
+msgctxt "Location Missing Items"
+msgid "Unit"
+msgstr "Einheit"

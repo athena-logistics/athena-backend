@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .location {
   &__grid {
     display: grid;
@@ -24,6 +26,39 @@
     }
     &.text-normal {
       color: $success;
+    }
+  }
+
+  &.expectations {
+    input {
+      font-size: 1rem;
+    }
+
+    .expectation-range {
+      height: 0.5em;
+      width: 100%;
+      background-color: $warning;
+      position: relative;
+
+      &::before,
+      &::after {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 0.5em;
+        width: math.div(100%, 12) * 3.5;
+        content: " ";
+      }
+
+      &::before {
+        background-color: $success;
+        left: 0;
+      }
+
+      &::after {
+        right: 0;
+        background-color: $red;
+      }
     }
   }
 }

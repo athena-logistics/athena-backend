@@ -1,0 +1,116 @@
+<section class="container event">
+  <AthenaWeb.Frontend.Dashboard.Tabs.tabs
+    active_tab={:missing_items}
+    socket={@socket}
+    event={@event}
+  />
+
+  <%= case @missing_stock_entries do %>
+    <% [] -> %>
+      <p class="alert alert-info" role="alert">
+        <%= pgettext("Event Missing Items", "All items are stocked up to expectations.") %>
+      </p>
+    <% stock_entries -> %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col"><%= pgettext("Event Missing Items", "Location") %></th>
+            <th scope="col"><%= pgettext("Event Missing Items", "Item") %></th>
+            <th scope="col"><%= pgettext("Event Missing Items", "Unit") %></th>
+            <th scope="col"><%= pgettext("Event Missing Items", "Desired") %></th>
+            <th scope="col"><%= pgettext("Event Missing Items", "Current") %></th>
+            <th scope="col"><%= pgettext("Event Missing Items", "To Move") %></th>
+            <th scope="col"><%= pgettext("Event Missing Items", "Actions") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for %StockEntry{item: %Item{id: item_id, name: item_name, unit: item_unit} = item, stock: stock, missing_count: missing_count, location: %Location{id: location_id, name: location_name} = location} <- stock_entries do %>
+            <% stock_expectation =
+              Enum.find(
+                @event.stock_expectations,
+                &match?(%StockExpectation{item_id: ^item_id}, &1)
+              ) %>
+            <tr>
+              <th scope="row">
+                <%= link(location_name,
+                  to: Routes.frontend_logistics_inventory_path(@socket, :show, location)
+                ) %>
+              </th>
+              <th scope="row">
+                <%= link(item_name,
+                  to:
+                    Routes.frontend_logistics_live_path(
+                      @socket,
+                      AthenaWeb.Frontend.Dashboard.ItemStatsLive,
+                      item
+                    )
+                ) %>
+              </th>
+              <td><%= item_unit %></td>
+              <td>
+                <%= AthenaWeb.Cldr.Number.to_string!(
+                  if stock_expectation, do: stock_expectation.warning_threshold, else: 0
+                ) %>
+              </td>
+              <td><%= AthenaWeb.Cldr.Number.to_string!(stock) %></td>
+              <td><%= AthenaWeb.Cldr.Number.to_string!(missing_count) %></td>
+              <td>
+                <a
+                  href={
+                    Routes.frontend_logistics_movement_path(@socket, :relocate, @event,
+                      movement_live: %{
+                        destination_location_id: location_id,
+                        movements: %{
+                          0 => %{
+                            id: Ecto.UUID.generate(),
+                            item_id: item_id,
+                            amount: missing_count
+                          }
+                        }
+                      }
+                    )
+                  }
+                  class="btn"
+                  title={pgettext("Event Missing Items", "Move")}
+                >
+                  <i class="fa-lg fa-solid fa-arrow-right"></i>
+                </a>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col"><%= pgettext("Event Missing Items", "Total") %></th>
+            <th scope="col"></th>
+            <th scope="col">
+              <%= stock_entries
+              |> Enum.flat_map(fn %StockEntry{item_id: item_id} ->
+                Enum.filter(
+                  @event.stock_expectations,
+                  &match?(%StockExpectation{item_id: ^item_id}, &1)
+                )
+              end)
+              |> Enum.map(& &1.warning_threshold)
+              |> Enum.sum()
+              |> AthenaWeb.Cldr.Number.to_string!() %>
+            </th>
+            <th scope="col">
+              <%= stock_entries
+              |> Enum.map(& &1.stock)
+              |> Enum.sum()
+              |> AthenaWeb.Cldr.Number.to_string!() %>
+            </th>
+            <th scope="col">
+              <%= stock_entries
+              |> Enum.map(& &1.missing_count)
+              |> Enum.sum()
+              |> AthenaWeb.Cldr.Number.to_string!() %>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </tfoot>
+      </table>
+  <% end %>
+</section>

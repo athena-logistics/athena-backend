@@ -1,13 +1,15 @@
-defmodule AthenaWeb.Frontend.Location.InventoryLive do
+defmodule AthenaWeb.Frontend.Location.MissingItemsLive do
   @moduledoc false
 
   use AthenaWeb, :live
 
+  import Ecto.Query, only: [where: 3, preload: 2]
+
   alias Athena.Inventory
   alias Athena.Inventory.Item
-  alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Location
   alias Athena.Inventory.StockEntry
+  alias Athena.Inventory.StockExpectation
   alias Phoenix.PubSub
 
   @impl Phoenix.LiveView
@@ -23,26 +25,21 @@ defmodule AthenaWeb.Frontend.Location.InventoryLive do
       do: {:noreply, load_location(socket, socket.assigns.location.id)}
 
   defp load_location(socket, id) do
-    %Location{event: event, stock_entries: stock_entries} =
+    %Location{event: event} =
       location =
       id
       |> Inventory.get_location!()
-      |> Repo.preload(event: [], stock_entries: [item_group: [], item: []])
+      |> Repo.preload(event: [], stock_expectations: [])
 
-    item_groups =
-      stock_entries
-      |> Enum.map(& &1.item_group)
-      |> Enum.uniq_by(& &1.id)
+    missing_stock_entries =
+      location
+      |> Ecto.assoc(:stock_entries)
+      |> where([stock_entry], stock_entry.missing_count > 0)
+      |> preload(item: [])
+      |> Repo.all()
 
     socket
-    |> assign(
-      location: location,
-      stock_entries: stock_entries,
-      item_groups: item_groups
-    )
+    |> assign(location: location, missing_stock_entries: missing_stock_entries)
     |> assign_navigation(event)
   end
-
-  defp relevant_stock_entries(stock_entries, %ItemGroup{id: item_group_id}),
-    do: Enum.filter(stock_entries, &(&1.item_group_id == item_group_id))
 end

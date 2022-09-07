@@ -23,7 +23,7 @@ defmodule AthenaWeb.Frontend.MovementLive do
   end
 
   @impl Phoenix.LiveView
-  def mount(%{"event" => event_id}, _session, socket) do
+  def mount(%{"event" => event_id} = params, _session, socket) do
     PubSub.subscribe(Athena.PubSub, "location:event:#{event_id}")
     PubSub.subscribe(Athena.PubSub, "movement:event:#{event_id}")
 
@@ -32,10 +32,14 @@ defmodule AthenaWeb.Frontend.MovementLive do
      |> update(event_id)
      |> assign(
        changeset:
-         changeset(socket.assigns.live_action, %{
-           id: Ecto.UUID.generate(),
-           movements: [%{id: Ecto.UUID.generate(), amount: 1}]
-         })
+         changeset(
+           socket.assigns.live_action,
+           params["movement_live"] ||
+             %{
+               id: Ecto.UUID.generate(),
+               movements: [%{id: Ecto.UUID.generate(), amount: 1}]
+             }
+         )
      )}
   end
 

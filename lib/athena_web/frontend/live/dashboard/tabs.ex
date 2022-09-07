@@ -46,6 +46,19 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
             class: ["nav-link", if(@active_tab == :location, do: "active")]
           ) %>
         </li>
+        <li class="nav-item">
+          <%= "Missing Items"
+          |> gettext
+          |> link(
+            to:
+              Routes.frontend_logistics_live_path(
+                @socket,
+                AthenaWeb.Frontend.Dashboard.MissingItemsLive,
+                @event
+              ),
+            class: ["nav-link", if(@active_tab == :missing_items, do: "active")]
+          ) %>
+        </li>
       </ul>
     </nav>
     """
