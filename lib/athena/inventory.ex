@@ -851,10 +851,7 @@ defmodule Athena.Inventory do
       Repo.preload(item, [:item_group, :event])
 
     item
-    |> Ecto.build_assoc(:stock_expectations)
-    |> Ecto.Changeset.change()
-    |> Ecto.Changeset.put_assoc(:location, location)
-    |> change_stock_expectation(attrs)
+    |> change_new_stock_expectation(location, attrs)
     |> Repo.insert()
     |> case do
       {:ok, %StockExpectation{location_id: location_id, item_id: item_id} = stock_expectation} ->
@@ -983,4 +980,12 @@ defmodule Athena.Inventory do
 
   def change_stock_expectation(%Ecto.Changeset{data: %StockExpectation{}} = changeset, attrs),
     do: StockExpectation.changeset(changeset, attrs)
+
+  def change_new_stock_expectation(%Item{} = item, %Location{} = location, attrs \\ %{}) do
+    item
+    |> Ecto.build_assoc(:stock_expectations)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:location, location)
+    |> change_stock_expectation(attrs)
+  end
 end

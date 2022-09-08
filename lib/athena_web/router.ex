@@ -69,10 +69,14 @@ defmodule AthenaWeb.Router do
     live_session :logistics, on_mount: {AthenaWeb.LiveViewInit, access: :logistics} do
       live "/locations/:location", Location.InventoryLive, :show
       live "/locations/:location/stats", Location.StatsLive, :show
+      live "/locations/:location/expectations", Location.ExpectationsLive, :show
+      live "/locations/:location/missing-items", Location.MissingItemsLive, :show
 
       live "/events/:event/overview", Dashboard.TableLive
       live "/events/:event/overview/item", Dashboard.ItemLive
       live "/events/:event/overview/location", Dashboard.LocationLive
+      live "/events/:event/overview/missing-items", Dashboard.MissingItemsLive
+
       live "/items/:item/overview", Dashboard.ItemStatsLive
 
       live "/events/:event/movements/supply", MovementLive, :supply

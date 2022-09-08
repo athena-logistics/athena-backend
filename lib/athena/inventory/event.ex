@@ -11,6 +11,7 @@ defmodule Athena.Inventory.Event do
   alias Athena.Inventory.Location
   alias Athena.Inventory.Movement
   alias Athena.Inventory.StockEntry
+  alias Athena.Inventory.StockExpectation
 
   @type t :: %__MODULE__{
           name: String.t(),
@@ -19,6 +20,7 @@ defmodule Athena.Inventory.Event do
           items: Ecto.Schema.has_many(Item.t()),
           movements: Ecto.Schema.has_many(Movement.t()),
           stock_entries: Ecto.Schema.has_many(StockEntry.t()),
+          stock_expectations: Ecto.Schema.has_many(StockExpectation.t()),
           totals: Ecto.Schema.has_many(Total.t()),
           location_totals: Ecto.Schema.has_many(Location.Total.t()),
           inserted_at: DateTime.t(),
@@ -41,6 +43,10 @@ defmodule Athena.Inventory.Event do
     has_many :totals, Total, preload_order: [asc: :inserted_at]
 
     has_many :location_totals, Location.Total, preload_order: [asc: :inserted_at]
+
+    has_many :stock_expectations,
+      through: [:locations, :stock_expectations],
+      preload_order: [asc: :location_id, asc: :item_id]
 
     timestamps()
   end
