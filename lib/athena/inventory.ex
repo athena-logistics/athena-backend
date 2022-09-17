@@ -756,7 +756,7 @@ defmodule Athena.Inventory do
       as: :item,
       where:
         stock_entry.supply > 0 or stock_entry.consumption > 0 or stock_entry.movement_in > 0 or
-          stock_entry.movement_out > 0,
+          stock_entry.movement_out > 0 or i.inverse == true,
       select: stock_entry,
       order_by: l.name,
       order_by: ig.name,
