@@ -10,5 +10,9 @@
 <h2><%= gettext("actions") %></h2>
 
 <ul>
-  <li><%= "back" |> gettext |> link(to: Routes.admin_event_path(@conn, :index)) %></li>
+  <li>
+    <.link navigate={Routes.admin_event_path(@conn, :index)}>
+      <%= gettext("back") %>
+    </.link>
+  </li>
 </ul>

@@ -24,60 +24,66 @@
           </tr>
         </thead>
         <tbody>
-          <%= for %StockEntry{item: %Item{id: item_id, name: item_name, unit: item_unit} = item, stock: stock, missing_count: missing_count, location: %Location{id: location_id, name: location_name} = location} <- stock_entries do %>
+          <tr :for={
+            %StockEntry{
+              item: %Item{id: item_id, name: item_name, unit: item_unit} = item,
+              stock: stock,
+              missing_count: missing_count,
+              location: %Location{id: location_id, name: location_name} = location
+            } <- stock_entries
+          }>
             <% stock_expectation =
               Enum.find(
                 @event.stock_expectations,
                 &match?(%StockExpectation{item_id: ^item_id}, &1)
               ) %>
-            <tr>
-              <th scope="row">
-                <%= link(location_name,
-                  to: Routes.frontend_logistics_inventory_path(@socket, :show, location)
-                ) %>
-              </th>
-              <th scope="row">
-                <%= link(item_name,
-                  to:
-                    Routes.frontend_logistics_live_path(
-                      @socket,
-                      AthenaWeb.Frontend.Dashboard.ItemStatsLive,
-                      item
-                    )
-                ) %>
-              </th>
-              <td><%= item_unit %></td>
-              <td>
-                <%= AthenaWeb.Cldr.Number.to_string!(
-                  if stock_expectation, do: stock_expectation.warning_threshold, else: 0
-                ) %>
-              </td>
-              <td><%= AthenaWeb.Cldr.Number.to_string!(stock) %></td>
-              <td><%= AthenaWeb.Cldr.Number.to_string!(missing_count) %></td>
-              <td>
-                <a
-                  href={
-                    Routes.frontend_logistics_movement_path(@socket, :relocate, @event,
-                      movement_live: %{
-                        destination_location_id: location_id,
-                        movements: %{
-                          0 => %{
-                            id: Ecto.UUID.generate(),
-                            item_id: item_id,
-                            amount: missing_count
-                          }
+            <th scope="row">
+              <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, location)}>
+                <%= location_name %>
+              </.link>
+            </th>
+            <th scope="row">
+              <.link navigate={
+                Routes.frontend_logistics_live_path(
+                  @socket,
+                  AthenaWeb.Frontend.Dashboard.ItemStatsLive,
+                  item
+                )
+              }>
+                <%= item_name %>
+              </.link>
+            </th>
+            <td><%= item_unit %></td>
+            <td>
+              <%= AthenaWeb.Cldr.Number.to_string!(
+                if stock_expectation, do: stock_expectation.warning_threshold, else: 0
+              ) %>
+            </td>
+            <td><%= AthenaWeb.Cldr.Number.to_string!(stock) %></td>
+            <td><%= AthenaWeb.Cldr.Number.to_string!(missing_count) %></td>
+            <td>
+              <a
+                href={
+                  Routes.frontend_logistics_movement_path(@socket, :relocate, @event,
+                    movement_live: %{
+                      destination_location_id: location_id,
+                      movements: %{
+                        0 => %{
+                          id: Ecto.UUID.generate(),
+                          item_id: item_id,
+                          amount: missing_count
                         }
                       }
-                    )
-                  }
-                  class="btn"
-                  title={pgettext("Event Missing Items", "Move")}
-                >
-                  <i class="fa-lg fa-solid fa-arrow-right"></i>
-                </a>
-              </td>
-            </tr>
-          <% end %>
+                    }
+                  )
+                }
+                class="btn"
+                title={pgettext("Event Missing Items", "Move")}
+              >
+                <i class="fa-lg fa-solid fa-arrow-right"></i>
+              </a>
+            </td>
+          </tr>
         </tbody>
         <tfoot>
           <tr>

@@ -9,6 +9,8 @@
 
 <ul>
   <li>
-    <%= "back" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item_group.id)) %>
+    <.link navigate={Routes.admin_item_path(@conn, :index, @item_group.id)}>
+      <%= gettext("back") %>
+    </.link>
   </li>
 </ul>

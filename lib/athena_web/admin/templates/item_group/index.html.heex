@@ -8,26 +8,30 @@
     </tr>
   </thead>
   <tbody>
-    <%= for item_group <- @item_groups do %>
-      <tr>
-        <td><%= item_group.name %></td>
-        <td>
-          <span>
-            <%= link("Show", to: Routes.admin_item_group_path(@conn, :show, item_group)) %>
-          </span>
-          <span>
-            <%= link("Edit", to: Routes.admin_item_group_path(@conn, :edit, item_group)) %>
-          </span>
-          <span>
-            <%= link("Delete",
-              to: Routes.admin_item_group_path(@conn, :delete, item_group),
-              method: :delete,
-              data: [confirm: "Are you sure?"]
-            ) %>
-          </span>
-        </td>
-      </tr>
-    <% end %>
+    <tr :for={item_group <- @item_groups}>
+      <td><%= item_group.name %></td>
+      <td>
+        <span>
+          <.link navigate={Routes.admin_item_group_path(@conn, :show, item_group)}>
+            <%= gettext("show") %>
+          </.link>
+        </span>
+        <span>
+          <.link navigate={Routes.admin_item_group_path(@conn, :edit, item_group)}>
+            <%= gettext("edit") %>
+          </.link>
+        </span>
+        <span>
+          <%= "delete"
+          |> gettext()
+          |> link(
+            to: Routes.admin_item_group_path(@conn, :delete, item_group),
+            method: :delete,
+            data: [confirm: "Are you sure?"]
+          ) %>
+        </span>
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -35,8 +39,8 @@
 
 <ul>
   <li>
-    <%= "create item group"
-    |> gettext
-    |> link(to: Routes.admin_item_group_path(@conn, :new, @event.id)) %>
+    <.link navigate={Routes.admin_item_group_path(@conn, :new, @event.id)}>
+      <%= gettext("create item group") %>
+    </.link>
   </li>
 </ul>

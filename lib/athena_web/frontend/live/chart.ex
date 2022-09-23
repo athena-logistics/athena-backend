@@ -3,6 +3,9 @@ defmodule AthenaWeb.Chart do
 
   use AthenaWeb, :component
 
+  attr :dom_id, :string, required: true
+  attr :config, :any, required: true
+
   def chart(assigns) do
     ~H"""
     <div>

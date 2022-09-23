@@ -8,28 +8,30 @@
     </tr>
   </thead>
   <tbody>
-    <%= for location <- @locations do %>
-      <tr>
-        <td><%= location.name %></td>
-        <td>
-          <span>
-            <%= "show" |> gettext |> link(to: Routes.admin_location_path(@conn, :show, location)) %>
-          </span>
-          <span>
-            <%= "edit" |> gettext |> link(to: Routes.admin_location_path(@conn, :edit, location)) %>
-          </span>
-          <span>
-            <%= "delete"
-            |> gettext
-            |> link(
-              to: Routes.admin_location_path(@conn, :delete, location),
-              method: :delete,
-              data: [confirm: "Are you sure?"]
-            ) %>
-          </span>
-        </td>
-      </tr>
-    <% end %>
+    <tr :for={location <- @locations}>
+      <td><%= location.name %></td>
+      <td>
+        <span>
+          <.link navigate={Routes.admin_location_path(@conn, :show, location)}>
+            <%= gettext("show") %>
+          </.link>
+        </span>
+        <span>
+          <.link navigate={Routes.admin_location_path(@conn, :edit, location)}>
+            <%= gettext("edit") %>
+          </.link>
+        </span>
+        <span>
+          <%= "delete"
+          |> gettext
+          |> link(
+            to: Routes.admin_location_path(@conn, :delete, location),
+            method: :delete,
+            data: [confirm: "Are you sure?"]
+          ) %>
+        </span>
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -37,9 +39,13 @@
 
 <ul>
   <li>
-    <%= "create location"
-    |> gettext
-    |> link(to: Routes.admin_location_path(@conn, :new, @event.id)) %>
+    <.link navigate={Routes.admin_location_path(@conn, :new, @event.id)}>
+      <%= gettext("create location") %>
+    </.link>
   </li>
-  <li><%= "event" |> gettext |> link(to: Routes.admin_event_path(@conn, :show, @event.id)) %></li>
+  <li>
+    <.link navigate={Routes.admin_event_path(@conn, :show, @event.id)}>
+      <%= gettext("event") %>
+    </.link>
+  </li>
 </ul>

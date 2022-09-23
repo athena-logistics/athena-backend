@@ -10,11 +10,9 @@
   <div class="table-scroll-container container-fluid pb-5">
     <table class="overview-table">
       <thead>
-        <%= row(assigns, hd(@table)) %>
+        <.row row={hd(@table)} socket={@socket} />
       </thead>
-      <%= for row <- Enum.drop(@table, 1) do %>
-        <%= row(assigns, row) %>
-      <% end %>
+      <.row :for={row <- Enum.drop(@table, 1)} row={row} socket={@socket} />
     </table>
   </div>
 </div>

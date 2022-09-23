@@ -91,16 +91,16 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
 
   defp transpose(table), do: table |> Enum.zip() |> Enum.map(&Tuple.to_list/1)
 
-  defp row(assigns, row) do
+  defp row(assigns) do
     ~H"""
     <tr>
-      <%= for cell <- row do %>
+      <%= for cell <- @row do %>
         <%= case cell do %>
           <% %Location{name: name} = location -> %>
             <th class="location">
-              <%= link(name,
-                to: Routes.frontend_logistics_inventory_path(@socket, :show, location)
-              ) %>
+              <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, location)}>
+                <%= name %>
+              </.link>
             </th>
           <% %ItemGroup{name: name} -> %>
             <th class="item-group">
@@ -111,14 +111,16 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
           <% %Item{name: name, unit: unit} = item -> %>
             <th class="item">
               <div>
-                <%= link(name,
-                  to:
-                    Routes.frontend_logistics_live_path(
-                      @socket,
-                      AthenaWeb.Frontend.Dashboard.ItemStatsLive,
-                      item
-                    )
-                ) %> (<%= unit %>)
+                <.link navigate={
+                  Routes.frontend_logistics_live_path(
+                    @socket,
+                    AthenaWeb.Frontend.Dashboard.ItemStatsLive,
+                    item
+                  )
+                }>
+                  <%= name %>
+                </.link>
+                (<%= unit %>)
               </div>
             </th>
           <% :empty_header -> %>
@@ -127,11 +129,10 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
             <td class="item-group-spacer"></td>
           <% %StockEntry{stock: stock, status: status} = entry -> %>
             <td class={["stock-entry", status]}>
-              <%= link(stock,
-                to:
-                  Routes.frontend_logistics_inventory_path(@socket, :show, entry.location_id) <>
-                    "#item-#{entry.item_id}"
-              ) %>
+              <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, entry.location_id) <>
+            "#item-#{entry.item_id}"}>
+                <%= AthenaWeb.Cldr.Number.to_string!(stock) %>
+              </.link>
             </td>
           <% nil -> %>
             <td class="stock-entry empty">0</td>

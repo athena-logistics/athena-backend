@@ -97,42 +97,44 @@
       </tr>
     </thead>
     <tbody>
-      <%= for %OrderOverview{date: %Date{} = date, type: type, location: location, amount: amount} <- @order_overview do %>
-        <tr>
-          <td><%= AthenaWeb.Cldr.Date.to_string!(date) %></td>
-          <td><%= order_overview_type_label(type) %></td>
-          <%= case location do %>
-            <% %Location{name: location_name} -> %>
-              <td>
-                <%= link(location_name,
-                  to: Routes.frontend_logistics_inventory_path(@socket, :show, location)
-                ) %>
-              </td>
-            <% nil -> %>
-              <th><%= pgettext("Item Stats Table", "Total") %></th>
-          <% end %>
-          <td><%= AthenaWeb.Cldr.Number.to_string!(amount) %></td>
-        </tr>
-      <% end %>
+      <tr :for={
+        %OrderOverview{date: %Date{} = date, type: type, location: location, amount: amount} <-
+          @order_overview
+      }>
+        <td><%= AthenaWeb.Cldr.Date.to_string!(date) %></td>
+        <td><%= order_overview_type_label(type) %></td>
+        <%= case location do %>
+          <% %Location{name: location_name} -> %>
+            <td>
+              <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, location)}>
+                <%= location_name %>
+              </.link>
+            </td>
+          <% nil -> %>
+            <th><%= pgettext("Item Stats Table", "Total") %></th>
+        <% end %>
+        <td><%= AthenaWeb.Cldr.Number.to_string!(amount) %></td>
+      </tr>
     </tbody>
     <tfoot>
-      <%= for %OrderOverview{date: nil, type: type, location: location, amount: amount} <- @order_overview do %>
-        <tr>
-          <th><%= gettext("Total") %></th>
-          <td><%= order_overview_type_label(type) %></td>
-          <%= case location do %>
-            <% %Location{name: location_name} -> %>
-              <td>
-                <%= link(location_name,
-                  to: Routes.frontend_logistics_inventory_path(@socket, :show, location)
-                ) %>
-              </td>
-            <% nil -> %>
-              <th><%= pgettext("Item Stats Table", "Total") %></th>
-          <% end %>
-          <td><%= AthenaWeb.Cldr.Number.to_string!(amount) %></td>
-        </tr>
-      <% end %>
+      <tr :for={
+        %OrderOverview{date: nil, type: type, location: location, amount: amount} <-
+          @order_overview
+      }>
+        <th><%= gettext("Total") %></th>
+        <td><%= order_overview_type_label(type) %></td>
+        <%= case location do %>
+          <% %Location{name: location_name} -> %>
+            <td>
+              <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, location)}>
+                <%= location_name %>
+              </.link>
+            </td>
+          <% nil -> %>
+            <th><%= pgettext("Item Stats Table", "Total") %></th>
+        <% end %>
+        <td><%= AthenaWeb.Cldr.Number.to_string!(amount) %></td>
+      </tr>
     </tfoot>
   </table>
 </div>

@@ -7,7 +7,7 @@
 <% link =
   Routes.frontend_logistics_live_url(@conn, AthenaWeb.Frontend.Dashboard.TableLive, @event.id) %>
 
-<%= "go to public view" |> gettext |> link(to: link) %>
+<.link navigate={link}><%= gettext("go to public view") %></.link>
 
 <div>
   <h3>
@@ -31,17 +31,19 @@
 
 <ul>
   <li>
-    <%= "edit" |> gettext |> link(to: Routes.admin_event_path(@conn, :edit, @event)) %>
+    <.link navigate={Routes.admin_event_path(@conn, :edit, @event)}><%= gettext("edit") %></.link>
   </li>
   <li>
-    <%= "back" |> gettext |> link(to: Routes.admin_event_path(@conn, :index)) %>
+    <.link navigate={Routes.admin_event_path(@conn, :index)}><%= gettext("back") %></.link>
   </li>
   <li>
-    <%= "locations" |> gettext |> link(to: Routes.admin_location_path(@conn, :index, @event.id)) %>
+    <.link navigate={Routes.admin_location_path(@conn, :index, @event.id)}>
+      <%= gettext("locations") %>
+    </.link>
   </li>
   <li>
-    <%= "item groups"
-    |> gettext
-    |> link(to: Routes.admin_item_group_path(@conn, :index, @event.id)) %>
+    <.link navigate={Routes.admin_item_group_path(@conn, :index, @event.id)}>
+      <%= gettext("item groups") %>
+    </.link>
   </li>
 </ul>

@@ -4,14 +4,18 @@
 
 <ul>
   <li>
-    <%= "edit" |> gettext |> link(to: Routes.admin_item_group_path(@conn, :edit, @item_group)) %>
+    <.link navigate={Routes.admin_item_group_path(@conn, :edit, @item_group)}>
+      <%= gettext("edit") %>
+    </.link>
   </li>
   <li>
-    <%= "back"
-    |> gettext
-    |> link(to: Routes.admin_item_group_path(@conn, :index, @item_group.event_id)) %>
+    <.link navigate={Routes.admin_item_group_path(@conn, :index, @item_group.event_id)}>
+      <%= gettext("back") %>
+    </.link>
   </li>
   <li>
-    <%= "items" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item_group.id)) %>
+    <.link navigate={Routes.admin_item_path(@conn, :index, @item_group.id)}>
+      <%= gettext("items") %>
+    </.link>
   </li>
 </ul>

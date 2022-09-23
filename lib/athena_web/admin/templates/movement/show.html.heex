@@ -30,14 +30,16 @@
 <dl>
   <dt><%= gettext("item group") %></dt>
   <dd>
-    <%= link(@movement.item_group.name,
-      to: Routes.admin_item_group_path(@conn, :show, @movement.item_group.id)
-    ) %>
+    <.link navigate={Routes.admin_item_group_path(@conn, :show, @movement.item_group.id)}>
+      <%= @movement.item_group.name %>
+    </.link>
   </dd>
 
   <dt><%= gettext("item") %></dt>
   <dd>
-    <%= link(@movement.item.name, to: Routes.admin_item_path(@conn, :show, @movement.item_id)) %>
+    <.link navigate={Routes.admin_item_path(@conn, :show, @movement.item_id)}>
+      <%= @movement.item.name %>
+    </.link>
   </dd>
 
   <dt><%= gettext("source") %></dt>
@@ -73,11 +75,13 @@
 
 <ul>
   <li>
-    <%= "edit" |> gettext |> link(to: Routes.admin_movement_path(@conn, :edit, @movement)) %>
+    <.link navigate={Routes.admin_movement_path(@conn, :edit, @movement)}>
+      <%= gettext("edit") %>
+    </.link>
   </li>
   <li>
-    <%= "back"
-    |> gettext
-    |> link(to: Routes.admin_movement_path(@conn, :index, @movement.item_id)) %>
+    <.link navigate={Routes.admin_movement_path(@conn, :index, @movement.item_id)}>
+      <%= gettext("back") %>
+    </.link>
   </li>
 </ul>

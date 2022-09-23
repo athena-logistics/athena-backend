@@ -23,9 +23,11 @@
     </script>
   </head>
   <body class={if Map.has_key?(assigns, :navigation), do: "has_nav", else: ""}>
-    <%= if Map.has_key?(assigns, :navigation) do %>
-      <AthenaWeb.Admin.Navigation.navigation {@navigation} conn={@conn} />
-    <% end %>
+    <AthenaWeb.Admin.Navigation.navigation
+      :if={Map.has_key?(assigns, :navigation)}
+      {@navigation}
+      conn={@conn}
+    />
 
     <%= @inner_content %>
   </body>

@@ -6,6 +6,10 @@ defmodule AthenaWeb.Admin.Navigation do
   alias Athena.Inventory.ItemGroup
   alias Athena.Inventory.Location
 
+  attr :event, Athena.Inventory.Event, required: true
+  attr :conn, Plug.Conn, required: true
+  attr :item_groups, :list, required: true
+
   def navigation(assigns) do
     ~H"""
     <nav class="navbar navbar-expand-lg navbar-light bg-primary mb-5">
@@ -28,12 +32,9 @@ defmodule AthenaWeb.Admin.Navigation do
         <main class="navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <%= "locations"
-              |> gettext
-              |> link(
-                to: Routes.admin_location_path(@conn, :index, @event),
-                class: "nav-link"
-              ) %>
+              <.link navigate={Routes.admin_location_path(@conn, :index, @event)} class="nav-link">
+                <%= gettext("locations") %>
+              </.link>
             </li>
             <li class="nav-item dropdown">
               <label
@@ -46,23 +47,20 @@ defmodule AthenaWeb.Admin.Navigation do
               </label>
               <input type="checkbox" id="toggle-nav-locations" hidden class="toggle-dropdown" />
               <ul class="dropdown-menu show">
-                <%= for %Location{name: location_name} = location <- @locations do %>
-                  <li class="nav-item">
-                    <%= link(location_name,
-                      to: Routes.admin_location_path(@conn, :show, location),
-                      class: "dropdown-item"
-                    ) %>
-                  </li>
-                <% end %>
+                <li :for={%Location{name: location_name} = location <- @locations} class="nav-item">
+                  <.link
+                    navigate={Routes.admin_location_path(@conn, :show, location)}
+                    class="dropdown-item"
+                  >
+                    <%= location_name %>
+                  </.link>
+                </li>
               </ul>
             </li>
             <li class="nav-item">
-              <%= "item groups"
-              |> gettext
-              |> link(
-                to: Routes.admin_item_group_path(@conn, :index, @event),
-                class: "nav-link"
-              ) %>
+              <.link navigate={Routes.admin_item_group_path(@conn, :index, @event)} class="nav-link">
+                <%= gettext("item groups") %>
+              </.link>
             </li>
             <li class="nav-item dropdown">
               <label
@@ -75,15 +73,23 @@ defmodule AthenaWeb.Admin.Navigation do
               </label>
               <input type="checkbox" id="toggle-nav-item-groups" hidden class="toggle-dropdown" />
               <ul class="dropdown-menu show">
-                <%= for %ItemGroup{name: item_group_name} = item_group <- @item_groups do %>
-                  <li class="nav-item">
-                    <%= link(item_group_name,
-                      to: Routes.admin_item_group_path(@conn, :show, item_group),
-                      class: "dropdown-item"
-                    ) %>
-                  </li>
-                <% end %>
+                <li
+                  :for={%ItemGroup{name: item_group_name} = item_group <- @item_groups}
+                  class="nav-item"
+                >
+                  <.link
+                    navigate={Routes.admin_item_group_path(@conn, :show, item_group)}
+                    class="dropdown-item"
+                  >
+                    <%= item_group_name %>
+                  </.link>
+                </li>
               </ul>
+            </li>
+            <li class="nav-item">
+              <.link navigate={Routes.live_dashboard_path(@conn, :home)} class="nav-link">
+                <%= gettext("dashboard") %>
+              </.link>
             </li>
           </ul>
         </main>

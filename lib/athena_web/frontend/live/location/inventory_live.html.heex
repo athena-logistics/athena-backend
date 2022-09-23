@@ -1,13 +1,12 @@
 <section class="container-fluid location">
   <h1 class="container"><%= @location.name %></h1>
 
-  <%= if @access == :logistics do %>
-    <AthenaWeb.Frontend.Location.Tabs.tabs
-      active_tab={:inventory}
-      socket={@socket}
-      location={@location}
-    />
-  <% end %>
+  <AthenaWeb.Frontend.Location.Tabs.tabs
+    :if={@access == :logistics}
+    active_tab={:inventory}
+    socket={@socket}
+    location={@location}
+  />
 
   <%= for %ItemGroup{name: item_group_name, id: item_group_id} = item_group <- @item_groups,
   stock_entries = relevant_stock_entries(@stock_entries, item_group),
@@ -27,22 +26,27 @@
         </div>
         <div>
           <ul class="list-unstyled">
-            <%= for %StockEntry{item: %Item{id: item_id} = item, status: status} = stock_entry <- stock_entries do %>
-              <li class="row mb-2" id={"item-#{item_id}"}>
-                <div class="col">
-                  <i class={["fa fa-solid fa-circle", "text-#{status}"]} />
-                  <%= item.name %>
-                </div>
-                <div class="col-7 text-center">
-                  <.live_component
-                    module={AthenaWeb.Frontend.StockEntry}
-                    id={"stock_entry_#{@location.id}_#{item_id}"}
-                    stock_entry={stock_entry}
-                  />
-                  <small><%= item.unit %></small>
-                </div>
-              </li>
-            <% end %>
+            <li
+              :for={
+                %StockEntry{item: %Item{id: item_id} = item, status: status} = stock_entry <-
+                  stock_entries
+              }
+              class="row mb-2"
+              id={"item-#{item_id}"}
+            >
+              <div class="col">
+                <i class={["fa fa-solid fa-circle", "text-#{status}"]} />
+                <%= item.name %>
+              </div>
+              <div class="col-7 text-center">
+                <.live_component
+                  module={AthenaWeb.Frontend.StockEntry}
+                  id={"stock_entry_#{@location.id}_#{item_id}"}
+                  stock_entry={stock_entry}
+                />
+                <small><%= item.unit %></small>
+              </div>
+            </li>
           </ul>
         </div>
       </div>

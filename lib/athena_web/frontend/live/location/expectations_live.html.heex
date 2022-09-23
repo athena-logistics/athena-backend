@@ -1,111 +1,116 @@
 <section class="container-fluid location expectations">
   <h1 class="container"><%= @location.name %></h1>
 
-  <%= if @access == :logistics do %>
-    <AthenaWeb.Frontend.Location.Tabs.tabs
-      active_tab={:expectations}
-      socket={@socket}
-      location={@location}
-    />
-  <% end %>
+  <AthenaWeb.Frontend.Location.Tabs.tabs
+    active_tab={:expectations}
+    socket={@socket}
+    location={@location}
+  />
 
-  <%= for %ItemGroup{name: item_group_name, id: item_group_id} <- @location.event.item_groups do %>
-    <a class="bookmark" href={"##{item_group_id}"}><%= item_group_name %></a>
-  <% end %>
+  <a
+    :for={%ItemGroup{name: item_group_name, id: item_group_id} <- @location.event.item_groups}
+    class="bookmark"
+    href={"##{item_group_id}"}
+  >
+    <%= item_group_name %>
+  </a>
 
   <div class="location__grid">
-    <%= for %ItemGroup{name: item_group_name, id: item_group_id, items: items} <- @location.event.item_groups do %>
-      <div>
-        <div class="elevated-wrapper">
-          <h2 class="location__group-title text-center elevated" id={item_group_id}>
-            <%= item_group_name %>
-          </h2>
-        </div>
-        <div>
-          <ul class="list-unstyled">
-            <%= for %Item{id: item_id, name: item_name, unit: item_unit, inverse: inverse} <- items,
-            changeset = @changesets[item_id] do %>
-              <li class="mb-3" id={"item-#{item_id}"}>
-                <h5><%= item_name %></h5>
-                <small class="text-muted"><%= item_unit %></small>
-
-                <.form
-                  let={form}
-                  for={changeset}
-                  phx-change="validate"
-                  phx-submit="save"
-                  id={"stock_expectation_form_#{item_id}"}
-                >
-                  <%= hidden_input(form, :item_id, value: item_id) %>
-
-                  <div class="row align-items-baseline">
-                    <div class="col col-2 ps-3 pe-3">
-                      <i class="fa fa-solid fa-circle text-normal" />
-                      <span class="indent-like-input">
-                        <%= if inverse, do: AthenaWeb.Cldr.Number.to_string!(0), else: "∞" %>
-                      </span>
-                    </div>
-                    <div class="col col-4 ps-3 pe-3 d-flex align-items-baseline">
-                      <i class="flex-shrink fa fa-solid fa-circle text-warning" />
-                      <div>
-                        <%= number_input(form, :warning_threshold,
-                          min: 0,
-                          placeholder: "∞",
-                          class: "form-control elevated"
-                        ) %>
-                        <%= error_tag(form, :warning_threshold) %>
-                      </div>
-                    </div>
-                    <div class="col col-4 ps-3 pe-3 d-flex align-items-baseline">
-                      <i class="fa fa-solid fa-circle text-important" />
-                      <div style="width: 100%;">
-                        <%= number_input(form, :important_threshold,
-                          min:
-                            if(inverse,
-                              do: Changeset.get_field(changeset, :warning_threshold) || 0,
-                              else: 0
-                            ),
-                          max:
-                            unless(inverse,
-                              do: Changeset.get_field(changeset, :warning_threshold)
-                            ),
-                          placeholder: "∞",
-                          class: "form-control elevated"
-                        ) %>
-                        <%= error_tag(form, :important_threshold) %>
-                      </div>
-                    </div>
-                    <%= cond do %>
-                      <% Changeset.get_change(changeset, :warning_threshold) != nil or Changeset.get_change(changeset, :important_threshold) != nil -> %>
-                        <div class="col col-2 ps-3 pe-3">
-                          <button
-                            class="btn btn-outline-success inverted elevated"
-                            type="submit"
-                            disabled={not changeset.valid?}
-                          >
-                            <i class="fa-solid fa-floppy-disk"></i>
-                          </button>
-                        </div>
-                      <% changeset.data.warning_threshold != nil -> %>
-                        <div class="col col-2 ps-3 pe-3">
-                          <button
-                            class="btn btn-outline-danger col flex-shrink elevated"
-                            type="button"
-                            phx-click="delete"
-                            phx-value-id={Changeset.fetch_field!(changeset, :id)}
-                          >
-                            <i class="fa-solid fa-trash"></i>
-                          </button>
-                        </div>
-                      <% true -> %>
-                    <% end %>
-                  </div>
-                </.form>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+    <div :for={
+      %ItemGroup{name: item_group_name, id: item_group_id, items: items} <-
+        @location.event.item_groups
+    }>
+      <div class="elevated-wrapper">
+        <h2 class="location__group-title text-center elevated" id={item_group_id}>
+          <%= item_group_name %>
+        </h2>
       </div>
-    <% end %>
+      <div>
+        <ul class="list-unstyled">
+          <li
+            :for={%Item{id: item_id, name: item_name, unit: item_unit, inverse: inverse} <- items}
+            class="mb-3"
+            id={"item-#{item_id}"}
+          >
+            <% changeset = @changesets[item_id] %>
+            <h5><%= item_name %></h5>
+            <small class="text-muted"><%= item_unit %></small>
+
+            <.form
+              :let={form}
+              for={changeset}
+              phx-change="validate"
+              phx-submit="save"
+              id={"stock_expectation_form_#{item_id}"}
+            >
+              <%= hidden_input(form, :item_id, value: item_id) %>
+
+              <div class="row align-items-baseline">
+                <div class="col col-2 ps-3 pe-3">
+                  <i class="fa fa-solid fa-circle text-normal" />
+                  <span class="indent-like-input">
+                    <%= if inverse, do: AthenaWeb.Cldr.Number.to_string!(0), else: "∞" %>
+                  </span>
+                </div>
+                <div class="col col-4 ps-3 pe-3 d-flex align-items-baseline">
+                  <i class="flex-shrink fa fa-solid fa-circle text-warning" />
+                  <div>
+                    <%= number_input(form, :warning_threshold,
+                      min: 0,
+                      placeholder: "∞",
+                      class: "form-control elevated"
+                    ) %>
+                    <%= error_tag(form, :warning_threshold) %>
+                  </div>
+                </div>
+                <div class="col col-4 ps-3 pe-3 d-flex align-items-baseline">
+                  <i class="fa fa-solid fa-circle text-important" />
+                  <div style="width: 100%;">
+                    <%= number_input(form, :important_threshold,
+                      min:
+                        if(inverse,
+                          do: Changeset.get_field(changeset, :warning_threshold) || 0,
+                          else: 0
+                        ),
+                      max:
+                        unless(inverse,
+                          do: Changeset.get_field(changeset, :warning_threshold)
+                        ),
+                      placeholder: "∞",
+                      class: "form-control elevated"
+                    ) %>
+                    <%= error_tag(form, :important_threshold) %>
+                  </div>
+                </div>
+                <%= cond do %>
+                  <% Changeset.get_change(changeset, :warning_threshold) != nil or Changeset.get_change(changeset, :important_threshold) != nil -> %>
+                    <div class="col col-2 ps-3 pe-3">
+                      <button
+                        class="btn btn-outline-success inverted elevated"
+                        type="submit"
+                        disabled={not changeset.valid?}
+                      >
+                        <i class="fa-solid fa-floppy-disk"></i>
+                      </button>
+                    </div>
+                  <% changeset.data.warning_threshold != nil -> %>
+                    <div class="col col-2 ps-3 pe-3">
+                      <button
+                        class="btn btn-outline-danger col flex-shrink elevated"
+                        type="button"
+                        phx-click="delete"
+                        phx-value-id={Changeset.fetch_field!(changeset, :id)}
+                      >
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
+                  <% true -> %>
+                <% end %>
+              </div>
+            </.form>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>

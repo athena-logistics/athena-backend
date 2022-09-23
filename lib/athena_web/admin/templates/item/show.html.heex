@@ -5,7 +5,7 @@
   <dd><%= @item.unit %></dd>
 
   <dt><%= gettext("inverse") %></dt>
-  <dd><%= if @item.inverse, do: "Ja", else: "Nein" %></dd>
+  <dd><%= if @item.inverse, do: gettext("yes"), else: gettext("no") %></dd>
 </dl>
 
 <h2><%= gettext("movements") %></h2>
@@ -27,11 +27,17 @@
 <h2><%= gettext("actions") %></h2>
 
 <ul>
-  <li><%= "edit" |> gettext |> link(to: Routes.admin_item_path(@conn, :edit, @item)) %></li>
   <li>
-    <%= "back" |> gettext |> link(to: Routes.admin_item_path(@conn, :index, @item.item_group_id)) %>
+    <.link navigate={Routes.admin_item_path(@conn, :edit, @item)}><%= gettext("edit") %></.link>
   </li>
   <li>
-    <%= "movements" |> gettext |> link(to: Routes.admin_movement_path(@conn, :index, @item.id)) %>
+    <.link navigate={Routes.admin_item_path(@conn, :index, @item.item_group_id)}>
+      <%= gettext("back") %>
+    </.link>
+  </li>
+  <li>
+    <.link navigate={Routes.admin_movement_path(@conn, :index, @item.id)}>
+      <%= gettext("movements") %>
+    </.link>
   </li>
 </ul>

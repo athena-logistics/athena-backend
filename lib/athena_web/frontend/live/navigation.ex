@@ -5,6 +5,10 @@ defmodule AthenaWeb.Frontend.Navigation do
 
   alias Athena.Inventory.Location
 
+  attr :conn, Plug.Conn, required: true
+  attr :event, Athena.Inventory.Event, required: true
+  attr :locations, :list, required: true
+
   def navigation(assigns) do
     ~H"""
     <nav class="navbar navbar-expand-lg navbar-light bg-primary mb-5">
@@ -32,33 +36,34 @@ defmodule AthenaWeb.Frontend.Navigation do
         <main class="navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <%= "Logistics Overview"
-              |> gettext
-              |> link(
-                to:
+              <.link
+                navigate={
                   Routes.frontend_logistics_live_url(
                     @conn,
                     AthenaWeb.Frontend.Dashboard.TableLive,
                     @event
-                  ),
-                class: "nav-link"
-              ) %>
+                  )
+                }
+                class="nav-link"
+              >
+                <%= gettext("Logistics Overview") %>
+              </.link>
             </li>
             <li class="nav-item">
-              <%= "Supply Item"
-              |> gettext
-              |> link(
-                to: Routes.frontend_logistics_movement_url(@conn, :supply, @event),
-                class: "nav-link"
-              ) %>
+              <.link
+                navigate={Routes.frontend_logistics_movement_url(@conn, :supply, @event)}
+                class="nav-link"
+              >
+                <%= gettext("Supply Item") %>
+              </.link>
             </li>
             <li class="nav-item">
-              <%= "Move Item"
-              |> gettext
-              |> link(
-                to: Routes.frontend_logistics_movement_url(@conn, :relocate, @event),
-                class: "nav-link"
-              ) %>
+              <.link
+                navigate={Routes.frontend_logistics_movement_url(@conn, :relocate, @event)}
+                class="nav-link"
+              >
+                <%= gettext("Move Item") %>
+              </.link>
             </li>
 
             <li class="nav-item dropdown">
@@ -72,14 +77,14 @@ defmodule AthenaWeb.Frontend.Navigation do
               </label>
               <input type="checkbox" id="toggle-nav-locations" hidden class="toggle-dropdown" />
               <ul class="dropdown-menu show">
-                <%= for %Location{name: location_name} = location <- @locations do %>
-                  <li class="nav-item">
-                    <%= link(location_name,
-                      to: Routes.frontend_logistics_inventory_path(@conn, :show, location),
-                      class: "dropdown-item"
-                    ) %>
-                  </li>
-                <% end %>
+                <li :for={%Location{name: location_name} = location <- @locations} class="nav-item">
+                  <.link
+                    navigate={Routes.frontend_logistics_inventory_path(@conn, :show, location)}
+                    class="dropdown-item"
+                  >
+                    <%= location_name %>
+                  </.link>
+                </li>
               </ul>
             </li>
           </ul>

@@ -7,8 +7,8 @@
 
 <ul>
   <li>
-    <%= "back"
-    |> gettext
-    |> link(to: Routes.admin_movement_path(@conn, :index, @movement.item_id)) %>
+    <.link navigate={Routes.admin_movement_path(@conn, :index, @movement.item_id)}>
+      <%= gettext("back") %>
+    </.link>
   </li>
 </ul>

@@ -6,26 +6,40 @@
   <AthenaWeb.Frontend.Dashboard.Tabs.tabs event={@event} active_tab={:location} socket={@socket} />
 
   <div class="row">
-    <%= for %Location{id: location_id, name: location_name} <- @event.locations,
-  stock_entries = Enum.filter(@event.stock_entries, &match?(%StockEntry{location_id: ^location_id}, &1)),
-  status_count = Map.merge(%{important: [], warning: [], normal: []},  Enum.group_by(stock_entries, &(&1.status)))  do %>
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="elevated-wrapper">
-          <h2 class="text-center elevated">
-            <%= link(location_name,
-              to: Routes.frontend_logistics_inventory_path(@socket, :show, location_id)
-            ) %>
-          </h2>
-        </div>
-        <ul class="list-unstyled row">
-          <%= for {color, rows} <- [danger: status_count.important, warning: status_count.warning, success: status_count.normal], count = length(rows) do %>
-            <li class={["col", "text-#{color}"]}>
-              <i class="fa fa-solid fa-circle"></i>
-              <%= count %>
-            </li>
-          <% end %>
-        </ul>
+    <div
+      :for={%Location{id: location_id, name: location_name} <- @event.locations}
+      class="col-12 col-md-6 col-lg-4"
+    >
+      <% stock_entries =
+        Enum.filter(@event.stock_entries, &match?(%StockEntry{location_id: ^location_id}, &1))
+
+      status_count =
+        Map.merge(
+          %{important: [], warning: [], normal: []},
+          Enum.group_by(stock_entries, & &1.status)
+        ) %>
+      <div class="elevated-wrapper">
+        <h2 class="text-center elevated">
+          <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, location_id)}>
+            <%= location_name %>
+          </.link>
+        </h2>
       </div>
-    <% end %>
+      <ul class="list-unstyled row">
+        <li
+          :for={
+            {color, rows} <- [
+              danger: status_count.important,
+              warning: status_count.warning,
+              success: status_count.normal
+            ]
+          }
+          class={["col", "text-#{color}"]}
+        >
+          <i class="fa fa-solid fa-circle"></i>
+          <%= length(rows) %>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

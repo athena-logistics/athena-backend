@@ -4,7 +4,7 @@
 
 <% link = Routes.frontend_vendor_inventory_url(@conn, :show, @location.id) %>
 
-<%= "go to public view" |> gettext |> link(to: link) %>
+<.link navigate={link}><%= gettext("go to public view") %></.link>
 
 <div>
   <h3>
@@ -28,11 +28,13 @@
 
 <ul>
   <li>
-    <%= "edit" |> gettext |> link(to: Routes.admin_location_path(@conn, :edit, @location)) %>
+    <.link navigate={Routes.admin_location_path(@conn, :edit, @location)}>
+      <%= gettext("edit") %>
+    </.link>
   </li>
   <li>
-    <%= "back"
-    |> gettext
-    |> link(to: Routes.admin_location_path(@conn, :index, @location.event.id)) %>
+    <.link navigate={Routes.admin_location_path(@conn, :index, @location.event.id)}>
+      <%= gettext("back") %>
+    </.link>
   </li>
 </ul>

@@ -3,7 +3,7 @@ defmodule AthenaWeb.LiveViewInit do
   Set up LiveView
   """
 
-  import Phoenix.LiveView
+  import Phoenix.Component, only: [assign: 2]
 
   alias Cldr.Plug.PutLocale
 
@@ -16,7 +16,7 @@ defmodule AthenaWeb.LiveViewInit do
     end
   end
 
-  defp setup_access(socket, access), do: {:ok, assign(socket, :access, access)}
+  defp setup_access(socket, access), do: {:ok, assign(socket, access: access)}
 
   defp setup_locale(session, socket) do
     case AthenaWeb.Cldr.validate_locale(session[PutLocale.session_key()]) do

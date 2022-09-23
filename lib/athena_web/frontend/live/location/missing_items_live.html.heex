@@ -25,46 +25,50 @@
           </tr>
         </thead>
         <tbody>
-          <%= for %StockEntry{item: %Item{id: item_id, name: item_name, unit: item_unit}, stock: stock, missing_count: missing_count} <- stock_entries do %>
+          <tr :for={
+            %StockEntry{
+              item: %Item{id: item_id, name: item_name, unit: item_unit},
+              stock: stock,
+              missing_count: missing_count
+            } <- stock_entries
+          }>
             <% stock_expectation =
               Enum.find(
                 @location.stock_expectations,
                 &match?(%StockExpectation{item_id: ^item_id}, &1)
               ) %>
-            <tr>
-              <th scope="row"><%= item_name %></th>
-              <td><%= item_unit %></td>
-              <td>
-                <%= AthenaWeb.Cldr.Number.to_string!(
-                  if stock_expectation, do: stock_expectation.warning_threshold, else: 0
-                ) %>
-              </td>
-              <td><%= AthenaWeb.Cldr.Number.to_string!(stock) %></td>
-              <td><%= AthenaWeb.Cldr.Number.to_string!(missing_count) %></td>
-              <td>
-                <a
-                  href={
-                    Routes.frontend_logistics_movement_path(@socket, :relocate, @location.event,
-                      movement_live: %{
-                        destination_location_id: @location,
-                        movements: %{
-                          0 => %{
-                            id: Ecto.UUID.generate(),
-                            item_id: item_id,
-                            amount: missing_count
-                          }
+            <th scope="row"><%= item_name %></th>
+            <td><%= item_unit %></td>
+            <td>
+              <%= AthenaWeb.Cldr.Number.to_string!(
+                if stock_expectation, do: stock_expectation.warning_threshold, else: 0
+              ) %>
+            </td>
+            <td><%= AthenaWeb.Cldr.Number.to_string!(stock) %></td>
+            <td><%= AthenaWeb.Cldr.Number.to_string!(missing_count) %></td>
+            <td>
+              <a
+                href={
+                  Routes.frontend_logistics_movement_path(@socket, :relocate, @location.event,
+                    movement_live: %{
+                      destination_location_id: @location,
+                      movements: %{
+                        0 => %{
+                          id: Ecto.UUID.generate(),
+                          item_id: item_id,
+                          amount: missing_count
                         }
                       }
-                    )
-                  }
-                  class="btn"
-                  title={pgettext("Location Missing Items", "Move")}
-                >
-                  <i class="fa-lg fa-solid fa-arrow-right"></i>
-                </a>
-              </td>
-            </tr>
-          <% end %>
+                    }
+                  )
+                }
+                class="btn"
+                title={pgettext("Location Missing Items", "Move")}
+              >
+                <i class="fa-lg fa-solid fa-arrow-right"></i>
+              </a>
+            </td>
+          </tr>
         </tbody>
         <tfoot>
           <tr>
