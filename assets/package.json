@@ -13,7 +13,7 @@
     "chartjs-plugin-zoom": "^1.2.1",
     "child-replace-with-polyfill": "^1.0.1",
     "classlist-polyfill": "^1.2.0",
-    "core-js": "^3.25.3",
+    "core-js": "^3.25.4",
     "formdata-polyfill": "^4.0.10",
     "mdn-polyfills": "^5.20.0",
     "new-event-polyfill": "^1.0.1",
