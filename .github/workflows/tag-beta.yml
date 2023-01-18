@@ -5,15 +5,7 @@ on:
 
 name: "Beta Tag"
 
-# Secrets:
-# * CACHE_VERSION - Set to `date +%s`, set new when the cache should be busted
-
 jobs:
-  detectToolVersions:
-    name: "Detect Tool Versions"
-
-    uses: ./.github/workflows/part_tool_versioning.yml
-
   release:
     name: "Release"
 
@@ -24,16 +16,9 @@ jobs:
   build:
     name: "Build"
 
-    needs: ['detectToolVersions']
-
     uses: ./.github/workflows/part_build.yml
     with:
-      elixirVersion: "${{ needs.detectToolVersions.outputs.elixirVersion }}"
-      otpVersion: "${{ needs.detectToolVersions.outputs.otpVersion }}"
-      nodeVersion: "${{ needs.detectToolVersions.outputs.nodeVersion }}"
       dockerTag: "${{ github.ref_name }}"
-    secrets:
-      CACHE_VERSION: "${{ secrets.CACHE_VERSION }}"
 
   docs:
     name: "Docs"
@@ -42,10 +27,6 @@ jobs:
 
     uses: ./.github/workflows/part_docs.yml
     with:
-      elixirVersion: "${{ needs.detectToolVersions.outputs.elixirVersion }}"
-      otpVersion: "${{ needs.detectToolVersions.outputs.otpVersion }}"
       releaseName: "${{ github.ref_name }}"
-    secrets:
-      CACHE_VERSION: "${{ secrets.CACHE_VERSION }}"
 
   # TODO: Add Deployment
