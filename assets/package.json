@@ -15,6 +15,7 @@
     "classlist-polyfill": "^1.2.0",
     "core-js": "^3.27.2",
     "formdata-polyfill": "^4.0.10",
+    "luxon": "^3.2.1",
     "mdn-polyfills": "^5.20.0",
     "new-event-polyfill": "^1.0.1",
     "phoenix": "file:../deps/phoenix",
