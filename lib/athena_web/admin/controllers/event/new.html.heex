@@ -1,13 +1,11 @@
-<h1><%= gettext("create event") %></h1>
+<h1 class="mt-5 mb-3"><%= gettext("create event") %></h1>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <.link navigate={~p"/admin/events"}>
+    <button class="btn btn-secondary rounded" type="button">
+      <%= gettext("back") %>
+    </button>
+  </.link>
+</div>
 
 <.event_form {assigns} action={~p"/admin/events"} />
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/events"}>
-      <%= gettext("back") %>
-    </.link>
-  </li>
-</ul>

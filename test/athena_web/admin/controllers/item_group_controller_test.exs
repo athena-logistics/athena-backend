@@ -74,6 +74,15 @@ defmodule AthenaWeb.Admin.ItemGroupControllerTest do
     end
   end
 
+  describe "show item_group" do
+    setup [:create_item_group, :create_item]
+
+    test "lists all items", %{conn: conn, item_group: item_group, item: item} do
+      conn = get(conn, ~p"/admin/item_groups/#{item_group.id}")
+      assert html_response(conn, 200) =~ item.name
+    end
+  end
+
   describe "delete item_group" do
     setup [:create_event, :create_item_group]
 
@@ -97,5 +106,9 @@ defmodule AthenaWeb.Admin.ItemGroupControllerTest do
 
   defp create_item_group(_tags) do
     {:ok, item_group: item_group()}
+  end
+
+  defp create_item(%{item_group: item_group}) do
+    {:ok, item: item(item_group)}
   end
 end

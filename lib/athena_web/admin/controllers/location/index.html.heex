@@ -1,4 +1,12 @@
-<h1><%= gettext("locations") %></h1>
+<h1 class="mb-3"><%= gettext("locations") %></h1>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <.link navigate={~p"/admin/events/#{@event}/locations/new"}>
+    <button class="btn btn-secondary rounded" type="button">
+      <%= gettext("create new location") %>
+    </button>
+  </.link>
+</div>
 
 <table class="table table-striped">
   <thead>
@@ -9,15 +17,14 @@
   </thead>
   <tbody>
     <tr :for={location <- @locations}>
-      <td><%= location.name %></td>
+      <td>
+        <.link navigate={~p"/admin/locations/#{location}"}>
+          <%= location.name %>
+        </.link>
+      </td>
       <td>
         <span>
-          <.link navigate={~p"/admin/locations/#{location}"}>
-            <%= gettext("show") %>
-          </.link>
-        </span>
-        <span>
-          <.link navigate={~p"/admin/locations/#{location}/edit"}>
+          <.link navigate={~p"/admin/locations/#{location}/edit"} class="me-2">
             <%= gettext("edit") %>
           </.link>
         </span>
@@ -35,17 +42,16 @@
   </tbody>
 </table>
 
-<h2><%= gettext("actions") %></h2>
+<%!--
+<h3 class="mt-5"><%= gettext("actions") %></h3>
 
-<ul>
-  <li>
-    <.link navigate={~p"/admin/events/#{@event.id}/locations/new"}>
-      <%= gettext("create location") %>
-    </.link>
-  </li>
-  <li>
+<ul class="nav">
+  <li class="nav-item">
     <.link navigate={~p"/admin/events/#{@event.id}"}>
-      <%= gettext("event") %>
+      <button class="btn btn-secondary rounded" type="button">
+        <%= gettext("event overview") %>
+      </button>
     </.link>
   </li>
 </ul>
+--%>

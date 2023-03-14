@@ -1,13 +1,11 @@
-<h1><%= gettext("create item group") %></h1>
+<h1 class="mb-3"><%= gettext("create item group") %></h1>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <.link navigate={~p"/admin/events/#{@event.id}/item_groups"}>
+    <button class="btn btn-secondary rounded" type="button">
+      <%= gettext("back") %>
+    </button>
+  </.link>
+</div>
 
 <.item_group_form {assigns} action={~p"/admin/events/#{@event.id}/item_groups"} />
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/events/#{@event.id}/item_groups"}>
-      <%= gettext("back") %>
-    </.link>
-  </li>
-</ul>

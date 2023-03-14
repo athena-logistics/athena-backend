@@ -1,4 +1,12 @@
-<h1><%= gettext("movements") %></h1>
+<h1 class="mb-3"><%= @item.name %> / <%= gettext("movements") %></h1>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <.link navigate={~p"/admin/items/#{@item.id}/movements/new"}>
+    <button class="btn btn-secondary rounded" type="button">
+      <%= gettext("new movement") %>
+    </button>
+  </.link>
+</div>
 
 <table class="table table-striped">
   <thead>
@@ -34,12 +42,12 @@
       <td><%= movement.inserted_at %></td>
       <td>
         <span>
-          <.link navigate={~p"/admin/movements/#{movement}"}>
+          <.link navigate={~p"/admin/movements/#{movement}"} class="me-3">
             <%= gettext("show") %>
           </.link>
         </span>
         <span>
-          <.link navigate={~p"/admin/movements/#{movement}/edit"}>
+          <.link navigate={~p"/admin/movements/#{movement}/edit"} class="me-3">
             <%= gettext("edit") %>
           </.link>
         </span>
@@ -56,13 +64,3 @@
     </tr>
   </tbody>
 </table>
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/items/#{@item.id}/movements/new"}>
-      <%= gettext("new movement") %>
-    </.link>
-  </li>
-</ul>

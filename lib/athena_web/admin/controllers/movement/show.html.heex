@@ -1,11 +1,11 @@
-<h1>
+<h1 class="mb-5">
   <%= case @movement do
     %{
       source_location: %{name: source_location_name},
       destination_location: %{name: destination_location_name}
     } ->
       gettext(
-        "%{item} movement from %{source_location} to %{destination_location}",
+        "movement %{item}: %{source_location} → %{destination_location}",
         item: @movement.item.name,
         source_location: source_location_name,
         destination_location: destination_location_name
@@ -13,75 +13,95 @@
 
     %{source_location: %{name: source_location_name}} ->
       gettext(
-        "%{item} consumption at %{location}",
+        "consumption %{item}: %{location}",
         item: @movement.item.name,
         location: source_location_name
       )
 
     %{destination_location: %{name: destination_location_name}} ->
       gettext(
-        "%{item} supply to %{location}",
+        "supply %{item}: %{location}",
         item: @movement.item.name,
         location: destination_location_name
       )
   end %>
 </h1>
+<div class="row">
+  <div class="col-md-10">
+    <h2><%= gettext("properties") %></h2>
+    <dl>
+      <div class="row justify-content-start mb-3">
+        <div class="col-sm-3">
+          <dt><%= gettext("amount") %></dt>
+          <dd><%= @movement.amount %></dd>
+        </div>
+        <div class="col-sm-3">
+          <dt><%= gettext("item") %></dt>
+          <dd>
+            <.link navigate={~p"/admin/items/#{@movement.item_id}"}>
+              <%= @movement.item.name %>
+            </.link>
+          </dd>
+        </div>
+        <div class="col-sm-3">
+          <dt><%= gettext("item group") %></dt>
+          <dd>
+            <.link navigate={~p"/admin/item_groups/#{@movement.item_group.id}"}>
+              <%= @movement.item_group.name %>
+            </.link>
+          </dd>
+        </div>
+      </div>
+      <div class="row justify-content-start">
+        <div class="col-sm-3">
+          <dt><%= gettext("time") %></dt>
+          <dd><%= @movement.inserted_at %></dd>
+        </div>
+        <div class="col-sm-3">
+          <dt><%= gettext("source") %></dt>
+          <dd>
+            <%= case @movement.source_location do
+              nil ->
+                gettext("supply")
 
-<dl>
-  <dt><%= gettext("item group") %></dt>
-  <dd>
-    <.link navigate={~p"/admin/item_groups/#{@movement.item_group.id}"}>
-      <%= @movement.item_group.name %>
-    </.link>
-  </dd>
+              %{name: location_name, id: location_id} ->
+                link(location_name, to: ~p"/admin/locations/#{location_id}")
+            end %>
+          </dd>
+        </div>
+        <div class="col-sm-3">
+          <dt><%= gettext("destination_location") %></dt>
+          <dd>
+            <%= case @movement.destination_location do
+              nil ->
+                gettext("consumption")
 
-  <dt><%= gettext("item") %></dt>
-  <dd>
-    <.link navigate={~p"/admin/items/#{@movement.item_id}"}>
-      <%= @movement.item.name %>
-    </.link>
-  </dd>
+              %{name: location_name, id: location_id} ->
+                link(location_name, to: ~p"/admin/locations/#{location_id}")
+            end %>
+          </dd>
+        </div>
+      </div>
+    </dl>
+  </div>
+  <div class="col-md-2">
+    <h2><%= gettext("actions") %></h2>
 
-  <dt><%= gettext("source") %></dt>
-  <dd>
-    <%= case @movement.source_location do
-      nil ->
-        gettext("supply")
-
-      %{name: location_name, id: location_id} ->
-        link(location_name, to: ~p"/admin/locations/#{location_id}")
-    end %>
-  </dd>
-
-  <dt><%= gettext("destination_location") %></dt>
-  <dd>
-    <%= case @movement.destination_location do
-      nil ->
-        gettext("consumption")
-
-      %{name: location_name, id: location_id} ->
-        link(location_name, to: ~p"/admin/locations/#{location_id}")
-    end %>
-  </dd>
-
-  <dt><%= gettext("amount") %></dt>
-  <dd><%= @movement.amount %></dd>
-
-  <dt><%= gettext("time") %></dt>
-  <dd><%= @movement.inserted_at %></dd>
-</dl>
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/movements/#{@movement}/edit"}>
-      <%= gettext("edit") %>
-    </.link>
-  </li>
-  <li>
-    <.link navigate={~p"/admin/items/#{@movement.item_id}/movements"}>
-      <%= gettext("back") %>
-    </.link>
-  </li>
-</ul>
+    <ul class="nav flex-column gap-2">
+      <li>
+        <.link navigate={~p"/admin/movements/#{@movement}/edit"}>
+          <button class="btn btn-secondary rounded w-100" type="button">
+            <%= gettext("edit") %>
+          </button>
+        </.link>
+      </li>
+      <li>
+        <.link navigate={~p"/admin/items/#{@movement.item_id}/movements"}>
+          <button class="btn btn-secondary rounded w-100" type="button">
+            <%= gettext("back") %>
+          </button>
+        </.link>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -8,15 +8,6 @@ defmodule AthenaWeb.Admin.ItemControllerTest do
   @update_attrs %{name: "some updated name", unit: "Box", inverse: true}
   @invalid_attrs %{name: nil, unit: nil, inverse: nil}
 
-  describe "index" do
-    setup [:create_item_group]
-
-    test "lists all items", %{conn: conn, item_group: item_group} do
-      conn = get(conn, ~p"/admin/item_groups/#{item_group.id}/items")
-      assert html_response(conn, 200) =~ "items"
-    end
-  end
-
   describe "new item" do
     setup [:create_item_group]
 

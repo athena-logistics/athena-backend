@@ -2,14 +2,12 @@
   <%= gettext("edit %{item}", item: @item.name) %>
 </h1>
 
-<.item_form {assigns} action={~p"/admin/items/#{@item}"} />
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/item_groups/#{@item.item_group_id}/items"}>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <.link navigate={~p"/admin/item_groups/#{@item.item_group_id}/items"}>
+    <button class="btn btn-secondary rounded" type="button">
       <%= gettext("back") %>
-    </.link>
-  </li>
-</ul>
+    </button>
+  </.link>
+</div>
+
+<.item_form {assigns} action={~p"/admin/items/#{@item}"} />

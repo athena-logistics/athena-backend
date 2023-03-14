@@ -1,4 +1,12 @@
-<h1><%= gettext("item groups") %></h1>
+<h1 class="mb-3"><%= gettext("item groups") %></h1>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <.link navigate={~p"/admin/events/#{@event.id}/item_groups/new"}>
+    <button class="btn btn-secondary rounded" type="button">
+      <%= gettext("create item group") %>
+    </button>
+  </.link>
+</div>
 
 <table class="table table-striped">
   <thead>
@@ -9,15 +17,14 @@
   </thead>
   <tbody>
     <tr :for={item_group <- @item_groups}>
-      <td><%= item_group.name %></td>
+      <td>
+        <.link navigate={~p"/admin/item_groups/#{item_group}"}>
+          <%= item_group.name %>
+        </.link>
+      </td>
       <td>
         <span>
-          <.link navigate={~p"/admin/item_groups/#{item_group}"}>
-            <%= gettext("show") %>
-          </.link>
-        </span>
-        <span>
-          <.link navigate={~p"/admin/item_groups/#{item_group}/edit"}>
+          <.link navigate={~p"/admin/item_groups/#{item_group}/edit"} class="me-2">
             <%= gettext("edit") %>
           </.link>
         </span>
@@ -34,13 +41,3 @@
     </tr>
   </tbody>
 </table>
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/events/#{@event.id}/item_groups/new"}>
-      <%= gettext("create item group") %>
-    </.link>
-  </li>
-</ul>
