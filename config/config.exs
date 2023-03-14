@@ -15,9 +15,9 @@ config :athena_logistics,
   generators: [context_app: :athena_logistics, binary_id: true]
 
 config :athena_logistics, Athena.Repo,
-  migration_primary_key: [id: :uuid, type: :binary_id],
+  migration_primary_key: [id: :uuid, type: :binary_id, default: {:fragment, "GEN_RANDOM_UUID()"}],
   migration_foreign_key: [column: :id, type: :binary_id],
-  migration_timestamps: [type: :utc_datetime_usec]
+  migration_timestamps: [type: :utc_datetime_usec, default: {:fragment, "NOW()"}]
 
 # Configures the endpoint
 config :athena_logistics, AthenaWeb.Endpoint,

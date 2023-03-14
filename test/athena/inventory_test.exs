@@ -4,10 +4,15 @@ defmodule Athena.InventoryTest do
   import Athena.Fixture
 
   alias Athena.Inventory
+  alias Athena.Inventory.Event
+  alias Athena.Inventory.Item
+  alias Athena.Inventory.ItemGroup
+  alias Athena.Inventory.Location
+  alias Athena.Inventory.Movement
+  alias Athena.Inventory.StockEntry
+  alias Athena.Inventory.StockExpectation
 
   describe "events" do
-    alias Athena.Inventory.Event
-
     @valid_attrs %{name: "some name"}
     @update_attrs %{name: "some updated name"}
     @invalid_attrs %{name: nil}
@@ -53,11 +58,28 @@ defmodule Athena.InventoryTest do
       event = event()
       assert %Ecto.Changeset{} = Inventory.change_event(event)
     end
+
+    test "duplicate_event/2 duplicates all models except movements" do
+      event = event()
+      location = location(event)
+      item_group = item_group(event)
+      item = item(item_group)
+      stock_expectation(item, location)
+
+      assert {:ok, %Event{} = new_event} = Inventory.duplicate_event(event, "new name")
+
+      assert %Event{
+               locations: [%Location{stock_expectations: [%StockExpectation{}]}],
+               item_groups: [%ItemGroup{items: [%Item{}]}]
+             } =
+               Repo.preload(new_event,
+                 locations: [stock_expectations: []],
+                 item_groups: [items: []]
+               )
+    end
   end
 
   describe "locations" do
-    alias Athena.Inventory.Location
-
     @valid_attrs %{name: "some name"}
     @update_attrs %{name: "some updated name"}
     @invalid_attrs %{name: nil}
@@ -110,8 +132,6 @@ defmodule Athena.InventoryTest do
   end
 
   describe "item_groups" do
-    alias Athena.Inventory.ItemGroup
-
     @valid_attrs %{name: "some name"}
     @update_attrs %{name: "some updated name"}
     @invalid_attrs %{name: nil}
@@ -167,8 +187,6 @@ defmodule Athena.InventoryTest do
   end
 
   describe "items" do
-    alias Athena.Inventory.Item
-
     @valid_attrs %{name: "some name", unit: "Cask", inverse: false}
     @update_attrs %{name: "some updated name", unit: "Box", inverse: true}
     @invalid_attrs %{name: nil, unit: nil, inverse: nil}
@@ -442,8 +460,6 @@ defmodule Athena.InventoryTest do
   end
 
   describe "movements" do
-    alias Athena.Inventory.Movement
-
     @valid_attrs %{amount: 42}
     @update_attrs %{amount: 43}
     @invalid_attrs %{amount: nil}
@@ -512,9 +528,6 @@ defmodule Athena.InventoryTest do
   end
 
   describe "stock_expectations" do
-    alias Athena.Inventory.StockEntry
-    alias Athena.Inventory.StockExpectation
-
     @valid_attrs %{important_threshold: 5, warning_threshold: 3}
     @update_attrs %{important_threshold: 4}
     @invalid_attrs %{important_threshold: -3}

@@ -35,12 +35,12 @@ defmodule AthenaWeb.Router do
 
   pipeline :admin do
     plug :auth
-    plug :put_layout, {AthenaWeb.Layouts, :app}
+    plug :put_layout, html: {AthenaWeb.Layouts, :app}
     plug :put_root_layout, {AthenaWeb.Layouts, :admin_root}
   end
 
   pipeline :frontend do
-    plug :put_layout, {AthenaWeb.Layouts, :app}
+    plug :put_layout, html: {AthenaWeb.Layouts, :app}
     plug :put_root_layout, {AthenaWeb.Layouts, :frontend_root}
   end
 
@@ -49,6 +49,7 @@ defmodule AthenaWeb.Router do
 
     resources "/events", EventController
     resources "/events/:event/locations", LocationController, only: @subresource_actions
+    post "/events/:event/duplicate", EventController, :duplicate
     resources "/locations", LocationController, except: @subresource_actions
     resources "/events/:event/item_groups", ItemGroupController, only: @subresource_actions
     resources "/item_groups", ItemGroupController, except: @subresource_actions

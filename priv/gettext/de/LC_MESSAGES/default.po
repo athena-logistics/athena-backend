@@ -97,12 +97,12 @@ msgstr "Quellstandort"
 msgid "Event created successfully."
 msgstr "Veranstaltung wurde erfolgreich erstellt."
 
-#: lib/athena_web/admin/controllers/event_controller.ex:60
+#: lib/athena_web/admin/controllers/event_controller.ex:77
 #, elixir-autogen, elixir-format
 msgid "Event deleted successfully."
 msgstr "Veranstaltung wurde erfolgreich gelöscht."
 
-#: lib/athena_web/admin/controllers/event_controller.ex:47
+#: lib/athena_web/admin/controllers/event_controller.ex:64
 #, elixir-autogen, elixir-format
 msgid "Event updated successfully."
 msgstr "Veranstaltung wurde erfolgreich aktualisiert."
@@ -174,8 +174,7 @@ msgid "QR code"
 msgstr "QR-Code"
 
 #: lib/athena_web/admin/controllers/event/edit.html.heex:7
-#: lib/athena_web/admin/controllers/event/index.html.heex:9
-#: lib/athena_web/admin/controllers/event/index.html.heex:40
+#: lib/athena_web/admin/controllers/event/index.html.heex:17
 #: lib/athena_web/admin/controllers/event/new.html.heex:5
 #: lib/athena_web/admin/controllers/event/show.html.heex:29
 #: lib/athena_web/admin/controllers/item/edit.html.heex:7
@@ -220,7 +219,7 @@ msgstr "Aktionen"
 msgid "back"
 msgstr "Zurück"
 
-#: lib/athena_web/admin/controllers/event/index.html.heex:23
+#: lib/athena_web/admin/controllers/event/index.html.heex:30
 #: lib/athena_web/admin/controllers/event/show.html.heex:33
 #: lib/athena_web/admin/controllers/item/index.html.heex:26
 #: lib/athena_web/admin/controllers/item/show.html.heex:31
@@ -267,7 +266,7 @@ msgid "edit %{event}"
 msgstr "%{event} bearbeiten"
 
 #: lib/athena_web/admin/controllers/event/event_form.html.heex:2
-#: lib/athena_web/admin/controllers/event/index.html.heex:8
+#: lib/athena_web/admin/controllers/event/index.html.heex:16
 #: lib/athena_web/admin/controllers/item/index.html.heex:6
 #: lib/athena_web/admin/controllers/item/item_form.html.heex:2
 #: lib/athena_web/admin/controllers/item_group/index.html.heex:6
@@ -278,7 +277,7 @@ msgstr "%{event} bearbeiten"
 msgid "name"
 msgstr "Name"
 
-#: lib/athena_web/admin/controllers/event/index.html.heex:45
+#: lib/athena_web/admin/controllers/event/index.html.heex:8
 #: lib/athena_web/admin/controllers/event/new.html.heex:1
 #, elixir-autogen, elixir-format
 msgid "create event"
@@ -290,7 +289,7 @@ msgstr "Veranstaltung erstellen"
 msgid "create item"
 msgstr "Artikel erstellen"
 
-#: lib/athena_web/admin/controllers/event/index.html.heex:28
+#: lib/athena_web/admin/controllers/event/index.html.heex:35
 #: lib/athena_web/admin/controllers/item/index.html.heex:31
 #: lib/athena_web/admin/controllers/item_group/index.html.heex:26
 #: lib/athena_web/admin/controllers/location/index.html.heex:26
@@ -335,7 +334,6 @@ msgstr "Verschiebungungen"
 msgid "no"
 msgstr "Nein"
 
-#: lib/athena_web/admin/controllers/event/index.html.heex:18
 #: lib/athena_web/admin/controllers/item/index.html.heex:21
 #: lib/athena_web/admin/controllers/item_group/index.html.heex:16
 #: lib/athena_web/admin/controllers/location/index.html.heex:16
@@ -701,3 +699,18 @@ msgstr ""
 #, elixir-autogen, elixir-format, fuzzy
 msgid "destination"
 msgstr "Zielstandort"
+
+#: lib/athena_web/admin/controllers/event_controller.ex:37
+#, elixir-autogen, elixir-format
+msgid "Event duplicated"
+msgstr "Event dupliziert"
+
+#: lib/athena_web/admin/controllers/event/index.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "duplicate"
+msgstr "Duplizieren"
+
+#: lib/athena_web/admin/controllers/event_controller.ex:42
+#, elixir-autogen, elixir-format
+msgid "Event couldn't be duplicated"
+msgstr ""
