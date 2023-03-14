@@ -1,13 +1,11 @@
-<h1><%= gettext("create movement") %></h1>
+<h1 class="mb-3"><%= gettext("create movement") %></h1>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <.link navigate={~p"/admin/items/#{@item.id}/movements"}>
+    <button class="btn btn-secondary rounded" type="button">
+      <%= gettext("back") %>
+    </button>
+  </.link>
+</div>
 
 <.movement_form {assigns} action={~p"/admin/items/#{@item.id}/movements"} />
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/items/#{@item.id}/movements"}>
-      <%= gettext("back") %>
-    </.link>
-  </li>
-</ul>

@@ -36,7 +36,7 @@ defmodule AthenaWeb.Admin.ItemGroupController do
     item_group =
       id
       |> Inventory.get_item_group!()
-      |> Repo.preload(:event)
+      |> Repo.preload([:event, :items])
 
     render_with_navigation(conn, item_group.event, "show.html", item_group: item_group)
   end

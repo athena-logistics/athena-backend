@@ -1,7 +1,9 @@
 <.simple_form :let={f} for={@changeset} action={@action}>
-  <.input field={f[:name]} label={gettext("name")} />
+  <div class="mb-3">
+    <.input field={f[:name]} label={gettext("name")} />
+  </div>
 
   <:actions>
-    <.button type="submit"><%= gettext("Save") %></.button>
+    <.button class="btn btn-primary rounded" type="submit"><%= gettext("Save") %></.button>
   </:actions>
 </.simple_form>

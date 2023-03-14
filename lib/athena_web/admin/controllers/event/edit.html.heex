@@ -2,14 +2,12 @@
   <%= gettext("edit %{event}", event: @event.name) %>
 </h1>
 
-<.event_form {assigns} action={~p"/admin/events/#{@event}"} />
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/events"}>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <.link navigate={~p"/admin/events"}>
+    <button class="btn btn-secondary rounded" type="button">
       <%= gettext("back") %>
-    </.link>
-  </li>
-</ul>
+    </button>
+  </.link>
+</div>
+
+<.event_form {assigns} action={~p"/admin/events/#{@event}"} />
