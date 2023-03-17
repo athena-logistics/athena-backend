@@ -35,13 +35,13 @@ defmodule AthenaWeb.Router do
 
   pipeline :admin do
     plug :auth
-    plug :put_layout, {AthenaWeb.Admin.LayoutView, :app}
-    plug :put_root_layout, {AthenaWeb.Admin.LayoutView, :root}
+    plug :put_layout, {AthenaWeb.Layouts, :app}
+    plug :put_root_layout, {AthenaWeb.Layouts, :admin_root}
   end
 
   pipeline :frontend do
-    plug :put_layout, {AthenaWeb.Frontend.LayoutView, :app}
-    plug :put_root_layout, {AthenaWeb.Frontend.LayoutView, :root}
+    plug :put_layout, {AthenaWeb.Layouts, :app}
+    plug :put_root_layout, {AthenaWeb.Layouts, :frontend_root}
   end
 
   scope "/admin", AthenaWeb.Admin, as: :admin, assigns: %{access: :admin} do

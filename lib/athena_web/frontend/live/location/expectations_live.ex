@@ -1,7 +1,7 @@
 defmodule AthenaWeb.Frontend.Location.ExpectationsLive do
   @moduledoc false
 
-  use AthenaWeb, :live
+  use AthenaWeb, :live_view
 
   alias Athena.Inventory
   alias Athena.Inventory.Item

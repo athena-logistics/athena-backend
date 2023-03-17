@@ -26,7 +26,7 @@ defmodule AthenaWeb.ConnCase do
       import Phoenix.ConnTest
       import Phoenix.LiveViewTest
 
-      alias AthenaWeb.Router.Helpers, as: Routes
+      use AthenaWeb, :verified_routes
 
       # The default endpoint for testing
       @endpoint AthenaWeb.Endpoint

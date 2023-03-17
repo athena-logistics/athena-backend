@@ -20,7 +20,7 @@ defmodule AthenaWeb.Admin.EventController do
       {:ok, event} ->
         conn
         |> put_flash(:info, gettext("Event created successfully."))
-        |> redirect(to: Routes.admin_event_path(conn, :show, event))
+        |> redirect(to: ~p"/admin/events/#{event}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -45,7 +45,7 @@ defmodule AthenaWeb.Admin.EventController do
       {:ok, event} ->
         conn
         |> put_flash(:info, gettext("Event updated successfully."))
-        |> redirect(to: Routes.admin_event_path(conn, :show, event))
+        |> redirect(to: ~p"/admin/events/#{event}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render_with_navigation(conn, event, "edit.html", event: event, changeset: changeset)
@@ -58,6 +58,6 @@ defmodule AthenaWeb.Admin.EventController do
 
     conn
     |> put_flash(:info, gettext("Event deleted successfully."))
-    |> redirect(to: Routes.admin_event_path(conn, :index))
+    |> redirect(to: ~p"/admin/events")
   end
 end

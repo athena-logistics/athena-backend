@@ -46,7 +46,7 @@ defmodule AthenaWeb.Admin.MovementController do
       {:ok, movement} ->
         conn
         |> put_flash(:info, gettext("Movement created successfully."))
-        |> redirect(to: Routes.admin_movement_path(conn, :show, movement))
+        |> redirect(to: ~p"/admin/movements/#{movement}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render_with_navigation(conn, item.event, "new.html",
@@ -94,7 +94,7 @@ defmodule AthenaWeb.Admin.MovementController do
       {:ok, movement} ->
         conn
         |> put_flash(:info, gettext("Movement updated successfully."))
-        |> redirect(to: Routes.admin_movement_path(conn, :show, movement))
+        |> redirect(to: ~p"/admin/movements/#{movement}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render_with_navigation(conn, movement.event, "edit.html",
@@ -111,6 +111,6 @@ defmodule AthenaWeb.Admin.MovementController do
 
     conn
     |> put_flash(:info, gettext("Movement deleted successfully."))
-    |> redirect(to: Routes.admin_movement_path(conn, :index, item_id))
+    |> redirect(to: ~p"/admin/items/#{item_id}/movements")
   end
 end

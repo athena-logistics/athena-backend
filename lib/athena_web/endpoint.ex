@@ -28,7 +28,7 @@ defmodule AthenaWeb.Endpoint do
     at: "/",
     from: :athena_logistics,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: AthenaWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

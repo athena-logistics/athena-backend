@@ -106,7 +106,7 @@
         <%= case location do %>
           <% %Location{name: location_name} -> %>
             <td>
-              <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, location)}>
+              <.link navigate={~p"/logistics/locations/#{location}"}>
                 <%= location_name %>
               </.link>
             </td>
@@ -126,7 +126,7 @@
         <%= case location do %>
           <% %Location{name: location_name} -> %>
             <td>
-              <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, location)}>
+              <.link navigate={~p"/logistics/locations/#{location}"}>
                 <%= location_name %>
               </.link>
             </td>

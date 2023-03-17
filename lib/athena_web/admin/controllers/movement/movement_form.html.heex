@@ -1,0 +1,23 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.input
+    field={f[:source_location_id]}
+    type="select"
+    label={gettext("source location")}
+    options={Enum.map(@locations, &{&1.name, &1.id})}
+    prompt={gettext("supply")}
+  />
+
+  <.input
+    field={f[:destination_location_id]}
+    type="select"
+    label={gettext("destination location")}
+    options={Enum.map(@locations, &{&1.name, &1.id})}
+    prompt={gettext("destination")}
+  />
+
+  <.input field={f[:amount]} type="number" label={gettext("amount")} />
+
+  <:actions>
+    <.button type="submit"><%= gettext("Save") %></.button>
+  </:actions>
+</.simple_form>

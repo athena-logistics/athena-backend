@@ -38,18 +38,12 @@
                 &match?(%StockExpectation{item_id: ^item_id}, &1)
               ) %>
             <th scope="row">
-              <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, location)}>
+              <.link navigate={~p"/logistics/locations/#{location}"}>
                 <%= location_name %>
               </.link>
             </th>
             <th scope="row">
-              <.link navigate={
-                Routes.frontend_logistics_live_path(
-                  @socket,
-                  AthenaWeb.Frontend.Dashboard.ItemStatsLive,
-                  item
-                )
-              }>
+              <.link navigate={~p"/logistics/items/#{item}/overview"}>
                 <%= item_name %>
               </.link>
             </th>
@@ -64,18 +58,7 @@
             <td>
               <a
                 href={
-                  Routes.frontend_logistics_movement_path(@socket, :relocate, @event,
-                    movement_live: %{
-                      destination_location_id: location_id,
-                      movements: %{
-                        0 => %{
-                          id: Ecto.UUID.generate(),
-                          item_id: item_id,
-                          amount: missing_count
-                        }
-                      }
-                    }
-                  )
+                  ~p"/logistics/events/#{@event}/movements/relocate?#{%{movement_live: %{destination_location_id: location_id, movements: %{0 => %{id: Ecto.UUID.generate(), item_id: item_id, amount: missing_count}}}}}"
                 }
                 class="btn"
                 title={pgettext("Event Missing Items", "Move")}

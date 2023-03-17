@@ -1,0 +1,46 @@
+<h1><%= gettext("item groups") %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= gettext("name") %></th>
+      <th><%= gettext("actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr :for={item_group <- @item_groups}>
+      <td><%= item_group.name %></td>
+      <td>
+        <span>
+          <.link navigate={~p"/admin/item_groups/#{item_group}"}>
+            <%= gettext("show") %>
+          </.link>
+        </span>
+        <span>
+          <.link navigate={~p"/admin/item_groups/#{item_group}/edit"}>
+            <%= gettext("edit") %>
+          </.link>
+        </span>
+        <span>
+          <%= "delete"
+          |> gettext()
+          |> link(
+            to: ~p"/admin/item_groups/#{item_group}",
+            method: :delete,
+            data: [confirm: "Are you sure?"]
+          ) %>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/events/#{@event.id}/item_groups/new"}>
+      <%= gettext("create item group") %>
+    </.link>
+  </li>
+</ul>

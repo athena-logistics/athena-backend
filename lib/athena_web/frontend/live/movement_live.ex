@@ -1,7 +1,7 @@
 defmodule AthenaWeb.Frontend.MovementLive do
   @moduledoc false
 
-  use AthenaWeb, :live
+  use AthenaWeb, :live_view
   use Ecto.Schema
 
   import Ecto.Changeset
@@ -70,14 +70,7 @@ defmodule AthenaWeb.Frontend.MovementLive do
         {:noreply,
          socket
          |> put_flash(:info, gettext("Movement created successfully."))
-         |> push_redirect(
-           to:
-             Routes.frontend_logistics_live_path(
-               socket,
-               AthenaWeb.Frontend.Dashboard.TableLive,
-               socket.assigns.event
-             )
-         )}
+         |> push_redirect(to: ~p"/logistics/events/#{socket.assigns.event}/overview")}
 
       %Changeset{valid?: false} = changeset ->
         {:noreply, assign(socket, changeset: %Changeset{changeset | action: :insert})}

@@ -1,0 +1,48 @@
+<h1><%= @event.name %></h1>
+
+<h2>
+  <%= gettext("logistics overview link") %>
+</h2>
+
+<% link = ~p"/logistics/events/#{@event}/overview" %>
+
+<.link navigate={link}><%= gettext("go to public view") %></.link>
+
+<div>
+  <h3>
+    <%= gettext("QR code") %>
+  </h3>
+
+  <% qr_code =
+    link
+    |> EQRCode.encode()
+    |> EQRCode.svg() %>
+
+  <a
+    href={"data:image/svg+xml;base64,#{Base.encode64(qr_code)}"}
+    download={gettext("%{event} logistics", event: @event.name) <> ".svg"}
+  >
+    <%= raw(qr_code) %>
+  </a>
+</div>
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/events/#{@event}/edit"}><%= gettext("edit") %></.link>
+  </li>
+  <li>
+    <.link navigate={~p"/admin/events"}><%= gettext("back") %></.link>
+  </li>
+  <li>
+    <.link navigate={~p"/admin/events/#{@event}/locations"}>
+      <%= gettext("locations") %>
+    </.link>
+  </li>
+  <li>
+    <.link navigate={~p"/admin/events/#{@event}/item_groups"}>
+      <%= gettext("item groups") %>
+    </.link>
+  </li>
+</ul>

@@ -1,0 +1,9 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.input field={f[:name]} label={gettext("name")} />
+  <.input field={f[:unit]} label={gettext("unit")} />
+  <.input field={f[:inverse]} type="checkbox" label={gettext("inverse")} />
+
+  <:actions>
+    <.button type="submit"><%= gettext("Save") %></.button>
+  </:actions>
+</.simple_form>

@@ -1,0 +1,68 @@
+<h1><%= gettext("movements") %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= gettext("amount") %></th>
+      <th><%= gettext("source location") %></th>
+      <th><%= gettext("destination location") %></th>
+      <th><%= gettext("time") %></th>
+      <th><%= gettext("actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr :for={movement <- @movements}>
+      <td><%= movement.amount %></td>
+      <td>
+        <%= case movement.source_location do
+          nil ->
+            gettext("supply")
+
+          %{name: location_name, id: location_id} ->
+            link(location_name, to: ~p"/admin/locations/#{location_id}")
+        end %>
+      </td>
+      <td>
+        <%= case movement.destination_location do
+          nil ->
+            gettext("consumption")
+
+          %{name: location_name, id: location_id} ->
+            link(location_name, to: ~p"/admin/locations/#{location_id}")
+        end %>
+      </td>
+      <td><%= movement.inserted_at %></td>
+      <td>
+        <span>
+          <.link navigate={~p"/admin/movements/#{movement}"}>
+            <%= gettext("show") %>
+          </.link>
+        </span>
+        <span>
+          <.link navigate={~p"/admin/movements/#{movement}/edit"}>
+            <%= gettext("edit") %>
+          </.link>
+        </span>
+        <span>
+          <%= "delete"
+          |> gettext
+          |> link(
+            to: ~p"/admin/movements/#{movement}",
+            method: :delete,
+            data: [confirm: "Are you sure?"]
+          ) %>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/items/#{@item.id}/movements/new"}>
+      <%= gettext("new movement") %>
+    </.link>
+  </li>
+</ul>

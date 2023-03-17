@@ -4,7 +4,7 @@
     assert_redirect: 1,
     refute_redirected: 2
   ],
-  import_deps: [:ecto, :phoenix, :phoenix_live_view, :absinthe],
+  import_deps: [:ecto, :ecto_sql, :phoenix, :phoenix_live_view, :absinthe],
   inputs: [
     "{mix,.formatter}.exs",
     "*.{ex,exs}",

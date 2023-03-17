@@ -13,13 +13,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
       <ul class="nav nav-tabs">
         <li class="nav-item">
           <.link
-            navigate={
-              Routes.frontend_logistics_live_path(
-                @socket,
-                AthenaWeb.Frontend.Dashboard.TableLive,
-                @event
-              )
-            }
+            navigate={~p"/logistics/events/#{@event}/overview"}
             class={["nav-link", if(@active_tab == :table, do: "active")]}
           >
             <%= gettext("Table") %>
@@ -27,13 +21,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
         </li>
         <li class="nav-item">
           <.link
-            navigate={
-              Routes.frontend_logistics_live_path(
-                @socket,
-                AthenaWeb.Frontend.Dashboard.ItemLive,
-                @event
-              )
-            }
+            navigate={~p"/logistics/events/#{@event}/overview/item"}
             class={["nav-link", if(@active_tab == :item, do: "active")]}
           >
             <%= gettext("Item") %>
@@ -41,13 +29,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
         </li>
         <li class="nav-item">
           <.link
-            navigate={
-              Routes.frontend_logistics_live_path(
-                @socket,
-                AthenaWeb.Frontend.Dashboard.LocationLive,
-                @event
-              )
-            }
+            navigate={~p"/logistics/events/#{@event}/overview/location"}
             class={["nav-link", if(@active_tab == :location, do: "active")]}
           >
             <%= gettext("Location") %>
@@ -55,13 +37,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
         </li>
         <li class="nav-item">
           <.link
-            navigate={
-              Routes.frontend_logistics_live_path(
-                @socket,
-                AthenaWeb.Frontend.Dashboard.MissingItemsLive,
-                @event
-              )
-            }
+            navigate={~p"/logistics/events/#{@event}/overview/missing-items"}
             class={["nav-link", if(@active_tab == :missing_items, do: "active")]}
           >
             <%= gettext("Missing Items") %>

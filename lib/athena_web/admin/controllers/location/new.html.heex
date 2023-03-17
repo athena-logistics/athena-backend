@@ -1,0 +1,13 @@
+<h1><%= gettext("create location") %></h1>
+
+<.location_form {assigns} action={~p"/admin/events/#{@event.id}/locations"} />
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/events/#{@event.id}/locations"}>
+      <%= gettext("back") %>
+    </.link>
+  </li>
+</ul>

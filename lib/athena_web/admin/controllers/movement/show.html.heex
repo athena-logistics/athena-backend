@@ -1,0 +1,87 @@
+<h1>
+  <%= case @movement do
+    %{
+      source_location: %{name: source_location_name},
+      destination_location: %{name: destination_location_name}
+    } ->
+      gettext(
+        "%{item} movement from %{source_location} to %{destination_location}",
+        item: @movement.item.name,
+        source_location: source_location_name,
+        destination_location: destination_location_name
+      )
+
+    %{source_location: %{name: source_location_name}} ->
+      gettext(
+        "%{item} consumption at %{location}",
+        item: @movement.item.name,
+        location: source_location_name
+      )
+
+    %{destination_location: %{name: destination_location_name}} ->
+      gettext(
+        "%{item} supply to %{location}",
+        item: @movement.item.name,
+        location: destination_location_name
+      )
+  end %>
+</h1>
+
+<dl>
+  <dt><%= gettext("item group") %></dt>
+  <dd>
+    <.link navigate={~p"/admin/item_groups/#{@movement.item_group.id}"}>
+      <%= @movement.item_group.name %>
+    </.link>
+  </dd>
+
+  <dt><%= gettext("item") %></dt>
+  <dd>
+    <.link navigate={~p"/admin/items/#{@movement.item_id}"}>
+      <%= @movement.item.name %>
+    </.link>
+  </dd>
+
+  <dt><%= gettext("source") %></dt>
+  <dd>
+    <%= case @movement.source_location do
+      nil ->
+        gettext("supply")
+
+      %{name: location_name, id: location_id} ->
+        link(location_name, to: ~p"/admin/locations/#{location_id}")
+    end %>
+  </dd>
+
+  <dt><%= gettext("destination_location") %></dt>
+  <dd>
+    <%= case @movement.destination_location do
+      nil ->
+        gettext("consumption")
+
+      %{name: location_name, id: location_id} ->
+        link(location_name, to: ~p"/admin/locations/#{location_id}")
+    end %>
+  </dd>
+
+  <dt><%= gettext("amount") %></dt>
+  <dd><%= @movement.amount %></dd>
+
+  <dt><%= gettext("time") %></dt>
+  <dd><%= @movement.inserted_at %></dd>
+</dl>
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/movements/#{@movement}/edit"}>
+      <%= gettext("edit") %>
+    </.link>
+  </li>
+  <li>
+    <.link navigate={~p"/admin/items/#{@movement.item_id}/movements"}>
+      <%= gettext("back") %>
+    </.link>
+  </li>
+</ul>
