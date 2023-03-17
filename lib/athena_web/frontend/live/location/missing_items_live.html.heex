@@ -47,20 +47,10 @@
             <td><%= AthenaWeb.Cldr.Number.to_string!(stock) %></td>
             <td><%= AthenaWeb.Cldr.Number.to_string!(missing_count) %></td>
             <td>
+              <!--~p"/logistics/events/#{event}/movements/relocate"-->
               <a
                 href={
-                  Routes.frontend_logistics_movement_path(@socket, :relocate, @location.event,
-                    movement_live: %{
-                      destination_location_id: @location,
-                      movements: %{
-                        0 => %{
-                          id: Ecto.UUID.generate(),
-                          item_id: item_id,
-                          amount: missing_count
-                        }
-                      }
-                    }
-                  )
+                  ~p"/logistics/events/#{@location.event}/movements/relocate?#{[movement_live: %{destination_location_id: @location, movements: %{0 => %{id: Ecto.UUID.generate(), item_id: item_id, amount: missing_count}}}]}"
                 }
                 class="btn"
                 title={pgettext("Location Missing Items", "Move")}

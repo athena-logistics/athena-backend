@@ -13,13 +13,8 @@ defmodule AthenaWeb.Frontend.Navigation do
     ~H"""
     <nav class="navbar navbar-expand-lg navbar-light bg-primary mb-5">
       <div class="container-fluid">
-        <a
-          href={
-            Routes.frontend_logistics_live_path(@conn, AthenaWeb.Frontend.Dashboard.TableLive, @event)
-          }
-          class="navbar-brand"
-        >
-          <img src={Routes.static_path(@conn, "/images/icon.png")} width="30" />
+        <a href={~p"/logistics/events/#{@event}/overview"} class="navbar-brand">
+          <img src={~p"/images/icon.png"} width="30" />
           <%= @event.name %>
         </a>
         <label
@@ -36,32 +31,17 @@ defmodule AthenaWeb.Frontend.Navigation do
         <main class="navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <.link
-                navigate={
-                  Routes.frontend_logistics_live_url(
-                    @conn,
-                    AthenaWeb.Frontend.Dashboard.TableLive,
-                    @event
-                  )
-                }
-                class="nav-link"
-              >
+              <.link navigate={~p"/logistics/events/#{@event}/overview"} class="nav-link">
                 <%= gettext("Logistics Overview") %>
               </.link>
             </li>
             <li class="nav-item">
-              <.link
-                navigate={Routes.frontend_logistics_movement_url(@conn, :supply, @event)}
-                class="nav-link"
-              >
+              <.link navigate={~p"/logistics/events/#{@event}/movements/supply"} class="nav-link">
                 <%= gettext("Supply Item") %>
               </.link>
             </li>
             <li class="nav-item">
-              <.link
-                navigate={Routes.frontend_logistics_movement_url(@conn, :relocate, @event)}
-                class="nav-link"
-              >
+              <.link navigate={~p"/logistics/events/#{@event}/movements/relocate"} class="nav-link">
                 <%= gettext("Move Item") %>
               </.link>
             </li>
@@ -78,10 +58,7 @@ defmodule AthenaWeb.Frontend.Navigation do
               <input type="checkbox" id="toggle-nav-locations" hidden class="toggle-dropdown" />
               <ul class="dropdown-menu show">
                 <li :for={%Location{name: location_name} = location <- @locations} class="nav-item">
-                  <.link
-                    navigate={Routes.frontend_logistics_inventory_path(@conn, :show, location)}
-                    class="dropdown-item"
-                  >
+                  <.link navigate={~p"/logistics/locations/#{location}"} class="dropdown-item">
                     <%= location_name %>
                   </.link>
                 </li>

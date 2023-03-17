@@ -23,15 +23,7 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLiveTest do
     location: location,
     item: item
   } do
-    conn =
-      get(
-        conn,
-        Routes.frontend_logistics_live_path(
-          conn,
-          AthenaWeb.Frontend.Dashboard.TableLive,
-          event.id
-        )
-      )
+    conn = get(conn, ~p"/logistics/events/#{event.id}/overview")
 
     assert html = html_response(conn, 200)
 

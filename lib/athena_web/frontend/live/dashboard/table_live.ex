@@ -1,7 +1,7 @@
 defmodule AthenaWeb.Frontend.Dashboard.TableLive do
   @moduledoc false
 
-  use AthenaWeb, :live
+  use AthenaWeb, :live_view
 
   alias Athena.Inventory
   alias Athena.Inventory.Event
@@ -98,7 +98,7 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
         <%= case cell do %>
           <% %Location{name: name} = location -> %>
             <th class="location">
-              <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, location)}>
+              <.link navigate={~p"/logistics/locations/#{location}"}>
                 <%= name %>
               </.link>
             </th>
@@ -111,13 +111,7 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
           <% %Item{name: name, unit: unit} = item -> %>
             <th class="item">
               <div>
-                <.link navigate={
-                  Routes.frontend_logistics_live_path(
-                    @socket,
-                    AthenaWeb.Frontend.Dashboard.ItemStatsLive,
-                    item
-                  )
-                }>
+                <.link navigate={~p"/logistics/items/#{item}/overview"}>
                   <%= name %>
                 </.link>
                 (<%= unit %>)
@@ -129,7 +123,7 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
             <td class="item-group-spacer"></td>
           <% %StockEntry{stock: stock, status: status} = entry -> %>
             <td class={["stock-entry", status]}>
-              <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, entry.location_id) <>
+              <.link navigate={~p"/logistics/locations/#{entry.location_id}" <>
             "#item-#{entry.item_id}"}>
                 <%= AthenaWeb.Cldr.Number.to_string!(stock) %>
               </.link>

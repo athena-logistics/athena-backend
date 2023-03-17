@@ -1,0 +1,43 @@
+<h1><%= @item.name %></h1>
+
+<dl>
+  <dt><%= gettext("unit") %></dt>
+  <dd><%= @item.unit %></dd>
+
+  <dt><%= gettext("inverse") %></dt>
+  <dd><%= if @item.inverse, do: gettext("yes"), else: gettext("no") %></dd>
+</dl>
+
+<h2><%= gettext("movements") %></h2>
+
+<dl>
+  <dt>Supply</dt>
+  <dd><%= @supply %></dd>
+
+  <dt>Stock</dt>
+  <dd><%= @stock %></dd>
+
+  <dt>Consumption</dt>
+  <dd><%= @consumption %></dd>
+
+  <dt>Relocations</dt>
+  <dd><%= @relocations %></dd>
+</dl>
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/items/#{@item}/edit"}><%= gettext("edit") %></.link>
+  </li>
+  <li>
+    <.link navigate={~p"/admin/item_groups/#{@item.item_group_id}/items"}>
+      <%= gettext("back") %>
+    </.link>
+  </li>
+  <li>
+    <.link navigate={~p"/admin/items/#{@item.id}/movements"}>
+      <%= gettext("movements") %>
+    </.link>
+  </li>
+</ul>

@@ -32,13 +32,7 @@
             Enum.group_by(item_stock_entries, & &1.status)
           ) %>
         <h3>
-          <.link navigate={
-            Routes.frontend_logistics_live_path(
-              @socket,
-              AthenaWeb.Frontend.Dashboard.ItemStatsLive,
-              item
-            )
-          }>
+          <.link navigate={~p"/logistics/items/#{item}/overview"}>
             <%= item_name %>
           </.link>
         </h3>

@@ -8,22 +8,18 @@
     <% end %>
   </h1>
 
-  <.form :let={f} for={@changeset} phx-change="validate" phx-submit="save">
-    <div :if={@changeset.action} class="alert alert-danger">
-      <p>
-        <%= gettext("Oops, something went wrong! Please check the errors below.") %>
-      </p>
-    </div>
-
+  <.simple_form :let={f} for={@changeset} phx-change="validate" phx-submit="save">
     <div class="row align-items-center">
       <div class="col">
         <%= if @live_action == :relocate do %>
-          <%= select(f, :source_location_id, Enum.map(@event.locations, &{&1.name, &1.id}),
-            prompt: gettext("From"),
-            required: true,
-            class: "form-select form-select-lg"
-          ) %>
-          <%= error_tag(f, :source_location_id) %>
+          <.input
+            field={f[:source_location_id]}
+            type="select"
+            options={Enum.map(@event.locations, &{&1.name, &1.id})}
+            prompt={gettext("From")}
+            input_class="form-select-lg"
+            required
+          />
         <% end %>
       </div>
 
@@ -32,118 +28,126 @@
       </div>
 
       <div class="col">
-        <%= select(f, :destination_location_id, Enum.map(@event.locations, &{&1.name, &1.id}),
-          prompt: gettext("To"),
-          required: true,
-          class: "form-select form-select-lg"
-        ) %>
-        <%= error_tag(f, :destination_location_id) %>
+        <.input
+          field={f[:destination_location_id]}
+          type="select"
+          options={Enum.map(@event.locations, &{&1.name, &1.id})}
+          prompt={gettext("To")}
+          input_class="form-select-lg"
+          required
+        />
       </div>
     </div>
 
-    <div :for={movement_form <- inputs_for(f, :movements)} class="item mb-5 mt-5">
-      <% {stock_out, stock_in} = get_stock(@event, @changeset, movement_form.source) %>
-      <%= hidden_input(movement_form, :id) %>
+    <.inputs_for :let={movement_form} field={f[:movements]}>
+      <div class="item mb-5 mt-5">
+        <% {stock_out, stock_in} = get_stock(@event, @changeset, movement_form.source) %>
+        <.input type="hidden" field={movement_form[:id]} />
 
-      <div class="row align-items-center mb-2">
-        <div class="col">
-          <%= select(
-            movement_form,
-            :item_id,
-            Enum.map(
-              @event.item_groups,
-              &{&1.name,
-               Enum.map(&1.items, fn %Item{name: name, id: id, unit: unit} ->
-                 {"#{name} (#{unit})", id}
-               end)}
-            ),
-            prompt: gettext("item"),
-            required: true,
-            class: "form-select form-select-lg"
-          ) %>
-          <%= error_tag(movement_form, :item_id) %>
+        <div class="row align-items-center mb-2">
+          <div class="col">
+            <.input
+              field={movement_form[:item_id]}
+              type="select"
+              options={
+                Enum.map(
+                  @event.item_groups,
+                  &{&1.name,
+                   Enum.map(&1.items, fn %Item{name: name, id: id, unit: unit} ->
+                     {"#{name} (#{unit})", id}
+                   end)}
+                )
+              }
+              prompt={gettext("item")}
+              input_class="form-select-lg"
+              required
+            />
+          </div>
+
+          <div class="col flex-shrink">
+            <button
+              phx-click="remove_movement"
+              class="btn btn-outline-danger"
+              type="button"
+              phx-value-id={Changeset.fetch_field!(movement_form.source, :id)}
+            >
+              <i class="fa-lg fa-solid fa-x"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row align-items-center mb-2">
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-outline-light float-end btn-lg"
+              phx-click="advance_amount"
+              phx-value-delta={-1}
+              phx-value-id={Changeset.fetch_field!(movement_form.source, :id)}
+              disabled={Changeset.fetch_field!(movement_form.source, :amount) < 2}
+            >
+              <i class="fa-lg fa-solid fa-minus"></i>
+            </button>
+          </div>
+
+          <div class="col align-items-center">
+            <.input
+              field={movement_form[:amount]}
+              required
+              type="number"
+              min="0"
+              max="999"
+              placeholder="0"
+            />
+          </div>
+
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-lg"
+              phx-click="advance_amount"
+              phx-value-delta={1}
+              phx-value-id={Changeset.fetch_field!(movement_form.source, :id)}
+              disabled={Changeset.fetch_field!(movement_form.source, :amount) > 999}
+            >
+              <i class="fa-lg fa-solid fa-plus"></i>
+            </button>
+          </div>
         </div>
 
-        <div class="col flex-shrink">
-          <button
-            phx-click="remove_movement"
-            class="btn btn-outline-danger"
-            type="button"
-            phx-value-id={Changeset.fetch_field!(movement_form.source, :id)}
-          >
-            <i class="fa-lg fa-solid fa-x"></i>
-          </button>
+        <div :if={stock_out || stock_in} class="row preview">
+          <div class="text-end col">
+            <%= if stock_out do %>
+              <s><%= stock_out %></s> <br />
+              <%= stock_out - (Changeset.fetch_field!(movement_form.source, :amount) || 0) %>
+            <% end %>
+          </div>
+
+          <svg class="arrow col" xmlns="http://www.w3.org/2000/svg" viewBox="10 447.5 980 105">
+            <path d="M10 482.5h910v35H10v-35z"></path>
+            <path d="M815 447.5 990 500l-175 52.5v-105z"></path>
+          </svg>
+
+          <div class="in col">
+            <%= if stock_in do %>
+              <s><%= stock_in %></s> <br />
+              <%= stock_in + (Changeset.fetch_field!(movement_form.source, :amount) || 0) %>
+            <% end %>
+          </div>
         </div>
       </div>
-      <div class="row align-items-center mb-2">
-        <div class="col">
-          <button
-            type="button"
-            class="btn btn-outline-light float-end btn-lg"
-            phx-click="advance_amount"
-            phx-value-delta={-1}
-            phx-value-id={Changeset.fetch_field!(movement_form.source, :id)}
-            disabled={Changeset.fetch_field!(movement_form.source, :amount) < 2}
-          >
-            <i class="fa-lg fa-solid fa-minus"></i>
-          </button>
-        </div>
+    </.inputs_for>
 
-        <div class="col align-items-center">
-          <%= number_input(movement_form, :amount,
-            required: true,
-            min: 0,
-            max: 999,
-            placeholder: "0",
-            class: "form-control"
-          ) %>
-          <%= error_tag(movement_form, :amount) %>
-        </div>
-
-        <div class="col">
-          <button
-            type="button"
-            class="btn btn-outline-primary btn-lg"
-            phx-click="advance_amount"
-            phx-value-delta={1}
-            phx-value-id={Changeset.fetch_field!(movement_form.source, :id)}
-            disabled={Changeset.fetch_field!(movement_form.source, :amount) > 999}
-          >
-            <i class="fa-lg fa-solid fa-plus"></i>
-          </button>
-        </div>
-      </div>
-
-      <div :if={stock_out || stock_in} class="row preview">
-        <div class="text-end col">
-          <%= if stock_out do %>
-            <s><%= stock_out %></s> <br />
-            <%= stock_out - (Changeset.fetch_field!(movement_form.source, :amount) || 0) %>
-          <% end %>
-        </div>
-
-        <svg class="arrow col" xmlns="http://www.w3.org/2000/svg" viewBox="10 447.5 980 105">
-          <path d="M10 482.5h910v35H10v-35z"></path>
-          <path d="M815 447.5 990 500l-175 52.5v-105z"></path>
-        </svg>
-
-        <div class="in col">
-          <%= if stock_in do %>
-            <s><%= stock_in %></s> <br />
-            <%= stock_in + (Changeset.fetch_field!(movement_form.source, :amount) || 0) %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <button
-      phx-click="add_movement"
-      type="button"
-      class="d-block btn btn-outline-success mx-auto mb-5"
-    >
-      <i class="fa-solid fa-plus"></i>
-    </button>
-
-    <%= "save" |> gettext |> submit(class: "d-block btn btn-primary btn-lg mx-auto") %>
-  </.form>
+    <:actions>
+      <.button
+        phx-click="add_movement"
+        type="button"
+        class="d-block btn btn-outline-success mx-auto mb-5"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </.button>
+      <.button type="submit" class="d-block btn btn-primary btn-lg mx-auto">
+        <%= gettext("Save") %>
+      </.button>
+    </:actions>
+  </.simple_form>
 </div>

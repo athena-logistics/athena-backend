@@ -1,7 +1,7 @@
 defmodule AthenaWeb.Frontend.Location.MissingItemsLive do
   @moduledoc false
 
-  use AthenaWeb, :live
+  use AthenaWeb, :live_view
 
   import Ecto.Query, only: [where: 3, preload: 2]
 

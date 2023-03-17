@@ -1,0 +1,13 @@
+<h1><%= gettext("create movement") %></h1>
+
+<.movement_form {assigns} action={~p"/admin/items/#{@item.id}/movements"} />
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/items/#{@item.id}/movements"}>
+      <%= gettext("back") %>
+    </.link>
+  </li>
+</ul>

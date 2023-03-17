@@ -13,7 +13,7 @@ defmodule AthenaWeb.Frontend.Location.Tabs do
       <ul class="nav nav-tabs">
         <li class="nav-item">
           <.link
-            navigate={Routes.frontend_logistics_inventory_path(@socket, :show, @location)}
+            navigate={~p"/logistics/locations/#{@location}"}
             class={["nav-link", if(@active_tab == :inventory, do: "active")]}
           >
             <%= gettext("Inventory") %>
@@ -21,7 +21,7 @@ defmodule AthenaWeb.Frontend.Location.Tabs do
         </li>
         <li class="nav-item">
           <.link
-            navigate={Routes.frontend_logistics_missing_items_path(@socket, :show, @location)}
+            navigate={~p"/logistics/locations/#{@location}/missing-items"}
             class={["nav-link", if(@active_tab == :missing_items, do: "active")]}
           >
             <%= gettext("Missing Items") %>
@@ -29,7 +29,7 @@ defmodule AthenaWeb.Frontend.Location.Tabs do
         </li>
         <li class="nav-item">
           <.link
-            navigate={Routes.frontend_logistics_expectations_path(@socket, :show, @location)}
+            navigate={~p"/logistics/locations/#{@location}/expectations"}
             class={["nav-link", if(@active_tab == :expectations, do: "active")]}
           >
             <%= gettext("Expectations") %>
@@ -37,7 +37,7 @@ defmodule AthenaWeb.Frontend.Location.Tabs do
         </li>
         <li class="nav-item">
           <.link
-            navigate={Routes.frontend_logistics_stats_path(@socket, :show, @location)}
+            navigate={~p"/logistics/locations/#{@location}/stats"}
             class={["nav-link", if(@active_tab == :stats, do: "active")]}
           >
             <%= gettext("Stats") %>

@@ -1,0 +1,51 @@
+<h1><%= gettext("items") %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= gettext("name") %></th>
+      <th><%= gettext("unit") %></th>
+      <th><%= gettext("inverse") %></th>
+      <th><%= gettext("actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr :for={item <- @items}>
+      <td><%= item.name %></td>
+      <td><%= item.unit %></td>
+      <td><%= if item.inverse, do: gettext("yes"), else: gettext("no") %></td>
+
+      <td>
+        <span>
+          <.link navigate={~p"/admin/items/#{item}"}>
+            <%= gettext("show") %>
+          </.link>
+        </span>
+        <span>
+          <.link navigate={~p"/admin/items/#{item}/edit"}>
+            <%= gettext("edit") %>
+          </.link>
+        </span>
+        <span>
+          <%= "delete"
+          |> gettext
+          |> link(
+            to: ~p"/admin/items/#{item}",
+            method: :delete,
+            data: [confirm: "Are you sure?"]
+          ) %>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/item_groups/#{@item_group.id}/items/new"}>
+      <%= gettext("create item") %>
+    </.link>
+  </li>
+</ul>

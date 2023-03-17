@@ -1,0 +1,13 @@
+<h1><%= gettext("create item group") %></h1>
+
+<.item_group_form {assigns} action={~p"/admin/events/#{@event.id}/item_groups"} />
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/events/#{@event.id}/item_groups"}>
+      <%= gettext("back") %>
+    </.link>
+  </li>
+</ul>

@@ -1,0 +1,15 @@
+<h1>
+  <%= gettext("edit %{item}", item: @item.name) %>
+</h1>
+
+<.item_form {assigns} action={~p"/admin/items/#{@item}"} />
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/item_groups/#{@item.item_group_id}/items"}>
+      <%= gettext("back") %>
+    </.link>
+  </li>
+</ul>

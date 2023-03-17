@@ -24,7 +24,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
       conn =
         conn
         |> put_req_header("accept-language", "en")
-        |> get(Routes.frontend_logistics_movement_path(conn, :supply, event.id))
+        |> get(~p"/logistics/events/#{event}/movements/supply")
 
       assert html_response(conn, 200) =~ "Supply Item"
     end
@@ -37,7 +37,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
       item: item,
       location_a: location
     } do
-      conn = get(conn, Routes.frontend_logistics_movement_path(conn, :supply, event.id))
+      conn = get(conn, ~p"/logistics/events/#{event}/movements/supply")
 
       {:ok, view, _html} = live(conn)
 
@@ -50,12 +50,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
 
       {path, flash} = assert_redirect view
 
-      assert path ==
-               Routes.frontend_logistics_live_path(
-                 conn,
-                 AthenaWeb.Frontend.Dashboard.TableLive,
-                 event
-               )
+      assert path == ~p"/logistics/events/#{event}/overview"
 
       assert %{"info" => _message} = flash
     end
@@ -66,7 +61,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
       item: item,
       location_a: location
     } do
-      conn = get(conn, Routes.frontend_logistics_movement_path(conn, :supply, event.id))
+      conn = get(conn, ~p"/logistics/events/#{event}/movements/supply")
 
       {:ok, view, _html} = live(conn)
 
@@ -78,16 +73,11 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
           }
         })
 
-      refute_redirected view,
-                        Routes.frontend_logistics_live_path(
-                          conn,
-                          AthenaWeb.Frontend.Dashboard.TableLive,
-                          event
-                        )
+      refute_redirected view, ~p"/logistics/events/#{event}/overview"
 
       assert html
              |> Floki.parse_document!()
-             |> Floki.find(".help-block")
+             |> Floki.find(".invalid-feedback")
              |> Floki.text() =~ "0"
     end
   end
@@ -97,7 +87,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
       conn =
         conn
         |> put_req_header("accept-language", "en")
-        |> get(Routes.frontend_logistics_movement_path(conn, :relocate, event.id))
+        |> get(~p"/logistics/events/#{event}/movements/relocate")
 
       assert html_response(conn, 200) =~ "Move Item"
     end
@@ -113,7 +103,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
     } do
       movement(item, %{destination_location_id: location_a.id, amount: 100})
 
-      conn = get(conn, Routes.frontend_logistics_movement_path(conn, :relocate, event.id))
+      conn = get(conn, ~p"/logistics/events/#{event}/movements/relocate")
 
       {:ok, view, _html} = live(conn)
 
@@ -127,12 +117,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
 
       {path, flash} = assert_redirect view
 
-      assert path ==
-               Routes.frontend_logistics_live_path(
-                 conn,
-                 AthenaWeb.Frontend.Dashboard.TableLive,
-                 event
-               )
+      assert path == ~p"/logistics/events/#{event}/overview"
 
       assert %{"info" => _message} = flash
     end
@@ -143,7 +128,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
       item: item,
       location_a: location_a
     } do
-      conn = get(conn, Routes.frontend_logistics_movement_path(conn, :relocate, event.id))
+      conn = get(conn, ~p"/logistics/events/#{event}/movements/relocate")
 
       {:ok, view, _html} = live(conn)
 
@@ -155,12 +140,7 @@ defmodule AthenaWeb.Frontend.MovementLiveTest do
           }
         })
 
-      refute_redirected view,
-                        Routes.frontend_logistics_live_path(
-                          conn,
-                          AthenaWeb.Frontend.Dashboard.TableLive,
-                          event
-                        )
+      refute_redirected view, ~p"/logistics/events/#{event}/overview"
 
       assert html
              |> Floki.parse_document!()

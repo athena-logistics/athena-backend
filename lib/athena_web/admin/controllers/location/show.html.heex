@@ -1,0 +1,40 @@
+<h1><%= @location.name %></h1>
+
+<h2><%= gettext("vendor link") %></h2>
+
+<% link = ~p"/vendor/locations/#{@location.id}" %>
+
+<.link navigate={link}><%= gettext("go to public view") %></.link>
+
+<div>
+  <h3>
+    <%= gettext("QR code") %>
+  </h3>
+
+  <% qr_code =
+    link
+    |> EQRCode.encode()
+    |> EQRCode.svg() %>
+
+  <a
+    href={"data:image/svg+xml;base64,#{Base.encode64(qr_code)}"}
+    download={@location.name <> ".svg"}
+  >
+    <%= raw(qr_code) %>
+  </a>
+</div>
+
+<h2><%= gettext("actions") %></h2>
+
+<ul>
+  <li>
+    <.link navigate={~p"/admin/locations/#{@location}/edit"}>
+      <%= gettext("edit") %>
+    </.link>
+  </li>
+  <li>
+    <.link navigate={~p"/admin/events/#{@location.event.id}/locations"}>
+      <%= gettext("back") %>
+    </.link>
+  </li>
+</ul>

@@ -3,6 +3,8 @@ defmodule AthenaWeb.Chart do
 
   use AthenaWeb, :component
 
+  import Phoenix.HTML.Tag
+
   attr :dom_id, :string, required: true
   attr :config, :any, required: true
 

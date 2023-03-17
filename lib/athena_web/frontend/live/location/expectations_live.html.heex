@@ -43,7 +43,7 @@
               phx-submit="save"
               id={"stock_expectation_form_#{item_id}"}
             >
-              <%= hidden_input(form, :item_id, value: item_id) %>
+              <.input type="hidden" field={form[:item_id]} value={item_id} />
 
               <div class="row align-items-baseline">
                 <div class="col col-2 ps-3 pe-3">
@@ -55,31 +55,35 @@
                 <div class="col col-4 ps-3 pe-3 d-flex align-items-baseline">
                   <i class="flex-shrink fa fa-solid fa-circle text-warning" />
                   <div>
-                    <%= number_input(form, :warning_threshold,
-                      min: 0,
-                      placeholder: "∞",
-                      class: "form-control elevated"
-                    ) %>
-                    <%= error_tag(form, :warning_threshold) %>
+                    <.input
+                      field={form[:warning_threshold]}
+                      type="number"
+                      min="0"
+                      placeholder="∞"
+                      input_class="elevated"
+                    />
                   </div>
                 </div>
                 <div class="col col-4 ps-3 pe-3 d-flex align-items-baseline">
                   <i class="fa fa-solid fa-circle text-important" />
                   <div style="width: 100%;">
-                    <%= number_input(form, :important_threshold,
-                      min:
+                    <.input
+                      field={form[:warning_threshold]}
+                      type="number"
+                      min={
                         if(inverse,
                           do: Changeset.get_field(changeset, :warning_threshold) || 0,
                           else: 0
-                        ),
-                      max:
+                        )
+                      }
+                      max={
                         unless(inverse,
                           do: Changeset.get_field(changeset, :warning_threshold)
-                        ),
-                      placeholder: "∞",
-                      class: "form-control elevated"
-                    ) %>
-                    <%= error_tag(form, :important_threshold) %>
+                        )
+                      }
+                      placeholder="∞"
+                      input_class="elevated"
+                    />
                   </div>
                 </div>
                 <%= cond do %>

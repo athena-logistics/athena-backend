@@ -20,7 +20,7 @@
         ) %>
       <div class="elevated-wrapper">
         <h2 class="text-center elevated">
-          <.link navigate={Routes.frontend_logistics_inventory_path(@socket, :show, location_id)}>
+          <.link navigate={~p"/logistics/locations/#{location_id}"}>
             <%= location_name %>
           </.link>
         </h2>
