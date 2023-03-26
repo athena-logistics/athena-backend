@@ -1,8 +1,16 @@
-<h1>
+<h1 class="mt-5">
   <%= gettext("events") %>
 </h1>
 
-<table class="table table-striped">
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <.link navigate={~p"/admin/events/new"}>
+    <button class="btn btn-success btn-sm rounded" type="button">
+      <%= gettext("create event") %>
+    </button>
+  </.link>
+</div>
+
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th><%= gettext("name") %></th>
@@ -11,15 +19,14 @@
   </thead>
   <tbody>
     <tr :for={event <- @events}>
-      <td><%= event.name %></td>
+      <td>
+        <.link navigate={~p"/admin/events/#{event}"}>
+          <%= event.name %>
+        </.link>
+      </td>
       <td>
         <span>
-          <.link navigate={~p"/admin/events/#{event}"}>
-            <%= gettext("show") %>
-          </.link>
-        </span>
-        <span>
-          <.link navigate={~p"/admin/events/#{event}"}>
+          <.link navigate={~p"/admin/events/#{event}"} class="me-2">
             <%= gettext("edit") %>
           </.link>
         </span>
@@ -29,20 +36,21 @@
           |> link(
             to: ~p"/admin/events/#{event}",
             method: :delete,
-            data: [confirm: "Are you sure?"]
+            data: [confirm: "Are you sure?"],
+            class: "me-2"
+          ) %>
+        </span>
+        <span>
+          <%= "duplicate"
+          |> gettext
+          |> link(
+            to: ~p"/admin/events/#{event}/duplicate",
+            method: :post,
+            data: [confirm: "Are you sure?"],
+            class: "me-2"
           ) %>
         </span>
       </td>
     </tr>
   </tbody>
 </table>
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/events/new"}>
-      <%= gettext("create event") %>
-    </.link>
-  </li>
-</ul>

@@ -12,6 +12,7 @@ defmodule Athena.Inventory do
   alias Athena.Inventory.Movement
   alias Athena.Inventory.StockExpectation
   alias Athena.Repo
+  alias Ecto.Multi
   alias Phoenix.PubSub
 
   @movement_sum from(m in Movement,
@@ -79,6 +80,22 @@ defmodule Athena.Inventory do
   def get_event!(id), do: Repo.get!(Event, id)
 
   @doc """
+  Gets a single event by name.
+
+  Raises `Ecto.NoResultsError` if the Event does not exist.
+
+  ## Examples
+
+      iex> get_event_by_name("Aufgetischt")
+      %Event{}
+
+      iex> get_event_by_name("")
+      nil
+
+  """
+  def get_event_by_name(name), do: Repo.get_by(Event, name: name)
+
+  @doc """
   Creates a event.
 
   ## Examples
@@ -133,6 +150,114 @@ defmodule Athena.Inventory do
       event
       |> Repo.delete()
       |> notify_pubsub(:deleted, "event")
+
+  @doc """
+  Duplicates an event.
+
+  ## Examples
+
+      iex> duplicate_event(event, attrs)
+      {:ok, %Event{}}
+
+      iex> duplicate_event(event, attrs)
+      {:error, %Ecto.Changeset{}}
+  """
+  @spec duplicate_event(old_event :: Event.t(), new_name :: String.t() | nil) ::
+          {:ok, Event.t()} | {:error, reason :: any()}
+
+  def duplicate_event(old_event, new_name \\ nil)
+
+  def duplicate_event(old_event, nil),
+    do: duplicate_event(old_event, get_unique_event_name(old_event.name))
+
+  def duplicate_event(%Event{} = old_event, new_name) do
+    Multi.new()
+    |> Multi.insert(
+      :event,
+      change_event(%Event{
+        old_event
+        | name: new_name,
+          id: nil,
+          inserted_at: nil,
+          updated_at: nil
+      })
+    )
+    |> Multi.insert_all(:locations, Location, fn %{event: %Event{id: new_event_id}} ->
+      from(location in Ecto.assoc(old_event, :locations),
+        select: %{
+          name: location.name,
+          event_id: type(^new_event_id, Ecto.UUID)
+        }
+      )
+    end)
+    |> Multi.insert_all(:item_groups, ItemGroup, fn %{event: %Event{id: new_event_id}} ->
+      from(item_group in Ecto.assoc(old_event, :item_groups),
+        select: %{
+          name: item_group.name,
+          event_id: type(^new_event_id, Ecto.UUID)
+        }
+      )
+    end)
+    |> Multi.insert_all(:items, Item, fn %{event: %Event{} = new_event} ->
+      from(item in Ecto.assoc(old_event, :items),
+        join: old_item_group in assoc(item, :item_group),
+        join: new_item_group in subquery(Ecto.assoc(new_event, :item_groups)),
+        on: new_item_group.name == old_item_group.name,
+        select: %{
+          name: item.name,
+          inverse: item.inverse,
+          unit: item.unit,
+          item_group_id: new_item_group.id
+        }
+      )
+    end)
+    |> Multi.insert_all(:stock_expectation, StockExpectation, fn %{event: %Event{} = new_event} ->
+      from(stock_expectation in Ecto.assoc(old_event, :stock_expectations),
+        join: old_location in assoc(stock_expectation, :location),
+        join: new_location in subquery(Ecto.assoc(new_event, :locations)),
+        on: new_location.name == old_location.name,
+        join: old_item in assoc(stock_expectation, :item),
+        join: new_item in subquery(Ecto.assoc(new_event, :items)),
+        on: new_item.name == old_item.name,
+        select: %{
+          warning_threshold: stock_expectation.warning_threshold,
+          important_threshold: stock_expectation.important_threshold,
+          location_id: new_location.id,
+          item_id: new_item.id
+        }
+      )
+    end)
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{event: event}} -> {:ok, event}
+      {:error, reason} -> {:error, reason}
+      {:error, _name, reason, _multi_state} -> {:error, reason}
+    end
+    |> notify_pubsub(:created, "event")
+  end
+
+  @copy_name_regex ~r/.*Copy \((\d+)\)$/
+
+  defp get_unique_event_name(name) do
+    event = get_event_by_name(name)
+
+    cond do
+      is_nil(event) ->
+        name
+
+      String.ends_with?(name, "Copy") ->
+        get_unique_event_name(name <> " (1)")
+
+      String.match?(name, @copy_name_regex) ->
+        [_all, n] = Regex.run(@copy_name_regex, name)
+        new_num = String.to_integer(n) + 1
+        new_name = String.replace(name, ~r/\(\d+\)$/, "(#{new_num})")
+        get_unique_event_name(new_name)
+
+      true ->
+        get_unique_event_name(name <> " Copy")
+    end
+  end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking event changes.

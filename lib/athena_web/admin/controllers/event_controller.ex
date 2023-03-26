@@ -27,6 +27,23 @@ defmodule AthenaWeb.Admin.EventController do
     end
   end
 
+  def duplicate(conn, %{"event" => id}) do
+    id
+    |> Inventory.get_event!()
+    |> Inventory.duplicate_event()
+    |> case do
+      {:ok, new_event} ->
+        conn
+        |> put_flash(:info, gettext("Event duplicated"))
+        |> redirect(to: ~p"/admin/events/#{new_event}")
+
+      {:error, _reason} ->
+        conn
+        |> put_flash(:error, gettext("Event couldn't be duplicated"))
+        |> redirect(to: ~p"/admin/events")
+    end
+  end
+
   def show(conn, %{"id" => id}) do
     event = Inventory.get_event!(id)
     render_with_navigation(conn, event, "show.html", event: event)
