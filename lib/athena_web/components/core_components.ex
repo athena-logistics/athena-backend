@@ -183,20 +183,18 @@ defmodule AthenaWeb.CoreComponents do
     assigns = assign_new(assigns, :checked, fn -> normalize_value("checkbox", value) end)
 
     ~H"""
-    <div phx-feedback-for={@name}>
-      <label>
-        <input type="hidden" name={@name} value="false" />
-        <input
-          type="checkbox"
-          id={@id || @name}
-          name={@name}
-          value="true"
-          checked={@checked}
-          {@rest}
-          class={@input_class}
-        />
-        <%= @label %>
-      </label>
+    <div phx-feedback-for={@name} class="form-check">
+      <input type="hidden" name={@name} value="false" />
+      <input
+        type="checkbox"
+        id={@id || @name}
+        name={@name}
+        value="true"
+        checked={@checked}
+        {@rest}
+        class={["form-check-input", if(@errors != [], do: "is-invalid"), @input_class]}
+      />
+      <.label :if={@label} for={@id} label_class="form-check-label"><%= @label %></.label>
       <.error :for={msg <- @errors} class="invalid-feedback"><%= msg %></.error>
     </div>
     """
@@ -242,7 +240,7 @@ defmodule AthenaWeb.CoreComponents do
 
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name} class="input-group has-validation">
+    <div phx-feedback-for={@name} class="form-group has-validation">
       <.label :if={@label} for={@id}><%= @label %></.label>
       <input
         type={@type}
@@ -251,6 +249,7 @@ defmodule AthenaWeb.CoreComponents do
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         {@rest}
         class={["form-control", if(@errors != [], do: "is-invalid"), @input_class]}
+        placeholder={@label}
       />
       <.error :for={msg <- @errors} class="invalid-feedback"><%= msg %></.error>
     </div>
@@ -261,11 +260,12 @@ defmodule AthenaWeb.CoreComponents do
   Renders a label.
   """
   attr :for, :string, default: nil
+  attr :label_class, :string, default: "form-label"
   slot :inner_block, required: true
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="form-label">
+    <label for={@for} class={@label_class}>
       <%= render_slot(@inner_block) %>
     </label>
     """

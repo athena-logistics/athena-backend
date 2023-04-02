@@ -1,6 +1,6 @@
 <.simple_form :let={f} for={@changeset} action={@action}>
   <div class="row mb-3">
-    <div class="col-4">
+    <div class="col-md-4">
       <.input
         field={f[:source_location_id]}
         type="select"
@@ -9,7 +9,7 @@
         prompt={gettext("supply")}
       />
     </div>
-    <div class="col-4">
+    <div class="col-md-4">
       <.input
         field={f[:destination_location_id]}
         type="select"
@@ -18,7 +18,7 @@
         prompt={gettext("destination")}
       />
     </div>
-    <div class="col-4">
+    <div class="col-md-4">
       <.input field={f[:amount]} type="number" label={gettext("amount")} />
     </div>
   </div>

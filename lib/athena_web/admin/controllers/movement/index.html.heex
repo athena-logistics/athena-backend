@@ -39,7 +39,7 @@
             link(location_name, to: ~p"/admin/locations/#{location_id}")
         end %>
       </td>
-      <td><%= movement.inserted_at %></td>
+      <td><%= Calendar.strftime(movement.inserted_at, "%d.%m.%y - %I:%M") %></td>
       <td>
         <span>
           <.link navigate={~p"/admin/movements/#{movement}"} class="me-3">

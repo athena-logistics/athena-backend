@@ -1,32 +1,9 @@
 form {
-  input[type='text'],
-  input[type='number'] {
-    color: currentColor;
-    border: 1px solid currentColor;
-    font-size: 1.25rem;
-    font-weight: 400;
-    border-radius: 3px;
-
-    @include media-breakpoint-down(md) {
-      font-size: 1.5rem;
-    }
-
-    &:focus {
-      outline: none;
-    }
-  }
-
   input[type='number'] {
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
-  }
-
-  select,
-  &.form-select {
-    color: currentColor;
-    border: 1px solid currentColor !important;
   }
 }

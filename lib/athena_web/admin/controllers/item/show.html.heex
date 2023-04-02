@@ -1,21 +1,10 @@
-<h1 class="mb-3"><%= @item.name %></h1>
+<h1 class="mb-5"><%= @item.name %></h1>
 
 <div class="row">
   <div class="col-md-4">
-    <h3><%= gettext("properties") %></h3>
-    <dl>
-      <dt><%= gettext("unit") %></dt>
-      <dd><%= @item.unit %></dd>
-
-      <dt><%= gettext("inverse") %></dt>
-      <dd><%= if @item.inverse, do: gettext("yes"), else: gettext("no") %></dd>
-    </dl>
-  </div>
-
-  <div class="col-md-5">
     <h3><%= gettext("movements") %></h3>
 
-    <dl>
+    <dl class="horizontal">
       <dt><%= gettext("supply") %></dt>
       <dd><%= @supply %></dd>
 
@@ -29,6 +18,16 @@
       <dd><%= @relocations %></dd>
     </dl>
   </div>
+  <div class="col-md-4">
+    <h3><%= gettext("properties") %></h3>
+    <dl class="horizontal">
+      <dt><%= gettext("unit") %></dt>
+      <dd><%= @item.unit %></dd>
+
+      <dt><%= gettext("inverse") %></dt>
+      <dd><%= if @item.inverse, do: gettext("yes"), else: gettext("no") %></dd>
+    </dl>
+  </div>
   <div class="col-md-3">
     <h3><%= gettext("actions") %></h3>
 
@@ -36,21 +35,21 @@
       <li>
         <.link navigate={~p"/admin/items/#{@item}/edit"}>
           <button class="btn btn-secondary rounded w-100" type="button">
-            <%= gettext("edit") %>
+            ✏️ <%= gettext("edit") %>
           </button>
         </.link>
       </li>
       <li>
         <.link navigate={~p"/admin/item_groups/#{@item.item_group_id}/items"}>
           <button class="btn btn-secondary rounded w-100" type="button">
-            <%= gettext("back to items") %>
+            ⬅️ <%= gettext("back to items") %>
           </button>
         </.link>
       </li>
       <li>
         <.link navigate={~p"/admin/items/#{@item.id}/movements"}>
           <button class="btn btn-secondary rounded w-100" type="button">
-            <%= gettext("movements") %>
+            🚚 <%= gettext("movements") %>
           </button>
         </.link>
       </li>
