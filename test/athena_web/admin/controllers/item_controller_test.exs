@@ -68,7 +68,7 @@ defmodule AthenaWeb.Admin.ItemControllerTest do
 
     test "deletes chosen item", %{conn: conn, item: item, item_group: item_group} do
       conn = delete(conn, ~p"/admin/items/#{item}")
-      assert redirected_to(conn) == ~p"/admin/item_groups/#{item_group.id}/items"
+      assert redirected_to(conn) == ~p"/admin/item_groups/#{item_group.id}"
 
       assert_error_sent 404, fn ->
         get(conn, ~p"/admin/items/#{item}")
