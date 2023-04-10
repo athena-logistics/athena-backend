@@ -1,11 +1,5 @@
-<h1 class="mb-3"><%= gettext("create location") %></h1>
-
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <.link navigate={~p"/admin/events/#{@event.id}/locations"}>
-    <button class="btn btn-secondary rounded" type="button">
-      <%= gettext("back") %>
-    </button>
-  </.link>
-</div>
+<.pagetitle backlink={~p"/admin/events/#{@event.id}/locations"}>
+  <%= gettext("create location") %>
+</.pagetitle>
 
 <.location_form {assigns} action={~p"/admin/events/#{@event.id}/locations"} />

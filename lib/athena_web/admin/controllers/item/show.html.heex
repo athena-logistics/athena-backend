@@ -1,8 +1,9 @@
-<h1 class="mb-5"><%= @item.name %></h1>
-
+<.pagetitle backlink={~p"/admin/item_groups/#{@item.item_group_id}"}>
+  <%= @item.name %>
+</.pagetitle>
 <div class="row">
   <div class="col-md-4">
-    <h3><%= gettext("movements") %></h3>
+    <h3><%= gettext("stock statistics") %></h3>
 
     <dl class="horizontal">
       <dt><%= gettext("supply") %></dt>
@@ -36,13 +37,6 @@
         <.link navigate={~p"/admin/items/#{@item}/edit"}>
           <button class="btn btn-secondary rounded w-100" type="button">
             ✏️ <%= gettext("edit") %>
-          </button>
-        </.link>
-      </li>
-      <li>
-        <.link navigate={~p"/admin/item_groups/#{@item.item_group_id}/items"}>
-          <button class="btn btn-secondary rounded w-100" type="button">
-            ⬅️ <%= gettext("back to items") %>
           </button>
         </.link>
       </li>

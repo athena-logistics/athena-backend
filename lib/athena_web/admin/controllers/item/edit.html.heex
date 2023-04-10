@@ -1,13 +1,5 @@
-<h1>
+<.pagetitle backlink={~p"/admin/item_groups/#{@item.item_group_id}"}>
   <%= gettext("edit %{item}", item: @item.name) %>
-</h1>
-
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <.link navigate={~p"/admin/item_groups/#{@item.item_group_id}"}>
-    <button class="btn btn-secondary rounded" type="button">
-      <%= gettext("back") %>
-    </button>
-  </.link>
-</div>
+</.pagetitle>
 
 <.item_form {assigns} action={~p"/admin/items/#{@item}"} />

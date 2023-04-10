@@ -1,9 +1,11 @@
-<h1 class="mb-3"><%= @item.name %> / <%= gettext("movements") %></h1>
+<.pagetitle backlink={~p"/admin/items/#{@item.id}"}>
+  <%= @item.name %> / <%= gettext("movements") %>
+</.pagetitle>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <.link navigate={~p"/admin/items/#{@item.id}/movements/new"}>
     <button class="btn btn-secondary rounded" type="button">
-      <%= gettext("new movement") %>
+      ➕ <%= gettext("new movement") %>
     </button>
   </.link>
 </div>

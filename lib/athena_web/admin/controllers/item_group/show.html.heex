@@ -1,4 +1,6 @@
-<h1 class="mb-3"><%= gettext("item group") %> <%= @item_group.name %></h1>
+<.pagetitle backlink={~p"/admin/events/#{@item_group.event}/item_groups"}>
+  <%= gettext("item group") %> <%= @item_group.name %>
+</.pagetitle>
 
 <div class="row justify-content-between">
   <div class="col-sm-8 col-md-9">

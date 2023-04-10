@@ -1,11 +1,5 @@
-<h1><%= gettext("create item") %></h1>
-
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <.link navigate={~p"/admin/item_groups/#{@item_group.id}/items"}>
-    <button class="btn btn-secondary rounded" type="button">
-      <%= gettext("back") %>
-    </button>
-  </.link>
-</div>
+<.pagetitle backlink={~p"/admin/item_groups/#{@item_group.id}"}>
+  <%= gettext("create item") %>
+</.pagetitle>
 
 <.item_form {assigns} action={~p"/admin/item_groups/#{@item_group.id}/items"} />

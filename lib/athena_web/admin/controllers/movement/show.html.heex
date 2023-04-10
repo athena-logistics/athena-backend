@@ -1,4 +1,4 @@
-<h1 class="mb-5">
+<.pagetitle backlink={~p"/admin/items/#{@movement.item_id}/movements"} marginbottom={5}>
   <%= case @movement do
     %{
       source_location: %{name: source_location_name},
@@ -25,7 +25,7 @@
         location: destination_location_name
       )
   end %>
-</h1>
+</.pagetitle>
 <div class="row">
   <div class="col-md-10">
     <h3><%= gettext("properties") %></h3>
@@ -88,13 +88,6 @@
         <.link navigate={~p"/admin/movements/#{@movement}/edit"}>
           <button class="btn btn-secondary rounded w-100" type="button">
             ✏️ <%= gettext("edit") %>
-          </button>
-        </.link>
-      </li>
-      <li>
-        <.link navigate={~p"/admin/items/#{@movement.item_id}/movements"}>
-          <button class="btn btn-secondary rounded w-100" type="button">
-            ⬅️ <%= gettext("back") %>
           </button>
         </.link>
       </li>

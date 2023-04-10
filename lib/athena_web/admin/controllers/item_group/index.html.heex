@@ -1,9 +1,9 @@
-<h1 class="mb-3"><%= gettext("item groups") %></h1>
+<.pagetitle><%= gettext("item groups") %></.pagetitle>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <.link navigate={~p"/admin/events/#{@event.id}/item_groups/new"}>
     <button class="btn btn-secondary rounded" type="button">
-      <%= gettext("create item group") %>
+      ➕ <%= gettext("create item group") %>
     </button>
   </.link>
 </div>

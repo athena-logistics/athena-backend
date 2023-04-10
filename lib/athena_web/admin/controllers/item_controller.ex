@@ -87,6 +87,6 @@ defmodule AthenaWeb.Admin.ItemController do
 
     conn
     |> put_flash(:info, gettext("Item deleted successfully."))
-    |> redirect(to: ~p"/admin/item_groups/#{item_group_id}/items")
+    |> redirect(to: ~p"/admin/item_groups/#{item_group_id}")
   end
 end

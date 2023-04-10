@@ -1,13 +1,5 @@
-<h1>
+<.pagetitle backlink={~p"/admin/events"}>
   <%= gettext("edit %{event}", event: @event.name) %>
-</h1>
-
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <.link navigate={~p"/admin/events"}>
-    <button class="btn btn-secondary rounded" type="button">
-      <%= gettext("back") %>
-    </button>
-  </.link>
-</div>
+</.pagetitle>
 
 <.event_form {assigns} action={~p"/admin/events/#{@event}"} />
