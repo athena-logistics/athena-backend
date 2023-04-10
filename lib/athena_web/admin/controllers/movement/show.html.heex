@@ -52,36 +52,33 @@
       </div>
       <div class="col-md-6">
         <dl class="horizontal">
-      <dt><%= gettext("time") %></dt>
-      <dd><%= Calendar.strftime(@movement.inserted_at, "%d.%m.%y - %I:%M") %></dd>
+          <dt><%= gettext("time") %></dt>
+          <dd><%= Calendar.strftime(@movement.inserted_at, "%d.%m.%y - %I:%M") %></dd>
 
-      <dt><%= gettext("source") %></dt>
-      <dd>
-        <%= case @movement.source_location do
-          nil ->
-            gettext("supply")
+          <dt><%= gettext("source") %></dt>
+          <dd>
+            <%= case @movement.source_location do
+              nil ->
+                gettext("supply")
 
-          %{name: location_name, id: location_id} ->
-            link(location_name, to: ~p"/admin/locations/#{location_id}")
-        end %>
-      </dd>
+              %{name: location_name, id: location_id} ->
+                link(location_name, to: ~p"/admin/locations/#{location_id}")
+            end %>
+          </dd>
 
-      <dt><%= gettext("destination_location") %></dt>
-      <dd>
-        <%= case @movement.destination_location do
-          nil ->
-            gettext("consumption")
+          <dt><%= gettext("destination_location") %></dt>
+          <dd>
+            <%= case @movement.destination_location do
+              nil ->
+                gettext("consumption")
 
-          %{name: location_name, id: location_id} ->
-            link(location_name, to: ~p"/admin/locations/#{location_id}")
-        end %>
-      </dd>
-
-    </dl>
+              %{name: location_name, id: location_id} ->
+                link(location_name, to: ~p"/admin/locations/#{location_id}")
+            end %>
+          </dd>
+        </dl>
       </div>
     </div>
-
-
   </div>
   <div class="col-md-2">
     <h3><%= gettext("actions") %></h3>

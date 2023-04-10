@@ -1,11 +1,14 @@
-<h1 class="mb-3"><%= gettext("edit movement") %></h1>
-
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <.link navigate={~p"/admin/items/#{@movement.item_id}/movements"}>
-    <button class="btn btn-secondary rounded" type="button">
-      <%= gettext("back") %>
-    </button>
-  </.link>
+<div class="row align-items-center justify-content-left mb-3">
+  <div class="col-auto">
+    <.link navigate={~p"/admin/items/#{@movement.item_id}/movements"}>
+      <button class="btn btn-outline-primary" type="button">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+    </.link>
+  </div>
+  <div class="col-auto">
+    <h1 class="m-0"><%= gettext("edit movement") %></h1>
+  </div>
 </div>
 
 <.movement_form {assigns} action={~p"/admin/movements/#{@movement}"} />
