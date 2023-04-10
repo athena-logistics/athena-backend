@@ -63,7 +63,7 @@ msgstr ""
 msgid "destination location"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/movement/show.html.heex:38
+#: lib/athena_web/admin/controllers/movement/show.html.heex:39
 #: lib/athena_web/frontend/live/movement_live.html.heex:61
 #, elixir-autogen, elixir-format
 msgid "item"
