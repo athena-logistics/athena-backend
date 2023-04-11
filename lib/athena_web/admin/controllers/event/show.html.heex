@@ -4,9 +4,8 @@
   <div class="col-sm-6 col-md-6 col-lg-3">
     <h3><%= gettext("actions") %></h3>
     <ul class="nav flex-column gap-2">
-      <% link = ~p"/logistics/events/#{@event}/overview" %>
       <li class="nav-item">
-        <.link navigate={link}>
+        <.link navigate={~p"/logistics/events/#{@event}/overview"}>
           <button class="btn btn-primary rounded w-100" type="button">
             📊 <%= gettext("logistic dashboard") %>
           </button>
@@ -14,10 +13,10 @@
       </li>
       <li class="nav-item">
         <% qr_code =
-          link
+          ~p"/logistics/events/#{@event}/overview"
+          |> url()
           |> EQRCode.encode()
           |> EQRCode.svg(width: 200) %>
-
         <a
           href={"data:image/svg+xml;base64,#{Base.encode64(qr_code)}"}
           download={gettext("%{event} logistics", event: @event.name) <> ".svg"}
