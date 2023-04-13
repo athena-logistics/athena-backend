@@ -1,11 +1,9 @@
-<h1 class="mt-5">
-  <%= gettext("events") %>
-</h1>
+<.pagetitle css_class="mt-5"><%= gettext("events") %></.pagetitle>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <.link navigate={~p"/admin/events/new"}>
-    <button class="btn btn-success btn-sm rounded" type="button">
-      <%= gettext("create event") %>
+    <button class="btn btn-secondary rounded" type="button">
+      ➕ <%= gettext("create event") %>
     </button>
   </.link>
 </div>
@@ -26,7 +24,7 @@
       </td>
       <td>
         <span>
-          <.link navigate={~p"/admin/events/#{event}"} class="me-2">
+          <.link navigate={~p"/admin/events/#{event}/edit"} class="me-2">
             <%= gettext("edit") %>
           </.link>
         </span>

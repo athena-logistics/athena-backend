@@ -14,7 +14,7 @@ defmodule AthenaWeb.Admin.NavigationComponent do
     ~H"""
     <nav class="navbar navbar-expand-lg navbar-light bg-primary mb-5">
       <div class="container-fluid">
-        <a href={~p"/admin/events"} class="navbar-brand">
+        <a href={~p"/admin/events/#{@event}"} class="navbar-brand">
           <img src={~p"/images/icon.png"} width="30" />
           <%= @event.name %>
         </a>

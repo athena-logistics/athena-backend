@@ -1,11 +1,5 @@
-<h1><%= gettext("edit movement") %></h1>
+<.pagetitle backlink={~p"/admin/items/#{@movement.item_id}/movements"}>
+  <%= gettext("edit movement") %>
+</.pagetitle>
 
 <.movement_form {assigns} action={~p"/admin/movements/#{@movement}"} />
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/items/#{@movement.item_id}/movements"}>
-      <%= gettext("back") %>
-    </.link>
-  </li>
-</ul>

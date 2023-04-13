@@ -1,13 +1,5 @@
-<h1><%= gettext("create event") %></h1>
+<.pagetitle backlink={~p"/admin/events"} css_class="mt-5">
+  <%= gettext("create event") %>
+</.pagetitle>
 
 <.event_form {assigns} action={~p"/admin/events"} />
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/events"}>
-      <%= gettext("back") %>
-    </.link>
-  </li>
-</ul>

@@ -183,20 +183,18 @@ defmodule AthenaWeb.CoreComponents do
     assigns = assign_new(assigns, :checked, fn -> normalize_value("checkbox", value) end)
 
     ~H"""
-    <div phx-feedback-for={@name}>
-      <label>
-        <input type="hidden" name={@name} value="false" />
-        <input
-          type="checkbox"
-          id={@id || @name}
-          name={@name}
-          value="true"
-          checked={@checked}
-          {@rest}
-          class={@input_class}
-        />
-        <%= @label %>
-      </label>
+    <div phx-feedback-for={@name} class="form-check">
+      <input type="hidden" name={@name} value="false" />
+      <input
+        type="checkbox"
+        id={@id || @name}
+        name={@name}
+        value="true"
+        checked={@checked}
+        {@rest}
+        class={["form-check-input", if(@errors != [], do: "is-invalid"), @input_class]}
+      />
+      <.label :if={@label} for={@id} label_class="form-check-label"><%= @label %></.label>
       <.error :for={msg <- @errors} class="invalid-feedback"><%= msg %></.error>
     </div>
     """
@@ -242,7 +240,7 @@ defmodule AthenaWeb.CoreComponents do
 
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name} class="input-group has-validation">
+    <div phx-feedback-for={@name} class="form-group has-validation">
       <.label :if={@label} for={@id}><%= @label %></.label>
       <input
         type={@type}
@@ -251,6 +249,7 @@ defmodule AthenaWeb.CoreComponents do
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         {@rest}
         class={["form-control", if(@errors != [], do: "is-invalid"), @input_class]}
+        placeholder={@label}
       />
       <.error :for={msg <- @errors} class="invalid-feedback"><%= msg %></.error>
     </div>
@@ -261,11 +260,12 @@ defmodule AthenaWeb.CoreComponents do
   Renders a label.
   """
   attr :for, :string, default: nil
+  attr :label_class, :string, default: "form-label"
   slot :inner_block, required: true
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="form-label">
+    <label for={@for} class={@label_class}>
       <%= render_slot(@inner_block) %>
     </label>
     """
@@ -348,5 +348,47 @@ defmodule AthenaWeb.CoreComponents do
   """
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
+  end
+
+  @doc """
+  Generates page title. Optional it adds back button if backlink is provided.
+
+  ## Examples
+
+      <.pagetitle backlink={@backlink} marginbottom={@marginbottom}>Title</.pagetitle>
+  """
+  slot :inner_block, required: true
+  attr :backlink, :string, doc: "if nil, backbutton isn't shown"
+  attr :marginbottom, :integer, default: 4
+  attr :css_class, :string, default: ""
+
+  def pagetitle(%{backlink: _link} = assigns) do
+    ~H"""
+    <div class={[
+      "d-flex",
+      "flex-row",
+      "flex-nowrap",
+      "justify-content-start",
+      "mb-#{@marginbottom}",
+      @css_class
+    ]}>
+      <div class="px-2">
+        <.link navigate={@backlink}>
+          <button class="btn btn-outline-primary" type="button">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+        </.link>
+      </div>
+      <div class="px-2">
+        <h1 class="m-0"><%= render_slot(@inner_block) %></h1>
+      </div>
+    </div>
+    """
+  end
+
+  def pagetitle(%{} = assigns) do
+    ~H"""
+    <h1 class={["mb-#{@marginbottom}", @css_class]}><%= render_slot(@inner_block) %></h1>
+    """
   end
 end

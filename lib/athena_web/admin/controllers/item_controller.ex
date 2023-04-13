@@ -4,20 +4,6 @@ defmodule AthenaWeb.Admin.ItemController do
   alias Athena.Inventory
   alias Athena.Inventory.Item
 
-  def index(conn, %{"item_group" => item_group}) do
-    item_group =
-      item_group
-      |> Inventory.get_item_group!()
-      |> Repo.preload(:event)
-
-    items = Inventory.list_items(item_group)
-
-    render_with_navigation(conn, item_group.event, "index.html",
-      items: items,
-      item_group: item_group
-    )
-  end
-
   def new(conn, %{"item_group" => item_group}) do
     item_group =
       item_group
@@ -101,6 +87,6 @@ defmodule AthenaWeb.Admin.ItemController do
 
     conn
     |> put_flash(:info, gettext("Item deleted successfully."))
-    |> redirect(to: ~p"/admin/item_groups/#{item_group_id}/items")
+    |> redirect(to: ~p"/admin/item_groups/#{item_group_id}")
   end
 end

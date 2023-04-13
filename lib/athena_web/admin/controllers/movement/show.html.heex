@@ -1,11 +1,11 @@
-<h1>
+<.pagetitle backlink={~p"/admin/items/#{@movement.item_id}/movements"} marginbottom={5}>
   <%= case @movement do
     %{
       source_location: %{name: source_location_name},
       destination_location: %{name: destination_location_name}
     } ->
       gettext(
-        "%{item} movement from %{source_location} to %{destination_location}",
+        "movement %{item}: %{source_location} → %{destination_location}",
         item: @movement.item.name,
         source_location: source_location_name,
         destination_location: destination_location_name
@@ -13,75 +13,84 @@
 
     %{source_location: %{name: source_location_name}} ->
       gettext(
-        "%{item} consumption at %{location}",
+        "consumption %{item}: %{location}",
         item: @movement.item.name,
         location: source_location_name
       )
 
     %{destination_location: %{name: destination_location_name}} ->
       gettext(
-        "%{item} supply to %{location}",
+        "supply %{item}: %{location}",
         item: @movement.item.name,
         location: destination_location_name
       )
   end %>
-</h1>
+</.pagetitle>
+<div class="row">
+  <div class="col-md-10">
+    <h3><%= gettext("properties") %></h3>
+    <div class="row">
+      <div class="col-md-6">
+        <dl class="horizontal">
+          <dt><%= gettext("amount") %></dt>
+          <dd><%= @movement.amount %></dd>
 
-<dl>
-  <dt><%= gettext("item group") %></dt>
-  <dd>
-    <.link navigate={~p"/admin/item_groups/#{@movement.item_group.id}"}>
-      <%= @movement.item_group.name %>
-    </.link>
-  </dd>
+          <dt><%= gettext("item") %></dt>
+          <dd>
+            <.link navigate={~p"/admin/items/#{@movement.item_id}"}>
+              <%= @movement.item.name %>
+            </.link>
+          </dd>
 
-  <dt><%= gettext("item") %></dt>
-  <dd>
-    <.link navigate={~p"/admin/items/#{@movement.item_id}"}>
-      <%= @movement.item.name %>
-    </.link>
-  </dd>
+          <dt><%= gettext("item group") %></dt>
+          <dd>
+            <.link navigate={~p"/admin/item_groups/#{@movement.item_group.id}"}>
+              <%= @movement.item_group.name %>
+            </.link>
+          </dd>
+        </dl>
+      </div>
+      <div class="col-md-6">
+        <dl class="horizontal">
+          <dt><%= gettext("time") %></dt>
+          <dd><%= AthenaWeb.Cldr.DateTime.to_string!(@movement.inserted_at) %></dd>
 
-  <dt><%= gettext("source") %></dt>
-  <dd>
-    <%= case @movement.source_location do
-      nil ->
-        gettext("supply")
+          <dt><%= gettext("source") %></dt>
+          <dd>
+            <%= case @movement.source_location do
+              nil ->
+                gettext("supply")
 
-      %{name: location_name, id: location_id} ->
-        link(location_name, to: ~p"/admin/locations/#{location_id}")
-    end %>
-  </dd>
+              %{name: location_name, id: location_id} ->
+                link(location_name, to: ~p"/admin/locations/#{location_id}")
+            end %>
+          </dd>
 
-  <dt><%= gettext("destination_location") %></dt>
-  <dd>
-    <%= case @movement.destination_location do
-      nil ->
-        gettext("consumption")
+          <dt><%= gettext("destination_location") %></dt>
+          <dd>
+            <%= case @movement.destination_location do
+              nil ->
+                gettext("consumption")
 
-      %{name: location_name, id: location_id} ->
-        link(location_name, to: ~p"/admin/locations/#{location_id}")
-    end %>
-  </dd>
+              %{name: location_name, id: location_id} ->
+                link(location_name, to: ~p"/admin/locations/#{location_id}")
+            end %>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <h3><%= gettext("actions") %></h3>
 
-  <dt><%= gettext("amount") %></dt>
-  <dd><%= @movement.amount %></dd>
-
-  <dt><%= gettext("time") %></dt>
-  <dd><%= @movement.inserted_at %></dd>
-</dl>
-
-<h2><%= gettext("actions") %></h2>
-
-<ul>
-  <li>
-    <.link navigate={~p"/admin/movements/#{@movement}/edit"}>
-      <%= gettext("edit") %>
-    </.link>
-  </li>
-  <li>
-    <.link navigate={~p"/admin/items/#{@movement.item_id}/movements"}>
-      <%= gettext("back") %>
-    </.link>
-  </li>
-</ul>
+    <ul class="nav flex-column gap-2">
+      <li>
+        <.link navigate={~p"/admin/movements/#{@movement}/edit"}>
+          <button class="btn btn-secondary rounded w-100" type="button">
+            ✏️ <%= gettext("edit") %>
+          </button>
+        </.link>
+      </li>
+    </ul>
+  </div>
+</div>

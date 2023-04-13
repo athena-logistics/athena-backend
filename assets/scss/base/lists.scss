@@ -1,0 +1,33 @@
+dl.horizontal {
+    display: flex;
+    flex-flow: row wrap;
+
+    dt {
+        flex-basis: 40%;
+        flex-grow: 1;
+        text-align: left;
+        border-bottom: 1px solid $primary-lightest;
+        padding: 0.5rem 0;
+
+        &::after {
+            content: ":";
+        }
+
+        &:last-of-type {
+            border: 0;
+        }
+    }
+
+    dd {
+        flex-basis: 40%;
+        flex-grow: 1;
+        border-bottom: 1px solid $primary-lightest;
+        margin: 0;
+        padding: 0.5rem 0;
+
+        &:last-of-type {
+            border: 0;
+        }
+    }
+
+}
