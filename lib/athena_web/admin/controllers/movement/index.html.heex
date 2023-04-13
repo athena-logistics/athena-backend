@@ -41,7 +41,7 @@
             link(location_name, to: ~p"/admin/locations/#{location_id}")
         end %>
       </td>
-      <td><%= Calendar.strftime(movement.inserted_at, "%d.%m.%y - %I:%M") %></td>
+      <td><%= AthenaWeb.Cldr.DateTime.to_string!(movement.inserted_at) %></td>
       <td>
         <span>
           <.link navigate={~p"/admin/movements/#{movement}"} class="me-3">

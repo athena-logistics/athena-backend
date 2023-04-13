@@ -54,8 +54,7 @@ defmodule AthenaWeb.Router do
     resources "/events/:event/item_groups", ItemGroupController, only: @subresource_actions
     resources "/item_groups", ItemGroupController, except: @subresource_actions
 
-    resources "/item_groups/:item_group/items", ItemController,
-      only: @subresource_actions -- [:index]
+    resources "/item_groups/:item_group/items", ItemController, only: [:new, :create]
 
     resources "/items", ItemController, except: @subresource_actions
     resources "/items/:item/movements", MovementController, only: @subresource_actions

@@ -27,9 +27,6 @@ docker run \
   -e POSTGRES_HOST_AUTH_METHOD="trust" \
   postgres:latest
 ```
-```bash
-docker run --restart always --name postgres -v /usr/local/opt/postgres:/var/lib/postgresql/data -p 5432:5432 -d -e POSTGRES_PASSWORD="" -e POSTGRES_USER="root" -e POSTGRES_HOST_AUTH_METHOD="trust" postgres:latest
-```
   * Setup Environment Variables with `export DATABASE_USER="root" DATABASE_PASSWORD="" DATABASE_HOST="127.0.0.1"`
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`

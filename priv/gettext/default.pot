@@ -155,14 +155,14 @@ msgstr ""
 msgid "Movement updated successfully."
 msgstr ""
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:23
-#: lib/athena_web/admin/controllers/event/show.html.heex:53
+#: lib/athena_web/admin/controllers/event/show.html.heex:22
+#: lib/athena_web/admin/controllers/event/show.html.heex:52
 #, elixir-autogen, elixir-format
 msgid "%{event} logistics"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:49
-#: lib/athena_web/admin/controllers/location/show.html.heex:44
+#: lib/athena_web/admin/controllers/event/show.html.heex:48
+#: lib/athena_web/admin/controllers/location/show.html.heex:43
 #, elixir-autogen, elixir-format
 msgid "QR code"
 msgstr ""
@@ -639,23 +639,23 @@ msgstr ""
 msgid "create new location"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:26
-#: lib/athena_web/admin/controllers/location/show.html.heex:28
+#: lib/athena_web/admin/controllers/event/show.html.heex:25
+#: lib/athena_web/admin/controllers/location/show.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "download qr-code"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/location/show.html.heex:13
+#: lib/athena_web/admin/controllers/location/show.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "location dashboard"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:11
+#: lib/athena_web/admin/controllers/event/show.html.heex:10
 #, elixir-autogen, elixir-format
 msgid "logistic dashboard"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:33
+#: lib/athena_web/admin/controllers/event/show.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "manage events"
 msgstr ""
@@ -686,7 +686,7 @@ msgstr ""
 msgid "supply %{item}: %{location}"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:40
+#: lib/athena_web/admin/controllers/event/show.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "edit event"
 msgstr ""
@@ -696,7 +696,7 @@ msgstr ""
 msgid "edit item group"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/location/show.html.heex:35
+#: lib/athena_web/admin/controllers/location/show.html.heex:34
 #, elixir-autogen, elixir-format
 msgid "edit location"
 msgstr ""
