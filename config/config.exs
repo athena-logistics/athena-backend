@@ -22,7 +22,10 @@ config :athena_logistics, Athena.Repo,
 # Configures the endpoint
 config :athena_logistics, AthenaWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: AthenaWeb.ErrorView, accepts: ~w(html json)],
+  render_errors: [
+    formats: [html: AthenaWeb.ErrorHTML, json: AthenaWeb.ErrorJSON],
+    layout: false
+  ],
   pubsub_server: Athena.PubSub,
   live_view: [signing_salt: "rEImWHdz"]
 
