@@ -79,6 +79,25 @@ config :athena_logistics, AthenaWeb.Endpoint,
       "E4DiijyhDsKLZ20eXlrrS/vLf3kNLWT9zH6lG+VtCnote2CLBjW4ZiwM2fayaz03"
     )
 
+case System.fetch_env("FLY_APP_NAME") do
+  {:ok, app_name} ->
+    config :libcluster,
+      debug: true,
+      topologies: [
+        fly6pn: [
+          strategy: Cluster.Strategy.DNSPoll,
+          config: [
+            polling_interval: 5_000,
+            query: "#{app_name}.internal",
+            node_basename: app_name
+          ]
+        ]
+      ]
+
+  :error ->
+    :ok
+end
+
 config :logger,
   level:
     String.to_existing_atom(
