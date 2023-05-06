@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <%= if @access do %>
+    <%= if @access == :logistics do %>
       <% %URI{host: host} = URI.parse(url(~p"/")) %>
       <meta
         name="apple-itunes-app"
         content={
-          "app-id=io.athena-logistics.athena-rn, app-argument=/init/#{host}/#{@access}/#{@navigation.event.id}"
+          "app-id=io.athena-logistics.athena-rn, app-argument=/logistics/#{host}/#{@navigation.event.id}"
         }
       />
     <% else %>
