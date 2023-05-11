@@ -23,7 +23,7 @@ jobs:
       - name: "Pull Image"
         run: docker pull ghcr.io/${{ github.repository }}:${GITHUB_SHA}
       # Secrets are maintained manually using flyctl
-      - uses: superfly/flyctl-actions@1.3
+      - uses: superfly/flyctl-actions@1.4
         with:
           args: "deploy -i ghcr.io/${{ github.repository }}:${GITHUB_SHA}"
         env:
