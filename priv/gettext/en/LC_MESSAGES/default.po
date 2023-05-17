@@ -720,3 +720,8 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "stock statistics"
 msgstr ""
+
+#: lib/athena_web/controllers/error_html/fallback.html.heex:29
+#, elixir-autogen, elixir-format
+msgid "Oops!"
+msgstr ""
