@@ -3,6 +3,8 @@ on:
     secrets:
       FLY_API_TOKEN:
         required: true
+      SENTRY_AUTH_TOKEN:
+        required: true
 
 name: "Deploy"
 
