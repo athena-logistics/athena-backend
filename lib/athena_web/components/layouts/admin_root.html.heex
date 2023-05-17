@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang={AthenaWeb.Cldr.get_locale().cldr_locale_name}
+  data-sentry-enabled={inspect(sentry_enabled?())}
+  data-sentry-dsn={Sentry.Config.dsn()}
+>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />

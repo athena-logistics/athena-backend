@@ -77,6 +77,8 @@ defmodule AthenaWeb do
 
       alias Athena.Repo
 
+      on_mount(AthenaWeb.SentryInit)
+
       defp assign_navigation(socket, event) do
         assign(socket, :navigation, %{
           event: event,

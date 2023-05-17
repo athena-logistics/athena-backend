@@ -1,4 +1,5 @@
 defmodule AthenaWeb.Endpoint do
+  use Sentry.PlugCapture
   use Phoenix.Endpoint, otp_app: :athena_logistics
   use Absinthe.Phoenix.Endpoint
 
@@ -50,6 +51,8 @@ defmodule AthenaWeb.Endpoint do
     parsers: [:urlencoded, :multipart, :json, Absinthe.Plug.Parser],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
+
+  plug Sentry.PlugContext
 
   plug Plug.MethodOverride
   plug Plug.Head

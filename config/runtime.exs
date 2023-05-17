@@ -115,3 +115,9 @@ config :athena_logistics, Plug.BasicAuth,
   username: System.get_env("BASIC_AUTH_USERNAME", "admin"),
   password: System.get_env("BASIC_AUTH_PASSWORD", "admin"),
   realm: System.get_env("BASIC_AUTH_REALM", "Admin Area")
+
+config :sentry,
+  dsn: System.get_env("SENTRY_DSN"),
+  tags: %{version: System.get_env("SENTRY_VERSION", System.get_env("RELEASE_VSN", "dev"))},
+  environment_name: System.get_env("SENTRY_ENV", "local"),
+  included_environments: [System.get_env("SENTRY_ENV")]

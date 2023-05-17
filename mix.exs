@@ -78,6 +78,7 @@ defmodule Athena.MixProject do
       {:dialyxir, "~> 1.0", runtime: false, only: [:dev]},
       {:floki, ">= 0.0.0", only: :test},
       {:gettext, "~> 0.11"},
+      {:hackney, "~> 1.8"},
       {:jason, "~> 1.0"},
       {:libcluster, "~> 3.0"},
       {:phoenix, "~> 1.6"},
@@ -89,6 +90,7 @@ defmodule Athena.MixProject do
       {:phoenix_pubsub, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
+      {:sentry, "~> 8.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4 or ~> 1.0"}
     ]

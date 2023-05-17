@@ -39,6 +39,7 @@ import {LiveSocket} from 'phoenix_live_view';
 import SelectContent from './select-content.hook';
 import Orientation from './orientation.hook';
 import Chart from './chart.hook';
+import { init as sentryInit } from "./sentry";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -52,3 +53,8 @@ let liveSocket = new LiveSocket('/live', Socket, {
   }
 });
 liveSocket.connect();
+
+// Sentry Setup
+if (document.documentElement.dataset.sentryEnabled === "true") {
+  sentryInit(document.documentElement.dataset);
+}

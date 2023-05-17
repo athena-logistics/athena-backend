@@ -6,6 +6,7 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "@sentry/browser": "^7.52.1",
     "@webcomponents/template": "^1.5.0",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.2.1",
