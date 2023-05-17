@@ -18,5 +18,5 @@ defmodule AthenaWeb.ErrorHTML do
   def render(template, assigns), do: fallback(Map.put(assigns, :template, template))
 
   defp sentry_enabled?,
-  do: Sentry.Config.environment_name() in Sentry.Config.included_environments()
+    do: Sentry.Config.environment_name() in Sentry.Config.included_environments()
 end
