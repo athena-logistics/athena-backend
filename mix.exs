@@ -66,7 +66,7 @@ defmodule Athena.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_relay, "~> 1.5"},
       {:credo, "~> 1.4", runtime: false, only: [:dev]},
-      {:dataloader, "~> 1.0"},
+      {:dataloader, "~> 2.0"},
       {:ecto_psql_extras, "~> 0.6"},
       {:ecto_sql, "~> 3.1"},
       {:eqrcode, "~> 0.1"},
