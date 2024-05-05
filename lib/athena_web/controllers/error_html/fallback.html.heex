@@ -2,7 +2,7 @@
 <html
   lang={AthenaWeb.Cldr.get_locale().cldr_locale_name}
   data-sentry-enabled={inspect(sentry_enabled?())}
-  data-sentry-dsn={Sentry.Config.dsn()}
+  data-sentry-dsn={dsn()}
 >
   <head>
     <meta charset="utf-8" />
@@ -17,7 +17,7 @@
     />
     <script src="https://kit.fontawesome.com/8775096c60.js" crossorigin="anonymous">
     </script>
-    <%= csrf_meta_tag() %>
+    <meta name="csrf-token" content={get_csrf_token()} />
     <script async type="text/javascript" src={~p"/js/app.js"}>
     </script>
   </head>

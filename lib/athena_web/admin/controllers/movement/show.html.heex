@@ -57,24 +57,26 @@
 
           <dt><%= gettext("source") %></dt>
           <dd>
-            <%= case @movement.source_location do
-              nil ->
-                gettext("supply")
-
-              %{name: location_name, id: location_id} ->
-                link(location_name, to: ~p"/admin/locations/#{location_id}")
-            end %>
+            <%= case @movement.source_location do %>
+              <% nil -> %>
+                <%= gettext("supply") %>
+              <% %{name: location_name, id: location_id} -> %>
+                <.link navigate={~p"/admin/locations/#{location_id}"}>
+                  <%= location_name %>
+                </.link>
+            <% end %>
           </dd>
 
           <dt><%= gettext("destination_location") %></dt>
           <dd>
-            <%= case @movement.destination_location do
-              nil ->
-                gettext("consumption")
-
-              %{name: location_name, id: location_id} ->
-                link(location_name, to: ~p"/admin/locations/#{location_id}")
-            end %>
+            <%= case @movement.destination_location do %>
+              <% nil -> %>
+                <%= gettext("consumption") %>
+              <% %{name: location_name, id: location_id} -> %>
+                <.link navigate={~p"/admin/locations/#{location_id}"}>
+                  <%= location_name %>
+                </.link>
+            <% end %>
           </dd>
         </dl>
       </div>

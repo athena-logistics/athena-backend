@@ -26,7 +26,7 @@ defmodule AthenaWeb.LiveViewInit do
         {:ok, socket}
 
       {:error, {Cldr.InvalidLanguageError, message}} ->
-        Logger.warn("Invalid Language in Session: #{message}")
+        Logger.warning("Invalid Language in Session: #{message}")
         {:ok, socket}
     end
   end

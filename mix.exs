@@ -66,7 +66,7 @@ defmodule Athena.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_relay, "~> 1.5"},
       {:credo, "~> 1.4", runtime: false, only: [:dev]},
-      {:dataloader, "~> 1.0"},
+      {:dataloader, "~> 2.0"},
       {:ecto_psql_extras, "~> 0.6"},
       {:ecto_sql, "~> 3.1"},
       {:eqrcode, "~> 0.1"},
@@ -83,16 +83,16 @@ defmodule Athena.MixProject do
       {:libcluster, "~> 3.0"},
       {:phoenix, "~> 1.6"},
       {:phoenix_ecto, "~> 4.0"},
-      {:phoenix_html, "~> 3.0"},
+      {:phoenix_html, "~> 4.0"},
       {:phoenix_live_dashboard, "~> 0.5"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17"},
       {:phoenix_pubsub, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
-      {:sentry, "~> 8.0"},
-      {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4 or ~> 1.0"}
+      {:sentry, "~> 10.0"},
+      {:telemetry_metrics, "~> 1.0"},
+      {:telemetry_poller, "~> 1.0"}
     ]
   end
 

@@ -5,6 +5,9 @@ defmodule AthenaWeb.Layouts do
 
   embed_templates "layouts/*"
 
-  defp sentry_enabled?,
-    do: Sentry.Config.environment_name() in Sentry.Config.included_environments()
+  defp sentry_enabled?, do: not is_nil(Sentry.Config.dsn())
+
+  # TODO: Use solution of
+  # https://github.com/getsentry/sentry-elixir/issues/730
+  defp dsn, do: System.get_env("SENTRY_DSN")
 end

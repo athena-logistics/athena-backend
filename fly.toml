@@ -21,6 +21,7 @@ kill_timeout = "5s"
   EXTERNAL_SCHEME = "https"
   LOG_LEVEL = "info"
   PORT = "4000"
+  FLY_ENVIRONMENT="production"
 
 [[services]]
   protocol = "tcp"

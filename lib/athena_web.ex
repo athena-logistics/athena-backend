@@ -77,7 +77,7 @@ defmodule AthenaWeb do
 
       alias Athena.Repo
 
-      on_mount(AthenaWeb.SentryInit)
+      on_mount Sentry.LiveViewHook
 
       defp assign_navigation(socket, event) do
         assign(socket, :navigation, %{
@@ -108,9 +108,6 @@ defmodule AthenaWeb do
       # Import convenience functions from controllers
       import Phoenix.Controller,
         only: [get_csrf_token: 0, view_module: 1, view_template: 1]
-
-      # Use all HTML functionality (forms, tags, etc)
-      use Phoenix.HTML
 
       # Include general helpers for rendering HTML
       unquote(html_helpers())

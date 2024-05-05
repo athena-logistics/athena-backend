@@ -29,24 +29,24 @@
           </.link>
         </span>
         <span>
-          <%= "delete"
-          |> gettext
-          |> link(
-            to: ~p"/admin/events/#{event}",
-            method: :delete,
-            data: [confirm: "Are you sure?"],
-            class: "me-2"
-          ) %>
+          <.link
+            navigate={~p"/admin/events/#{event}"}
+            method="delete"
+            data-confirm={gettext("Are you sure?")}
+            class="me-2"
+          >
+            <%= gettext("delete") %>
+          </.link>
         </span>
         <span>
-          <%= "duplicate"
-          |> gettext
-          |> link(
-            to: ~p"/admin/events/#{event}/duplicate",
-            method: :post,
-            data: [confirm: "Are you sure?"],
-            class: "me-2"
-          ) %>
+          <.link
+            navigate={~p"/admin/events/#{event}/duplicate"}
+            method="post"
+            data-confirm={gettext("Are you sure?")}
+            class="me-2"
+          >
+            <%= gettext("duplicate") %>
+          </.link>
         </span>
       </td>
     </tr>

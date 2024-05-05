@@ -29,13 +29,13 @@
           </.link>
         </span>
         <span>
-          <%= "delete"
-          |> gettext()
-          |> link(
-            to: ~p"/admin/item_groups/#{item_group}",
-            method: :delete,
-            data: [confirm: "Are you sure?"]
-          ) %>
+          <.link
+            navigate={~p"/admin/item_groups/#{item_group}"}
+            method="delete"
+            data-confirm={gettext("Are you sure?")}
+          >
+            <%= gettext("delete") %>
+          </.link>
         </span>
       </td>
     </tr>

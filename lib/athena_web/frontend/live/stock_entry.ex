@@ -4,15 +4,27 @@ defmodule AthenaWeb.Frontend.StockEntry do
   use AthenaWeb, :live_component
 
   alias Athena.Inventory
+  alias Athena.Inventory.StockEntry
 
   @impl Phoenix.LiveComponent
-  def preload(list_of_assigns) do
+  def update_many(list) do
     preloaded_stock_entries =
-      list_of_assigns
-      |> Enum.map(& &1.stock_entry)
+      list
+      |> Enum.map(fn {%{stock_entry: stock_entry}, _socket} -> stock_entry end)
       |> Repo.preload(location: [], item: [], item_group: [])
 
-    Enum.zip_with(list_of_assigns, preloaded_stock_entries, &Map.put(&1, :stock_entry, &2))
+    Enum.map(list, fn {%{stock_entry: %StockEntry{location_id: location_id, item_id: item_id}} =
+                         assigns, socket} ->
+      socket
+      |> assign(assigns)
+      |> assign(
+        stock_entry:
+          Enum.find(
+            preloaded_stock_entries,
+            &match?(%StockEntry{location_id: ^location_id, item_id: ^item_id}, &1)
+          )
+      )
+    end)
   end
 
   @impl Phoenix.LiveComponent
