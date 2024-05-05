@@ -7,6 +7,7 @@ $secondary: #32ad9a;
 
 $body-bg: #222831;
 $body-color: $primary;
+$body-emphasis-color: $primary;
 
 $base-border-radius: 8px;
 
@@ -28,6 +29,11 @@ $nav-tabs-link-active-border-color: $primary-dark $primary-dark $body-bg;
 $nav-tabs-link-hover-border-color: $primary $primary $body-bg;
 $nav-tabs-border-radius: $base-border-radius;
 $nav-tabs-border-width: 2px;
+
+$navbar-light-color: $body-bg;
+$navbar-light-hover-color: $body-bg;
+$navbar-light-brand-color: $body-bg;
+$navbar-light-brand-hover-color: $body-bg;
 
 
 // --- Form Variables

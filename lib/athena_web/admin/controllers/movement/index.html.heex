@@ -24,22 +24,24 @@
     <tr :for={movement <- @movements}>
       <td><%= movement.amount %></td>
       <td>
-        <%= case movement.source_location do
-          nil ->
-            gettext("supply")
-
-          %{name: location_name, id: location_id} ->
-            link(location_name, to: ~p"/admin/locations/#{location_id}")
-        end %>
+        <%= case movement.source_location do %>
+          <% nil -> %>
+            <%= gettext("supply") %>
+          <% %{name: location_name, id: location_id} -> %>
+            <.link navigate={~p"/admin/locations/#{location_id}"}>
+              <%= location_name %>
+            </.link>
+        <% end %>
       </td>
       <td>
-        <%= case movement.destination_location do
-          nil ->
-            gettext("consumption")
-
-          %{name: location_name, id: location_id} ->
-            link(location_name, to: ~p"/admin/locations/#{location_id}")
-        end %>
+        <%= case movement.destination_location do %>
+          <% nil -> %>
+            <%= gettext("consumption") %>
+          <% %{name: location_name, id: location_id} -> %>
+            <.link navigate={~p"/admin/locations/#{location_id}"}>
+              <%= location_name %>
+            </.link>
+        <% end %>
       </td>
       <td><%= AthenaWeb.Cldr.DateTime.to_string!(movement.inserted_at) %></td>
       <td>
@@ -54,13 +56,13 @@
           </.link>
         </span>
         <span>
-          <%= "delete"
-          |> gettext
-          |> link(
-            to: ~p"/admin/movements/#{movement}",
-            method: :delete,
-            data: [confirm: "Are you sure?"]
-          ) %>
+          <.link
+            navigate={~p"/admin/movements/#{movement}"}
+            method="delete"
+            data-confirm={gettext("Are you sure?")}
+          >
+            <%= gettext("delete") %>
+          </.link>
         </span>
       </td>
     </tr>

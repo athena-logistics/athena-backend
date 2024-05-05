@@ -51,8 +51,8 @@ msgid "amount"
 msgstr ""
 
 #: lib/athena_web/admin/controllers/item/show.html.heex:15
-#: lib/athena_web/admin/controllers/movement/index.html.heex:38
-#: lib/athena_web/admin/controllers/movement/show.html.heex:73
+#: lib/athena_web/admin/controllers/movement/index.html.heex:39
+#: lib/athena_web/admin/controllers/movement/show.html.heex:74
 #, elixir-autogen, elixir-format
 msgid "consumption"
 msgstr ""
@@ -186,7 +186,7 @@ msgstr ""
 #: lib/athena_web/admin/controllers/location/index.html.heex:15
 #: lib/athena_web/admin/controllers/location/show.html.heex:7
 #: lib/athena_web/admin/controllers/movement/index.html.heex:20
-#: lib/athena_web/admin/controllers/movement/show.html.heex:84
+#: lib/athena_web/admin/controllers/movement/show.html.heex:86
 #, elixir-autogen, elixir-format
 msgid "actions"
 msgstr ""
@@ -196,8 +196,8 @@ msgstr ""
 #: lib/athena_web/admin/controllers/item/table.html.heex:23
 #: lib/athena_web/admin/controllers/item_group/index.html.heex:28
 #: lib/athena_web/admin/controllers/location/index.html.heex:28
-#: lib/athena_web/admin/controllers/movement/index.html.heex:53
-#: lib/athena_web/admin/controllers/movement/show.html.heex:90
+#: lib/athena_web/admin/controllers/movement/index.html.heex:55
+#: lib/athena_web/admin/controllers/movement/show.html.heex:92
 #, elixir-autogen, elixir-format
 msgid "edit"
 msgstr ""
@@ -244,11 +244,11 @@ msgstr ""
 msgid "create item"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/event/index.html.heex:33
-#: lib/athena_web/admin/controllers/item/table.html.heex:28
-#: lib/athena_web/admin/controllers/item_group/index.html.heex:33
-#: lib/athena_web/admin/controllers/location/index.html.heex:33
-#: lib/athena_web/admin/controllers/movement/index.html.heex:58
+#: lib/athena_web/admin/controllers/event/index.html.heex:38
+#: lib/athena_web/admin/controllers/item/table.html.heex:32
+#: lib/athena_web/admin/controllers/item_group/index.html.heex:37
+#: lib/athena_web/admin/controllers/location/index.html.heex:37
+#: lib/athena_web/admin/controllers/movement/index.html.heex:64
 #, elixir-autogen, elixir-format
 msgid "delete"
 msgstr ""
@@ -282,7 +282,7 @@ msgstr ""
 msgid "no"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/movement/index.html.heex:48
+#: lib/athena_web/admin/controllers/movement/index.html.heex:50
 #, elixir-autogen, elixir-format
 msgid "show"
 msgstr ""
@@ -316,7 +316,7 @@ msgstr ""
 msgid "create movement"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/movement/show.html.heex:69
+#: lib/athena_web/admin/controllers/movement/show.html.heex:70
 #, elixir-autogen, elixir-format
 msgid "destination_location"
 msgstr ""
@@ -619,7 +619,7 @@ msgstr ""
 msgid "Event duplicated"
 msgstr ""
 
-#: lib/athena_web/admin/controllers/event/index.html.heex:43
+#: lib/athena_web/admin/controllers/event/index.html.heex:48
 #, elixir-autogen, elixir-format
 msgid "duplicate"
 msgstr ""
@@ -724,4 +724,14 @@ msgstr ""
 #: lib/athena_web/controllers/error_html/fallback.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "Oops!"
+msgstr ""
+
+#: lib/athena_web/admin/controllers/event/index.html.heex:35
+#: lib/athena_web/admin/controllers/event/index.html.heex:45
+#: lib/athena_web/admin/controllers/item/table.html.heex:30
+#: lib/athena_web/admin/controllers/item_group/index.html.heex:35
+#: lib/athena_web/admin/controllers/location/index.html.heex:35
+#: lib/athena_web/admin/controllers/movement/index.html.heex:62
+#, elixir-autogen, elixir-format
+msgid "Are you sure?"
 msgstr ""

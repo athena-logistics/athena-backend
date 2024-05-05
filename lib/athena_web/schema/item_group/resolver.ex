@@ -12,7 +12,9 @@ defmodule AthenaWeb.Schema.ItemGroup.Resolver do
           AthenaWeb.resolver_result()
   def stock(%ItemGroup{id: id}, args, _resolution) do
     connection_from_query(
-      from([event, item_group: item_group] in Inventory.stock_query(), where: item_group.id == ^id),
+      from([event, item_group: item_group] in Inventory.stock_query(),
+        where: item_group.id == ^id
+      ),
       args,
       &Repo.all/1,
       nil

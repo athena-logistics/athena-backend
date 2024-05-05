@@ -27,7 +27,7 @@ jobs:
       # Secrets are maintained manually using flyctl
       - uses: superfly/flyctl-actions@1.4
         with:
-          args: "deploy -i ghcr.io/${{ github.repository }}:${GITHUB_SHA}"
+          args: "deploy -i ghcr.io/${{ github.repository }}:${GITHUB_SHA} --env SENTRY_RELEASE=${GITHUB_SHA}"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: Create Sentry release
