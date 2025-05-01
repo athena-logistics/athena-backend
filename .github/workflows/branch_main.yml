@@ -26,14 +26,6 @@ jobs:
 
     uses: ./.github/workflows/part_docs.yml
 
-  dependency_submission:
-    name: "Mix Dependency Submission"
-
-    permissions:
-      contents: write
-
-    uses: ./.github/workflows/part_dependency_submission.yml
-
   deploy:
     name: "Deploy"
 
@@ -46,6 +38,10 @@ jobs:
 
   report_mix_deps:
     name: "Report Mix Dependencies"
+
+    permissions:
+      contents: write
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
