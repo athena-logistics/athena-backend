@@ -165,14 +165,15 @@ msgstr "Verschiebung wurde erfolgreich gelöscht."
 msgid "Movement updated successfully."
 msgstr "Verschiebung wurde erfolgreich aktualisiert."
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:22
-#: lib/athena_web/admin/controllers/event/show.html.heex:52
+#: lib/athena_web/admin/controllers/event/show.html.heex:17
+#: lib/athena_web/admin/controllers/event/show.html.heex:27
+#: lib/athena_web/admin/controllers/event/show.html.heex:57
 #, elixir-autogen, elixir-format
 msgid "%{event} logistics"
 msgstr "${event} Logistik"
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:48
-#: lib/athena_web/admin/controllers/location/show.html.heex:43
+#: lib/athena_web/admin/controllers/event/show.html.heex:53
+#: lib/athena_web/admin/controllers/location/show.html.heex:48
 #, elixir-autogen, elixir-format
 msgid "QR code"
 msgstr "QR-Code"
@@ -649,8 +650,10 @@ msgstr "Verbrauch %{item}: %{location}"
 msgid "create new location"
 msgstr "Standort erstellen"
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:25
-#: lib/athena_web/admin/controllers/location/show.html.heex:27
+#: lib/athena_web/admin/controllers/event/show.html.heex:20
+#: lib/athena_web/admin/controllers/event/show.html.heex:30
+#: lib/athena_web/admin/controllers/location/show.html.heex:22
+#: lib/athena_web/admin/controllers/location/show.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "download qr-code"
 msgstr "Download QR-Code"
@@ -665,7 +668,7 @@ msgstr "Standortübersicht"
 msgid "logistic dashboard"
 msgstr "Logistik Dashboard"
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:32
+#: lib/athena_web/admin/controllers/event/show.html.heex:37
 #, elixir-autogen, elixir-format
 msgid "manage events"
 msgstr "Events Verwalten"
@@ -696,7 +699,7 @@ msgstr "Bestand"
 msgid "supply %{item}: %{location}"
 msgstr "Anlieferung von %{item} nach %{location}"
 
-#: lib/athena_web/admin/controllers/event/show.html.heex:39
+#: lib/athena_web/admin/controllers/event/show.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "edit event"
 msgstr "Event bearbeiten"
@@ -706,7 +709,7 @@ msgstr "Event bearbeiten"
 msgid "edit item group"
 msgstr "Artikelgruppe bearbeiten"
 
-#: lib/athena_web/admin/controllers/location/show.html.heex:34
+#: lib/athena_web/admin/controllers/location/show.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "edit location"
 msgstr "Standort bearbeiten"
