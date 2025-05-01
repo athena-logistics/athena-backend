@@ -99,22 +99,22 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
           <% %Location{name: name} = location -> %>
             <th class="location">
               <.link navigate={~p"/logistics/locations/#{location}"}>
-                <%= name %>
+                {name}
               </.link>
             </th>
           <% %ItemGroup{name: name} -> %>
             <th class="item-group">
               <div>
-                <%= name %>
+                {name}
               </div>
             </th>
           <% %Item{name: name, unit: unit} = item -> %>
             <th class="item">
               <div>
                 <.link navigate={~p"/logistics/items/#{item}/overview"}>
-                  <%= name %>
+                  {name}
                 </.link>
-                (<%= unit %>)
+                ({unit})
               </div>
             </th>
           <% :empty_header -> %>
@@ -125,7 +125,7 @@ defmodule AthenaWeb.Frontend.Dashboard.TableLive do
             <td class={["stock-entry", status]}>
               <.link navigate={~p"/logistics/locations/#{entry.location_id}" <>
             "#item-#{entry.item_id}"}>
-                <%= AthenaWeb.Cldr.Number.to_string!(stock) %>
+                {AthenaWeb.Cldr.Number.to_string!(stock)}
               </.link>
             </td>
           <% nil -> %>

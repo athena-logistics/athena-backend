@@ -1,5 +1,5 @@
 <section class="container-fluid location">
-  <h1 class="container"><%= @location.name %></h1>
+  <h1 class="container">{@location.name}</h1>
 
   <AthenaWeb.Frontend.Location.Tabs.tabs
     :if={@access == :logistics}
@@ -11,7 +11,7 @@
   <%= for %ItemGroup{name: item_group_name, id: item_group_id} = item_group <- @item_groups,
   stock_entries = relevant_stock_entries(@stock_entries, item_group),
       stock_entries != [] do %>
-    <a class="bookmark" href={"##{item_group_id}"}><%= item_group_name %></a>
+    <a class="bookmark" href={"##{item_group_id}"}>{item_group_name}</a>
   <% end %>
 
   <div class="location__grid">
@@ -21,7 +21,7 @@
       <div>
         <div class="elevated-wrapper">
           <h2 class="location__group-title text-center elevated" id={item_group_id}>
-            <%= item_group_name %>
+            {item_group_name}
           </h2>
         </div>
         <div>
@@ -36,7 +36,7 @@
             >
               <div class="col">
                 <i class={["fa fa-solid fa-circle", "text-#{status}"]} />
-                <%= item.name %>
+                {item.name}
               </div>
               <div class="col-7 text-center">
                 <.live_component
@@ -44,7 +44,7 @@
                   id={"stock_entry_#{@location.id}_#{item_id}"}
                   stock_entry={stock_entry}
                 />
-                <small><%= item.unit %></small>
+                <small>{item.unit}</small>
               </div>
             </li>
           </ul>

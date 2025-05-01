@@ -1,11 +1,11 @@
 <.pagetitle backlink={~p"/admin/items/#{@item.id}"}>
-  <%= @item.name %> / <%= gettext("movements") %>
+  {@item.name} / {gettext("movements")}
 </.pagetitle>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <.link navigate={~p"/admin/items/#{@item.id}/movements/new"}>
     <button class="btn btn-secondary rounded" type="button">
-      ➕ <%= gettext("new movement") %>
+      ➕ {gettext("new movement")}
     </button>
   </.link>
 </div>
@@ -13,46 +13,46 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= gettext("amount") %></th>
-      <th><%= gettext("source location") %></th>
-      <th><%= gettext("destination location") %></th>
-      <th><%= gettext("time") %></th>
-      <th><%= gettext("actions") %></th>
+      <th>{gettext("amount")}</th>
+      <th>{gettext("source location")}</th>
+      <th>{gettext("destination location")}</th>
+      <th>{gettext("time")}</th>
+      <th>{gettext("actions")}</th>
     </tr>
   </thead>
   <tbody>
     <tr :for={movement <- @movements}>
-      <td><%= movement.amount %></td>
+      <td>{movement.amount}</td>
       <td>
         <%= case movement.source_location do %>
           <% nil -> %>
-            <%= gettext("supply") %>
+            {gettext("supply")}
           <% %{name: location_name, id: location_id} -> %>
             <.link navigate={~p"/admin/locations/#{location_id}"}>
-              <%= location_name %>
+              {location_name}
             </.link>
         <% end %>
       </td>
       <td>
         <%= case movement.destination_location do %>
           <% nil -> %>
-            <%= gettext("consumption") %>
+            {gettext("consumption")}
           <% %{name: location_name, id: location_id} -> %>
             <.link navigate={~p"/admin/locations/#{location_id}"}>
-              <%= location_name %>
+              {location_name}
             </.link>
         <% end %>
       </td>
-      <td><%= AthenaWeb.Cldr.DateTime.to_string!(movement.inserted_at) %></td>
+      <td>{AthenaWeb.Cldr.DateTime.to_string!(movement.inserted_at)}</td>
       <td>
         <span>
           <.link navigate={~p"/admin/movements/#{movement}"} class="me-3">
-            <%= gettext("show") %>
+            {gettext("show")}
           </.link>
         </span>
         <span>
           <.link navigate={~p"/admin/movements/#{movement}/edit"} class="me-3">
-            <%= gettext("edit") %>
+            {gettext("edit")}
           </.link>
         </span>
         <span>
@@ -61,7 +61,7 @@
             method="delete"
             data-confirm={gettext("Are you sure?")}
           >
-            <%= gettext("delete") %>
+            {gettext("delete")}
           </.link>
         </span>
       </td>

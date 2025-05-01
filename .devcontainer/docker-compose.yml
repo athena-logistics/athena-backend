@@ -1,0 +1,31 @@
+services:
+  devcontainer:
+    build: .
+    volumes:
+      - ..:/workspace
+      - ../.tool-versions:/home/vscode/.tool-versions
+      - asdf-installs:/home/vscode/.asdf/installs
+      - mix-deps:/workspace/deps
+      - mix-build:/workspace/_build
+    network_mode: service:db
+    command: sleep infinity
+
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    command: postgres -c shared_preload_libraries='pg_stat_statements'
+    environment:
+      POSTGRES_PASSWORD: ""
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "6743:5432"
+
+volumes:
+  postgres-data: {}
+  asdf-installs: {}
+  mix-deps: {}
+  mix-build: {}

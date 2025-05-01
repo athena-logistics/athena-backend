@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="apple-itunes-app" content="app-id=1637143661" />
     <title>
-      <%= case assigns[:event] do
+      {case assigns[:event] do
         nil -> "Athena"
         %{name: name} -> name
-      end %>
+      end}
     </title>
     <link rel="stylesheet" href={~p"/css/app.css"} />
     <link
@@ -34,7 +34,7 @@
     />
 
     <div class="container">
-      <%= @inner_content %>
+      {@inner_content}
     </div>
   </body>
 </html>

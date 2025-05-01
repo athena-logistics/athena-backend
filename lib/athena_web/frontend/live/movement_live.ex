@@ -70,7 +70,7 @@ defmodule AthenaWeb.Frontend.MovementLive do
         {:noreply,
          socket
          |> put_flash(:info, gettext("Movement created successfully."))
-         |> push_redirect(to: ~p"/logistics/events/#{socket.assigns.event}/overview")}
+         |> push_navigate(to: ~p"/logistics/events/#{socket.assigns.event}/overview")}
 
       %Changeset{valid?: false} = changeset ->
         {:noreply, assign(socket, changeset: %Changeset{changeset | action: :insert})}

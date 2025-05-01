@@ -42,8 +42,8 @@ defmodule AthenaWeb.Middleware.Safe do
 
       result =
         case {result, Endpoint.config(:debug_errors, false)} do
-          {{:ok, _} = result, _} ->
-            result
+          {{:ok, result}, _debug_errors?} ->
+            {:ok, result}
 
           {{:error, error}, true} ->
             {:error,

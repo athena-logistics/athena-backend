@@ -1,5 +1,5 @@
 <.pagetitle backlink={~p"/admin/events/#{@item_group.event}/item_groups"}>
-  <%= gettext("item group") %> <%= @item_group.name %>
+  {gettext("item group")} {@item_group.name}
 </.pagetitle>
 
 <div class="row justify-content-between">
@@ -7,19 +7,19 @@
     <AthenaWeb.Admin.ItemHTML.table items={@item_group.items} />
   </div>
   <div class="col-sm-4 col-md-4 col-lg-3">
-    <h3><%= gettext("actions") %></h3>
+    <h3>{gettext("actions")}</h3>
     <ul class="nav flex-column gap-2">
       <li class="nav-item mt-2">
         <.link navigate={~p"/admin/item_groups/#{@item_group}/items/new"}>
           <button class="btn btn-secondary rounded w-100" type="button">
-            ➕ <%= gettext("add item") %>
+            ➕ {gettext("add item")}
           </button>
         </.link>
       </li>
       <li class="nav-item mt-2">
         <.link navigate={~p"/admin/item_groups/#{@item_group}/edit"}>
           <button class="btn btn-secondary rounded w-100" type="button">
-            ✏️ <%= gettext("edit item group") %>
+            ✏️ {gettext("edit item group")}
           </button>
         </.link>
       </li>

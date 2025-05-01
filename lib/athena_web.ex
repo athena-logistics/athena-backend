@@ -40,7 +40,7 @@ defmodule AthenaWeb do
         layouts: [html: AthenaWeb.Layouts]
 
       import Plug.Conn
-      import AthenaWeb.Gettext
+      use Gettext, backend: AthenaWeb.Gettext
       import Phoenix.LiveView.Controller
 
       alias Athena.Repo
@@ -121,7 +121,7 @@ defmodule AthenaWeb do
 
       # Core UI components and translation
       import AthenaWeb.CoreComponents
-      import AthenaWeb.Gettext
+      use Gettext, backend: AthenaWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

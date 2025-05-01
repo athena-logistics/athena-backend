@@ -1,9 +1,9 @@
-<.pagetitle css_class="mt-5"><%= gettext("events") %></.pagetitle>
+<.pagetitle css_class="mt-5">{gettext("events")}</.pagetitle>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <.link navigate={~p"/admin/events/new"}>
     <button class="btn btn-secondary rounded" type="button">
-      ➕ <%= gettext("create event") %>
+      ➕ {gettext("create event")}
     </button>
   </.link>
 </div>
@@ -11,21 +11,21 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th><%= gettext("name") %></th>
-      <th><%= gettext("actions") %></th>
+      <th>{gettext("name")}</th>
+      <th>{gettext("actions")}</th>
     </tr>
   </thead>
   <tbody>
     <tr :for={event <- @events}>
       <td>
         <.link navigate={~p"/admin/events/#{event}"}>
-          <%= event.name %>
+          {event.name}
         </.link>
       </td>
       <td>
         <span>
           <.link navigate={~p"/admin/events/#{event}/edit"} class="me-2">
-            <%= gettext("edit") %>
+            {gettext("edit")}
           </.link>
         </span>
         <span>
@@ -35,7 +35,7 @@
             data-confirm={gettext("Are you sure?")}
             class="me-2"
           >
-            <%= gettext("delete") %>
+            {gettext("delete")}
           </.link>
         </span>
         <span>
@@ -45,7 +45,7 @@
             data-confirm={gettext("Are you sure?")}
             class="me-2"
           >
-            <%= gettext("duplicate") %>
+            {gettext("duplicate")}
           </.link>
         </span>
       </td>

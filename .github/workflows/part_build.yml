@@ -8,7 +8,7 @@ on:
       releaseHexPmOSVersion:
         required: false
         type: string
-        default: bookworm-20240423-slim
+        default: bookworm-20250428-slim
       dockerTag:
         required: false
         type: string

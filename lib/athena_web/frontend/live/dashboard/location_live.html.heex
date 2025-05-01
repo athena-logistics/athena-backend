@@ -1,6 +1,6 @@
 <div id="overview-location" class="container">
   <h1>
-    <%= gettext("Logistics Overview") %>
+    {gettext("Logistics Overview")}
   </h1>
 
   <AthenaWeb.Frontend.Dashboard.Tabs.tabs event={@event} active_tab={:location} socket={@socket} />
@@ -21,7 +21,7 @@
       <div class="elevated-wrapper">
         <h2 class="text-center elevated">
           <.link navigate={~p"/logistics/locations/#{location_id}"}>
-            <%= location_name %>
+            {location_name}
           </.link>
         </h2>
       </div>
@@ -37,7 +37,7 @@
           class={["col", "text-#{color}"]}
         >
           <i class="fa fa-solid fa-circle"></i>
-          <%= length(rows) %>
+          {length(rows)}
         </li>
       </ul>
     </div>

@@ -8,19 +8,19 @@
   <%= case @missing_stock_entries do %>
     <% [] -> %>
       <p class="alert alert-info" role="alert">
-        <%= pgettext("Event Missing Items", "All items are stocked up to expectations.") %>
+        {pgettext("Event Missing Items", "All items are stocked up to expectations.")}
       </p>
     <% stock_entries -> %>
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col"><%= pgettext("Event Missing Items", "Location") %></th>
-            <th scope="col"><%= pgettext("Event Missing Items", "Item") %></th>
-            <th scope="col"><%= pgettext("Event Missing Items", "Unit") %></th>
-            <th scope="col"><%= pgettext("Event Missing Items", "Desired") %></th>
-            <th scope="col"><%= pgettext("Event Missing Items", "Current") %></th>
-            <th scope="col"><%= pgettext("Event Missing Items", "To Move") %></th>
-            <th scope="col"><%= pgettext("Event Missing Items", "Actions") %></th>
+            <th scope="col">{pgettext("Event Missing Items", "Location")}</th>
+            <th scope="col">{pgettext("Event Missing Items", "Item")}</th>
+            <th scope="col">{pgettext("Event Missing Items", "Unit")}</th>
+            <th scope="col">{pgettext("Event Missing Items", "Desired")}</th>
+            <th scope="col">{pgettext("Event Missing Items", "Current")}</th>
+            <th scope="col">{pgettext("Event Missing Items", "To Move")}</th>
+            <th scope="col">{pgettext("Event Missing Items", "Actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -39,22 +39,22 @@
               ) %>
             <th scope="row">
               <.link navigate={~p"/logistics/locations/#{location}"}>
-                <%= location_name %>
+                {location_name}
               </.link>
             </th>
             <th scope="row">
               <.link navigate={~p"/logistics/items/#{item}/overview"}>
-                <%= item_name %>
+                {item_name}
               </.link>
             </th>
-            <td><%= item_unit %></td>
+            <td>{item_unit}</td>
             <td>
-              <%= AthenaWeb.Cldr.Number.to_string!(
+              {AthenaWeb.Cldr.Number.to_string!(
                 if stock_expectation, do: stock_expectation.warning_threshold, else: 0
-              ) %>
+              )}
             </td>
-            <td><%= AthenaWeb.Cldr.Number.to_string!(stock) %></td>
-            <td><%= AthenaWeb.Cldr.Number.to_string!(missing_count) %></td>
+            <td>{AthenaWeb.Cldr.Number.to_string!(stock)}</td>
+            <td>{AthenaWeb.Cldr.Number.to_string!(missing_count)}</td>
             <td>
               <a
                 href={
@@ -71,10 +71,10 @@
         <tfoot>
           <tr>
             <th scope="col"></th>
-            <th scope="col"><%= pgettext("Event Missing Items", "Total") %></th>
+            <th scope="col">{pgettext("Event Missing Items", "Total")}</th>
             <th scope="col"></th>
             <th scope="col">
-              <%= stock_entries
+              {stock_entries
               |> Enum.flat_map(fn %StockEntry{item_id: item_id} ->
                 Enum.filter(
                   @event.stock_expectations,
@@ -83,19 +83,19 @@
               end)
               |> Enum.map(& &1.warning_threshold)
               |> Enum.sum()
-              |> AthenaWeb.Cldr.Number.to_string!() %>
+              |> AthenaWeb.Cldr.Number.to_string!()}
             </th>
             <th scope="col">
-              <%= stock_entries
+              {stock_entries
               |> Enum.map(& &1.stock)
               |> Enum.sum()
-              |> AthenaWeb.Cldr.Number.to_string!() %>
+              |> AthenaWeb.Cldr.Number.to_string!()}
             </th>
             <th scope="col">
-              <%= stock_entries
+              {stock_entries
               |> Enum.map(& &1.missing_count)
               |> Enum.sum()
-              |> AthenaWeb.Cldr.Number.to_string!() %>
+              |> AthenaWeb.Cldr.Number.to_string!()}
             </th>
             <th scope="col"></th>
           </tr>

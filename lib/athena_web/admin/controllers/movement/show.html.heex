@@ -1,5 +1,5 @@
 <.pagetitle backlink={~p"/admin/items/#{@movement.item_id}/movements"} marginbottom={5}>
-  <%= case @movement do
+  {case @movement do
     %{
       source_location: %{name: source_location_name},
       destination_location: %{name: destination_location_name}
@@ -24,57 +24,57 @@
         item: @movement.item.name,
         location: destination_location_name
       )
-  end %>
+  end}
 </.pagetitle>
 <div class="row">
   <div class="col-md-10">
-    <h3><%= gettext("properties") %></h3>
+    <h3>{gettext("properties")}</h3>
     <div class="row">
       <div class="col-md-6">
         <dl class="horizontal">
-          <dt><%= gettext("amount") %></dt>
-          <dd><%= @movement.amount %></dd>
+          <dt>{gettext("amount")}</dt>
+          <dd>{@movement.amount}</dd>
 
-          <dt><%= gettext("item") %></dt>
+          <dt>{gettext("item")}</dt>
           <dd>
             <.link navigate={~p"/admin/items/#{@movement.item_id}"}>
-              <%= @movement.item.name %>
+              {@movement.item.name}
             </.link>
           </dd>
 
-          <dt><%= gettext("item group") %></dt>
+          <dt>{gettext("item group")}</dt>
           <dd>
             <.link navigate={~p"/admin/item_groups/#{@movement.item_group.id}"}>
-              <%= @movement.item_group.name %>
+              {@movement.item_group.name}
             </.link>
           </dd>
         </dl>
       </div>
       <div class="col-md-6">
         <dl class="horizontal">
-          <dt><%= gettext("time") %></dt>
-          <dd><%= AthenaWeb.Cldr.DateTime.to_string!(@movement.inserted_at) %></dd>
+          <dt>{gettext("time")}</dt>
+          <dd>{AthenaWeb.Cldr.DateTime.to_string!(@movement.inserted_at)}</dd>
 
-          <dt><%= gettext("source") %></dt>
+          <dt>{gettext("source")}</dt>
           <dd>
             <%= case @movement.source_location do %>
               <% nil -> %>
-                <%= gettext("supply") %>
+                {gettext("supply")}
               <% %{name: location_name, id: location_id} -> %>
                 <.link navigate={~p"/admin/locations/#{location_id}"}>
-                  <%= location_name %>
+                  {location_name}
                 </.link>
             <% end %>
           </dd>
 
-          <dt><%= gettext("destination_location") %></dt>
+          <dt>{gettext("destination_location")}</dt>
           <dd>
             <%= case @movement.destination_location do %>
               <% nil -> %>
-                <%= gettext("consumption") %>
+                {gettext("consumption")}
               <% %{name: location_name, id: location_id} -> %>
                 <.link navigate={~p"/admin/locations/#{location_id}"}>
-                  <%= location_name %>
+                  {location_name}
                 </.link>
             <% end %>
           </dd>
@@ -83,13 +83,13 @@
     </div>
   </div>
   <div class="col-md-2">
-    <h3><%= gettext("actions") %></h3>
+    <h3>{gettext("actions")}</h3>
 
     <ul class="nav flex-column gap-2">
       <li>
         <.link navigate={~p"/admin/movements/#{@movement}/edit"}>
           <button class="btn btn-secondary rounded w-100" type="button">
-            ✏️ <%= gettext("edit") %>
+            ✏️ {gettext("edit")}
           </button>
         </.link>
       </li>

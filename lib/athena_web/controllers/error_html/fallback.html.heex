@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="apple-itunes-app" content="app-id=1637143661" />
-    <title><%= Plug.Conn.Status.reason_phrase(@status) %></title>
+    <title>{Plug.Conn.Status.reason_phrase(@status)}</title>
     <link rel="stylesheet" href={~p"/css/app.css"} />
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800"
@@ -26,8 +26,8 @@
       <div class="row">
         <div class="col-md-12">
           <div class="error-template">
-            <h1><%= gettext("Oops!") %></h1>
-            <h2><%= @status %> <%= Plug.Conn.Status.reason_phrase(@status) %></h2>
+            <h1>{gettext("Oops!")}</h1>
+            <h2>{@status} {Plug.Conn.Status.reason_phrase(@status)}</h2>
           </div>
         </div>
       </div>

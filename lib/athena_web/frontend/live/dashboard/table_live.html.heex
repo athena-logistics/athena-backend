@@ -1,7 +1,7 @@
 <div phx-hook="Orientation" id="overview" class={@orientation}>
   <div class="container">
     <h1>
-      <%= gettext("Logistics Overview") %>
+      {gettext("Logistics Overview")}
     </h1>
 
     <AthenaWeb.Frontend.Dashboard.Tabs.tabs event={@event} active_tab={:table} socket={@socket} />

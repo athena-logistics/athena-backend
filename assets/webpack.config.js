@@ -4,7 +4,6 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const globImporter = require("node-sass-glob-importer");
 
 module.exports = (env, options) => {
   const devMode = options.mode !== "production";
@@ -43,14 +42,7 @@ module.exports = (env, options) => {
           use: [
             MiniCssExtractPlugin.loader,
             "css-loader",
-            {
-              loader: "sass-loader",
-              options: {
-                sassOptions: {
-                  importer: globImporter(),
-                },
-              },
-            },
+            "sass-loader"
           ],
         },
       ],

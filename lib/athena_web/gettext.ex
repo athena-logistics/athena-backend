@@ -20,5 +20,5 @@ defmodule AthenaWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :athena_logistics
+  use Gettext.Backend, otp_app: :athena_logistics
 end

@@ -4,7 +4,7 @@ defmodule AthenaWeb.CoreComponents do
   """
   use Phoenix.Component
 
-  import AthenaWeb.Gettext
+  use Gettext, backend: AthenaWeb.Gettext
 
   import Phoenix.HTML.Form, only: [normalize_value: 2, options_for_select: 2]
 
@@ -38,7 +38,7 @@ defmodule AthenaWeb.CoreComponents do
       class={["alert alert-dismissible alert-#{alert_class(@kind)}", unless(@autoshow, do: "d-none")]}
       {@rest}
     >
-      <%= msg %>
+      {msg}
       <button :if={@close} type="button" aria-label={gettext("close")} class="btn-close"></button>
     </p>
     """
@@ -102,12 +102,12 @@ defmodule AthenaWeb.CoreComponents do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
       <.error :if={@for.action} class="alert alert-danger">
-        <%= gettext("Oops, something went wrong! Please check the errors below.") %>
+        {gettext("Oops, something went wrong! Please check the errors below.")}
       </.error>
 
-      <%= render_slot(@inner_block, f) %>
+      {render_slot(@inner_block, f)}
       <div :for={action <- @actions}>
-        <%= render_slot(action, f) %>
+        {render_slot(action, f)}
       </div>
     </.form>
     """
@@ -129,7 +129,7 @@ defmodule AthenaWeb.CoreComponents do
   def button(assigns) do
     ~H"""
     <button type={@type} {@rest}>
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </button>
     """
   end
@@ -171,9 +171,11 @@ defmodule AthenaWeb.CoreComponents do
   slot :inner_block
 
   def input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+    errors = if Phoenix.Component.used_input?(field), do: field.errors, else: []
+
     assigns
     |> assign(field: nil, id: assigns.id || field.id)
-    |> assign(:errors, Enum.map(field.errors, &translate_error(&1)))
+    |> assign(:errors, Enum.map(errors, &translate_error(&1)))
     |> assign_new(:name, fn -> if assigns.multiple, do: field.name <> "[]", else: field.name end)
     |> assign_new(:value, fn -> field.value end)
     |> input()
@@ -183,7 +185,7 @@ defmodule AthenaWeb.CoreComponents do
     assigns = assign_new(assigns, :checked, fn -> normalize_value("checkbox", value) end)
 
     ~H"""
-    <div phx-feedback-for={@name} class="form-check">
+    <div class="form-check">
       <input type="hidden" name={@name} value="false" />
       <input
         type="checkbox"
@@ -194,31 +196,31 @@ defmodule AthenaWeb.CoreComponents do
         {@rest}
         class={["form-check-input", if(@errors != [], do: "is-invalid"), @input_class]}
       />
-      <.label :if={@label} for={@id} label_class="form-check-label"><%= @label %></.label>
-      <.error :for={msg <- @errors} class="invalid-feedback"><%= msg %></.error>
+      <.label :if={@label} for={@id} label_class="form-check-label">{@label}</.label>
+      <.error :for={msg <- @errors} class="invalid-feedback">{msg}</.error>
     </div>
     """
   end
 
   def input(%{type: "select"} = assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
-      <.label :if={@label} for={@id}><%= @label %></.label>
+    <div>
+      <.label :if={@label} for={@id}>{@label}</.label>
       <select id={@id} name={@name} multiple={@multiple} {@rest} class={["form-select", @input_class]}>
-        <option :if={@prompt} value=""><%= @prompt %></option>
-        <%= options_for_select(@options, @value) %>
+        <option :if={@prompt} value="">{@prompt}</option>
+        {options_for_select(@options, @value)}
       </select>
-      <.error :for={msg <- @errors} class="invalid-feedback"><%= msg %></.error>
+      <.error :for={msg <- @errors} class="invalid-feedback">{msg}</.error>
     </div>
     """
   end
 
   def input(%{type: "textarea"} = assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
-      <.label :if={@label} for={@id}><%= @label %></.label>
+    <div>
+      <.label :if={@label} for={@id}>{@label}</.label>
       <textarea id={@id || @name} name={@name} {@rest} class={@input_class}><%= normalize_value("textarea", @value) %></textarea>
-      <.error :for={msg <- @errors} class="invalid-feedback"><%= msg %></.error>
+      <.error :for={msg <- @errors} class="invalid-feedback">{msg}</.error>
     </div>
     """
   end
@@ -234,14 +236,14 @@ defmodule AthenaWeb.CoreComponents do
       {@rest}
     />
 
-    <.error :for={msg <- @errors} class="invalid-feedback"><%= msg %></.error>
+    <.error :for={msg <- @errors} class="invalid-feedback">{msg}</.error>
     """
   end
 
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name} class="form-group has-validation">
-      <.label :if={@label} for={@id}><%= @label %></.label>
+    <div class="form-group has-validation">
+      <.label :if={@label} for={@id}>{@label}</.label>
       <input
         type={@type}
         name={@name}
@@ -251,7 +253,7 @@ defmodule AthenaWeb.CoreComponents do
         class={["form-control", if(@errors != [], do: "is-invalid"), @input_class]}
         placeholder={@label}
       />
-      <.error :for={msg <- @errors} class="invalid-feedback"><%= msg %></.error>
+      <.error :for={msg <- @errors} class="invalid-feedback">{msg}</.error>
     </div>
     """
   end
@@ -266,7 +268,7 @@ defmodule AthenaWeb.CoreComponents do
   def label(assigns) do
     ~H"""
     <label for={@for} class={@label_class}>
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </label>
     """
   end
@@ -280,7 +282,7 @@ defmodule AthenaWeb.CoreComponents do
   def error(assigns) do
     ~H"""
     <p {@rest}>
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </p>
     """
   end
@@ -301,7 +303,7 @@ defmodule AthenaWeb.CoreComponents do
 
   def form_error(assigns) do
     ~H"""
-    <.error :for={msg <- @errors}><%= msg %></.error>
+    <.error :for={msg <- @errors}>{msg}</.error>
     """
   end
 
@@ -380,7 +382,7 @@ defmodule AthenaWeb.CoreComponents do
         </.link>
       </div>
       <div class="px-2">
-        <h1 class="m-0"><%= render_slot(@inner_block) %></h1>
+        <h1 class="m-0">{render_slot(@inner_block)}</h1>
       </div>
     </div>
     """
@@ -388,7 +390,7 @@ defmodule AthenaWeb.CoreComponents do
 
   def pagetitle(%{} = assigns) do
     ~H"""
-    <h1 class={["mb-#{@marginbottom}", @css_class]}><%= render_slot(@inner_block) %></h1>
+    <h1 class={["mb-#{@marginbottom}", @css_class]}>{render_slot(@inner_block)}</h1>
     """
   end
 end

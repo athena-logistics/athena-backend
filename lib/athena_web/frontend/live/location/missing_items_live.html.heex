@@ -1,5 +1,5 @@
 <section class="container location">
-  <h1><%= @location.name %></h1>
+  <h1>{@location.name}</h1>
 
   <AthenaWeb.Frontend.Location.Tabs.tabs
     active_tab={:missing_items}
@@ -10,18 +10,18 @@
   <%= case @missing_stock_entries do %>
     <% [] -> %>
       <p class="alert alert-info" role="alert">
-        <%= pgettext("Location Missing Items", "All items are stocked up to expectations.") %>
+        {pgettext("Location Missing Items", "All items are stocked up to expectations.")}
       </p>
     <% stock_entries -> %>
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col"><%= pgettext("Location Missing Items", "Item") %></th>
-            <th scope="col"><%= pgettext("Location Missing Items", "Unit") %></th>
-            <th scope="col"><%= pgettext("Location Missing Items", "Desired") %></th>
-            <th scope="col"><%= pgettext("Location Missing Items", "Current") %></th>
-            <th scope="col"><%= pgettext("Location Missing Items", "To Move") %></th>
-            <th scope="col"><%= pgettext("Location Missing Items", "Actions") %></th>
+            <th scope="col">{pgettext("Location Missing Items", "Item")}</th>
+            <th scope="col">{pgettext("Location Missing Items", "Unit")}</th>
+            <th scope="col">{pgettext("Location Missing Items", "Desired")}</th>
+            <th scope="col">{pgettext("Location Missing Items", "Current")}</th>
+            <th scope="col">{pgettext("Location Missing Items", "To Move")}</th>
+            <th scope="col">{pgettext("Location Missing Items", "Actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -37,15 +37,15 @@
                 @location.stock_expectations,
                 &match?(%StockExpectation{item_id: ^item_id}, &1)
               ) %>
-            <th scope="row"><%= item_name %></th>
-            <td><%= item_unit %></td>
+            <th scope="row">{item_name}</th>
+            <td>{item_unit}</td>
             <td>
-              <%= AthenaWeb.Cldr.Number.to_string!(
+              {AthenaWeb.Cldr.Number.to_string!(
                 if stock_expectation, do: stock_expectation.warning_threshold, else: 0
-              ) %>
+              )}
             </td>
-            <td><%= AthenaWeb.Cldr.Number.to_string!(stock) %></td>
-            <td><%= AthenaWeb.Cldr.Number.to_string!(missing_count) %></td>
+            <td>{AthenaWeb.Cldr.Number.to_string!(stock)}</td>
+            <td>{AthenaWeb.Cldr.Number.to_string!(missing_count)}</td>
             <td>
               <a
                 href={
@@ -61,10 +61,10 @@
         </tbody>
         <tfoot>
           <tr>
-            <th scope="col"><%= pgettext("Location Missing Items", "Total") %></th>
+            <th scope="col">{pgettext("Location Missing Items", "Total")}</th>
             <th scope="col"></th>
             <th scope="col">
-              <%= stock_entries
+              {stock_entries
               |> Enum.flat_map(fn %StockEntry{item_id: item_id} ->
                 Enum.filter(
                   @location.stock_expectations,
@@ -73,19 +73,19 @@
               end)
               |> Enum.map(& &1.warning_threshold)
               |> Enum.sum()
-              |> AthenaWeb.Cldr.Number.to_string!() %>
+              |> AthenaWeb.Cldr.Number.to_string!()}
             </th>
             <th scope="col">
-              <%= stock_entries
+              {stock_entries
               |> Enum.map(& &1.stock)
               |> Enum.sum()
-              |> AthenaWeb.Cldr.Number.to_string!() %>
+              |> AthenaWeb.Cldr.Number.to_string!()}
             </th>
             <th scope="col">
-              <%= stock_entries
+              {stock_entries
               |> Enum.map(& &1.missing_count)
               |> Enum.sum()
-              |> AthenaWeb.Cldr.Number.to_string!() %>
+              |> AthenaWeb.Cldr.Number.to_string!()}
             </th>
             <th scope="col"></th>
           </tr>

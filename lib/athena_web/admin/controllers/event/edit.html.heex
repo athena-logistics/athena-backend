@@ -1,5 +1,5 @@
 <.pagetitle backlink={~p"/admin/events"}>
-  <%= gettext("edit %{event}", event: @event.name) %>
+  {gettext("edit %{event}", event: @event.name)}
 </.pagetitle>
 
 <.event_form {assigns} action={~p"/admin/events/#{@event}"} />

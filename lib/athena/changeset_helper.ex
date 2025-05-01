@@ -16,13 +16,13 @@ defmodule Athena.ChangesetHelper do
   end
 
   @spec validate_one_required(changeset :: Changeset.t(), fields :: [atom()]) :: Changeset.t()
-  def validate_one_required(changeset, [first_field | _] = fields) do
+  def validate_one_required(changeset, [first_field | _rest] = fields) do
     fields
     |> Enum.map(&get_field(changeset, &1))
     |> Enum.reject(&is_nil/1)
     |> case do
       [] -> add_error(changeset, first_field, "at least field is required", fields: fields)
-      [_ | _] -> changeset
+      _list -> changeset
     end
   end
 end

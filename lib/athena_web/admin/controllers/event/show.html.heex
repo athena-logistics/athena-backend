@@ -1,42 +1,47 @@
-<.pagetitle><%= @event.name %></.pagetitle>
+<.pagetitle>{@event.name}</.pagetitle>
 
 <div class="row justify-content-between">
   <div class="col-sm-6 col-md-6 col-lg-3">
-    <h3><%= gettext("actions") %></h3>
+    <h3>{gettext("actions")}</h3>
     <ul class="nav flex-column gap-2">
       <li class="nav-item">
         <.link navigate={~p"/logistics/events/#{@event}/overview"}>
           <button class="btn btn-primary rounded w-100" type="button">
-            📊 <%= gettext("logistic dashboard") %>
+            📊 {gettext("logistic dashboard")}
           </button>
         </.link>
       </li>
       <li class="nav-item">
-        <% qr_code =
-          ~p"/logistics/events/#{@event}/overview"
-          |> url()
-          |> EQRCode.encode()
-          |> EQRCode.svg(width: 200) %>
         <a
-          href={"data:image/svg+xml;base64,#{Base.encode64(qr_code)}"}
+          href={"data:image/svg+xml;base64,#{@event |> event_qr_code(:svg) |> Base.encode64()}"}
           download={gettext("%{event} logistics", event: @event.name) <> ".svg"}
         >
           <button class="btn btn-secondary rounded w-100" type="button">
-            ⬇️ <%= gettext("download qr-code") %>
+            ⬇️ {gettext("download qr-code")} (.svg)
+          </button>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          href={"data:image/png;base64,#{@event |> event_qr_code(:png) |> Base.encode64()}"}
+          download={gettext("%{event} logistics", event: @event.name) <> ".png"}
+        >
+          <button class="btn btn-secondary rounded w-100" type="button">
+            ⬇️ {gettext("download qr-code")} (.png)
           </button>
         </a>
       </li>
       <li class="nav-item mt-2">
         <.link navigate={~p"/admin/events"}>
           <button class="btn btn-secondary rounded w-100" type="button">
-            🎪 <%= gettext("manage events") %>
+            🎪 {gettext("manage events")}
           </button>
         </.link>
       </li>
       <li class="nav-item">
         <.link navigate={~p"/admin/events/#{@event}/edit"}>
           <button class="btn btn-secondary rounded w-100" type="button">
-            ✏️ <%= gettext("edit event") %>
+            ✏️ {gettext("edit event")}
           </button>
         </.link>
       </li>
@@ -45,13 +50,13 @@
 
   <div class="col-sm-6 col-md-4">
     <h3>
-      <%= gettext("QR code") %>
+      {gettext("QR code")}
     </h3>
     <a
-      href={"data:image/svg+xml;base64,#{Base.encode64(qr_code)}"}
+      href={"data:image/svg+xml;base64,#{@event |> event_qr_code(:svg) |> Base.encode64()}"}
       download={gettext("%{event} logistics", event: @event.name) <> ".svg"}
     >
-      <%= raw(qr_code) %>
+      {@event |> event_qr_code(:svg) |> raw()}
     </a>
   </div>
 </div>

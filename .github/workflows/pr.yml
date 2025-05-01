@@ -28,3 +28,11 @@ jobs:
     name: "Dependabot"
 
     uses: ./.github/workflows/part_dependabot.yml
+
+  report_mix_deps:
+    name: "Report Mix Dependencies"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: erlef/mix-dependency-submission@v1
+      - uses: actions/dependency-review-action@v4

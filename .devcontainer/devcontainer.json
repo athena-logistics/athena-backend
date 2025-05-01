@@ -1,0 +1,32 @@
+{
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": {
+    "asdfInit": "/asdf-post-create.sh",
+    "authorizeVolumnes": "sudo chown -R vscode:vscode /workspace/deps /workspace/_build"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "github.vscode-github-actions",
+        "ms-azuretools.vscode-docker",
+        "elixir-tools.elixir-tools",
+        "phoenixframework.phoenix"
+      ],
+      "settings": {
+        "editor.tabSize": 4,
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+          },
+          "zsh": {
+            "path": "zsh"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <.pagetitle backlink={~p"/admin/item_groups/#{@item.item_group_id}"}>
-  <%= gettext("edit %{item}", item: @item.name) %>
+  {gettext("edit %{item}", item: @item.name)}
 </.pagetitle>
 
 <.item_form {assigns} action={~p"/admin/items/#{@item}"} />

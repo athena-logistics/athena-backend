@@ -16,7 +16,7 @@ defmodule AthenaWeb.Frontend.Location.Tabs do
             navigate={~p"/logistics/locations/#{@location}"}
             class={["nav-link", if(@active_tab == :inventory, do: "active")]}
           >
-            <%= gettext("Inventory") %>
+            {gettext("Inventory")}
           </.link>
         </li>
         <li class="nav-item">
@@ -24,7 +24,7 @@ defmodule AthenaWeb.Frontend.Location.Tabs do
             navigate={~p"/logistics/locations/#{@location}/missing-items"}
             class={["nav-link", if(@active_tab == :missing_items, do: "active")]}
           >
-            <%= gettext("Missing Items") %>
+            {gettext("Missing Items")}
           </.link>
         </li>
         <li class="nav-item">
@@ -32,7 +32,7 @@ defmodule AthenaWeb.Frontend.Location.Tabs do
             navigate={~p"/logistics/locations/#{@location}/expectations"}
             class={["nav-link", if(@active_tab == :expectations, do: "active")]}
           >
-            <%= gettext("Expectations") %>
+            {gettext("Expectations")}
           </.link>
         </li>
         <li class="nav-item">
@@ -40,7 +40,7 @@ defmodule AthenaWeb.Frontend.Location.Tabs do
             navigate={~p"/logistics/locations/#{@location}/stats"}
             class={["nav-link", if(@active_tab == :stats, do: "active")]}
           >
-            <%= gettext("Stats") %>
+            {gettext("Stats")}
           </.link>
         </li>
       </ul>

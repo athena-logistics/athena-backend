@@ -15,7 +15,7 @@ defmodule AthenaWeb.Frontend.Navigation do
       <div class="container-fluid">
         <a href={~p"/logistics/events/#{@event}/overview"} class="navbar-brand">
           <img src={~p"/images/icon.png"} width="30" />
-          <%= @event.name %>
+          {@event.name}
         </a>
         <label
           for="toggle-nav"
@@ -32,17 +32,17 @@ defmodule AthenaWeb.Frontend.Navigation do
           <ul class="navbar-nav">
             <li class="nav-item">
               <.link navigate={~p"/logistics/events/#{@event}/overview"} class="nav-link">
-                <%= gettext("Logistics Overview") %>
+                {gettext("Logistics Overview")}
               </.link>
             </li>
             <li class="nav-item">
               <.link navigate={~p"/logistics/events/#{@event}/movements/supply"} class="nav-link">
-                <%= gettext("Supply Item") %>
+                {gettext("Supply Item")}
               </.link>
             </li>
             <li class="nav-item">
               <.link navigate={~p"/logistics/events/#{@event}/movements/relocate"} class="nav-link">
-                <%= gettext("Move Item") %>
+                {gettext("Move Item")}
               </.link>
             </li>
 
@@ -53,13 +53,13 @@ defmodule AthenaWeb.Frontend.Navigation do
                 role="button"
                 aria-expanded="false"
               >
-                <%= gettext("Locations") %>
+                {gettext("Locations")}
               </label>
               <input type="checkbox" id="toggle-nav-locations" hidden class="toggle-dropdown" />
               <ul class="dropdown-menu show">
                 <li :for={%Location{name: location_name} = location <- @locations} class="nav-item">
                   <.link navigate={~p"/logistics/locations/#{location}"} class="dropdown-item">
-                    <%= location_name %>
+                    {location_name}
                   </.link>
                 </li>
               </ul>

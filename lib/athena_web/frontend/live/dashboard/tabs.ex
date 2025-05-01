@@ -16,7 +16,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
             navigate={~p"/logistics/events/#{@event}/overview"}
             class={["nav-link", if(@active_tab == :table, do: "active")]}
           >
-            <%= gettext("Table") %>
+            {gettext("Table")}
           </.link>
         </li>
         <li class="nav-item">
@@ -24,7 +24,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
             navigate={~p"/logistics/events/#{@event}/overview/item"}
             class={["nav-link", if(@active_tab == :item, do: "active")]}
           >
-            <%= gettext("Item") %>
+            {gettext("Item")}
           </.link>
         </li>
         <li class="nav-item">
@@ -32,7 +32,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
             navigate={~p"/logistics/events/#{@event}/overview/location"}
             class={["nav-link", if(@active_tab == :location, do: "active")]}
           >
-            <%= gettext("Location") %>
+            {gettext("Location")}
           </.link>
         </li>
         <li class="nav-item">
@@ -40,7 +40,7 @@ defmodule AthenaWeb.Frontend.Dashboard.Tabs do
             navigate={~p"/logistics/events/#{@event}/overview/missing-items"}
             class={["nav-link", if(@active_tab == :missing_items, do: "active")]}
           >
-            <%= gettext("Missing Items") %>
+            {gettext("Missing Items")}
           </.link>
         </li>
       </ul>

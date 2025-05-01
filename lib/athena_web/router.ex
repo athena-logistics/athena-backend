@@ -66,7 +66,9 @@ defmodule AthenaWeb.Router do
       allow_destructive_actions: true
   end
 
-  scope "/logistics/", AthenaWeb.Frontend, as: :frontend_logistics, assigns: %{access: :logistics} do
+  scope "/logistics/", AthenaWeb.Frontend,
+    as: :frontend_logistics,
+    assigns: %{access: :logistics} do
     pipe_through [:browser, :frontend]
 
     live_session :logistics, on_mount: {AthenaWeb.LiveViewInit, access: :logistics} do

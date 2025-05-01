@@ -1,5 +1,5 @@
 <.pagetitle backlink={~p"/admin/events/#{@location.event.id}/locations"}>
-  <%= gettext("edit %{location}", location: @location.name) %>
+  {gettext("edit %{location}", location: @location.name)}
 </.pagetitle>
 
 <.location_form {assigns} action={~p"/admin/locations/#{@location}"} />

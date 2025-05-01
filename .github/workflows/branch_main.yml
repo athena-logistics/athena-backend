@@ -43,3 +43,10 @@ jobs:
     secrets:
       FLY_API_TOKEN: "${{ secrets.FLY_API_TOKEN }}"
       SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
+
+  report_mix_deps:
+    name: "Report Mix Dependencies"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: erlef/mix-dependency-submission@v1

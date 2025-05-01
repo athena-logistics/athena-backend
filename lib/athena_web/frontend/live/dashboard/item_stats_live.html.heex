@@ -1,5 +1,5 @@
 <div class="container">
-  <h1><%= gettext("%{item} total stats", item: @item.name) %></h1>
+  <h1>{gettext("%{item} total stats", item: @item.name)}</h1>
 
   <div class="mb-5">
     <AthenaWeb.Chart.chart
@@ -90,10 +90,10 @@
   <table class="table">
     <thead>
       <tr>
-        <th><%= pgettext("Item Stats Table", "Date") %></th>
-        <th><%= pgettext("Item Stats Table", "Type") %></th>
-        <th><%= pgettext("Item Stats Table", "Location") %></th>
-        <th><%= pgettext("Item Stats Table", "Amount") %></th>
+        <th>{pgettext("Item Stats Table", "Date")}</th>
+        <th>{pgettext("Item Stats Table", "Type")}</th>
+        <th>{pgettext("Item Stats Table", "Location")}</th>
+        <th>{pgettext("Item Stats Table", "Amount")}</th>
       </tr>
     </thead>
     <tbody>
@@ -101,19 +101,19 @@
         %OrderOverview{date: %Date{} = date, type: type, location: location, amount: amount} <-
           @order_overview
       }>
-        <td><%= AthenaWeb.Cldr.Date.to_string!(date) %></td>
-        <td><%= order_overview_type_label(type) %></td>
+        <td>{AthenaWeb.Cldr.Date.to_string!(date)}</td>
+        <td>{order_overview_type_label(type)}</td>
         <%= case location do %>
           <% %Location{name: location_name} -> %>
             <td>
               <.link navigate={~p"/logistics/locations/#{location}"}>
-                <%= location_name %>
+                {location_name}
               </.link>
             </td>
           <% nil -> %>
-            <th><%= pgettext("Item Stats Table", "Total") %></th>
+            <th>{pgettext("Item Stats Table", "Total")}</th>
         <% end %>
-        <td><%= AthenaWeb.Cldr.Number.to_string!(amount) %></td>
+        <td>{AthenaWeb.Cldr.Number.to_string!(amount)}</td>
       </tr>
     </tbody>
     <tfoot>
@@ -121,19 +121,19 @@
         %OrderOverview{date: nil, type: type, location: location, amount: amount} <-
           @order_overview
       }>
-        <th><%= gettext("Total") %></th>
-        <td><%= order_overview_type_label(type) %></td>
+        <th>{gettext("Total")}</th>
+        <td>{order_overview_type_label(type)}</td>
         <%= case location do %>
           <% %Location{name: location_name} -> %>
             <td>
               <.link navigate={~p"/logistics/locations/#{location}"}>
-                <%= location_name %>
+                {location_name}
               </.link>
             </td>
           <% nil -> %>
-            <th><%= pgettext("Item Stats Table", "Total") %></th>
+            <th>{pgettext("Item Stats Table", "Total")}</th>
         <% end %>
-        <td><%= AthenaWeb.Cldr.Number.to_string!(amount) %></td>
+        <td>{AthenaWeb.Cldr.Number.to_string!(amount)}</td>
       </tr>
     </tfoot>
   </table>

@@ -26,7 +26,7 @@ defmodule AthenaWeb.Schema.Scalar.Date do
       {:ok, date} ->
         {:ok, date}
 
-      {:error, _} ->
+      {:error, _reason} ->
         :error
     end
   end

@@ -1,5 +1,5 @@
 <section class="container-fluid location expectations">
-  <h1 class="container"><%= @location.name %></h1>
+  <h1 class="container">{@location.name}</h1>
 
   <AthenaWeb.Frontend.Location.Tabs.tabs
     active_tab={:expectations}
@@ -12,7 +12,7 @@
     class="bookmark"
     href={"##{item_group_id}"}
   >
-    <%= item_group_name %>
+    {item_group_name}
   </a>
 
   <div class="location__grid">
@@ -22,7 +22,7 @@
     }>
       <div class="elevated-wrapper">
         <h2 class="location__group-title text-center elevated" id={item_group_id}>
-          <%= item_group_name %>
+          {item_group_name}
         </h2>
       </div>
       <div>
@@ -33,8 +33,8 @@
             id={"item-#{item_id}"}
           >
             <% changeset = @changesets[item_id] %>
-            <h5><%= item_name %></h5>
-            <small class="text-muted"><%= item_unit %></small>
+            <h5>{item_name}</h5>
+            <small class="text-muted">{item_unit}</small>
 
             <.form
               :let={form}
@@ -49,7 +49,7 @@
                 <div class="col col-2 ps-3 pe-3">
                   <i class="fa fa-solid fa-circle text-normal" />
                   <span class="indent-like-input">
-                    <%= if inverse, do: AthenaWeb.Cldr.Number.to_string!(0), else: "∞" %>
+                    {if inverse, do: AthenaWeb.Cldr.Number.to_string!(0), else: "∞"}
                   </span>
                 </div>
                 <div class="col col-4 ps-3 pe-3 d-flex align-items-baseline">

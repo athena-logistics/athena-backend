@@ -1,5 +1,5 @@
 <section class="container">
-  <h1><%= @location.name %></h1>
+  <h1>{@location.name}</h1>
 
   <AthenaWeb.Frontend.Location.Tabs.tabs
     active_tab={:stats}
@@ -9,7 +9,7 @@
 
   <%= for {item_group_id, _stats} <- @item_totals, %ItemGroup{name: item_group_name} = Enum.find(@location.event.item_groups, &match?(%ItemGroup{id: ^item_group_id}, &1)) do %>
     <a class="bookmark" href={"#location_totals_chart_#{item_group_id}_chart"}>
-      <%= item_group_name %>
+      {item_group_name}
     </a>
   <% end %>
 

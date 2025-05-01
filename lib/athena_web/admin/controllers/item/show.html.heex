@@ -1,49 +1,49 @@
 <.pagetitle backlink={~p"/admin/item_groups/#{@item.item_group_id}"}>
-  <%= @item.name %>
+  {@item.name}
 </.pagetitle>
 <div class="row">
   <div class="col-md-4">
-    <h3><%= gettext("stock statistics") %></h3>
+    <h3>{gettext("stock statistics")}</h3>
 
     <dl class="horizontal">
-      <dt><%= gettext("supply") %></dt>
-      <dd><%= @supply %></dd>
+      <dt>{gettext("supply")}</dt>
+      <dd>{@supply}</dd>
 
-      <dt><%= gettext("stock") %></dt>
-      <dd><%= @stock %></dd>
+      <dt>{gettext("stock")}</dt>
+      <dd>{@stock}</dd>
 
-      <dt><%= gettext("consumption") %></dt>
-      <dd><%= @consumption %></dd>
+      <dt>{gettext("consumption")}</dt>
+      <dd>{@consumption}</dd>
 
-      <dt><%= gettext("relocations") %></dt>
-      <dd><%= @relocations %></dd>
+      <dt>{gettext("relocations")}</dt>
+      <dd>{@relocations}</dd>
     </dl>
   </div>
   <div class="col-md-4">
-    <h3><%= gettext("properties") %></h3>
+    <h3>{gettext("properties")}</h3>
     <dl class="horizontal">
-      <dt><%= gettext("unit") %></dt>
-      <dd><%= @item.unit %></dd>
+      <dt>{gettext("unit")}</dt>
+      <dd>{@item.unit}</dd>
 
-      <dt><%= gettext("inverse") %></dt>
-      <dd><%= if @item.inverse, do: gettext("yes"), else: gettext("no") %></dd>
+      <dt>{gettext("inverse")}</dt>
+      <dd>{if @item.inverse, do: gettext("yes"), else: gettext("no")}</dd>
     </dl>
   </div>
   <div class="col-md-3">
-    <h3><%= gettext("actions") %></h3>
+    <h3>{gettext("actions")}</h3>
 
     <ul class="nav flex-column gap-2">
       <li>
         <.link navigate={~p"/admin/items/#{@item}/edit"}>
           <button class="btn btn-secondary rounded w-100" type="button">
-            ✏️ <%= gettext("edit") %>
+            ✏️ {gettext("edit")}
           </button>
         </.link>
       </li>
       <li>
         <.link navigate={~p"/admin/items/#{@item.id}/movements"}>
           <button class="btn btn-secondary rounded w-100" type="button">
-            🚚 <%= gettext("movements") %>
+            🚚 {gettext("movements")}
           </button>
         </.link>
       </li>

@@ -2,9 +2,9 @@
   <h1>
     <%= case @live_action do %>
       <% :supply -> %>
-        <%= gettext("Supply Items") %>
+        {gettext("Supply Items")}
       <% :relocate -> %>
-        <%= gettext("Relocate Items") %>
+        {gettext("Relocate Items")}
     <% end %>
   </h1>
 
@@ -117,8 +117,8 @@
         <div :if={stock_out || stock_in} class="row preview">
           <div class="text-end col">
             <%= if stock_out do %>
-              <s><%= stock_out %></s> <br />
-              <%= stock_out - (Changeset.fetch_field!(movement_form.source, :amount) || 0) %>
+              <s>{stock_out}</s> <br />
+              {stock_out - (Changeset.fetch_field!(movement_form.source, :amount) || 0)}
             <% end %>
           </div>
 
@@ -129,8 +129,8 @@
 
           <div class="in col">
             <%= if stock_in do %>
-              <s><%= stock_in %></s> <br />
-              <%= stock_in + (Changeset.fetch_field!(movement_form.source, :amount) || 0) %>
+              <s>{stock_in}</s> <br />
+              {stock_in + (Changeset.fetch_field!(movement_form.source, :amount) || 0)}
             <% end %>
           </div>
         </div>
@@ -146,7 +146,7 @@
         <i class="fa-solid fa-plus"></i>
       </.button>
       <.button type="submit" class="d-block btn btn-primary btn-lg mx-auto">
-        <%= gettext("Save") %>
+        {gettext("Save")}
       </.button>
     </:actions>
   </.simple_form>
