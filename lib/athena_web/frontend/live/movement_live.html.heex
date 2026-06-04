@@ -114,7 +114,7 @@
           </div>
         </div>
 
-        <div :if={stock_out || stock_in} class="row preview">
+        <div class={["row preview", !stock_out && !stock_in && "d-none"]}>
           <div class="text-end col">
             <%= if stock_out do %>
               <s>{stock_out}</s> <br />
