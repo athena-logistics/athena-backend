@@ -55,6 +55,7 @@ defmodule Athena.Inventory.Movement do
   def changeset(movement, attrs, %{location_required: false, validate_amount_positive: false}) do
     movement
     |> cast(attrs, [
+      :id,
       :amount,
       :item_id,
       :source_location_id,
